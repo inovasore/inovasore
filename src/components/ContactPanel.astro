@@ -1,0 +1,658 @@
+﻿---
+import { footerData } from "../data/footer";
+import { mainServices } from "../data/services";
+
+const whatsappUrl = new URL(footerData.contact.whatsappLink);
+const whatsappBase = `${whatsappUrl.origin}${whatsappUrl.pathname}`;
+const defaultMessage = whatsappUrl.searchParams.get("text") ?? "";
+
+const serviceChips = [
+  "Landing page optimizada",
+  "Tienda online (e-commerce)",
+  "Sitio institucional moderno",
+  "Automatizacion y funnels",
+] as const;
+---
+
+<section class="contact-panel" id="contacto">
+  <div class="section-inner contact-panel__inner">
+    <div class="contact-panel__info">
+      <div class="contact-panel__info-header">
+        <p class="contact-panel__eyebrow">Cont&aacute;ctanos</p>
+        <p class="contact-panel__subtitle">
+          Escoge el servicio que necesitas y cu&eacute;ntanos qu&eacute; est&aacute;s buscando. Respondemos por WhatsApp con un plan de acci&oacute;n personalizado.
+        </p>
+      </div>
+
+      <div class="contact-panel__services">
+        <p class="contact-panel__services-title">Servicios principales</p>
+        <ul class="contact-panel__services-list">
+          {mainServices.map((service) => (
+            <li>
+              <span class="contact-panel__services-dot" aria-hidden="true"></span>
+              <span>{service.title.replace(/&/g, "y")}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="contact-panel__chips" aria-label="Sugerencias de mensaje">
+        {serviceChips.map((chip) => (
+          <button type="button" class="contact-panel__chip" data-template={chip}>
+            {chip}
+          </button>
+        ))}
+      </div>
+
+      <p class="contact-panel__note">
+        Atendemos proyectos en Ecuador y de forma remota en LATAM. Agenda una videollamada o trabajemos por fases seg&uacute;n tus objetivos.
+      </p>
+    </div>
+
+    <form
+      class="contact-panel__form"
+      data-contact-form
+      data-whatsapp-base={whatsappBase}
+      data-whatsapp-default={defaultMessage}
+    >
+      <div class="contact-panel__field-group">
+        <label class="contact-panel__label" for="contact-name">Nombre</label>
+        <div class="contact-panel__input-wrapper">
+          <span class="material-symbols-rounded" aria-hidden="true">person</span>
+          <input
+            id="contact-name"
+            name="name"
+            type="text"
+            placeholder="Ingresa tu nombre"
+            required
+            autocomplete="name"
+          />
+        </div>
+      </div>
+
+      <div class="contact-panel__field-group">
+        <label class="contact-panel__label" for="contact-business">Empresa o marca</label>
+        <div class="contact-panel__input-wrapper">
+          <span class="material-symbols-rounded" aria-hidden="true">business_center</span>
+          <input
+            id="contact-business"
+            name="business"
+            type="text"
+            placeholder="&iquest;Cu&aacute;l es tu marca o empresa?"
+            title="&iquest;Cu&aacute;l es tu marca o empresa?"
+            autocomplete="organization"
+          />
+        </div>
+      </div>
+
+      <div class="contact-panel__field-group contact-panel__field-group--full">
+        <label class="contact-panel__label" for="contact-service">Servicio de inter&eacute;s</label>
+        <div class="contact-panel__input-wrapper">
+          <span class="material-symbols-rounded" aria-hidden="true">work</span>
+          <select id="contact-service" name="service">
+            <option value="">Selecciona una opci&oacute;n</option>
+            {mainServices.map((service) => (
+              <option value={service.title.replace(/&/g, "y")}>{service.title.replace(/&/g, "y")}</option>
+            ))}
+            <option value="Otro servicio">Otro servicio</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="contact-panel__field-group contact-panel__field-group--full">
+        <label class="contact-panel__label" for="contact-message">Mensaje</label>
+        <div class="contact-panel__textarea-wrapper">
+          <span class="material-symbols-rounded" aria-hidden="true">edit_note</span>
+          <textarea
+            id="contact-message"
+            name="message"
+            placeholder="Cu&eacute;ntanos brevemente tu proyecto, tiempos y qu&eacute; necesitas lograr."
+            rows="5"
+            maxlength="500"
+            required
+          ></textarea>
+          <span class="contact-panel__char-count"><span data-char-count>0</span>/500</span>
+        </div>
+      </div>
+
+      <p class="contact-panel__disclaimer">
+        Al enviar se abrir&aacute; WhatsApp con un mensaje prellenado. Puedes revisarlo y enviarlo para continuar la asesor&iacute;a.
+      </p>
+
+      <button type="submit" class="contact-panel__submit">
+        <span class="material-symbols-rounded" aria-hidden="true">send</span>
+        Enviar por WhatsApp
+      </button>
+    </form>
+  </div>
+</section>
+
+<script type="module">
+  const form = document.querySelector("[data-contact-form]");
+  if (!form) {
+    console.warn("No se encontr\u00f3 el formulario de contacto.");
+  } else {
+    const whatsappBase = form.dataset.whatsappBase ?? "";
+    const defaultText = form.dataset.whatsappDefault ?? "";
+    const messageInput = form.querySelector("#contact-message");
+    const charCountEl = form.querySelector("[data-char-count]");
+    const chips = form.querySelectorAll(".contact-panel__chip");
+
+    if (messageInput && charCountEl) {
+      const updateCount = () => {
+        charCountEl.textContent = String(messageInput.value.trim().length);
+      };
+      updateCount();
+      messageInput.addEventListener("input", updateCount);
+    }
+
+    chips.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const template = chip.dataset.template ?? "";
+        if (!messageInput) return;
+        const current = messageInput.value.trim();
+        const separator = current ? "\n- " : "- ";
+        const alreadyIncluded = current.toLowerCase().includes(template.toLowerCase());
+        if (!alreadyIncluded) {
+          messageInput.value = `${current}${separator}${template}`.trim();
+          messageInput.dispatchEvent(new Event("input"));
+        }
+        messageInput.focus();
+      });
+    });
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (!whatsappBase) {
+        console.warn("No se configur\u00f3 un n\u00famero de WhatsApp.");
+        return;
+      }
+
+      const formData = new FormData(form);
+      const getValue = (key) => {
+        const value = formData.get(key);
+        return typeof value === "string" ? value.trim() : "";
+      };
+
+      const name = getValue("name");
+      const business = getValue("business");
+      const service = getValue("service");
+      const message = getValue("message");
+
+      const sentences = [];
+
+      let intro = "";
+      if (name) {
+        intro = `Hola, mi nombre es ${name}`;
+        if (service) {
+          intro += ` y estoy interesado en el servicio de ${service}`;
+        }
+      } else if (service) {
+        intro = `Hola, estoy interesado en el servicio de ${service}`;
+      } else {
+        intro = "Hola";
+      }
+
+      if (intro) {
+        sentences.push(`${intro.trim().replace(/\.+$/, "")}.`);
+      }
+
+      if (business) {
+        sentences.push(`Me gustaria este servicio para mi marca ${business}.`);
+      }
+
+      if (message) {
+        sentences.push(message);
+      }
+
+      let finalMessage = sentences.join(" ").trim();
+      if (!finalMessage && defaultText) {
+        try {
+          finalMessage = decodeURIComponent(defaultText);
+        } catch {
+          finalMessage = defaultText;
+        }
+      } else if (!finalMessage) {
+        finalMessage = "Hola Inovasore, me gustar\u00eda recibir m\u00e1s informaci\u00f3n.";
+      }
+
+      const encoded = encodeURIComponent(finalMessage);
+      const whatsappLink = `${whatsappBase}?text=${encoded}`;
+      window.open(whatsappLink, "_blank", "noopener");
+    });
+  }
+</script>
+
+<style>
+  :root {
+    --contact-panel-bg: transparent;
+    --contact-panel-text: color-mix(in oklab, var(--color-text) 95%, #0f172a);
+    --contact-panel-surface: linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--surface, #f3f4f6) 60%, transparent),
+      color-mix(in oklab, var(--surface, #f3f4f6) 55%, transparent)
+    );
+    --contact-panel-border: rgba(0, 0, 0, 0.12);
+    --contact-panel-muted: color-mix(in oklab, var(--color-text) 68%, transparent);
+    --contact-panel-chip-bg: rgba(15, 23, 42, 0.035);
+    --contact-panel-chip-border: rgba(15, 23, 42, 0.08);
+    --contact-panel-form-bg: linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--surface, #f3f4f6) 60%, transparent),
+      color-mix(in oklab, var(--surface, #f3f4f6) 55%, transparent)
+    );
+    --contact-panel-form-border: rgba(0, 0, 0, 0.12);
+    --contact-panel-input-bg: rgba(255, 255, 255, 0.98);
+    --contact-panel-input-border: rgba(148, 163, 184, 0.28);
+    --contact-panel-eyebrow-color: color-mix(in oklab, var(--color-text) 90%, transparent);
+    --contact-panel-option-bg: color-mix(in oklab, var(--surface, #f3f4f6) 60%, transparent);
+    --contact-panel-option-text: var(--contact-panel-text);
+  }
+
+  :root.dark {
+    --contact-panel-bg: transparent;
+    --contact-panel-text: #f8fafc;
+    --contact-panel-surface: linear-gradient(180deg, rgba(12, 14, 22, 0.92), rgba(12, 14, 22, 0.86));
+    --contact-panel-border: rgba(255, 255, 255, 0.08);
+    --contact-panel-muted: rgba(203, 213, 225, 0.76);
+    --contact-panel-chip-bg: rgba(15, 23, 42, 0.45);
+    --contact-panel-chip-border: rgba(148, 163, 184, 0.35);
+    --contact-panel-form-bg: linear-gradient(180deg, rgba(12, 14, 22, 0.92), rgba(12, 14, 22, 0.86));
+    --contact-panel-form-border: rgba(255, 255, 255, 0.08);
+    --contact-panel-input-bg: rgba(15, 23, 42, 0.55);
+    --contact-panel-input-border: rgba(148, 163, 184, 0.32);
+    --contact-panel-eyebrow-color: #ffffff;
+    --contact-panel-option-bg: rgba(12, 14, 22, 0.9);
+    --contact-panel-option-text: #f8fafc;
+  }
+
+  .contact-panel {
+    position: relative;
+    padding: clamp(56px, 12vh, 120px) 0;
+    background: var(--contact-panel-bg);
+    color: var(--contact-panel-text);
+  }
+
+  .contact-panel__inner {
+    display: grid;
+    gap: clamp(32px, 4vw, 52px);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+
+  .contact-panel__info {
+    background: var(--contact-panel-surface);
+    border: 1px solid var(--contact-panel-border);
+    border-radius: 24px;
+    padding: clamp(24px, 3.5vw, 36px);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact-panel__info-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .contact-panel__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: clamp(0.88rem, 0.82rem + 0.25vw, 1.05rem);
+    font-weight: 600;
+    color: var(--contact-panel-eyebrow-color, #ffffff);
+    margin: 0;
+  }
+
+  .contact-panel__title {
+    margin: 0;
+    font-size: clamp(1.4rem, 1.1rem + 0.9vw, 1.9rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--contact-panel-text);
+    text-wrap: balance;
+  }
+
+  .contact-panel__subtitle {
+    margin: 0;
+    color: var(--contact-panel-muted);
+    font-size: clamp(0.92rem, 0.88rem + 0.25vw, 1.02rem);
+    max-width: 42ch;
+    font-weight: 400;
+  }
+
+  .contact-panel__services {
+    margin-top: clamp(24px, 3vw, 32px);
+    position: relative;
+    z-index: 1;
+  }
+
+  .contact-panel__services-title {
+    margin: 0 0 0.6rem;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: color-mix(in oklab, var(--contact-panel-text) 72%, transparent);
+    letter-spacing: 0.03em;
+  }
+
+  .contact-panel__services-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  .contact-panel__services-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.45rem;
+    color: color-mix(in oklab, var(--contact-panel-text) 82%, transparent);
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
+
+  .contact-panel__services-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    margin-top: 0.35rem;
+    background: linear-gradient(135deg, #60a5fa 0%, #6366f1 100%);
+    flex-shrink: 0;
+  }
+
+  .contact-panel__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: clamp(24px, 3vw, 32px);
+    position: relative;
+    z-index: 1;
+  }
+
+  .contact-panel__chip {
+    border: 1px solid var(--contact-panel-chip-border);
+    background: var(--contact-panel-chip-bg);
+    color: color-mix(in oklab, var(--contact-panel-text) 88%, transparent);
+    padding: 0.5rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.83rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .contact-panel__chip:hover,
+  .contact-panel__chip:focus-visible {
+    transform: translateY(-1px);
+    border-color: color-mix(in oklab, var(--color-primary) 50%, transparent);
+    background: color-mix(in oklab, var(--color-primary) 14%, transparent);
+    box-shadow: 0 10px 22px rgba(59, 130, 246, 0.16);
+    outline: none;
+  }
+
+  .contact-panel__note {
+    margin-top: clamp(24px, 3vw, 32px);
+    color: var(--contact-panel-muted);
+    font-size: 0.86rem;
+    max-width: 36ch;
+  }
+
+  .contact-panel__form {
+    background: var(--contact-panel-form-bg);
+    border: 1px solid var(--contact-panel-form-border);
+    border-radius: 24px;
+    padding: clamp(24px, 3.5vw, 36px);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(16px, 2.4vw, 24px);
+    position: relative;
+  }
+
+  :root:not(.dark) .contact-panel__info,
+  :root:not(.dark) .contact-panel__form {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1);
+  }
+
+  .contact-panel__field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .contact-panel__field-group--full {
+    grid-column: 1 / -1;
+  }
+
+  .contact-panel__label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: color-mix(in oklab, var(--contact-panel-text) 70%, transparent);
+  }
+
+  .contact-panel__input-wrapper,
+  .contact-panel__textarea-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    border-radius: 16px;
+    border: 1px solid var(--contact-panel-input-border);
+    background: var(--contact-panel-input-bg);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .contact-panel__input-wrapper:focus-within,
+  .contact-panel__textarea-wrapper:focus-within {
+    border-color: color-mix(in oklab, var(--color-primary) 55%, transparent);
+    box-shadow: 0 0 0 2px color-mix(in oklab, var(--color-primary) 30%, transparent);
+  }
+
+  .contact-panel__input-wrapper span.material-symbols-rounded,
+  .contact-panel__textarea-wrapper span.material-symbols-rounded {
+    font-size: 1.05rem;
+    color: color-mix(in oklab, var(--contact-panel-muted) 80%, transparent);
+    margin-left: 0.75rem;
+  }
+
+  .contact-panel__input-wrapper input,
+  .contact-panel__input-wrapper select,
+  .contact-panel__textarea-wrapper textarea {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--contact-panel-text);
+    font-size: 0.92rem;
+    padding: 0.7rem 0.95rem;
+    min-width: 0;
+    outline: none;
+  }
+
+  .contact-panel__input-wrapper input::placeholder,
+  .contact-panel__textarea-wrapper textarea::placeholder {
+    color: color-mix(in oklab, var(--contact-panel-muted) 85%, transparent);
+  }
+
+  .contact-panel__input-wrapper select {
+    appearance: none;
+    cursor: pointer;
+    padding-right: 2.4rem;
+  }
+
+  .contact-panel__input-wrapper select option {
+    background: var(--contact-panel-option-bg);
+    color: var(--contact-panel-option-text);
+  }
+
+  .contact-panel__textarea-wrapper {
+    align-items: flex-start;
+    padding-top: 0.65rem;
+  }
+
+  .contact-panel__textarea-wrapper textarea {
+    resize: vertical;
+    min-height: 140px;
+  }
+
+  .contact-panel__char-count {
+    position: absolute;
+    bottom: 10px;
+    right: 16px;
+    font-size: 0.72rem;
+    color: color-mix(in oklab, var(--contact-panel-muted) 85%, transparent);
+  }
+
+  .contact-panel__disclaimer {
+    grid-column: 1 / -1;
+    margin: 0.2rem 0 0;
+    font-size: 0.8rem;
+    color: color-mix(in oklab, var(--contact-panel-muted) 90%, transparent);
+  }
+
+  .contact-panel__submit {
+    grid-column: 1 / -1;
+    margin-top: 0.6rem;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(90deg, var(--color-primary-dark) 0%, var(--color-primary) 50%, var(--color-primary-dark) 100%);
+    background-size: 200% 100%;
+    animation: contact-cta-gradient 5.5s ease-in-out infinite;
+    color: #ffffff;
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.28);
+    transform: translateZ(0);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  }
+
+  .contact-panel__submit::after {
+    content: "";
+    position: absolute;
+    inset: -40% -20% auto auto;
+    width: 60%;
+    height: 200%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.36) 45%,
+      rgba(255, 255, 255, 0.7) 50%,
+      rgba(255, 255, 255, 0.36) 55%,
+      transparent 100%
+    );
+    filter: blur(2px);
+    pointer-events: none;
+    mix-blend-mode: screen;
+    animation: contact-cta-shine 4.8s ease-in-out infinite;
+  }
+
+  .contact-panel__submit:hover,
+  .contact-panel__submit:focus-visible {
+    transform: translateY(-1px) scale(1.035);
+    box-shadow: 0 10px 26px rgba(59, 130, 246, 0.35);
+    filter: brightness(1.02);
+    outline: none;
+  }
+
+  .contact-panel__submit:hover::after {
+    animation-duration: 2.2s;
+  }
+
+  .contact-panel__submit:active {
+    transform: translateY(0) scale(1.01);
+    box-shadow: 0 6px 18px rgba(59, 130, 246, 0.3);
+  }
+
+  @keyframes contact-cta-gradient {
+    0% {
+      background-position: 100% 0;
+    }
+    50% {
+      background-position: 0% 0;
+    }
+    100% {
+      background-position: 100% 0;
+    }
+  }
+
+  @keyframes contact-cta-shine {
+    0% {
+      transform: translateX(-160%) rotate(20deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.85;
+    }
+    50% {
+      transform: translateX(0%) rotate(20deg);
+      opacity: 0.6;
+    }
+    90% {
+      opacity: 0.85;
+    }
+    100% {
+      transform: translateX(220%) rotate(20deg);
+      opacity: 0;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .contact-panel__inner {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .contact-panel__info,
+    .contact-panel__form {
+      border-radius: 24px;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .contact-panel {
+      padding: clamp(44px, 12vh, 72px) 0;
+    }
+
+    .contact-panel__form {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .contact-panel__field-group:not(.contact-panel__field-group--full) {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .contact-panel__chip,
+    .contact-panel__submit {
+      transition: none;
+    }
+
+    .contact-panel__submit {
+      animation: none;
+    }
+
+    .contact-panel__submit::after {
+      animation: none;
+      display: none;
+    }
+  }
+</style>
+
+
+
+
+
+
+

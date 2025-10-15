@@ -1,0 +1,345 @@
+---
+import { extraServices, mainServices, marqueeServices } from "../data/services";
+
+const { offsetTop = "0px" } = Astro.props;
+---
+
+<section class="services" id="servicios" style={`--services-offset:${offsetTop}`}>
+  <div class="services__glow" aria-hidden="true"></div>
+
+  <div class="section-inner section-inner--center services__inner">
+    <span
+      class="section-tag services__tag reveal"
+      style="--reveal-delay:.04s;--reveal-duration:.45s;--reveal-distance:10px"
+    >
+      &iquest;Qu&eacute; hacemos?
+    </span>
+
+    <h2
+      class="services__title reveal"
+      style="--reveal-delay:.12s;--reveal-duration:.55s;--reveal-distance:12px"
+    >
+      Por qu&eacute; Inovasore <span class="highlight">potencia tus servicios.</span>
+    </h2>
+
+    <p
+      class="services__subtitle reveal"
+      style="--reveal-delay:.2s;--reveal-duration:.45s;--reveal-distance:10px"
+    >
+      Descubre c&oacute;mo nuestro equipo combina estrategia, dise&ntilde;o y desarrollo para construir experiencias digitales a medida.
+    </p>
+
+    <div class="services__grid">
+      {mainServices.map((service, index) => (
+        <article
+          class="service-card reveal"
+          style={`--reveal-delay:${0.16 + index * 0.08}s;--reveal-duration:.45s;--reveal-distance:12px`}
+        >
+          <h3 class="service-card__title">{service.title}</h3>
+          <p class="service-card__summary">{service.summary}</p>
+          <ul class="service-card__list">
+            {service.bullets.map((bullet) => (
+              <li>
+                <span class="material-symbols-rounded" aria-hidden="true">check_circle</span>
+                {bullet}
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+
+    <div
+      class="services__marquee reveal"
+      style="--reveal-delay:.36s;--reveal-duration:.45s;--reveal-distance:10px"
+    >
+      <div class="services__marquee-track">
+        {marqueeServices.map((service, index) => (
+          <span
+            class="services__chip"
+            aria-hidden={index >= extraServices.length ? "true" : "false"}
+          >
+            <span class="material-symbols-rounded" aria-hidden="true">{service.icon}</span>
+            {service.label}
+          </span>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .services {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    margin: var(--section-padding-y) 0 var(--section-padding-y-tight);
+    padding: var(--section-padding-y) 0 var(--section-padding-y-tight);
+    background: var(--color-bg);
+    color: var(--color-text);
+  }
+
+  .dark .services {
+    background:
+      radial-gradient(520px 320px at 20% 18%, rgba(37,99,235,.22), transparent 72%),
+      radial-gradient(460px 280px at 80% 26%, rgba(79,70,229,.18), transparent 75%),
+      radial-gradient(720px 520px at 50% 100%, rgba(15,23,42,.6), transparent 80%),
+      #050615;
+  }
+
+  .services__glow {
+    position: absolute;
+    inset: -20% -10% auto -10%;
+    height: 420px;
+    background:
+      radial-gradient(520px 320px at 20% 35%, rgba(99,102,241,.24), transparent 70%),
+      radial-gradient(420px 280px at 75% 45%, rgba(56,189,248,.2), transparent 72%);
+    filter: blur(18px);
+    opacity: .55;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .dark .services__glow {
+    background:
+      radial-gradient(520px 320px at 20% 35%, rgba(99,102,241,.32), transparent 72%),
+      radial-gradient(420px 280px at 75% 45%, rgba(56,189,248,.26), transparent 75%);
+    opacity: .65;
+  }
+
+  .services__inner {
+    display: grid;
+    row-gap: clamp(8px, 2.2vh, 2px);
+    text-align: center;
+    max-width: 1100px;
+  }
+
+  .services__tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .45rem;
+    padding: .6rem 1.35rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, .35);
+    background: color-mix(in oklab, var(--surface, #101828) 55%, transparent);
+    font-size: clamp(.9rem, .85rem + .25vw, 1rem);
+    font-weight: 500;
+    letter-spacing: .03em;
+    text-transform: none;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto clamp(4px, 1.6vh, 4px);
+    color: rgba(248, 250, 252, .96);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06);
+  }
+
+  :root:not(.dark) .services__tag {
+    background: rgba(255,255,255,.94);
+    border-color: rgba(15,23,42,.1);
+    color: rgba(15,23,42,.92);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.9);
+  }
+
+  .services__title {
+    font-size: clamp(1.8rem, 3.2vw + .6rem, 2.5rem);
+    font-weight: 600;
+    line-height: 1.15;
+    margin: clamp(4px, 1.8vh, 8px) auto clamp(4px, 1.8vh, 8px);
+    max-width: 28ch;
+  }
+
+  .services__title .highlight {
+    background-image: linear-gradient(90deg, #26d2f8 0%, #23b2ff 35%, #0973e1 70%, #3b5bff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .services__subtitle {
+    color: color-mix(in oklab, var(--color-text) 60%, transparent);
+    font-size: clamp(1rem, .9rem + .35vw, 1.15rem);
+    margin: 0 auto clamp(8px, 3vh, 16px);
+    max-width: 60ch;
+    font-weight: 300;
+  }
+
+  .services__grid {
+    display: grid;
+    gap: clamp(18px, 2.6vw, 26px);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    margin-top: clamp(24px, 5vh, 38px);
+    text-align: left;
+  }
+
+  .service-card {
+    position: relative;
+    padding: 20px 22px;
+    border-radius: 18px;
+    border: 1px solid var(--border);
+    background: linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--surface, #121826) 45%, transparent),
+      color-mix(in oklab, var(--surface, #121826) 45%, transparent)
+    );
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+    display: grid;
+    gap: 16px;
+    transition: transform .18s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+
+  :root:not(.dark) .service-card {
+    background: linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--surface, #f3f4f6) 45%, transparent),
+      color-mix(in oklab, var(--surface, #f3f4f6) 45%, transparent)
+    );
+  }
+
+  .service-card:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in oklab, var(--color-primary) 40%, var(--border));
+    box-shadow:
+      var(--shadow-elevated),
+      0 14px 36px color-mix(in oklab, var(--color-primary) 18%, transparent),
+      inset 0 1px 0 rgba(255,255,255,.06);
+    filter: saturate(112%) brightness(1.02);
+  }
+
+  .service-card__title {
+    font-size: clamp(1.1rem, 1rem + .3vw, 1.35rem);
+    font-weight: 600;
+    margin: 0;
+    color: var(--color-text);
+  }
+
+  .service-card__summary {
+    margin: 0;
+    color: color-mix(in oklab, var(--color-text) 72%, transparent);
+    font-size: .96rem;
+    line-height: 1.55;
+  }
+
+  .service-card__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: .55rem;
+  }
+
+  .service-card__list li {
+    display: flex;
+    align-items: flex-start;
+    gap: .55rem;
+    color: color-mix(in oklab, var(--color-text) 78%, transparent);
+    font-size: .95rem;
+  }
+
+  .service-card__list .material-symbols-rounded {
+    font-size: 1.15rem;
+    color: #22c55e;
+  }
+
+  .services__marquee {
+    position: relative;
+    overflow: hidden;
+    margin-top: clamp(20px, 4.6vh, 32px);
+  }
+
+  .services__marquee::before,
+  .services__marquee::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: clamp(28px, 6vw, 72px);
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(90deg, var(--color-bg), transparent);
+  }
+
+  .services__marquee::before {
+    left: 0;
+  }
+
+  .services__marquee::after {
+    right: 0;
+    transform: scaleX(-1);
+  }
+
+  .dark .services__marquee::before,
+  .dark .services__marquee::after {
+    background: linear-gradient(90deg, rgba(5, 6, 21, .92), rgba(5, 6, 21, 0));
+  }
+
+  .services__marquee-track {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    width: max-content;
+    padding-block: .25rem;
+    animation: services-marquee 32s linear infinite;
+    will-change: transform;
+  }
+
+  .services__marquee:hover .services__marquee-track {
+    animation-play-state: paused;
+  }
+
+  .services__chip {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    padding: .55rem 1.1rem;
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--surface, #f3f4f6) 65%, transparent);
+    border: 1px solid color-mix(in oklab, var(--color-primary) 18%, transparent);
+    color: color-mix(in oklab, var(--color-text) 85%, transparent);
+    font-size: .9rem;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .services__chip .material-symbols-rounded {
+    font-size: 1rem;
+  }
+
+  .dark .services__chip {
+    background: rgba(15,23,42,.78);
+    border-color: rgba(148,163,184,.24);
+    color: rgba(226,232,240,.92);
+  }
+
+  @keyframes services-marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (max-width: 960px) {
+    .services__marquee {
+      margin-top: clamp(18px, 5vw, 26px);
+    }
+
+    .services__marquee::before,
+    .services__marquee::after {
+      width: clamp(18px, 10vw, 48px);
+    }
+
+    .services__marquee-track {
+      animation-duration: 24s;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .services__marquee-track {
+      animation: none;
+    }
+  }
+</style>
+
+

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 1917 899">
+  <!-- Generator: Adobe Illustrator 29.8.1, SVG Export Plug-In . SVG Version: 2.1.1 Build 2)  -->
+  <defs>
+    <style>
+      .st0 {
+        mask: url(#mask);
+      }
+
+      .st1 {
+        fill: #d9d9d9;
+      }
+
+      .st2 {
+        fill: url(#Degradado_sin_nombre);
+      }
+    </style>
+    <mask id="mask" x="0" y="-1074" width="1920" height="1973" maskUnits="userSpaceOnUse">
+      <g id="mask0_18_22">
+        <rect class="st1" y="-1" width="1920" height="900"/>
+      </g>
+    </mask>
+    <radialGradient id="Degradado_sin_nombre" data-name="Degradado sin nombre" cx="537.81" cy="745.63" fx="537.81" fy="745.63" r="1" gradientTransform="translate(-624934.84 -422199.5) rotate(90) scale(784.5 -839.5)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#000d99"/>
+      <stop offset=".35" stop-color="#3340cc"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <g class="st0">
+    <ellipse class="st2" cx="1025.5" cy="-289.5" rx="839.5" ry="784.5"/>
+  </g>
+</svg>

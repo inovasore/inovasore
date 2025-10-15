@@ -1,0 +1,349 @@
+﻿/* Fuentes cargadas vía <link> en el <head> */
+
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{
+  font-family:var(--font-base);
+  min-height:100%;
+  background:var(--color-bg);
+  color:var(--color-text);
+  transition:background .25s,color .25s;
+}
+
+/* Modo claro */
+:root{
+  --font-base:'Poppins',sans-serif;
+  --color-bg:#ffffff;
+  --color-text:#000000;
+  --color-primary:#2563eb;
+  --color-primary-dark:#1d4ed8;
+  --border:rgba(0,0,0,.12);
+  --surface:#f3f4f6;
+  --radius-sm:12px;
+  --radius-md:18px;
+  --radius-lg:22px;
+  --shadow-elevated:0 10px 30px rgba(0,0,0,.2);
+  --section-padding-y:clamp(20px, 10vh, 40px);
+  --section-padding-y-tight:clamp(20px, 8vh, 40px);
+}
+
+/* Modo oscuro (valores) */
+.dark{
+  --color-bg:#000000;
+  --color-text:#f1f5f9;
+  /* Igualar los azules del modo claro */
+  --color-primary:#1b56fd;
+  --color-primary-dark:#1b56fd;
+  --border:rgba(255,255,255,.15);
+  --surface:#121826;
+}
+
+/* ========== NAVBAR (responsive) ========== */
+.navbar{
+  position:fixed;
+  top:1rem;
+  left:50%;
+  transform:translateX(-50%);
+  width:clamp(280px,92vw,1080px);
+  padding:.75rem 1.75rem;
+  border-radius:35px;
+  backdrop-filter:blur(12px);
+  background:color-mix(in oklab, var(--surface, #f3f4f6) 55%, transparent);
+  border:1px solid var(--border);
+  z-index:120;
+  transition:background .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+.dark .navbar{
+  background:rgba(15,23,42,.75);
+  border-color:var(--border);
+  box-shadow:0 12px 30px rgba(2,6,23,.35);
+}
+.nav-content{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  position:relative;
+  z-index:2;
+}
+.logo{
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  text-decoration:none;
+  color:var(--color-text);
+  font-weight:600;
+}
+.logo img{
+  height:28px;
+  width:auto;
+  display:block;
+  flex:0 0 auto;
+}
+.logo .name{
+  font-size:1.05rem;
+  line-height:1;
+}
+.nav-menu{
+  display:flex;
+  align-items:center;
+  gap:1.4rem;
+}
+.nav-links{
+  list-style:none;
+  display:flex;
+  align-items:center;
+  gap:1.25rem;
+}
+.nav-links a{
+  color:var(--color-text);
+  text-decoration:none;
+  font-weight:500;
+  transition:color .2s ease;
+}
+.nav-links a:hover{ color:var(--color-primary); }
+.nav-links a:focus-visible{
+  outline:2px solid color-mix(in oklab, var(--color-primary) 70%, transparent);
+  outline-offset:6px;
+  border-radius:10px;
+}
+.nav-actions{
+  display:flex;
+  align-items:center;
+  gap:.75rem;
+}
+.nav-actions .btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.btn-theme{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:42px;
+  height:42px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:var(--surface);
+  color:var(--color-text);
+  cursor:pointer;
+  transition:border-color .2s ease, background .2s ease, color .2s ease, transform .08s ease;
+}
+.btn-theme:hover{
+  border-color:color-mix(in oklab, var(--color-primary) 40%, var(--border));
+}
+.btn-theme:active{
+  transform:scale(.96);
+}
+.btn-theme .icon{
+  font-size:22px;
+  line-height:1;
+  display:inline-flex;
+}
+.btn-theme .icon-dark{ display:none; }
+
+html.dark .btn-theme{
+  background:rgba(15,23,42,.85);
+  border-color:var(--border);
+  color:var(--color-text);
+}
+html.dark .btn-theme .icon-light{ display:none; }
+html.dark .btn-theme .icon-dark{ display:inline-flex; }
+.nav-toggle{
+  display:none;
+  align-items:center;
+  justify-content:center;
+  width:42px;
+  height:42px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:var(--surface);
+  color:var(--color-text);
+  cursor:pointer;
+  transition:border-color .2s ease, background .2s ease, transform .08s ease;
+}
+.nav-toggle:hover{
+  border-color:color-mix(in oklab, var(--color-primary) 40%, var(--border));
+}
+.nav-toggle:active{ transform:scale(.97); }
+.nav-toggle__icon{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.6rem;
+  line-height:1;
+}
+.nav-toggle__icon--close{ display:none !important; }
+.navbar--open .nav-toggle__icon--open{ display:none !important; }
+.navbar--open .nav-toggle__icon--close{ display:inline-flex !important; }
+
+.nav-backdrop{
+  position:fixed;
+  inset:0;
+  background:rgba(15,23,42,.45);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .2s ease;
+  z-index:1;
+}
+.navbar--open .nav-backdrop{
+  opacity:1;
+  pointer-events:auto;
+}
+
+body.nav-open{ overflow:hidden; }
+
+@media (max-width:960px){
+  .navbar{
+    padding:.7rem 1.2rem;
+    width:clamp(260px,92vw,720px);
+  }
+  .nav-menu{
+    position:absolute;
+    top:calc(100% + .75rem);
+    right:0;
+    left:0;
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+    gap:1rem;
+    padding:1.15rem;
+    border-radius:26px;
+    border:1px solid var(--border);
+    background:color-mix(in oklab, var(--surface, #f3f4f6) 78%, rgba(255,255,255,.85));
+    box-shadow:0 24px 40px rgba(15,23,42,.22);
+    transform:translateY(-8px) scale(.98);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .25s ease, transform .25s ease;
+  }
+  .dark .nav-menu{
+    background:rgba(15,23,42,.92);
+    box-shadow:0 24px 50px rgba(2,6,23,.6);
+  }
+  .navbar--open .nav-menu{
+    opacity:1;
+    pointer-events:auto;
+    transform:translateY(0) scale(1);
+  }
+  .nav-links{
+    flex-direction:column;
+    align-items:stretch;
+    gap:.35rem;
+  }
+  .nav-links li{ width:100%; }
+  .nav-links a{
+    padding:.65rem .75rem;
+    border-radius:14px;
+    background:transparent;
+  }
+  .nav-links a:hover{
+    color:var(--color-primary);
+    background:color-mix(in oklab, var(--color-primary) 6%, transparent);
+  }
+  .nav-actions{
+    flex-direction:column;
+    align-items:stretch;
+    gap:.75rem;
+  }
+  .nav-actions .btn,
+  .nav-actions .btn-theme{
+    width:100%;
+  }
+  .nav-toggle{ display:inline-flex; }
+  .nav-content{ gap:.75rem; }
+}
+
+/* Bloquea transiciones/animaciones durante el cambio de tema */
+html.theme-switching,
+html.theme-switching * ,
+html.theme-switching *::before,
+html.theme-switching *::after{
+  transition: none !important;
+  animation: none !important;
+}
+
+
+/* Fade-in-up sutil y configurable */
+.reveal{
+  opacity: 0;
+  transform: translateY(var(--reveal-distance, 12px));
+  transition:
+    opacity var(--reveal-duration, .48s) ease-out var(--reveal-delay, 0s),
+    transform var(--reveal-duration, .48s) ease-out var(--reveal-delay, 0s);
+  will-change: opacity, transform;
+}
+.reveal.in{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Accesibilidad: respetar reducción de movimiento */
+@media (prefers-reduced-motion: reduce){
+  .reveal{ opacity:1 !important; transform:none !important; transition:none !important; }
+}
+
+/* Utilidades para contenedores de sección */
+.section-inner{
+  width: clamp(280px, 92vw, 1140px);
+  margin: 0 auto;
+  padding-inline: 16px;
+}
+
+.section-inner--center{
+  text-align: center;
+}
+
+.section-tag{
+  display:inline-block;
+  padding:.65rem 1.3rem;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background: color-mix(in oklab, var(--surface, #121826) 40%, transparent);
+  font-size: clamp(1rem, .9rem + .25vw, 1.1rem);
+  font-weight:400;
+  opacity:.95;
+  color: var(--color-text-muted, #6b7280);
+}
+
+
+/* === Botones y utilidades globales === */
+.btn{ background:var(--color-primary); color:#fff; padding:.5rem 1rem; border-radius:999px; font-weight:700; text-decoration:none; }
+.btn:hover{ background:var(--color-primary-dark); }
+.btn--lg{ padding:.75rem 1.35rem; border-radius:999px; font-weight:700; }
+
+.status{ display:flex; align-items:center; gap:.5rem; color: var(--color-text-muted, #6b7280); }
+.dot{ width:10px; height:10px; border-radius:999px; display:inline-block;
+      background: radial-gradient(circle at 30% 30%, #22c55e, #16a34a);
+      box-shadow: 0 0 10px rgba(34,197,94,.6); }
+
+/* Focus visible para accesibilidad */
+.btn:focus-visible,
+.btn-theme:focus-visible,
+.logo:focus-visible{
+  outline: 2px solid color-mix(in oklab, var(--color-primary) 70%, transparent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Material Symbols defaults */
+.material-symbols-rounded{
+  font-family: 'Material Symbols Rounded', sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 20px; /* can be overridden where used */
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+}
+
+
+
