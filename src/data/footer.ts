@@ -3,7 +3,7 @@ export const footerData = {
     name: 'Inovasore',
     tagline: '',
     description:
-      'Inovasore — Agencia digital especializada en desarrollo web, marketing y automatización empresarial.',
+      'Inovasore – Agencia digital especializada en desarrollo web, marketing y automatización empresarial.',
   },
   contact: {
     headline: 'Conversemos sobre tu próximo proyecto',

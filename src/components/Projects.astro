@@ -48,24 +48,17 @@ import { projects } from "../data/projects";
       ))}
     </div>
 
-    <div class="projects__cta">
-      <a class="projects__button" href="/contacto">
-        Solicita el portafolio completo
-        <span class="material-symbols-rounded" aria-hidden="true">trending_flat</span>
-      </a>
-    </div>
   </div>
 
   <style>
     .projects {
       position: relative;
-      padding: var(--section-padding-y) 0 var(--section-padding-y-tight);
+      padding: var(--section-padding-y) 0;
       background: var(--color-bg);
       color: var(--color-text);
       overflow: hidden;
       isolation: isolate;
-      margin: var(--section-padding-y) 0 var(--section-padding-y-tight);
-      padding: var(--section-padding-y) 0 var(--section-padding-y-tight);
+      margin: 0;
     }
 
     .dark .projects {
@@ -284,37 +277,9 @@ import { projects } from "../data/projects";
       color: #1d4ed8;
     }
 
-    .projects__cta {
-      margin: clamp(32px, 8vh, 48px) auto 0;
-    }
-
-    .projects__button {
-      display: inline-flex;
-      align-items: center;
-      gap: .65rem;
-      padding: .85rem 1.6rem;
-      border-radius: 999px;
-      background: linear-gradient(90deg, #2563eb, #6366f1);
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-      box-shadow: 0 18px 28px rgba(37, 99, 235, .35);
-      transition: transform .18s ease, box-shadow .22s ease;
-    }
-
-    .projects__button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 28px 40px rgba(79, 70, 229, .38);
-    }
-
-    :root:not(.dark) .projects__button {
-      background: linear-gradient(90deg, #2563eb, #4f46e5);
-      box-shadow: 0 16px 32px rgba(79, 70, 229, .25);
-    }
-
     @media (max-width: 720px) {
       .projects {
-        padding: clamp(28px, 12vh, 52px) 0 clamp(24px, 12vh, 44px);
+        padding: var(--section-padding-y-tight) 0;
       }
 
       .projects__inner {
@@ -338,8 +303,6 @@ import { projects } from "../data/projects";
     }
   </style>
 </section>
-
-
 
 
 

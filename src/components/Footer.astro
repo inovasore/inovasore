@@ -115,8 +115,8 @@ const phoneHref = phone ? `tel:${phone.replace(/\s+/g, "")}` : null;
 <style>
   .footer {
     position: relative;
-    margin-top: clamp(20px, 7vh, 45px);
-    padding: clamp(30px, 8vh, 50px) 0 clamp(18px, 5vh, 40px);
+    margin-top: 0;
+    padding: var(--section-padding-y) 0;
     background: color-mix(in oklab, var(--color-bg) 96%, rgba(15, 23, 42, 0.12));
     color: color-mix(in oklab, var(--color-text) 92%, transparent);
     border-top: 1px solid color-mix(in oklab, var(--border) 78%, transparent);
@@ -379,7 +379,7 @@ const phoneHref = phone ? `tel:${phone.replace(/\s+/g, "")}` : null;
 
   @media (max-width: 800px) {
     .footer {
-      padding: clamp(36px, 8vh, 60px) 0 clamp(18px, 6vh, 36px);
+      padding: var(--section-padding-y-tight) 0;
     }
 
     .footer__social {

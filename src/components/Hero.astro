@@ -1,4 +1,4 @@
----
+﻿---
 import { heroContent } from "../data/hero";
 
 const { title, tagline, subtitle, works } = heroContent;
@@ -22,7 +22,7 @@ const { title, tagline, subtitle, works } = heroContent;
     <div class="hero__actions">
       <a class="btn btn--lg btn-cta reveal" href="/contacto" style="--reveal-delay:.34s;--reveal-duration:.45s">Contáctanos</a>
       <div class="status reveal" style="--reveal-delay:.42s;--reveal-duration:.45s">
-        <span class="dot"></span><span>Agenda tu asesoría gratuita</span>
+        <span class="dot"></span><span>Agenda tu asesorí­a gratuita</span>
       </div>
     </div>
   </div>
@@ -159,7 +159,7 @@ const { title, tagline, subtitle, works } = heroContent;
 
   .hero {
     position: relative;
-    padding: max(clamp(110px, 16vh, 140px), calc(var(--nav-h,72px) + 12px)) 0 clamp(80px, 10vh, 120px);
+    padding: max(calc(var(--section-padding-y) + 24px), calc(var(--nav-h,72px) + 12px)) 0 var(--section-padding-y);
     min-height: 86vh;
     background: var(--color-bg);
     color: var(--color-text);
@@ -266,6 +266,47 @@ const { title, tagline, subtitle, works } = heroContent;
   @media (prefers-reduced-motion: reduce) {
     .btn-cta { animation: none; }
     .btn-cta::after { animation: none; display: none; }
+  }
+
+  @media (max-width: 640px) {
+    .pill {
+      gap: .5rem;
+      padding: .45rem .7rem;
+      margin-bottom: 12px;
+      max-width: min(100%, 320px);
+    }
+
+    .pill__text {
+      font-size: clamp(.78rem, 3vw, .92rem);
+      line-height: 1.15;
+      white-space: nowrap;
+    }
+
+    .pill__cta {
+      width: 30px;
+      height: 30px;
+      flex: 0 0 30px;
+      font-size: 1rem;
+    }
+
+    .hero__actions {
+      flex-direction: column;
+      gap: .55rem;
+      align-items: center;
+      margin-inline: auto;
+    }
+
+    .hero__actions .btn-cta {
+      width: auto;
+      min-width: 180px;
+      padding-inline: 1rem;
+    }
+
+    .status {
+      justify-content: center;
+      font-size: .9rem;
+      text-align: center;
+    }
   }
 
   .status { display:flex; align-items:center; gap:.5rem; color: var(--color-text-muted, #6b7280); }

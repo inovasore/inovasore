@@ -117,7 +117,7 @@ import { faqs } from "../data/faqs";
       position: relative;
       overflow: hidden;
       isolation: isolate;
-      padding: var(--section-padding-y) 0 var(--section-padding-y-tight);
+      padding: var(--section-padding-y) 0;
       background: var(--color-bg);
       color: var(--color-text);
     }
@@ -194,7 +194,7 @@ import { faqs } from "../data/faqs";
 
     .faq__grid {
       display: grid;
-      gap: clamp(18px, 2.8vh, 24px);
+      gap: clamp(8px, 1.6vh, 12px);
       grid-template-columns: minmax(0, 1fr);
       align-items: start;
       grid-auto-rows: minmax(0, auto);
@@ -203,7 +203,7 @@ import { faqs } from "../data/faqs";
     @media (min-width: 900px) {
       .faq__grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: clamp(22px, 3vw, 28px);
+        gap: clamp(10px, 2vw, 16px);
       }
     }
 
@@ -211,7 +211,7 @@ import { faqs } from "../data/faqs";
       position: relative;
       align-self: start;
       height: auto;
-      padding: .35rem;
+      padding: .25rem;
       border-radius: clamp(16px, 1.4vw, 20px);
       border: 1px solid color-mix(in oklab, var(--color-primary) 14%, rgba(148, 163, 184, .18));
       background:
@@ -279,8 +279,8 @@ import { faqs } from "../data/faqs";
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 1.05rem;
-      padding: 1.1rem 1.4rem;
+      gap: .85rem;
+      padding: .9rem 1.15rem;
       border-radius: calc(clamp(12px, 1.4vw, 16px) - .25rem);
       color: color-mix(in oklab, var(--color-text) 88%, transparent);
       font-size: clamp(1rem, .85rem + .20vw, 1.18rem);
@@ -352,7 +352,7 @@ import { faqs } from "../data/faqs";
 
     .faq__answer {
       margin: 0;
-      padding: 0 1.4rem 1.25rem;
+      padding: 0 1.2rem 1.05rem;
       color: color-mix(in oklab, var(--color-text) 70%, transparent);
       font-size: clamp(.92rem, .9rem + .18vw, 1.05rem);
       line-height: 1.65;
@@ -455,19 +455,16 @@ import { faqs } from "../data/faqs";
       }
 
       .faq__question {
-        padding: .95rem 1.1rem;
-        gap: .85rem;
+        padding: .75rem 1rem;
+        gap: .7rem;
       }
 
       .faq__answer {
-        padding: 0 1.1rem 1.1rem;
+        padding: 0 1rem .9rem;
       }
     }
   </style>
 </section>
-
-
-
 
 
 

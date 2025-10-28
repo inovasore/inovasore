@@ -1,4 +1,4 @@
----
+﻿---
 import { whyUsCards } from "../data/why-us";
 ---
 
@@ -8,21 +8,21 @@ import { whyUsCards } from "../data/why-us";
       class="section-tag why__tag reveal"
       style="--reveal-delay:.04s;--reveal-duration:.45s;--reveal-distance:10px"
     >
-      ¿Por qué nosotros?
+      Â¿Por quÃ© nosotros?
     </div>
 
     <h2
       class="why__title reveal"
       style="--reveal-delay:.12s;--reveal-duration:.55s;--reveal-distance:12px"
     >
-      Por qué Inovasore <span class="highlight">se destaca.</span>
+      Por quÃ© Inovasore <span class="highlight">se destaca.</span>
     </h2>
 
     <p
       class="why__subtitle reveal"
       style="--reveal-delay:.2s;--reveal-duration:.45s;--reveal-distance:10px"
     >
-      Descubra por qué Inovasore se destaca en ofrecer soluciones de diseño y desarrollo web innovadoras y centradas en
+      Descubra por quÃ© Inovasore se destaca en ofrecer soluciones de diseÃ±o y desarrollo web innovadoras y centradas en
       el cliente.
     </p>
 
@@ -56,7 +56,7 @@ import { whyUsCards } from "../data/why-us";
       position: relative;
       overflow: hidden;
       isolation: isolate;
-      padding: clamp(20px, 16vh, 40px) 0 clamp(20px, 14vh, 800px);
+      padding: var(--section-padding-y) 0;
       background: var(--color-bg);
       color: var(--color-text);
     }
@@ -271,16 +271,21 @@ import { whyUsCards } from "../data/why-us";
       .why__card {
         grid-template-columns: 1fr;
         grid-template-rows: auto auto;
-        gap: 14px;
+        gap: 12px;
         padding: clamp(18px, 7vw, 24px);
       }
 
       .why__icon {
         margin-top: 0;
+        order: 0;
+        justify-self: start;
+      }
+
+      .why__card-body {
         order: 1;
+        text-align: left;
       }
     }
   </style>
 </section>
-
 

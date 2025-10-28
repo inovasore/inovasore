@@ -21,7 +21,7 @@ export const whyUsCards = [
   },
   {
     icon: 'devices',
-    title: 'Soluciones receptivas',
+    title: 'Soluciones responsivas',
     description: 'Rendimiento perfecto en todos los dispositivos para una experiencia óptima.',
   },
   {

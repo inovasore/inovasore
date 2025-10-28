@@ -45,7 +45,7 @@ export const faqs = [
       'Sí. Contamos con un portafolio en constante actualización donde puedes ver proyectos de diferentes sectores: empresas, tiendas online, marcas personales y más. Solo tienes que solicitarlo a nuestro equipo.',
   },
   {
-    question: '¿Qué hace diferente a Novasore de otras agencias?',
+    question: '¿Qué hace diferente a Inovasore de otras agencias?',
     answer:
       'Nuestro enfoque combina creatividad, tecnología y estrategia. No solo creamos sitios web bonitos, sino plataformas que impulsan resultados reales, con una experiencia de usuario optimizada y un soporte que acompaña el crecimiento de tu marca.',
   },
