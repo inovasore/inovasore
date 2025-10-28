@@ -152,7 +152,7 @@ const serviceChips = [
       ) : (
         <a class="contact-panel__submit contact-panel__submit--alt" href={`mailto:${fallbackEmail}`} data-contact-submit>
           <span class="material-symbols-rounded" aria-hidden="true">mail</span>
-          Escribenos por correo
+          Escr&iacute;benos por correo
         </a>
       )}
     </form>
@@ -167,7 +167,6 @@ const serviceChips = [
     const hasWhatsapp = form.dataset.hasWhatsapp === "true";
     const whatsappBase = hasWhatsapp ? form.dataset.whatsappBase ?? "" : "";
     const defaultText = hasWhatsapp ? form.dataset.whatsappDefault ?? "" : "";
-    const FALLBACK_WA_BASE = "https://wa.me/593961141127"; // Fijo para asegurar destino correcto
     const messageInput = form.querySelector("#contact-message");
     const charCountEl = form.querySelector("[data-char-count]");
     const chips = form.querySelectorAll(".contact-panel__chip");
@@ -195,8 +194,9 @@ const serviceChips = [
       });
     });
 
-    // No hacemos early return para evitar envío nativo del formulario;
-    // si falta la base, usamos un fallback explícito.
+    if (!hasWhatsapp || !whatsappBase) {
+      return;
+    }
 
     form.addEventListener("submit", (event) => {
       event.preventDefault();
@@ -212,15 +212,33 @@ const serviceChips = [
       const service = getValue("service");
       const message = getValue("message");
 
-      // Construye un mensaje claro con etiquetas por campo
-      const lines = [];
-      lines.push("Hola, tengo una consulta:");
-      if (name) lines.push(`Nombre: ${name}`);
-      if (business) lines.push(`Empresa: ${business}`);
-      if (service) lines.push(`Servicio de interés: ${service}`);
-      if (message) lines.push(`Mensaje: ${message}`);
+      const sentences = [];
 
-      let finalMessage = lines.join("\n").trim();
+      let intro = "";
+      if (name) {
+        intro = `Hola, mi nombre es ${name}`;
+        if (service) {
+          intro += ` y estoy interesado en el servicio de ${service}`;
+        }
+      } else if (service) {
+        intro = `Hola, estoy interesado en el servicio de ${service}`;
+      } else {
+        intro = "Hola";
+      }
+
+      if (intro) {
+        sentences.push(`${intro.trim().replace(/\.+$/, "")}.`);
+      }
+
+      if (business) {
+        sentences.push(`Me gustaría este servicio para mi marca ${business}.`);
+      }
+
+      if (message) {
+        sentences.push(message);
+      }
+
+      let finalMessage = sentences.join(" ").trim();
       if (!finalMessage && defaultText) {
         try {
           finalMessage = decodeURIComponent(defaultText);
@@ -232,9 +250,7 @@ const serviceChips = [
       }
 
       const encoded = encodeURIComponent(finalMessage);
-      const resolvedBase = whatsappBase && whatsappBase.length > 0 ? whatsappBase : FALLBACK_WA_BASE;
-      const whatsappLink = `${resolvedBase}?text=${encoded}`;
-      // Abre en nueva pestaña: Web en escritorio, App en móvil
+      const whatsappLink = `${whatsappBase}?text=${encoded}`;
       window.open(whatsappLink, "_blank", "noopener");
     });
   }
