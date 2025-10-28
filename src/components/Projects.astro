@@ -144,16 +144,17 @@ import { projects } from "../data/projects";
     }
 
     .projects__grid {
-      
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: clamp(16px, 2.8vw, 28px);
+      justify-items: stretch;
     }
 
     .project-card {
+      --project-card-radius: clamp(18px, 2.6vw, 24px);
       position: relative;
       background: color-mix(in oklab, var(--surface, #121826) 65%, transparent);
-      border-radius: 24px;
+      border-radius: var(--project-card-radius);
       border: 1px solid rgba(148, 163, 184, .18);
       box-shadow: 0 24px 60px rgba(15, 23, 42, .3), inset 0 1px 0 rgba(255, 255, 255, .06);
       transition: transform .2s ease, box-shadow .25s ease, border-color .25s ease;
@@ -181,8 +182,8 @@ import { projects } from "../data/projects";
     }
 
     .project-card__media {
-      margin: clamp(18px, 2.5vw, 24px);
-      border-radius: 18px;
+      margin: clamp(16px, 2.4vw, 24px);
+      border-radius: calc(var(--project-card-radius, 24px) - 4px);
       overflow: hidden;
       position: relative;
       aspect-ratio: 4 / 3;
@@ -292,22 +293,45 @@ import { projects } from "../data/projects";
       }
     }
 
-    @media (max-width: 520px) {
+    @media (max-width: 640px) {
       .projects__grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
+        justify-items: stretch;
+        gap: clamp(14px, 5vw, 22px);
+        max-width: clamp(260px, 86vw, 360px);
+        margin-inline: auto;
       }
 
+      .project-card {
+        width: 100%;
+      }
+
+      .project-card__media {
+        aspect-ratio: 16 / 10;
+      }
+
+      .project-card__body {
+        padding: 0 clamp(16px, 6vw, 24px) clamp(18px, 6vw, 26px);
+      }
+    }
+
+    @media (max-width: 520px) {
       .projects__subtitle {
         margin-bottom: clamp(20px, 6vh, 32px);
       }
     }
+
+    @media (max-width: 400px) {
+      .projects__inner {
+        padding-inline: clamp(12px, 7vw, 18px);
+      }
+
+      .project-card__media {
+        aspect-ratio: 16 / 9;
+      }
+    }
   </style>
 </section>
-
-
-
-
-
 
 
 

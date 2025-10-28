@@ -1,6 +1,0 @@
-*** Begin Patch
-*** Update File: src/styles/global.css
-@@
--.btn--lg{ padding:.75rem 1.35rem; border-radius:999px; font-weight:700; }
-+.btn--lg{ padding:.65rem 1.1rem; border-radius:999px; font-weight:700; }
-*** End Patch

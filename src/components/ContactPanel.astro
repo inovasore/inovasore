@@ -6,12 +6,20 @@ const rawWhatsappLink = footerData.contact.whatsappLink?.trim();
 let whatsappBase = "";
 let defaultMessage = "";
 let hasWhatsapp = false;
+let whatsappPhone = "";
 
 if (rawWhatsappLink) {
   try {
     const whatsappUrl = new URL(rawWhatsappLink);
     whatsappBase = `${whatsappUrl.origin}${whatsappUrl.pathname}`;
     defaultMessage = whatsappUrl.searchParams.get("text") ?? "";
+    const digitsFromPath = whatsappUrl.pathname.replace(/\D/g, "");
+    if (digitsFromPath) {
+      whatsappPhone = digitsFromPath;
+    } else {
+      const phoneParam = whatsappUrl.searchParams.get("phone") ?? "";
+      whatsappPhone = phoneParam.replace(/\D/g, "");
+    }
     hasWhatsapp = true;
   } catch (error) {
     console.warn("[ContactPanel] WhatsApp link inválido:", error);
@@ -68,6 +76,7 @@ const serviceChips = [
       data-contact-form
       data-whatsapp-base={whatsappBase}
       data-whatsapp-default={defaultMessage}
+      data-whatsapp-phone={whatsappPhone}
       data-has-whatsapp={String(hasWhatsapp)}
     >
       <div class="contact-panel__field-group">
@@ -159,101 +168,170 @@ const serviceChips = [
   </div>
 </section>
 
-<script type="module">
-  const form = document.querySelector("[data-contact-form]");
-  if (!form) {
-    console.warn("No se encontró el formulario de contacto.");
-  } else {
-    const hasWhatsapp = form.dataset.hasWhatsapp === "true";
-    const whatsappBase = hasWhatsapp ? form.dataset.whatsappBase ?? "" : "";
-    const defaultText = hasWhatsapp ? form.dataset.whatsappDefault ?? "" : "";
-    const messageInput = form.querySelector("#contact-message");
-    const charCountEl = form.querySelector("[data-char-count]");
-    const chips = form.querySelectorAll(".contact-panel__chip");
-
-    if (messageInput && charCountEl) {
-      const updateCount = () => {
-        charCountEl.textContent = String(messageInput.value.trim().length);
-      };
-      updateCount();
-      messageInput.addEventListener("input", updateCount);
-    }
-
-    chips.forEach((chip) => {
-      chip.addEventListener("click", () => {
-        const template = chip.dataset.template ?? "";
-        if (!messageInput) return;
-        const current = messageInput.value.trim();
-        const separator = current ? "\n- " : "- ";
-        const alreadyIncluded = current.toLowerCase().includes(template.toLowerCase());
-        if (!alreadyIncluded) {
-          messageInput.value = `${current}${separator}${template}`.trim();
-          messageInput.dispatchEvent(new Event("input"));
-        }
-        messageInput.focus();
-      });
-    });
-
-    if (!hasWhatsapp || !whatsappBase) {
-      return;
-    }
-
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
-
-      const formData = new FormData(form);
-      const getValue = (key) => {
-        const value = formData.get(key);
-        return typeof value === "string" ? value.trim() : "";
-      };
-
-      const name = getValue("name");
-      const business = getValue("business");
-      const service = getValue("service");
-      const message = getValue("message");
-
-      const sentences = [];
-
-      let intro = "";
-      if (name) {
-        intro = `Hola, mi nombre es ${name}`;
-        if (service) {
-          intro += ` y estoy interesado en el servicio de ${service}`;
-        }
-      } else if (service) {
-        intro = `Hola, estoy interesado en el servicio de ${service}`;
-      } else {
-        intro = "Hola";
+<script is:inline>
+  (() => {
+    const init = () => {
+      const form = document.querySelector('[data-contact-form]');
+      if (!form) {
+        console.warn('No se encontró el formulario de contacto.');
+        return;
       }
 
-      if (intro) {
-        sentences.push(`${intro.trim().replace(/\.+$/, "")}.`);
+      if (form.dataset.hasWhatsapp !== 'true') {
+        return;
       }
 
-      if (business) {
-        sentences.push(`Me gustaría este servicio para mi marca ${business}.`);
+      const whatsappBase = form.dataset.whatsappBase ?? '';
+      const whatsappPhone = form.dataset.whatsappPhone ?? '';
+      const defaultTextRaw = form.dataset.whatsappDefault ?? '';
+
+      const sanitizePhone = (value) => (value ?? '').replace(/\D/g, '');
+      const resolvedPhone = sanitizePhone(whatsappPhone) || sanitizePhone(whatsappBase);
+
+      if (!resolvedPhone && !whatsappBase) {
+        console.warn('No se pudo determinar el número de WhatsApp.');
+        return;
       }
 
-      if (message) {
-        sentences.push(message);
-      }
-
-      let finalMessage = sentences.join(" ").trim();
-      if (!finalMessage && defaultText) {
+      const decodeDefaultMessage = (value) => {
+        if (!value) return '';
         try {
-          finalMessage = decodeURIComponent(defaultText);
+          return decodeURIComponent(value);
         } catch {
-          finalMessage = defaultText;
+          return value;
         }
-      } else if (!finalMessage) {
-        finalMessage = "Hola Inovasore, me gustaría recibir más información.";
+      };
+
+      const defaultText = decodeDefaultMessage(defaultTextRaw);
+
+      const messageInput = form.querySelector('#contact-message');
+      const charCountEl = form.querySelector('[data-char-count]');
+      const chips = form.querySelectorAll('.contact-panel__chip');
+
+      if (messageInput && charCountEl) {
+        const updateCount = () => {
+          charCountEl.textContent = String(messageInput.value.trim().length);
+        };
+        updateCount();
+        messageInput.addEventListener('input', updateCount);
       }
 
-      const encoded = encodeURIComponent(finalMessage);
-      const whatsappLink = `${whatsappBase}?text=${encoded}`;
-      window.open(whatsappLink, "_blank", "noopener");
-    });
-  }
+      chips.forEach((chip) => {
+        chip.addEventListener('click', () => {
+          const template = chip.dataset.template ?? '';
+          if (!messageInput || !template) return;
+          const current = messageInput.value.trim();
+          const separator = current ? '\n- ' : '- ';
+          const alreadyIncluded = current.toLowerCase().includes(template.toLowerCase());
+          if (!alreadyIncluded) {
+            messageInput.value = `${current}${separator}${template}`.trim();
+            messageInput.dispatchEvent(new Event('input'));
+          }
+          messageInput.focus();
+        });
+      });
+
+      const isMobileDevice = () => {
+        const ua = navigator.userAgent || navigator.vendor || window.opera || '';
+        return /android|iphone|ipad|ipod|windows phone|iemobile|blackberry|opera mini/i.test(ua.toLowerCase());
+      };
+
+      const buildFinalMessage = (formData) => {
+        const getValue = (key) => {
+          const value = formData.get(key);
+          return typeof value === 'string' ? value.trim() : '';
+        };
+
+        const name = getValue('name');
+        const business = getValue('business');
+        const service = getValue('service');
+        const message = getValue('message');
+
+        const fragments = [];
+
+        let intro = '';
+        if (name) {
+          intro = `Hola, mi nombre es ${name}`;
+          if (service) {
+            intro += ` y estoy interesado en el servicio de ${service}`;
+          }
+        } else if (service) {
+          intro = `Hola, estoy interesado en el servicio de ${service}`;
+        } else {
+          intro = 'Hola';
+        }
+
+        if (intro) {
+          fragments.push(`${intro.trim().replace(/\.+$/, '')}.`);
+        }
+
+        if (business) {
+          fragments.push(`Me gustaría este servicio para mi marca ${business}.`);
+        }
+
+        if (message) {
+          fragments.push(message);
+        }
+
+        const finalMessage = fragments.join(' ').trim();
+        if (finalMessage) {
+          return finalMessage;
+        }
+
+        return defaultText || 'Hola Inovasore, me gustaría recibir más información.';
+      };
+
+      const buildWhatsappUrls = (digits, message) => {
+        if (!digits) {
+          return null;
+        }
+
+        const encodedText = encodeURIComponent(message);
+        return {
+          base: `https://wa.me/${digits}?text=${encodedText}`,
+          web: `https://web.whatsapp.com/send?phone=${digits}&text=${encodedText}&app_absent=0`,
+        };
+      };
+
+      const openWhatsapp = (urls) => {
+        if (!urls) {
+          console.warn('No se pudo preparar el enlace de WhatsApp.');
+          return;
+        }
+
+        if (isMobileDevice()) {
+          window.location.href = urls.base;
+          return;
+        }
+
+        const chatWindow = window.open(urls.web, '_blank', 'noopener');
+        if (!chatWindow || chatWindow.closed) {
+          window.open(urls.base, '_blank', 'noopener');
+        }
+      };
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(form);
+        const finalMessage = buildFinalMessage(formData);
+        const urls = buildWhatsappUrls(resolvedPhone, finalMessage);
+        if (!urls) {
+          const fallback = whatsappBase || `https://wa.me/${resolvedPhone}?text=${encodeURIComponent(finalMessage)}`;
+          window.open(fallback, '_blank', 'noopener');
+          return;
+        }
+
+        openWhatsapp(urls);
+      });
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init, { once: true });
+    } else {
+      init();
+    }
+  })();
 </script>
 
 <style>
@@ -706,6 +784,7 @@ const serviceChips = [
     }
   }
 </style>
+
 
 
 
