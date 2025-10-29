@@ -73,7 +73,7 @@ const { offsetTop = "0px" } = Astro.props;
     position: relative;
     overflow: hidden;
     isolation: isolate;
-    margin: 0;
+    margin: clamp(32px, 6vw, 72px) 0 0;
     padding: var(--section-padding-y) 0;
     background: var(--color-bg);
     color: var(--color-text);
@@ -341,4 +341,3 @@ const { offsetTop = "0px" } = Astro.props;
     }
   }
 </style>
-

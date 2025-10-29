@@ -1,4 +1,4 @@
-﻿---
+---
 const links = [
   { href: "/", label: "Inicio" },
   { href: "/servicios", label: "Servicios" },
@@ -15,10 +15,23 @@ const links = [
       <span class="name">Inovasore</span>
     </a>
 
-    <button class="nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="primary-navigation">
-      <span class="material-symbols-rounded nav-toggle__icon nav-toggle__icon--open" aria-hidden="true">menu</span>
-      <span class="material-symbols-rounded nav-toggle__icon nav-toggle__icon--close" aria-hidden="true">close</span>
-    </button>
+    <div class="nav-controls">
+      <button
+        class="btn-theme btn-theme--mobile"
+        type="button"
+        aria-label="Cambiar tema"
+        aria-pressed="false"
+        data-theme-toggle
+      >
+        <span class="icon icon-light material-symbols-rounded" aria-hidden="true">light_mode</span>
+        <span class="icon icon-dark material-symbols-rounded" aria-hidden="true">dark_mode</span>
+      </button>
+
+      <button class="nav-toggle" type="button" aria-label="Abrir men�" aria-expanded="false" aria-controls="primary-navigation">
+        <span class="material-symbols-rounded nav-toggle__icon nav-toggle__icon--open" aria-hidden="true">menu</span>
+        <span class="material-symbols-rounded nav-toggle__icon nav-toggle__icon--close" aria-hidden="true">close</span>
+      </button>
+    </div>
 
     <div class="nav-menu" id="primary-navigation" role="navigation">
       <ul class="nav-links">
@@ -28,7 +41,7 @@ const links = [
       </ul>
       <div class="nav-actions">
         <a href="/contacto" class="btn">Contacto</a>
-        <button id="theme-toggle" class="btn-theme" aria-label="Cambiar tema" aria-pressed="false">
+        <button class="btn-theme btn-theme--desktop" aria-label="Cambiar tema" aria-pressed="false" data-theme-toggle>
           <span class="icon icon-light material-symbols-rounded" aria-hidden="true">light_mode</span>
           <span class="icon icon-dark material-symbols-rounded" aria-hidden="true">dark_mode</span>
         </button>
@@ -128,15 +141,15 @@ const links = [
     window.addEventListener('beforeunload', cleanupNav, { once: true });
 
     const root = document.documentElement;
-    const themeBtn = document.getElementById('theme-toggle');
+    const themeButtons = nav.querySelectorAll('[data-theme-toggle]');
 
-    if (themeBtn) {
+    if (themeButtons.length) {
       const handleThemeToggle = () => {
         root.classList.add('theme-switching');
         const toDark = !root.classList.contains('dark');
         root.classList.toggle('dark', toDark);
         localStorage.setItem('theme', toDark ? 'dark' : 'light');
-        themeBtn.setAttribute('aria-pressed', String(toDark));
+        themeButtons.forEach((btn) => btn.setAttribute('aria-pressed', String(toDark)));
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
             root.classList.remove('theme-switching');
@@ -144,15 +157,22 @@ const links = [
         });
       };
 
-      themeBtn.setAttribute('aria-pressed', String(root.classList.contains('dark')));
-      themeBtn.addEventListener('click', handleThemeToggle);
+      const updatePressed = () => {
+        const pressed = root.classList.contains('dark');
+        themeButtons.forEach((btn) => btn.setAttribute('aria-pressed', String(pressed)));
+      };
+
+      updatePressed();
+      themeButtons.forEach((btn) => btn.addEventListener('click', handleThemeToggle));
 
       const cleanupTheme = () => {
-        themeBtn.removeEventListener('click', handleThemeToggle);
+        themeButtons.forEach((btn) => btn.removeEventListener('click', handleThemeToggle));
       };
 
       document.addEventListener('astro:before-swap', cleanupTheme, { once: true });
       window.addEventListener('beforeunload', cleanupTheme, { once: true });
+
+
     }
   });
 </script>

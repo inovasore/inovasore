@@ -449,9 +449,22 @@ import { faqs } from "../data/faqs";
       }
 
       .faq__cta {
-        flex-direction: column;
-        padding: .8rem 1.2rem;
-        gap: .8rem;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: .9rem 1.3rem;
+        gap: .65rem;
+      }
+
+      .faq__cta-text {
+        font-size: .95rem;
+      }
+
+      .faq__cta-button {
+        padding: .6rem 1.4rem;
+        flex: 0 1 auto;
+        min-width: 0;
+        white-space: nowrap;
       }
 
       .faq__question {
@@ -465,7 +478,6 @@ import { faqs } from "../data/faqs";
     }
   </style>
 </section>
-
 
 
 

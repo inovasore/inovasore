@@ -157,6 +157,16 @@ html.dark .btn-theme{
 }
 html.dark .btn-theme .icon-light{ display:none; }
 html.dark .btn-theme .icon-dark{ display:inline-flex; }
+
+.nav-controls{
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+}
+
+.btn-theme--mobile{
+  display:none;
+}
 .nav-toggle{
   display:none;
   align-items:center;
@@ -257,6 +267,12 @@ body.nav-open{ overflow:hidden; }
   .nav-actions .btn,
   .nav-actions .btn-theme{
     width:100%;
+  }
+  .nav-actions .btn-theme--desktop{
+    display:none;
+  }
+  .btn-theme--mobile{
+    display:inline-flex;
   }
   .nav-toggle{ display:inline-flex; }
   .nav-content{ gap:.75rem; }

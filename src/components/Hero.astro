@@ -247,14 +247,15 @@ const { title, tagline, subtitle, works } = heroContent;
     content: "";
     position: absolute; inset: -40% -20% auto auto;
     width: 60%; height: 200%;
-    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,.36) 45%, rgba(255,255,255,.7) 50%, rgba(255,255,255,.36) 55%, transparent 100%);
+    background: linear-gradient(118deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.45) 40%, rgba(255,255,255,.82) 50%, rgba(255,255,255,.45) 60%, rgba(255,255,255,0) 100%);
     filter: blur(2px);
     pointer-events: none;
     mix-blend-mode: screen;
+    opacity: .9;
     animation: cta-shine 4.8s ease-in-out infinite;
   }
   .btn-cta:hover { transform: translateY(-1px) scale(1.035); box-shadow: 0 10px 26px rgba(59, 130, 246, .35); }
-  .btn-cta:hover::after { animation-duration: 2.2s; }
+  .btn-cta:hover::after { animation-duration: 2.2s; opacity: 1; }
   .btn-cta:active { transform: translateY(0) scale(1.01); box-shadow: 0 6px 18px rgba(59,130,246,.3); }
   @keyframes cta-shine {
     0%   { transform: translateX(-160%) rotate(20deg); opacity:.0; }
@@ -266,6 +267,22 @@ const { title, tagline, subtitle, works } = heroContent;
   @media (prefers-reduced-motion: reduce) {
     .btn-cta { animation: none; }
     .btn-cta::after { animation: none; display: none; }
+  }
+
+  .dark .btn-cta::after {
+    mix-blend-mode: normal;
+    opacity: .65;
+    background: linear-gradient(118deg, rgba(255,255,255,0) 5%, rgba(255,255,255,.4) 45%, rgba(255,255,255,.75) 52%, rgba(255,255,255,.35) 65%, rgba(255,255,255,0) 92%);
+    filter: blur(3px);
+  }
+
+  @media (max-width: 640px) {
+    .dark .btn-cta::after {
+      inset: -50% -30% auto auto;
+      width: 90%;
+      height: 220%;
+      opacity: .55;
+    }
   }
 
   @media (max-width: 640px) {

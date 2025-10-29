@@ -23,7 +23,7 @@ import ContactPanel from "../components/ContactPanel.astro";
 
 <style>
   .contact-page-hero {
-    padding: var(--section-padding-y) 0;
+    padding: calc(var(--section-padding-y) + clamp(8px, 3vh, 18px)) 0 var(--section-padding-y);
     color: var(--color-text);
   }
 
@@ -31,16 +31,18 @@ import ContactPanel from "../components/ContactPanel.astro";
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: clamp(12px, 2.4vh, 18px);
+    gap: clamp(4px, 1vh, 10px);
   }
 
   .contact-page-hero__title {
-    margin: clamp(4px, 2.4vh, 8px) auto clamp(4px, 2.4vh, 8px);
-    max-width: 28ch;
-    font-size: clamp(1.8rem, 3.2vw + 0.6rem, 2.5rem);
+    margin: clamp(2px, 1vh, 6px) auto clamp(3px, 1.2vh, 8px);
+    max-width: 21ch;
+    font-size: clamp(1.9rem, 2.4vw + 0.95rem, 2.35rem);
     font-weight: 600;
-    line-height: 1.15;
+    letter-spacing: .2px;
+    line-height: 1.08;
     text-wrap: balance;
+    text-align: center;
   }
 
   .contact-page-hero__title .highlight {
@@ -52,12 +54,23 @@ import ContactPanel from "../components/ContactPanel.astro";
     -webkit-text-fill-color: transparent;
   }
 
+  .contact-page-hero__tag {
+    margin-top: clamp(2px, 1.2vh, 8px);
+    color: rgba(248, 250, 252, 0.95);
+    font-weight: 500;
+    border-color: rgba(148, 163, 184, 0.32);
+    background: color-mix(in oklab, rgba(15, 23, 42, 0.78) 65%, transparent);
+    letter-spacing: 0.01em;
+  }
+
   .contact-page-hero__subtitle {
-    margin: 0 auto clamp(4px, 6vh, 8px);
-    max-width: 60ch;
-    font-size: clamp(1rem, 0.9rem + 0.35vw, 1.15rem);
-    font-weight: 300;
-    color: color-mix(in oklab, var(--color-text) 60%, transparent);
+    margin: 0 auto clamp(4px, 1.8vh, 10px);
+    max-width: 42ch;
+    font-size: clamp(.95rem, 0.9rem + 0.22vw, 1.06rem);
+    font-weight: 350;
+    line-height: 1.32;
+    color: color-mix(in oklab, var(--color-text) 72%, transparent);
+    text-align: center;
   }
 
   .contact-page-hero__subtitle a {
@@ -72,4 +85,11 @@ import ContactPanel from "../components/ContactPanel.astro";
     color: var(--color-primary);
     border-color: color-mix(in oklab, var(--color-primary) 60%, transparent);
   }
+
+  :root:not(.dark) .contact-page-hero__tag {
+    color: rgba(15, 23, 42, 0.86);
+    border-color: rgba(15, 23, 42, 0.12);
+    background: rgba(255, 255, 255, 0.94);
+  }
 </style>
+
