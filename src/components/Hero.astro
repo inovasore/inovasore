@@ -1,4 +1,4 @@
-﻿---
+---
 import { heroContent } from "../data/hero";
 
 const { title, tagline, subtitle, works } = heroContent;
@@ -20,9 +20,9 @@ const { title, tagline, subtitle, works } = heroContent;
     </p>
 
     <div class="hero__actions">
-      <a class="btn btn--lg btn-cta reveal" href="/contacto" style="--reveal-delay:.34s;--reveal-duration:.45s">Contáctanos</a>
+      <a class="btn btn--lg btn-cta reveal" href="/contacto" style="--reveal-delay:.34s;--reveal-duration:.45s">Cont�ctanos</a>
       <div class="status reveal" style="--reveal-delay:.42s;--reveal-duration:.45s">
-        <span class="dot"></span><span>Agenda tu asesorí­a gratuita</span>
+        <span class="dot"></span><span>Agenda tu asesor�a gratuita</span>
       </div>
     </div>
   </div>
@@ -46,20 +46,20 @@ const { title, tagline, subtitle, works } = heroContent;
 </section>
 
 <script is:inline>
-  window.addEventListener('DOMContentLoaded', () => {
-    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const setupAutoCarousels = () => {
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       return;
     }
 
     const cleanups = [];
 
-    document.querySelectorAll('.carousel.carousel--auto').forEach((carousel) => {
-      const track = carousel.querySelector('.carousel__track');
-      if (!track || track.dataset.running === 'true') return;
-      track.dataset.running = 'true';
+    document.querySelectorAll(".carousel.carousel--auto").forEach((carousel) => {
+      const track = carousel.querySelector(".carousel__track");
+      if (!track || track.dataset.running === "true") return;
+      track.dataset.running = "true";
 
       const originals = Array.from(track.children);
-      const gap = () => parseFloat(getComputedStyle(track).gap || '0') || 0;
+      const gap = () => parseFloat(getComputedStyle(track).gap || "0") || 0;
       const widthWithGap = (node) => node.getBoundingClientRect().width + gap();
 
       const ensureCoverage = () => {
@@ -79,15 +79,16 @@ const { title, tagline, subtitle, works } = heroContent;
       };
 
       ensureCoverage();
-      window.addEventListener('resize', ensureCoverage);
+      const resizeHandler = () => ensureCoverage();
+      window.addEventListener("resize", resizeHandler, { passive: true });
 
-      track.querySelectorAll('img').forEach((img) => {
-        img.addEventListener('load', () => ensureCoverage(), { once: true });
+      track.querySelectorAll("img").forEach((img) => {
+        img.addEventListener("load", () => ensureCoverage(), { once: true });
       });
 
       let inView = true;
       let observer;
-      if ('IntersectionObserver' in window) {
+      if ("IntersectionObserver" in window) {
         observer = new IntersectionObserver((entries) => {
           inView = entries.some((entry) => entry.isIntersecting);
         }, { threshold: 0.01 });
@@ -115,7 +116,7 @@ const { title, tagline, subtitle, works } = heroContent;
           }
         }
 
-                track.style.transform = `translate3d(${-offset}px,0,0)`;
+        track.style.transform = `translate3d(${-offset}px,0,0)`;
         frameId = requestAnimationFrame(step);
       };
 
@@ -123,10 +124,10 @@ const { title, tagline, subtitle, works } = heroContent;
 
       const cleanup = () => {
         cancelAnimationFrame(frameId);
-        window.removeEventListener('resize', ensureCoverage);
+        window.removeEventListener("resize", resizeHandler);
         observer?.disconnect();
-                track.style.transform = `translate3d(${-offset}px,0,0)`;
-        track.dataset.running = '';
+        track.style.transform = `translate3d(${-offset}px,0,0)`;
+        track.dataset.running = "";
       };
 
       cleanups.push(cleanup);
@@ -138,10 +139,27 @@ const { title, tagline, subtitle, works } = heroContent;
           try { fn(); } catch (_) {}
         });
       };
-      document.addEventListener('astro:before-swap', runCleanups, { once: true });
-      window.addEventListener('beforeunload', runCleanups, { once: true });
+      document.addEventListener("astro:before-swap", runCleanups, { once: true });
+      window.addEventListener("beforeunload", runCleanups, { once: true });
     }
-  });
+  };
+
+  const scheduleCarousels = () => {
+    const start = () => setupAutoCarousels();
+    if ("requestIdleCallback" in window) {
+      requestIdleCallback(start, { timeout: 1200 });
+    } else {
+      setTimeout(start, 180);
+    }
+  };
+
+  if (document.readyState === "complete") {
+    scheduleCarousels();
+  } else {
+    window.addEventListener("load", scheduleCarousels, { once: true });
+  }
+
+  document.addEventListener("astro:page-load", scheduleCarousels);
 </script>
 
 <style>
@@ -365,6 +383,7 @@ const { title, tagline, subtitle, works } = heroContent;
     transform: translateZ(0);
   }
 </style>
+
 
 
 

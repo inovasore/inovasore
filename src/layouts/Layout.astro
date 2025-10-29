@@ -68,10 +68,8 @@ const canonical = siteOrigin.replace(/\/$/, '') + pathname;
       try {
         const root = document.documentElement;
         let t = localStorage.getItem('theme');
-        if (t === null) {
-          // Respeta prefers-color-scheme en la primera carga
-          const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
-          t = prefersLight ? 'light' : 'dark';
+        if (t !== 'light' && t !== 'dark') {
+          t = 'dark';
           localStorage.setItem('theme', t);
         }
         root.classList.toggle('dark', t !== 'light');

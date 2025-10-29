@@ -1,4 +1,4 @@
-﻿---
+---
 import { footerData } from "../data/footer";
 import { mainServices } from "../data/services";
 
@@ -170,31 +170,29 @@ const serviceChips = [
 
 <script is:inline>
   (() => {
-    const init = () => {
-      const form = document.querySelector('[data-contact-form]');
-      if (!form) {
-        console.warn('No se encontró el formulario de contacto.');
+    const enhanceContactForm = (form) => {
+      if (!form || form.dataset.enhanced === "true") {
         return;
       }
 
-      if (form.dataset.hasWhatsapp !== 'true') {
+      if (form.dataset.hasWhatsapp !== "true") {
         return;
       }
 
-      const whatsappBase = form.dataset.whatsappBase ?? '';
-      const whatsappPhone = form.dataset.whatsappPhone ?? '';
-      const defaultTextRaw = form.dataset.whatsappDefault ?? '';
+      const whatsappBase = form.dataset.whatsappBase ?? "";
+      const whatsappPhone = form.dataset.whatsappPhone ?? "";
+      const defaultTextRaw = form.dataset.whatsappDefault ?? "";
 
-      const sanitizePhone = (value) => (value ?? '').replace(/\D/g, '');
+      const sanitizePhone = (value) => (value ?? "").replace(/\D/g, "");
       const resolvedPhone = sanitizePhone(whatsappPhone) || sanitizePhone(whatsappBase);
 
       if (!resolvedPhone && !whatsappBase) {
-        console.warn('No se pudo determinar el número de WhatsApp.');
+        console.warn("No se pudo determinar el número de WhatsApp.");
         return;
       }
 
       const decodeDefaultMessage = (value) => {
-        if (!value) return '';
+        if (!value) return "";
         try {
           return decodeURIComponent(value);
         } catch {
@@ -228,7 +226,7 @@ const serviceChips = [
             messageInput.dispatchEvent(new Event('input'));
           }
           messageInput.focus();
-        });
+        }, { passive: true });
       });
 
       const isMobileDevice = () => {
@@ -324,13 +322,50 @@ const serviceChips = [
 
         openWhatsapp(urls);
       });
+
+      form.dataset.enhanced = 'true';
+    };
+
+    const scheduleEnhancement = (form) => {
+      if (!form || form.dataset.enhanced === 'true') return;
+      const start = () => enhanceContactForm(form);
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(start, { timeout: 1500 });
+      } else {
+        setTimeout(start, 200);
+      }
+    };
+
+    const observeForm = () => {
+      const form = document.querySelector('[data-contact-form]');
+      if (!form || form.dataset.enhanced === 'true' || form.dataset.hasWhatsapp !== 'true') {
+        return;
+      }
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          if (entries.some((entry) => entry.isIntersecting)) {
+            observer.disconnect();
+            scheduleEnhancement(form);
+          }
+        }, { rootMargin: '160px 0px' });
+        observer.observe(form);
+      } else {
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', () => scheduleEnhancement(form), { once: true });
+        } else {
+          scheduleEnhancement(form);
+        }
+      }
     };
 
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', init, { once: true });
+      document.addEventListener('DOMContentLoaded', observeForm, { once: true });
     } else {
-      init();
+      observeForm();
     }
+
+    document.addEventListener('astro:page-load', observeForm);
   })();
 </script>
 
@@ -784,6 +819,7 @@ const serviceChips = [
     }
   }
 </style>
+
 
 
 

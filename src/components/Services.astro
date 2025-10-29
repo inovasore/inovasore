@@ -73,43 +73,24 @@ const { offsetTop = "0px" } = Astro.props;
     position: relative;
     overflow: hidden;
     isolation: isolate;
-    margin: clamp(32px, 6vw, 72px) 0 0;
+    margin: 0;
     padding: var(--section-padding-y) 0;
     background: var(--color-bg);
     color: var(--color-text);
+    scroll-margin-top: var(--services-offset, clamp(72px, 14vw, 120px));
   }
 
   .dark .services {
-    background:
-      radial-gradient(520px 320px at 20% 18%, rgba(37,99,235,.22), transparent 72%),
-      radial-gradient(460px 280px at 80% 26%, rgba(79,70,229,.18), transparent 75%),
-      radial-gradient(720px 520px at 50% 100%, rgba(15,23,42,.6), transparent 80%),
-      #050615;
+    background: var(--color-bg);
   }
 
   .services__glow {
-    position: absolute;
-    inset: -20% -10% auto -10%;
-    height: 420px;
-    background:
-      radial-gradient(520px 320px at 20% 35%, rgba(99,102,241,.24), transparent 70%),
-      radial-gradient(420px 280px at 75% 45%, rgba(56,189,248,.2), transparent 72%);
-    filter: blur(18px);
-    opacity: .55;
-    pointer-events: none;
-    z-index: -1;
-  }
-
-  .dark .services__glow {
-    background:
-      radial-gradient(520px 320px at 20% 35%, rgba(99,102,241,.32), transparent 72%),
-      radial-gradient(420px 280px at 75% 45%, rgba(56,189,248,.26), transparent 75%);
-    opacity: .65;
+    display: none;
   }
 
   .services__inner {
     display: grid;
-    row-gap: clamp(8px, 2.2vh, 2px);
+    row-gap: clamp(6px, 2vh, 14px);
     text-align: center;
     max-width: 1100px;
   }
@@ -129,7 +110,7 @@ const { offsetTop = "0px" } = Astro.props;
     text-transform: none;
     width: fit-content;
     max-width: 100%;
-    margin: 0 auto clamp(4px, 1.6vh, 4px);
+    margin: 0 auto;
     color: rgba(248, 250, 252, .96);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06);
   }
@@ -141,34 +122,48 @@ const { offsetTop = "0px" } = Astro.props;
     box-shadow: inset 0 1px 0 rgba(255,255,255,.9);
   }
 
+  @media (max-width: 720px) {
+    .services {
+      margin-top: clamp(12px, 4vh, 26px);
+    }
+
+    .services__tag {
+      margin: 0 auto;
+    }
+  }
+
   .services__title {
     font-size: clamp(1.8rem, 3.2vw + .6rem, 2.5rem);
     font-weight: 600;
     line-height: 1.15;
-    margin: clamp(4px, 1.8vh, 8px) auto clamp(4px, 1.8vh, 8px);
+    margin: clamp(12px, 2.4vh, 18px) auto clamp(10px, 2.4vh, 18px);
     max-width: 28ch;
-  }
-
-  .services__title .highlight {
-    background-image: linear-gradient(90deg, #26d2f8 0%, #23b2ff 35%, #0973e1 70%, #3b5bff 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
   }
 
   .services__subtitle {
     color: color-mix(in oklab, var(--color-text) 60%, transparent);
-    font-size: clamp(1rem, .9rem + .35vw, 1.15rem);
-    margin: 0 auto clamp(8px, 3vh, 16px);
+    font-size: clamp(1rem, .9rem + .25vw, 1.1rem);
+    margin: 0 auto clamp(26px, 6vh, 40px);
     max-width: 60ch;
     font-weight: 300;
+  }
+
+  .services__title .highlight {
+    display: inline-block;
+    background-image: linear-gradient(90deg, #26d2f8 0%, #23b2ff 35%, #0973e1 70%, #3b5bff 100%);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
   }
 
   .services__grid {
     display: grid;
     gap: clamp(18px, 2.6vw, 26px);
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    margin-top: clamp(24px, 5vh, 38px);
+    margin-top: clamp(24px, 4vw, 40px);
     text-align: left;
   }
 
