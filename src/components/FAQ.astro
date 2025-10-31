@@ -127,15 +127,14 @@ import { faqs } from "../data/faqs";
       inset: -30% -20% auto -20%;
       height: clamp(420px, 48vw, 520px);
       pointer-events: none;
-      background:
-        radial-gradient(520px 320px at 20% 35%, rgba(37, 99, 235, .22), transparent 70%),
-        radial-gradient(420px 260px at 80% 40%, rgba(59, 130, 246, .18), transparent 72%);
       filter: blur(18px);
       opacity: .45;
       z-index: -1;
+      display: none;
     }
 
     .dark .faq__halo {
+      display: block;
       background:
         radial-gradient(520px 320px at 20% 35%, rgba(37, 99, 235, .35), transparent 70%),
         radial-gradient(420px 260px at 80% 40%, rgba(59, 130, 246, .28), transparent 72%);
@@ -478,8 +477,6 @@ import { faqs } from "../data/faqs";
     }
   </style>
 </section>
-
-
 
 
 

@@ -1,4 +1,8 @@
-﻿<section class="mission">
+---
+import LiteYouTube from "./LiteYouTube.astro";
+---
+
+<section class="mission">
   <div class="section-inner section-inner--center mission__inner">
     <div class="section-tag mission__tag reveal" style="--reveal-delay:.08s;--reveal-duration:.45s;--reveal-distance:10px">
       Nuestra misión
@@ -14,13 +18,7 @@
     <div class="video-wrap reveal" style="--reveal-delay:.26s;--reveal-duration:.5s;--reveal-distance:12px">
       <div class="video-frame">
         <div class="video">
-          <iframe
-            src="https://www.youtube.com/embed/C08SPlIXDwU?autoplay=0&rel=0&modestbranding=1&playsinline=1"
-            title="YouTube video"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
-          ></iframe>
+          <LiteYouTube videoId="C08SPlIXDwU" title="YouTube video" params="rel=0&modestbranding=1&playsinline=1" />
         </div>
       </div>
     </div>

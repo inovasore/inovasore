@@ -1,0 +1,226 @@
+---
+const { videoId, title = "Video de YouTube", params = "" } = Astro.props;
+
+const defaultParams = new URLSearchParams({
+  autoplay: "1",
+  rel: "0",
+  modestbranding: "1",
+  playsinline: "1"
+});
+
+if (params) {
+  try {
+    const extra = new URLSearchParams(params);
+    extra.forEach((value, key) => {
+      defaultParams.set(key, value);
+    });
+  } catch {
+    // Ignora parámetros inválidos y usa los predeterminados.
+  }
+}
+
+const embedUrl = `https://www.youtube.com/embed/${videoId}?${defaultParams.toString()}`;
+const posterUrl = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+---
+
+<div
+  class="lite-youtube"
+  data-lite-youtube
+  data-embed={embedUrl}
+>
+  <button class="lite-youtube__button" type="button" aria-label={`Reproducir video: ${title}`} data-lite-youtube-trigger>
+    <span class="lite-youtube__poster" style={`background-image:url('${posterUrl}')`} aria-hidden="true"></span>
+    <span class="lite-youtube__scrim" aria-hidden="true"></span>
+    <span class="lite-youtube__play" aria-hidden="true">
+      <span class="lite-youtube__triangle"></span>
+    </span>
+  </button>
+</div>
+
+<script is:inline>
+  const enhanceLiteYouTube = () => {
+    const cleanups = [];
+
+    document.querySelectorAll('[data-lite-youtube]').forEach((root) => {
+      if (!(root instanceof HTMLElement) || root.dataset.enhanced === 'true') {
+        return;
+      }
+
+      const trigger = root.querySelector('[data-lite-youtube-trigger]');
+      if (!(trigger instanceof HTMLElement)) {
+        return;
+      }
+
+      const embed = root.dataset.embed;
+      if (!embed) {
+        return;
+      }
+
+      const activate = () => {
+        if (root.dataset.state === 'playing') {
+          return;
+        }
+
+        root.dataset.state = 'playing';
+
+        const iframe = document.createElement('iframe');
+        iframe.src = embed;
+        iframe.title = trigger.getAttribute('aria-label') || 'Video de YouTube';
+        iframe.allow =
+          'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+        iframe.allowFullscreen = true;
+        iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+        iframe.loading = 'lazy';
+
+        iframe.setAttribute('frameborder', '0');
+        iframe.setAttribute('aria-label', iframe.title);
+
+        root.classList.add('lite-youtube--loaded');
+        root.innerHTML = '';
+        root.appendChild(iframe);
+      };
+
+      const handleKeydown = (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          activate();
+        }
+      };
+
+      trigger.addEventListener('click', activate);
+      trigger.addEventListener('keydown', handleKeydown);
+
+      const cleanup = () => {
+        trigger.removeEventListener('click', activate);
+        trigger.removeEventListener('keydown', handleKeydown);
+      };
+
+      cleanups.push(cleanup);
+      root.dataset.enhanced = 'true';
+    });
+
+    if (cleanups.length) {
+      const runCleanups = () => {
+        while (cleanups.length) {
+          const fn = cleanups.pop();
+          try {
+            fn?.();
+          } catch {
+            // Ignorar errores en limpieza
+          }
+        }
+      };
+
+      document.addEventListener('astro:before-swap', runCleanups, { once: true });
+      window.addEventListener('beforeunload', runCleanups, { once: true });
+    }
+  };
+
+  enhanceLiteYouTube();
+  document.addEventListener('astro:page-load', enhanceLiteYouTube);
+  document.addEventListener('astro:after-swap', enhanceLiteYouTube);
+</script>
+
+<style>
+  .lite-youtube {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    border-radius: inherit;
+    overflow: hidden;
+    cursor: pointer;
+    display: block;
+  }
+
+  .lite-youtube__button {
+    all: unset;
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+
+  .lite-youtube__poster {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transform: scale(1.01);
+    transition: transform 0.45s ease;
+  }
+
+  .lite-youtube__scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(5, 6, 15, 0.35), rgba(5, 6, 15, 0.75));
+    opacity: 0.85;
+    transition: opacity 0.45s ease;
+  }
+
+  .lite-youtube__play {
+    position: absolute;
+    inset: 50% auto auto 50%;
+    width: 72px;
+    height: 72px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    background: rgba(255, 255, 255, 0.9);
+    color: #0f172a;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.35);
+    transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
+  }
+
+  .lite-youtube__triangle {
+    display: block;
+    width: 0;
+    height: 0;
+    border-left: 18px solid currentColor;
+    border-top: 11px solid transparent;
+    border-bottom: 11px solid transparent;
+    margin-left: 4px;
+  }
+
+  .lite-youtube:hover .lite-youtube__poster,
+  .lite-youtube:focus-visible .lite-youtube__poster {
+    transform: scale(1.05);
+  }
+
+  .lite-youtube:hover .lite-youtube__scrim,
+  .lite-youtube:focus-visible .lite-youtube__scrim {
+    opacity: 0.65;
+  }
+
+  .lite-youtube:hover .lite-youtube__play,
+  .lite-youtube:focus-visible .lite-youtube__play {
+    transform: translate(-50%, -50%) scale(1.08);
+    box-shadow: 0 22px 46px rgba(15, 23, 42, 0.4);
+    background: rgba(255, 255, 255, 1);
+  }
+
+  .lite-youtube--loaded {
+    cursor: auto;
+  }
+
+  .lite-youtube--loaded iframe {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  @media (max-width: 640px) {
+    .lite-youtube__play {
+      width: 60px;
+      height: 60px;
+    }
+
+    .lite-youtube__triangle {
+      border-left-width: 16px;
+      border-top-width: 10px;
+      border-bottom-width: 10px;
+    }
+  }
+</style>

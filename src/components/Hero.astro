@@ -20,9 +20,9 @@ const { title, tagline, subtitle, works } = heroContent;
     </p>
 
     <div class="hero__actions">
-      <a class="btn btn--lg btn-cta reveal" href="/contacto" style="--reveal-delay:.34s;--reveal-duration:.45s">Cont�ctanos</a>
+      <a class="btn btn--lg btn-cta reveal" href="/contacto" style="--reveal-delay:.34s;--reveal-duration:.45s">Contáctanos</a>
       <div class="status reveal" style="--reveal-delay:.42s;--reveal-duration:.45s">
-        <span class="dot"></span><span>Agenda tu asesor�a gratuita</span>
+        <span class="dot"></span><span>Agenda tu asesoría gratuita</span>
       </div>
     </div>
   </div>
@@ -37,6 +37,8 @@ const { title, tagline, subtitle, works } = heroContent;
             loading={i === 0 ? 'eager' : 'lazy'}
             decoding="async"
             fetchpriority={i === 0 ? 'high' : 'auto'}
+            width="1600"
+            height="1000"
             sizes="(min-width: 1024px) 30vw, 80vw"
           />
         </figure>
@@ -88,46 +90,86 @@ const { title, tagline, subtitle, works } = heroContent;
 
       let inView = true;
       let observer;
-      if ("IntersectionObserver" in window) {
-        observer = new IntersectionObserver((entries) => {
-          inView = entries.some((entry) => entry.isIntersecting);
-        }, { threshold: 0.01 });
-        observer.observe(carousel);
-      }
 
       const speed = Number(carousel.dataset.speed || 28);
       let offset = 0;
-      let last = performance.now();
+      let last = 0;
       let frameId = 0;
 
+      const shouldRun = () => !document.hidden && inView;
+
+      const stop = () => {
+        if (frameId) {
+          cancelAnimationFrame(frameId);
+          frameId = 0;
+        }
+        last = 0;
+      };
+
       const step = (now) => {
+        if (!shouldRun()) {
+          stop();
+          return;
+        }
+
+        if (!last) {
+          last = now;
+        }
+
         const delta = (now - last) / 1000;
         last = now;
 
-        if (!document.hidden && inView) {
-          offset += speed * delta;
-          let first = track.firstElementChild;
-          while (first) {
-            const width = widthWithGap(first);
-            if (offset < width) break;
-            track.appendChild(first);
-            offset -= width;
-            first = track.firstElementChild;
-          }
+        offset += speed * delta;
+        let first = track.firstElementChild;
+        while (first) {
+          const width = widthWithGap(first);
+          if (offset < width) break;
+          track.appendChild(first);
+          offset -= width;
+          first = track.firstElementChild;
         }
 
         track.style.transform = `translate3d(${-offset}px,0,0)`;
         frameId = requestAnimationFrame(step);
       };
 
-      frameId = requestAnimationFrame(step);
+      const start = () => {
+        if (frameId || !shouldRun()) return;
+        last = performance.now();
+        frameId = requestAnimationFrame(step);
+      };
+
+      const updateRunner = () => {
+        if (shouldRun()) {
+          start();
+        } else {
+          stop();
+        }
+      };
+
+      const visibilityHandler = () => updateRunner();
+      document.addEventListener("visibilitychange", visibilityHandler);
+
+      if ("IntersectionObserver" in window) {
+        observer = new IntersectionObserver((entries) => {
+          const visible = entries.some((entry) => entry.isIntersecting);
+          if (visible !== inView) {
+            inView = visible;
+            updateRunner();
+          }
+        }, { threshold: 0.01 });
+        observer.observe(carousel);
+      }
+
+      updateRunner();
 
       const cleanup = () => {
-        cancelAnimationFrame(frameId);
+        stop();
         window.removeEventListener("resize", resizeHandler);
+        document.removeEventListener("visibilitychange", visibilityHandler);
         observer?.disconnect();
+        delete track.dataset.running;
         track.style.transform = `translate3d(${-offset}px,0,0)`;
-        track.dataset.running = "";
       };
 
       cleanups.push(cleanup);
@@ -383,9 +425,6 @@ const { title, tagline, subtitle, works } = heroContent;
     transform: translateZ(0);
   }
 </style>
-
-
-
 
 
 

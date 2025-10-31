@@ -359,6 +359,7 @@
       inset: -10% -10% 0 -10%;
       pointer-events: none;
       z-index: -1;
+      display: none;
     }
 
     .tools__bg::before,
@@ -382,6 +383,10 @@
         radial-gradient(900px 520px at 12% 24%, color-mix(in oklab, var(--color-primary-dark) 12%, transparent), transparent 70%);
     }
 
+    .dark .tools__bg {
+      display: block;
+    }
+
     .dark .tools__card {
       border-color: rgba(255, 255, 255, .08);
       background: linear-gradient(180deg, rgba(12, 14, 22, .92), rgba(12, 14, 22, .86));
@@ -394,4 +399,3 @@
     }
   </style>
 </section>
-
