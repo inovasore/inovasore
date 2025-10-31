@@ -287,10 +287,11 @@ const { title, tagline, subtitle, works } = heroContent;
     margin-bottom: clamp(18px, 4vh, 34px);
   }
 
-  .btn-cta {  
+  .btn-cta {
     font-weight: 400;
     position: relative;
     overflow: hidden;
+    isolation: isolate;
     background: linear-gradient(90deg, var(--color-primary-dark) 0%, var(--color-primary) 50%, var(--color-primary-dark) 100%);
     background-size: 200% 100%;
     animation: cta-gradient 5.5s ease-in-out infinite;
@@ -305,24 +306,26 @@ const { title, tagline, subtitle, works } = heroContent;
 
   .btn-cta::after {
     content: "";
-    position: absolute; inset: -40% -20% auto auto;
-    width: 60%; height: 200%;
-    background: linear-gradient(118deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.45) 40%, rgba(255,255,255,.82) 50%, rgba(255,255,255,.45) 60%, rgba(255,255,255,0) 100%);
-    filter: blur(2px);
+    position: absolute;
+    inset: -12%;
+    border-radius: inherit;
+    background: linear-gradient(118deg, rgba(255,255,255,0) 15%, rgba(255,255,255,.7) 50%, rgba(255,255,255,0) 88%);
+    transform: translateX(-120%);
+    opacity: 0;
     pointer-events: none;
     mix-blend-mode: screen;
-    opacity: .9;
     animation: cta-shine 4.8s ease-in-out infinite;
   }
   .btn-cta:hover { transform: translateY(-1px) scale(1.035); box-shadow: 0 10px 26px rgba(59, 130, 246, .35); }
-  .btn-cta:hover::after { animation-duration: 2.2s; opacity: 1; }
+  .btn-cta:hover::after { animation-duration: 2.2s; }
   .btn-cta:active { transform: translateY(0) scale(1.01); box-shadow: 0 6px 18px rgba(59,130,246,.3); }
   @keyframes cta-shine {
-    0%   { transform: translateX(-160%) rotate(20deg); opacity:.0; }
-    10%  { opacity:.85; }
-    50%  { transform: translateX(0%) rotate(20deg); opacity:.6; }
-    90%  { opacity:.85; }
-    100% { transform: translateX(220%) rotate(20deg); opacity:.0; }
+    0%   { transform: translateX(-135%); opacity: 0; }
+    15%  { opacity: .85; }
+    45%  { transform: translateX(-20%); opacity: .6; }
+    55%  { transform: translateX(20%); opacity: .5; }
+    85%  { opacity: .85; }
+    100% { transform: translateX(135%); opacity: 0; }
   }
   @media (prefers-reduced-motion: reduce) {
     .btn-cta { animation: none; }
@@ -331,17 +334,15 @@ const { title, tagline, subtitle, works } = heroContent;
 
   .dark .btn-cta::after {
     mix-blend-mode: normal;
-    opacity: .65;
-    background: linear-gradient(118deg, rgba(255,255,255,0) 5%, rgba(255,255,255,.4) 45%, rgba(255,255,255,.75) 52%, rgba(255,255,255,.35) 65%, rgba(255,255,255,0) 92%);
-    filter: blur(3px);
+    background: linear-gradient(118deg, rgba(255,255,255,0) 20%, rgba(255,255,255,.6) 52%, rgba(255,255,255,0) 88%);
   }
 
   @media (max-width: 640px) {
+    .btn-cta::after {
+      inset: -18%;
+    }
     .dark .btn-cta::after {
-      inset: -50% -30% auto auto;
-      width: 90%;
-      height: 220%;
-      opacity: .55;
+      transform: translateX(-140%);
     }
   }
 
@@ -425,7 +426,6 @@ const { title, tagline, subtitle, works } = heroContent;
     transform: translateZ(0);
   }
 </style>
-
 
 
 
