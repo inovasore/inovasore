@@ -233,16 +233,18 @@ body.nav-open{ overflow:hidden; }
     transform:translateY(-8px) scale(.98);
     opacity:0;
     pointer-events:none;
+    visibility:hidden;
     transition:opacity .25s ease, transform .25s ease;
   }
   .dark .nav-menu{
     background:rgba(15,23,42,.92);
     box-shadow:0 24px 50px rgba(2,6,23,.6);
   }
-  .navbar--open .nav-menu{
+  .nav-menu[data-state="open"]{
     opacity:1;
     pointer-events:auto;
     transform:translateY(0) scale(1);
+    visibility:visible;
   }
   .nav-links{
     flex-direction:column;

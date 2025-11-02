@@ -27,13 +27,25 @@ const links = [
         <span class="icon icon-dark material-symbols-rounded" aria-hidden="true">dark_mode</span>
       </button>
 
-      <button class="nav-toggle" type="button" aria-label="Abrir men�" aria-expanded="false" aria-controls="primary-navigation">
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-label="Abrir menú"
+        aria-expanded="false"
+        aria-controls="primary-navigation"
+      >
         <span class="material-symbols-rounded nav-toggle__icon nav-toggle__icon--open" aria-hidden="true">menu</span>
         <span class="material-symbols-rounded nav-toggle__icon nav-toggle__icon--close" aria-hidden="true">close</span>
       </button>
     </div>
 
-    <div class="nav-menu" id="primary-navigation" role="navigation">
+    <div
+      class="nav-menu"
+      id="primary-navigation"
+      role="navigation"
+      data-nav-menu
+      data-state="closed"
+    >
       <ul class="nav-links">
         {links.map((l) => (
           <li><a href={l.href}>{l.label}</a></li>
@@ -57,31 +69,77 @@ const links = [
     if (!nav) return;
 
     const toggle = nav.querySelector('.nav-toggle');
-    const menu = nav.querySelector('.nav-menu');
+    const menu = nav.querySelector('[data-nav-menu]');
     const backdrop = nav.querySelector('.nav-backdrop');
+    const root = document.documentElement;
+    const mq = window.matchMedia('(max-width: 960px)');
 
-    const closeMenu = () => {
-      nav.classList.remove('navbar--open');
-      toggle?.setAttribute('aria-expanded', 'false');
-      document.body.classList.remove('nav-open');
+    let menuOpen = false;
+
+    const isMobileView = () => mq?.matches ?? window.innerWidth <= 960;
+
+    const updateToggleLabel = (open) => {
+      if (toggle) {
+        toggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+      }
+    };
+
+    const applyMenuState = ({ focusToggle = false } = {}) => {
+      if (!menu) return;
+
+      const mobile = isMobileView();
+
+      if (mobile) {
+        nav.classList.toggle('navbar--open', menuOpen);
+        document.body.classList.toggle('nav-open', menuOpen);
+        menu.dataset.state = menuOpen ? 'open' : 'closed';
+        if (menuOpen) {
+          menu.removeAttribute('aria-hidden');
+          menu.removeAttribute('inert');
+        } else {
+          menu.setAttribute('aria-hidden', 'true');
+          menu.setAttribute('inert', '');
+        }
+      } else {
+        nav.classList.remove('navbar--open');
+        document.body.classList.remove('nav-open');
+        menu.dataset.state = 'open';
+        menu.removeAttribute('aria-hidden');
+        menu.removeAttribute('inert');
+        menuOpen = false;
+      }
+
+      toggle?.setAttribute('aria-expanded', menuOpen ? 'true' : 'false');
+      updateToggleLabel(menuOpen);
+
+      if (focusToggle && toggle) {
+        toggle.focus({ preventScroll: true });
+      }
     };
 
     const focusFirst = () => {
-      const focusable = menu?.querySelector('a, button');
+      if (!menu || !isMobileView() || !menuOpen) return;
+      const focusable = menu.querySelector('a, button');
       if (focusable instanceof HTMLElement) {
         focusable.focus({ preventScroll: true });
       }
     };
 
     const openMenu = () => {
-      nav.classList.add('navbar--open');
-      toggle?.setAttribute('aria-expanded', 'true');
-      document.body.classList.add('nav-open');
+      if (menuOpen) return;
+      menuOpen = true;
+      applyMenuState();
       focusFirst();
     };
 
+    const closeMenu = ({ focusToggle = false } = {}) => {
+      const wasOpen = menuOpen;
+      menuOpen = false;
+      applyMenuState({ focusToggle: wasOpen && focusToggle });
+    };
+
     const handleToggle = () => {
-      if (nav.classList.contains('navbar--open')) {
+      if (menuOpen) {
         closeMenu();
       } else {
         openMenu();
@@ -91,15 +149,16 @@ const links = [
     const handleMenuClick = (event) => {
       const target = event.target;
       if (target instanceof Element && target.closest('a')) {
-        closeMenu();
+        closeMenu({ focusToggle: true });
       }
     };
 
-    const handleBackdrop = () => closeMenu();
+    const handleBackdrop = () => closeMenu({ focusToggle: true });
 
     const handleKeydown = (event) => {
-      if (event.key === 'Escape') {
-        closeMenu();
+      if (event.key === 'Escape' && menuOpen && isMobileView()) {
+        event.preventDefault();
+        closeMenu({ focusToggle: true });
       }
     };
 
@@ -108,12 +167,13 @@ const links = [
     backdrop?.addEventListener('click', handleBackdrop);
     document.addEventListener('keydown', handleKeydown);
 
-    const mq = window.matchMedia('(max-width: 960px)');
     const handleMedia = (event) => {
       if (!event.matches) {
-        closeMenu();
+        menuOpen = false;
       }
+      applyMenuState();
     };
+
     if (mq) {
       if ('addEventListener' in mq) {
         mq.addEventListener('change', handleMedia);
@@ -122,8 +182,19 @@ const links = [
       }
     }
 
+    applyMenuState();
+
     const cleanupNav = () => {
-      closeMenu();
+      menuOpen = false;
+      nav.classList.remove('navbar--open');
+      document.body.classList.remove('nav-open');
+      toggle?.setAttribute('aria-expanded', 'false');
+      updateToggleLabel(false);
+      menu?.removeAttribute('aria-hidden');
+      menu?.removeAttribute('inert');
+      if (menu?.dataset) {
+        menu.dataset.state = 'open';
+      }
       toggle?.removeEventListener('click', handleToggle);
       menu?.removeEventListener('click', handleMenuClick);
       backdrop?.removeEventListener('click', handleBackdrop);
@@ -140,7 +211,6 @@ const links = [
     document.addEventListener('astro:before-swap', cleanupNav, { once: true });
     window.addEventListener('beforeunload', cleanupNav, { once: true });
 
-    const root = document.documentElement;
     const themeButtons = nav.querySelectorAll('[data-theme-toggle]');
 
     if (themeButtons.length) {
@@ -171,11 +241,6 @@ const links = [
 
       document.addEventListener('astro:before-swap', cleanupTheme, { once: true });
       window.addEventListener('beforeunload', cleanupTheme, { once: true });
-
-
     }
   });
 </script>
-
-
-
