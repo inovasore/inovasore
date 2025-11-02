@@ -1,5 +1,10 @@
 ---
-const { videoId, title = "Video de YouTube", params = "" } = Astro.props;
+const {
+  videoId,
+  title = "Video de YouTube",
+  params = "",
+  poster
+} = Astro.props;
 
 const defaultParams = new URLSearchParams({
   autoplay: "1",
@@ -15,12 +20,14 @@ if (params) {
       defaultParams.set(key, value);
     });
   } catch {
-    // Ignora parámetros inválidos y usa los predeterminados.
+    // Ignora parÃ¡metros invÃ¡lidos y usa los predeterminados.
   }
 }
 
 const embedUrl = `https://www.youtube.com/embed/${videoId}?${defaultParams.toString()}`;
-const posterUrl = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+const remotePoster = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+const localPoster = poster ?? `/youtube/${videoId}.jpg`;
+const posterUrl = `url('${localPoster}'), url('${remotePoster}')`;
 ---
 
 <div
@@ -29,7 +36,7 @@ const posterUrl = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
   data-embed={embedUrl}
 >
   <button class="lite-youtube__button" type="button" aria-label={`Reproducir video: ${title}`} data-lite-youtube-trigger>
-    <span class="lite-youtube__poster" style={`background-image:url('${posterUrl}')`} aria-hidden="true"></span>
+    <span class="lite-youtube__poster" style={`background-image:${posterUrl}`} aria-hidden="true"></span>
     <span class="lite-youtube__scrim" aria-hidden="true"></span>
     <span class="lite-youtube__play" aria-hidden="true">
       <span class="lite-youtube__triangle"></span>

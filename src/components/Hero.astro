@@ -20,9 +20,9 @@ const { title, tagline, subtitle, works } = heroContent;
     </p>
 
     <div class="hero__actions">
-      <a class="btn btn--lg btn-cta reveal" href="/contacto" style="--reveal-delay:.34s;--reveal-duration:.45s">Contáctanos</a>
+      <a class="btn btn--lg btn-cta reveal" href="/contacto" style="--reveal-delay:.34s;--reveal-duration:.45s">Cont├íctanos</a>
       <div class="status reveal" style="--reveal-delay:.42s;--reveal-duration:.45s">
-        <span class="dot"></span><span>Agenda tu asesoría gratuita</span>
+        <span class="dot"></span><span>Agenda tu asesor├¡a gratuita</span>
       </div>
     </div>
   </div>
@@ -49,6 +49,11 @@ const { title, tagline, subtitle, works } = heroContent;
 
 <script is:inline>
   const setupAutoCarousels = () => {
+    const mobileMq = window.matchMedia('(max-width: 768px)');
+    if (mobileMq?.matches) {
+      return;
+    }
+
     if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       return;
     }
