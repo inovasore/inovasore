@@ -1,4 +1,4 @@
----
+﻿---
 import LiteYouTube from "./LiteYouTube.astro";
 ---
 
@@ -18,7 +18,12 @@ import LiteYouTube from "./LiteYouTube.astro";
     <div class="video-wrap reveal" style="--reveal-delay:.26s;--reveal-duration:.5s;--reveal-distance:12px">
       <div class="video-frame">
         <div class="video">
-          <LiteYouTube videoId="C08SPlIXDwU" title="YouTube video" params="rel=0&modestbranding=1&playsinline=1" />
+          <LiteYouTube
+            videoId="C08SPlIXDwU"
+            title="Cómo diseñamos experiencias digitales impactantes"
+            params="rel=0&modestbranding=1&playsinline=1"
+            poster="/youtube/C08SPlIXDwU.jpg"
+          />
         </div>
       </div>
     </div>
@@ -38,78 +43,43 @@ import LiteYouTube from "./LiteYouTube.astro";
       border-radius:999px;
       border:1px solid rgba(255, 255, 255, .35);
       background: color-mix(in oklab, var(--surface, #101828) 55%, transparent);
-      color: rgba(248, 250, 252, .96);
-      font-size:clamp(.9rem, .85rem + .25vw, 1rem);
-      font-weight:500;
-      letter-spacing:.03em;
-      text-transform:none;
-      width:fit-content;
-      margin:0 auto;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
-    }
-    :root:not(.dark) .mission__tag{
-      background: rgba(255,255,255,.94);
-      border-color: rgba(15,23,42,.1);
-      color: rgba(15,23,42,.92);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.9);
     }
     .mission__title{
+      margin: clamp(10px, 2.5vh, 18px) auto clamp(8px, 2vh, 14px);
+      max-width: 22ch;
+      font-size: clamp(2.1rem, 1.6rem + 2vw, 2.9rem);
       font-weight: 600;
       line-height: 1.15;
-      letter-spacing: .2px;
-      font-size: clamp(1.8rem, 3.2vw + .6rem, 2.5rem);
-      margin: clamp(12px, 2.4vh, 18px) auto clamp(10px, 2.4vh, 18px);
-      max-width: 28ch;
     }
-    .mission__title .line{ display:block; white-space: nowrap; }
-    @media (max-width: 560px){
-      .mission__title{ font-size: clamp(1.5rem, 5vw, 2.2rem); }
-      .mission__title .line{ white-space: normal; }
+    .mission__title .line{
+      display:block;
     }
     .mission__title .highlight{
-      background: linear-gradient(90deg, #26d2f8 0%, #23b2ff 35%, #0973e1 70%, #3b5bff 100%);
+      background-image: linear-gradient(90deg, #1b56fd, #3b82f6);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
       -webkit-text-fill-color: transparent;
     }
     .mission__subtitle{
-      color: var(--color-text-muted, #6b7280);
-      font-size: clamp(1rem, .9rem + .25vw, 1.1rem);
-      margin: 0 auto clamp(26px, 6vh, 40px);
-      max-width: 60ch;
-      font-weight: 300;
+      margin:0 auto clamp(18px, 4vh, 26px);
+      max-width: 54ch;
+      font-size: clamp(1rem, 0.95rem + 0.35vw, 1.15rem);
+      color: color-mix(in oklab, var(--color-text) 74%, transparent);
     }
-
-    .video-wrap{ margin-top: 26px; }
+    .video-wrap{
+      margin-top: clamp(18px, 4vh, 28px);
+    }
     .video-frame{
-      position: relative;
+      position:relative;
       border-radius: var(--radius-lg);
-      padding: 10px;
-      background: color-mix(in oklab, var(--surface, #121826) 26%, transparent);
-      border: 1px solid color-mix(in oklab, var(--color-primary) 25%, var(--border));
-      box-shadow:
-        0 0 0 6px rgba(59,130,246,0.06) inset,
-        0 10px 30px rgba(2,6,23,.25);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-    }
-    .video-frame::before{
-      content: "";
-      position: absolute; inset: 0; border-radius: var(--radius-lg); pointer-events: none;
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,0));
-      mix-blend-mode: overlay;
+      overflow:hidden;
+      border:1px solid color-mix(in oklab, var(--color-primary) 18%, transparent);
+      box-shadow: 0 24px 48px rgba(37, 99, 235, .15);
     }
     .video{
-      position: relative;
-      aspect-ratio: 16 / 9;
-      border-radius: 16px;
-      overflow: hidden;
-      background: #000;
+      position:relative;
+      aspect-ratio:16/9;
     }
-    .video iframe{ position:absolute; inset:0; border:0; width:100%; height:100%; display:block; }
   </style>
 </section>
-
-
-

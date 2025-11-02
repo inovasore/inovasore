@@ -1,7 +1,8 @@
----
+﻿---
 import { heroContent } from "../data/hero";
 
 const { title, tagline, subtitle, works } = heroContent;
+const [primaryWork, ...secondaryWorks] = works;
 ---
 
 <section class="hero">
@@ -20,23 +21,35 @@ const { title, tagline, subtitle, works } = heroContent;
     </p>
 
     <div class="hero__actions">
-      <a class="btn btn--lg btn-cta reveal" href="/contacto" style="--reveal-delay:.34s;--reveal-duration:.45s">Cont├íctanos</a>
+      <a class="btn btn--lg btn-cta reveal" href="/contacto" style="--reveal-delay:.34s;--reveal-duration:.45s">Contáctanos</a>
       <div class="status reveal" style="--reveal-delay:.42s;--reveal-duration:.45s">
-        <span class="dot"></span><span>Agenda tu asesor├¡a gratuita</span>
+        <span class="dot"></span><span>Agenda tu asesoría gratuita</span>
       </div>
     </div>
   </div>
 
   <div class="carousel carousel--auto" data-speed="35">
     <div class="carousel__track" tabindex="-1">
-      {works.map((src, i) => (
+      <figure class="carousel__item">
+        <img
+          src={primaryWork}
+          alt="Proyecto destacado 1"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+          width="1600"
+          height="1000"
+          sizes="(min-width: 1024px) 30vw, 80vw"
+        />
+      </figure>
+      {secondaryWorks.map((src, i) => (
         <figure class="carousel__item">
           <img
             src={src}
-            alt={`Proyecto ${i + 1}`}
-            loading={i === 0 ? 'eager' : 'lazy'}
+            alt={`Proyecto ${i + 2}`}
+            loading="lazy"
             decoding="async"
-            fetchpriority={i === 0 ? 'high' : 'auto'}
+            fetchpriority="auto"
             width="1600"
             height="1000"
             sizes="(min-width: 1024px) 30vw, 80vw"
@@ -430,7 +443,39 @@ const { title, tagline, subtitle, works } = heroContent;
     object-fit: cover;
     transform: translateZ(0);
   }
+
+  @media (max-width: 768px) {
+    .carousel {
+      width: 100%;
+      max-width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      left: auto;
+      transform: none;
+      overflow-x: auto;
+      padding-inline: 16px;
+      scroll-snap-type: x mandatory;
+    }
+    .carousel__track {
+      gap: 14px;
+      padding-bottom: 6px;
+      width: max-content;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
+    .carousel__item {
+      scroll-snap-align: center;
+    }
+    .carousel::-webkit-scrollbar {
+      display: none;
+    }
+    .carousel {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  }
 </style>
+
 
 
 
