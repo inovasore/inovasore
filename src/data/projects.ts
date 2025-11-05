@@ -35,7 +35,7 @@ export const projects = [
     url: '/contacto',
   },
   {
-    title: 'Genius Video -',
+    title: 'Genius Video',
     category: 'Landing Page',
     description: 'Landing page orientada a la venta de un curso para aprender a grabar y editar videos desde el celular, diseñada para captar leads y aumentar conversiones.',
     image: '/works/work-1.webp',
