@@ -8,8 +8,8 @@ import LiteYouTube from "./LiteYouTube.astro";
       Nuestra misión
     </div>
     <h2 class="mission__title reveal" style="--reveal-delay:.16s;--reveal-duration:.55s;--reveal-distance:12px">
-      <span class="line">Nuestra misión es desarrollar</span>
-      <span class="line">sitios <span class="highlight">web que atraigan a los clientes.</span></span>
+      <span class="line">Nuestra misión es brindar</span>
+      <span class="line highlight">soluciones digitales innovadoras.</span>
     </h2>
     <p class="mission__subtitle reveal" style="--reveal-delay:.24s;--reveal-duration:.45s;--reveal-distance:10px">
       Sin embargo, aquí abordamos las cosas de manera un poco diferente.
@@ -43,29 +43,35 @@ import LiteYouTube from "./LiteYouTube.astro";
       border-radius:999px;
       border:1px solid rgba(255, 255, 255, .35);
       background: color-mix(in oklab, var(--surface, #101828) 55%, transparent);
+      color: var(--color-text-muted, #ffffff);
+    }
+    :root:not(.dark) .mission__tag{
+      background: rgba(255, 255, 255, .9);
+      border-color: rgba(148, 163, 184, .28);
+      color: rgba(15, 23, 42, .72);
     }
     .mission__title{
-      margin: clamp(10px, 2.5vh, 18px) auto clamp(8px, 2vh, 14px);
-      max-width: 22ch;
-      font-size: clamp(2.1rem, 1.6rem + 2vw, 2.9rem);
+      font-size: clamp(1.8rem, 3.2vw + .6rem, 2.5rem);
       font-weight: 600;
-      line-height: 1.15;
+      line-height: 1.25; /* antes 1.15 */
+      margin: clamp(12px, 2.4vh, 18px) auto clamp(10px, 2.4vh, 18px);
+      max-width: 28ch;
     }
     .mission__title .line{
       display:block;
     }
     .mission__title .highlight{
-      background-image: linear-gradient(90deg, #1b56fd, #3b82f6);
+      background-image: linear-gradient(90deg, #26d2f8, #23b2ff, #0973e1 70%, #3b5bff 100%);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      -webkit-text-fill-color: transparent;
     }
     .mission__subtitle{
-      margin:0 auto clamp(18px, 4vh, 26px);
+      margin: clamp(6px, 1.4vh, 12px) auto clamp(24px, 5.8vh, 36px);
       max-width: 54ch;
       font-size: clamp(1rem, 0.95rem + 0.35vw, 1.15rem);
       color: color-mix(in oklab, var(--color-text) 74%, transparent);
+      text-align: center;
     }
     .video-wrap{
       margin-top: clamp(18px, 4vh, 28px);
