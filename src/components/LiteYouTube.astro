@@ -25,9 +25,7 @@ if (params) {
 }
 
 const embedUrl = `https://www.youtube.com/embed/${videoId}?${defaultParams.toString()}`;
-const remotePoster = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
-const localPoster = poster ?? `/youtube/${videoId}.jpg`;
-const posterUrl = `url('${localPoster}'), url('${remotePoster}')`;
+const posterUrl = poster ?? `/youtube/${videoId}.jpg`;
 ---
 
 <div
@@ -36,7 +34,7 @@ const posterUrl = `url('${localPoster}'), url('${remotePoster}')`;
   data-embed={embedUrl}
 >
   <button class="lite-youtube__button" type="button" aria-label={`Reproducir video: ${title}`} data-lite-youtube-trigger>
-    <span class="lite-youtube__poster" style={`background-image:${posterUrl}`} aria-hidden="true"></span>
+    <span class="lite-youtube__poster" style={`background-image:url('${posterUrl}')`} aria-hidden="true"></span>
     <span class="lite-youtube__scrim" aria-hidden="true"></span>
     <span class="lite-youtube__play" aria-hidden="true">
       <span class="lite-youtube__triangle"></span>
