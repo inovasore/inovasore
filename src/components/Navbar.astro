@@ -1,4 +1,4 @@
----
+﻿---
 const links = [
   { href: "/", label: "Inicio" },
   { href: "/servicios", label: "Servicios" },
@@ -44,7 +44,7 @@ const links = [
       id="primary-navigation"
       role="navigation"
       data-nav-menu
-      data-state="closed"
+      data-state="open"
     >
       <ul class="nav-links">
         {links.map((l) => (
@@ -77,6 +77,8 @@ const links = [
     let menuOpen = false;
 
     const isMobileView = () => mq?.matches ?? window.innerWidth <= 960;
+
+    nav.setAttribute('data-enhanced', 'true');
 
     const updateToggleLabel = (open) => {
       if (toggle) {
@@ -206,6 +208,7 @@ const links = [
           mq.removeListener(handleMedia);
         }
       }
+      nav.removeAttribute('data-enhanced');
     };
 
     document.addEventListener('astro:before-swap', cleanupNav, { once: true });
@@ -244,3 +247,4 @@ const links = [
     }
   });
 </script>
+

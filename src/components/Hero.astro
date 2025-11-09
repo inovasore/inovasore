@@ -474,6 +474,15 @@ const [primaryWork, ...secondaryWorks] = works;
       scrollbar-width: none;
     }
   }
+
+  @supports not (color: color-mix(in oklab, black 50%, white)) {
+    .pill {
+      background: rgba(243, 244, 246, 0.6);
+    }
+    .carousel__item {
+      border-color: rgba(99, 102, 241, 0.26);
+    }
+  }
 </style>
 
 

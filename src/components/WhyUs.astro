@@ -286,6 +286,35 @@ import { whyUsCards } from "../data/why-us";
         text-align: left;
       }
     }
+
+    @supports not (color: color-mix(in oklab, black 50%, white)) {
+      .why__tag{
+        background: rgba(16, 24, 38, 0.85);
+      }
+      :root:not(.dark) .why__tag{
+        background: rgba(255, 255, 255, 0.92);
+      }
+      .why__subtitle{
+        color: rgba(226, 232, 240, 0.7);
+      }
+      :root:not(.dark) .why__subtitle{
+        color: rgba(15, 23, 42, 0.64);
+      }
+      .why__card{
+        background: rgba(12, 14, 22, 0.9);
+        border-color: rgba(255, 255, 255, 0.08);
+      }
+      :root:not(.dark) .why__card{
+        background: rgba(243, 244, 246, 0.95);
+        border-color: rgba(0, 0, 0, 0.12);
+      }
+      .why__card-desc{
+        color: rgba(226, 232, 240, 0.76);
+      }
+      :root:not(.dark) .why__card-desc{
+        color: #334155;
+      }
+    }
   </style>
 </section>
 

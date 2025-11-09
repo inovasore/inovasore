@@ -34,11 +34,11 @@ import { faqs } from "../data/faqs";
           data-faq
           style={`--reveal-delay:${(0.16 + index * 0.06).toFixed(2)}s;--reveal-duration:.45s;--reveal-distance:12px`}
         >
-          <button class="faq__question" type="button" aria-expanded="false">
+          <button class="faq__question" type="button" aria-expanded="true">
             <span>{item.question}</span>
             <span class="material-symbols-rounded faq__icon" aria-hidden="true">add</span>
           </button>
-          <div class="faq__answer" hidden>
+          <div class="faq__answer">
             <p>{item.answer}</p>
           </div>
         </article>
@@ -475,9 +475,47 @@ import { faqs } from "../data/faqs";
         padding: 0 1rem .9rem;
       }
     }
+
+    @supports not (color: color-mix(in oklab, black 50%, white)) {
+      .faq__tag{
+        background: rgba(16, 24, 40, 0.55);
+      }
+      :root:not(.dark) .faq__tag{
+        background: rgba(255, 255, 255, 0.94);
+      }
+      .faq__subtitle{
+        color: rgba(226, 232, 240, 0.72);
+      }
+      :root:not(.dark) .faq__subtitle{
+        color: rgba(15, 23, 42, 0.72);
+      }
+      .faq__item{
+        border-color: rgba(99, 102, 241, 0.2);
+        background: rgba(12, 14, 22, 0.92);
+      }
+      :root:not(.dark) .faq__item{
+        background: rgba(247, 248, 250, 0.96);
+        border-color: rgba(0, 0, 0, 0.12);
+      }
+      .faq__question{
+        border-color: rgba(99, 102, 241, 0.18);
+      }
+      .faq__answer{
+        color: rgba(226, 232, 240, 0.78);
+      }
+      :root:not(.dark) .faq__answer{
+        color: rgba(15, 23, 42, 0.7);
+      }
+      .faq__cta{
+        background: rgba(12, 14, 22, 0.75);
+        border-color: rgba(59, 130, 246, 0.18);
+      }
+      :root:not(.dark) .faq__cta{
+        background: rgba(255, 255, 255, 0.94);
+        border-color: rgba(15, 23, 42, 0.08);
+      }
+    }
   </style>
 </section>
-
-
 
 

@@ -397,5 +397,37 @@
       border-color: rgba(59, 130, 246, .35);
       box-shadow: 0 10px 30px rgba(0, 0, 0, .25), inset 0 1px 0 rgba(255, 255, 255, .04);
     }
+
+    @supports not (color: color-mix(in oklab, black 50%, white)) {
+      .tools__tag{
+        background: rgba(16, 24, 40, 0.55);
+      }
+      :root:not(.dark) .tools__tag{
+        background: rgba(255, 255, 255, 0.94);
+      }
+      .tools__subtitle{
+        color: rgba(226, 232, 240, 0.7);
+      }
+      :root:not(.dark) .tools__subtitle{
+        color: rgba(15, 23, 42, 0.68);
+      }
+      .tools__card{
+        background: rgba(12, 14, 22, 0.92);
+        border-color: rgba(59, 130, 246, 0.28);
+      }
+      :root:not(.dark) .tools__card{
+        background: rgba(247, 248, 250, 0.96);
+        border-color: rgba(0, 0, 0, 0.12);
+      }
+      .tools__card-desc{
+        color: rgba(226, 232, 240, 0.78);
+      }
+      :root:not(.dark) .tools__card-desc{
+        color: #334155;
+      }
+      .tools__open{
+        background: rgba(18, 24, 38, 0.55);
+      }
+    }
   </style>
 </section>

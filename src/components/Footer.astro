@@ -411,15 +411,78 @@ const phoneHref = phone ? `tel:${phone.replace(/\s+/g, "")}` : null;
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .footer__social-link,
-    .footer__btn {
-      transition: none;
-    }
+    @media (prefers-reduced-motion: reduce) {
+      .footer__social-link,
+      .footer__btn {
+        transition: none;
+      }
 
     .footer__social-link:hover,
     .footer__btn:hover {
       transform: none;
     }
-  }
-</style>
+    }
+
+    @supports not (color: color-mix(in oklab, black 50%, white)) {
+      .footer {
+        background: #f8fafc;
+        color: #0f172a;
+        border-top: 1px solid rgba(15, 23, 42, 0.12);
+      }
+      .dark .footer {
+        background: #050613;
+        color: #f8fafc;
+        border-top-color: rgba(255, 255, 255, 0.12);
+      }
+      .footer__social-link {
+        background: rgba(255, 255, 255, 0.96);
+        border-color: rgba(37, 99, 235, 0.35);
+        color: #2563eb;
+      }
+      .footer__social-link:hover,
+      .footer__social-link:focus-visible {
+        background: rgba(37, 99, 235, 0.15);
+        border-color: rgba(37, 99, 235, 0.55);
+        color: #1d4ed8;
+      }
+      .dark .footer__social-link {
+        background: rgba(37, 99, 235, 0.25);
+        border-color: rgba(59, 130, 246, 0.45);
+        color: #fff;
+      }
+      .footer__contact address {
+        color: rgba(15, 23, 42, 0.7);
+      }
+      .dark .footer__contact address {
+        color: rgba(226, 232, 240, 0.75);
+      }
+      .footer__contact a {
+        color: #2563eb;
+      }
+      .footer__btn--ghost {
+        background: rgba(243, 244, 246, 0.9);
+        border-color: rgba(148, 163, 184, 0.35);
+        color: rgba(15, 23, 42, 0.8);
+      }
+      .footer__btn--ghost:hover,
+      .footer__btn--ghost:focus-visible {
+        background: rgba(243, 244, 246, 1);
+        border-color: rgba(37, 99, 235, 0.35);
+        color: #1d4ed8;
+      }
+      .footer__bottom {
+        border-top: 1px solid rgba(148, 163, 184, 0.4);
+        color: rgba(15, 23, 42, 0.65);
+      }
+      .dark .footer__bottom {
+        color: rgba(226, 232, 240, 0.7);
+      }
+      .footer__quick-links a {
+        color: rgba(15, 23, 42, 0.75);
+      }
+      .footer__quick-links a:hover,
+      .footer__quick-links a:focus-visible {
+        color: #2563eb;
+      }
+    }
+  </style>

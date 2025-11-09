@@ -217,14 +217,21 @@ body.nav-open{ overflow:hidden; }
     width:clamp(260px,92vw,720px);
   }
   .nav-menu{
+    flex-direction:column;
+    align-items:stretch;
+    gap:1rem;
+    padding:0;
+    position:static;
+    box-shadow:none;
+    border:none;
+    background:transparent;
+    width:100%;
+  }
+  .navbar[data-enhanced="true"] .nav-menu{
     position:absolute;
     top:calc(100% + .75rem);
     right:0;
     left:0;
-    display:flex;
-    flex-direction:column;
-    align-items:stretch;
-    gap:1rem;
     padding:1.15rem;
     border-radius:26px;
     border:1px solid var(--border);
@@ -236,11 +243,11 @@ body.nav-open{ overflow:hidden; }
     visibility:hidden;
     transition:opacity .25s ease, transform .25s ease;
   }
-  .dark .nav-menu{
+  .dark .navbar[data-enhanced="true"] .nav-menu{
     background:rgba(15,23,42,.92);
     box-shadow:0 24px 50px rgba(2,6,23,.6);
   }
-  .nav-menu[data-state="open"]{
+  .navbar[data-enhanced="true"] .nav-menu[data-state="open"]{
     opacity:1;
     pointer-events:auto;
     transform:translateY(0) scale(1);
@@ -368,4 +375,29 @@ html.theme-switching *::after{
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+}
+
+@supports not (color: color-mix(in oklab, black 50%, white)) {
+  .navbar{
+    background: rgba(243, 244, 246, 0.9);
+  }
+  .navbar[data-enhanced="true"] .nav-menu{
+    background: rgba(255, 255, 255, 0.96);
+  }
+  .nav-links a:focus-visible,
+  .btn:focus-visible,
+  .btn-theme:focus-visible,
+  .logo:focus-visible{
+    outline-color: rgba(37, 99, 235, 0.7);
+  }
+  .btn-theme:hover,
+  .nav-toggle:hover{
+    border-color: rgba(37, 99, 235, 0.4);
+  }
+  .nav-links a:hover{
+    background: rgba(37, 99, 235, 0.08);
+  }
+  .section-tag{
+    background: rgba(18, 24, 38, 0.4);
+  }
 }

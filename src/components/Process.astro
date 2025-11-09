@@ -334,9 +334,40 @@
       border: none;
       box-shadow: none;
     }
+
+    @supports not (color: color-mix(in oklab, black 50%, white)) {
+      .process__tag{
+        background: rgba(16, 24, 40, 0.55);
+      }
+      :root:not(.dark) .process__tag{
+        background: rgba(255, 255, 255, 0.94);
+      }
+      .process__subtitle{
+        color: rgba(226, 232, 240, 0.72);
+      }
+      :root:not(.dark) .process__subtitle{
+        color: rgba(15, 23, 42, 0.7);
+      }
+      .process__card{
+        background: rgba(12, 14, 22, 0.92);
+        border-color: rgba(59, 130, 246, 0.28);
+      }
+      :root:not(.dark) .process__card{
+        background: rgba(247, 248, 250, 0.96);
+        border-color: rgba(0, 0, 0, 0.12);
+      }
+      .process__card-desc{
+        color: rgba(226, 232, 240, 0.78);
+      }
+      :root:not(.dark) .process__card-desc{
+        color: #334155;
+      }
+      .process__badge{
+        background: rgba(18, 24, 38, 0.55);
+      }
+    }
   </style>
 </section>
-
 
 
 

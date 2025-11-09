@@ -335,4 +335,43 @@ const { offsetTop = "0px" } = Astro.props;
       animation: none;
     }
   }
+
+  @supports not (color: color-mix(in oklab, black 50%, white)) {
+    .services__tag{
+      background: rgba(16, 24, 40, 0.55);
+    }
+    :root:not(.dark) .services__tag{
+      background: rgba(255, 255, 255, 0.94);
+    }
+    .services__subtitle{
+      color: rgba(226, 232, 240, 0.72);
+    }
+    :root:not(.dark) .services__subtitle{
+      color: rgba(15, 23, 42, 0.72);
+    }
+    .service-card{
+      background: rgba(12, 14, 22, 0.94);
+      border-color: rgba(59, 130, 246, 0.2);
+    }
+    :root:not(.dark) .service-card{
+      background: rgba(247, 248, 250, 0.96);
+      border-color: rgba(0, 0, 0, 0.12);
+    }
+    .service-card__summary,
+    .service-card__list li{
+      color: rgba(226, 232, 240, 0.78);
+    }
+    :root:not(.dark) .service-card__summary,
+    :root:not(.dark) .service-card__list li{
+      color: rgba(15, 23, 42, 0.78);
+    }
+    .services__chip{
+      background: rgba(243, 244, 246, 0.9);
+      border-color: rgba(59, 130, 246, 0.18);
+    }
+    .dark .services__chip{
+      background: rgba(15, 23, 42, 0.78);
+      border-color: rgba(148, 163, 184, 0.32);
+    }
+  }
 </style>

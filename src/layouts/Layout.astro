@@ -47,12 +47,26 @@ const organizationSchema = JSON.stringify({
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preload" as="style" href={poppinsHref} />
-    <link rel="stylesheet" href={poppinsHref} media="print" onload="this.media='all'" />
+    <link id="font-poppins" rel="stylesheet" href={poppinsHref} media="print" />
     <noscript><link rel="stylesheet" href={poppinsHref} /></noscript>
     <!-- Material Symbols (Google Icons) -->
     <link rel="preload" as="style" href={materialHref} />
-    <link rel="stylesheet" href={materialHref} media="print" onload="this.media='all'" />
+    <link id="font-material" rel="stylesheet" href={materialHref} media="print" />
     <noscript><link rel="stylesheet" href={materialHref} /></noscript>
+
+    <script is:inline>
+      (() => {
+        const enableFont = (id) => {
+          const el = document.getElementById(id);
+          if (!(el instanceof HTMLLinkElement) || el.media !== 'print') return;
+          el.addEventListener('load', () => {
+            el.media = 'all';
+          }, { once: true });
+        };
+        enableFont('font-poppins');
+        enableFont('font-material');
+      })();
+    </script>
 
     {pathname === '/' && (
       <link

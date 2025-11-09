@@ -330,8 +330,36 @@ import { projects } from "../data/projects";
         aspect-ratio: 16 / 9;
       }
     }
+
+    @supports not (color: color-mix(in oklab, black 50%, white)) {
+      .projects__tag{
+        background: rgba(16, 24, 40, 0.55);
+      }
+      :root:not(.dark) .projects__tag{
+        background: rgba(255, 255, 255, 0.94);
+      }
+      .projects__subtitle{
+        color: rgba(226, 232, 240, 0.7);
+      }
+      :root:not(.dark) .projects__subtitle{
+        color: rgba(15, 23, 42, 0.68);
+      }
+      .project-card{
+        background: rgba(12, 14, 22, 0.92);
+        border-color: rgba(59, 130, 246, 0.26);
+      }
+      :root:not(.dark) .project-card{
+        background: rgba(247, 248, 250, 0.96);
+        border-color: rgba(0, 0, 0, 0.12);
+      }
+      .project-card__description{
+        color: rgba(226, 232, 240, 0.78);
+      }
+      :root:not(.dark) .project-card__description{
+        color: rgba(30, 41, 59, 0.75);
+      }
+    }
   </style>
 </section>
-
 
 

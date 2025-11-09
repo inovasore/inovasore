@@ -270,7 +270,7 @@ const serviceChips = [
       });
 
       const isMobileDevice = () => {
-        const ua = navigator.userAgent || navigator.vendor || window.opera || '';
+        const ua = navigator.userAgent || String(window.opera ?? '');
         return /android|iphone|ipad|ipod|windows phone|iemobile|blackberry|opera mini/i.test(ua.toLowerCase());
       };
 
@@ -450,6 +450,20 @@ const serviceChips = [
     --contact-panel-eyebrow-color: #ffffff;
     --contact-panel-option-bg: rgba(12, 14, 22, 0.9);
     --contact-panel-option-text: #f8fafc;
+  }
+
+  @supports not (color: color-mix(in oklab, black 50%, white)) {
+    :root {
+      --contact-panel-text: #0f172a;
+      --contact-panel-surface: linear-gradient(
+        180deg,
+        rgba(243, 244, 246, 0.9),
+        rgba(243, 244, 246, 0.82)
+      );
+      --contact-panel-muted: rgba(15, 23, 42, 0.68);
+      --contact-panel-option-bg: rgba(243, 244, 246, 0.6);
+      --contact-panel-option-text: #0f172a;
+    }
   }
 
   .contact-panel {

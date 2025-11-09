@@ -87,5 +87,20 @@ import LiteYouTube from "./LiteYouTube.astro";
       position:relative;
       aspect-ratio:16/9;
     }
+
+    @supports not (color: color-mix(in oklab, black 50%, white)) {
+      .mission__tag{
+        background: rgba(16, 24, 40, 0.55);
+      }
+      .mission__subtitle{
+        color: rgba(226, 232, 240, 0.74);
+      }
+      :root:not(.dark) .mission__subtitle{
+        color: rgba(15, 23, 42, 0.7);
+      }
+      .video-frame{
+        border-color: rgba(37, 99, 235, 0.18);
+      }
+    }
   </style>
 </section>
