@@ -3,15 +3,22 @@ import Layout from "../layouts/Layout.astro";
 import ContactPanel from "../components/ContactPanel.astro";
 ---
 
-<Layout title="Contacto | Inovasore" description="Ponte en contacto con nosotros para tu pr├│ximo proyecto.">
+<Layout
+  title="Contacto | Inovasore"
+  description="Ponte en contacto con nosotros para tu próximo proyecto."
+>
   <section class="contact-page-hero">
+    <div style="height: clamp(100px, 15vh, 120px);"></div>
     <div class="section-inner section-inner--center contact-page-hero__inner">
       <div class="section-tag contact-page-hero__tag">Contáctanos</div>
       <h1 class="contact-page-hero__title">
-        <span class="contact-page-hero__nowrap">Agenda una</span> llamada o <span class="highlight">escríbenos hoy mismo.</span>
+        <span class="contact-page-hero__nowrap">Agenda una</span> llamada o <span
+          class="highlight">escríbenos hoy mismo.</span
+        >
       </h1>
       <p class="contact-page-hero__subtitle">
-        ¿Tienes un proyecto en mente? Cuéntanos más sobre él y descubre cómo podemos hacerlo realidad. También puedes escribirnos a:
+        ¿Tienes un proyecto en mente? Cuéntanos más sobre él y descubre cómo
+        podemos hacerlo realidad. También puedes escribirnos a:
         <a href="mailto:info@inovasore.com">disenoweb@inovasore.com</a>.
       </p>
     </div>
@@ -22,7 +29,8 @@ import ContactPanel from "../components/ContactPanel.astro";
 
 <style>
   .contact-page-hero {
-    padding: calc(var(--section-padding-y) + clamp(8px, 3vh, 18px)) 0 var(--section-padding-y);
+    padding: calc(var(--section-padding-y) + clamp(8px, 3vh, 18px)) 0
+      var(--section-padding-y);
     color: var(--color-text);
   }
 
@@ -38,7 +46,7 @@ import ContactPanel from "../components/ContactPanel.astro";
     max-width: 21ch;
     font-size: clamp(1.9rem, 2.4vw + 0.95rem, 2.35rem);
     font-weight: 600;
-    letter-spacing: .2px;
+    letter-spacing: 0.2px;
     line-height: 1.08;
     text-wrap: balance;
     text-align: center;
@@ -51,7 +59,13 @@ import ContactPanel from "../components/ContactPanel.astro";
 
   .contact-page-hero__title .highlight {
     display: inline-block;
-    background-image: linear-gradient(90deg, #26d2f8, #23b2ff, #0973e1 70%, #3b5bff 100%);
+    background-image: linear-gradient(
+      90deg,
+      #26d2f8,
+      #23b2ff,
+      #0973e1 70%,
+      #3b5bff 100%
+    );
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -62,15 +76,15 @@ import ContactPanel from "../components/ContactPanel.astro";
     margin-top: clamp(2px, 1.2vh, 8px);
     color: rgba(248, 250, 252, 0.95);
     font-weight: 500;
-    border-color: rgba(148, 163, 184, 0.32);
-    background: color-mix(in oklab, rgba(15, 23, 42, 0.78) 65%, transparent);
+    border-color: #1b56fd !important;
+    background: #000;
     letter-spacing: 0.01em;
   }
 
   .contact-page-hero__subtitle {
     margin: 0 auto clamp(4px, 1.8vh, 10px);
     max-width: 52ch;
-    font-size: clamp(.95rem, 0.9rem + 0.22vw, 1.06rem);
+    font-size: clamp(0.95rem, 0.9rem + 0.22vw, 1.06rem);
     font-weight: 350;
     line-height: 1.32;
     color: color-mix(in oklab, var(--color-text) 72%, transparent);
@@ -92,8 +106,8 @@ import ContactPanel from "../components/ContactPanel.astro";
 
   :root:not(.dark) .contact-page-hero__tag {
     color: rgba(15, 23, 42, 0.86);
-    border-color: rgba(15, 23, 42, 0.12);
-    background: rgba(255, 255, 255, 0.94);
+    border-color: #1b56fd !important;
+    background: #000;
+    color: #fff;
   }
 </style>
-

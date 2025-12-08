@@ -1,10 +1,10 @@
 ---
 import "../styles/global.css";
-import Navbar from "../components/Navbar.astro";
+import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 
 const {
-  title = "Inovasore | Desarrollo web, tiendas online y landing pages",
+  title = "Agencia de Publicidad y Páginas Web en Ambato | Inovasore",
   description = "Creamos páginas web y tiendas online que convierten: landing pages, e-commerce, webs institucionales y plataformas educativas. Diseño moderno, SEO técnico y alto rendimiento.",
   ogTitle = "Desarrollo web y tiendas online que convierten | Inovasore",
   ogDescription = "Impulsa tu presencia digital con sitios rápidos, seguros y optimizados: landing pages, e-commerce, webs institucionales y plataformas educativas. Diseño, SEO técnico y performance para atraer y vender más.",
@@ -12,21 +12,25 @@ const {
   navOffset = "5rem",
 } = Astro.props;
 
-const siteOrigin = (Astro.site ? new URL(Astro.site).origin : 'https://Inovasore.com');
-const pathname = Astro.url?.pathname ?? '/';
-const canonical = siteOrigin.replace(/\/$/, '') + pathname;
-const poppinsHref = "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap";
-const materialHref = "https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24..48,600,1,0&display=swap";
+const siteOrigin = Astro.site
+  ? new URL(Astro.site).origin
+  : "https://Inovasore.com";
+const pathname = Astro.url?.pathname ?? "/";
+const canonical = siteOrigin.replace(/\/$/, "") + pathname;
+const interHref =
+  "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap";
+const materialHref =
+  "https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24..48,600,1,0&display=swap";
 const organizationSchema = JSON.stringify({
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'Inovasore',
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Inovasore",
   url: siteOrigin,
   sameAs: [
-    'https://www.facebook.com/Inovasore',
-    'https://www.instagram.com/Inovasore/'
+    "https://www.facebook.com/Inovasore",
+    "https://www.instagram.com/Inovasore/",
   ],
-  logo: siteOrigin + '/Logotipo.svg'
+  logo: siteOrigin + "/Logotipo.svg",
 });
 ---
 
@@ -43,40 +47,51 @@ const organizationSchema = JSON.stringify({
     <!-- Favicon -->
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
-    <!-- Webfonts: usa link en vez de @import para mejor rendimiento -->
+    <!-- Webfonts: link instead of @import for better performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href={poppinsHref} />
-    <link id="font-poppins" rel="stylesheet" href={poppinsHref} media="print" />
-    <noscript><link rel="stylesheet" href={poppinsHref} /></noscript>
+    <link rel="preload" as="style" href={interHref} />
+    <link id="font-inter" rel="stylesheet" href={interHref} media="print" />
+    <noscript><link rel="stylesheet" href={interHref} /></noscript>
     <!-- Material Symbols (Google Icons) -->
     <link rel="preload" as="style" href={materialHref} />
-    <link id="font-material" rel="stylesheet" href={materialHref} media="print" />
+    <link
+      id="font-material"
+      rel="stylesheet"
+      href={materialHref}
+      media="print"
+    />
     <noscript><link rel="stylesheet" href={materialHref} /></noscript>
 
     <script is:inline>
       (() => {
         const enableFont = (id) => {
           const el = document.getElementById(id);
-          if (!(el instanceof HTMLLinkElement) || el.media !== 'print') return;
-          el.addEventListener('load', () => {
-            el.media = 'all';
-          }, { once: true });
+          if (!(el instanceof HTMLLinkElement) || el.media !== "print") return;
+          el.addEventListener(
+            "load",
+            () => {
+              el.media = "all";
+            },
+            { once: true },
+          );
         };
-        enableFont('font-poppins');
-        enableFont('font-material');
+        enableFont("font-inter");
+        enableFont("font-material");
       })();
     </script>
 
-    {pathname === '/' && (
-      <link
-        rel="preload"
-        as="image"
-        href="/works/work-1.webp"
-        imagesizes="(min-width: 1024px) 30vw, 80vw"
-        fetchpriority="high"
-      />
-    )}
+    {
+      pathname === "/" && (
+        <link
+          rel="preload"
+          as="image"
+          href="/works/work-1.webp"
+          imagesizes="(min-width: 1024px) 30vw, 80vw"
+          fetchpriority="high"
+        />
+      )
+    }
 
     <!-- Open Graph / Twitter -->
     <meta property="og:type" content="website" />
@@ -93,27 +108,16 @@ const organizationSchema = JSON.stringify({
     <meta name="twitter:description" content={ogDescription} />
     <meta name="twitter:image" content={ogImage} />
 
-    <script type="application/ld+json" is:inline set:html={organizationSchema}></script>
-
-    <!-- Dark por defecto (si no hay preferencia guardada) -->
-    <script is:inline>
-      try {
-        const root = document.documentElement;
-        let t = localStorage.getItem('theme');
-        if (t !== 'light' && t !== 'dark') {
-          t = 'dark';
-          localStorage.setItem('theme', t);
-        }
-        root.classList.toggle('dark', t !== 'light');
-      } catch (_) {
-        document.documentElement.classList.add('dark');
-      }
-    </script>
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={organizationSchema}
+    />
   </head>
 
   <body id="top">
-    <Navbar />
-    <main style={`padding-top:${navOffset}`}>
+    <Header />
+    <main>
       <slot />
     </main>
     <Footer />
@@ -123,34 +127,39 @@ const organizationSchema = JSON.stringify({
         window.__InovasoreRevealInitialized = true;
 
         const init = () => {
-          const revealEls = document.querySelectorAll('.reveal');
+          const revealEls = document.querySelectorAll(".reveal");
           if (!revealEls.length) return;
 
-          const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-          if (!('IntersectionObserver' in window) || prefersReduced) {
-            revealEls.forEach((el) => el.classList.add('in'));
+          const prefersReduced =
+            window.matchMedia &&
+            window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (!("IntersectionObserver" in window) || prefersReduced) {
+            revealEls.forEach((el) => el.classList.add("in"));
             return;
           }
 
-          const observer = new IntersectionObserver((entries) => {
-            for (const { isIntersecting, target } of entries) {
-              if (!isIntersecting) continue;
-              target.classList.remove('in');
-              requestAnimationFrame(() => {
-                target.classList.add('in');
-              });
-              observer.unobserve(target);
-            }
-          }, { threshold: 0.05, rootMargin: '5% 0px -5% 0px' });
+          const observer = new IntersectionObserver(
+            (entries) => {
+              for (const { isIntersecting, target } of entries) {
+                if (!isIntersecting) continue;
+                target.classList.remove("in");
+                requestAnimationFrame(() => {
+                  target.classList.add("in");
+                });
+                observer.unobserve(target);
+              }
+            },
+            { threshold: 0.05, rootMargin: "5% 0px -5% 0px" },
+          );
 
           revealEls.forEach((el) => {
-            el.classList.remove('in');
+            el.classList.remove("in");
             observer.observe(el);
           });
         };
 
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', init, { once: true });
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", init, { once: true });
         } else {
           init();
         }

@@ -4,18 +4,30 @@ import LiteYouTube from "./LiteYouTube.astro";
 
 <section class="mission">
   <div class="section-inner section-inner--center mission__inner">
-    <div class="section-tag mission__tag reveal" style="--reveal-delay:.08s;--reveal-duration:.45s;--reveal-distance:10px">
+    <div
+      class="section-tag mission__tag reveal"
+      style="--reveal-delay:.08s;--reveal-duration:.45s;--reveal-distance:10px"
+    >
       Nuestra misión
     </div>
-    <h2 class="mission__title reveal" style="--reveal-delay:.16s;--reveal-duration:.55s;--reveal-distance:12px">
+    <h2
+      class="mission__title reveal"
+      style="--reveal-delay:.16s;--reveal-duration:.55s;--reveal-distance:12px"
+    >
       <span class="line">Nuestra misión es brindar</span>
       <span class="line highlight">soluciones digitales innovadoras.</span>
     </h2>
-    <p class="mission__subtitle reveal" style="--reveal-delay:.24s;--reveal-duration:.45s;--reveal-distance:10px">
+    <p
+      class="mission__subtitle reveal"
+      style="--reveal-delay:.24s;--reveal-duration:.45s;--reveal-distance:10px"
+    >
       Sin embargo, aquí abordamos las cosas de manera un poco diferente.
     </p>
 
-    <div class="video-wrap reveal" style="--reveal-delay:.26s;--reveal-duration:.5s;--reveal-distance:12px">
+    <div
+      class="video-wrap reveal"
+      style="--reveal-delay:.26s;--reveal-duration:.5s;--reveal-distance:12px"
+    >
       <div class="video-frame">
         <div class="video">
           <LiteYouTube
@@ -29,78 +41,75 @@ import LiteYouTube from "./LiteYouTube.astro";
     </div>
   </div>
   <style>
-    .mission{
+    .mission {
       padding: var(--section-padding-y) 0;
-      background: var(--color-bg);
+      background: transparent;
       color: var(--color-text);
+      position: relative;
     }
-    .mission__tag{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:.45rem;
-      padding:.6rem 1.35rem;
-      border-radius:999px;
-      border:1px solid rgba(255, 255, 255, .35);
-      background: color-mix(in oklab, var(--surface, #101828) 55%, transparent);
-      color: var(--color-text-muted, #ffffff);
+    .mission::before {
+      display: none;
     }
-    :root:not(.dark) .mission__tag{
-      background: rgba(255, 255, 255, .9);
-      border-color: rgba(148, 163, 184, .28);
-      color: rgba(15, 23, 42, .72);
+    .mission__inner {
+      position: relative;
+      z-index: 1;
     }
-    .mission__title{
-      font-size: clamp(1.8rem, 3.2vw + .6rem, 2.5rem);
+
+    .mission__title {
+      font-size: clamp(1.8rem, 3.2vw + 0.6rem, 2.5rem);
       font-weight: 600;
       line-height: 1.25; /* antes 1.15 */
       margin: clamp(12px, 2.4vh, 18px) auto clamp(10px, 2.4vh, 18px);
       max-width: 28ch;
     }
-    .mission__title .line{
-      display:block;
+    .mission__title .line {
+      display: block;
     }
-    .mission__title .highlight{
-      background-image: linear-gradient(90deg, #26d2f8, #23b2ff, #0973e1 70%, #3b5bff 100%);
+    .mission__title .highlight {
+      background-image: linear-gradient(
+        90deg,
+        #26d2f8,
+        #23b2ff,
+        #0973e1 70%,
+        #3b5bff 100%
+      );
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
     }
-    .mission__subtitle{
+    .mission__subtitle {
       margin: clamp(6px, 1.4vh, 12px) auto clamp(24px, 5.8vh, 36px);
       max-width: 54ch;
       font-size: clamp(1rem, 0.95rem + 0.35vw, 1.15rem);
       color: color-mix(in oklab, var(--color-text) 74%, transparent);
       text-align: center;
     }
-    .video-wrap{
+    .video-wrap {
       margin-top: clamp(18px, 4vh, 28px);
     }
-    .video-frame{
-      position:relative;
-      border-radius: var(--radius-lg);
-      overflow:hidden;
-      border:1px solid color-mix(in oklab, var(--color-primary) 18%, transparent);
-      box-shadow: 0 24px 48px rgba(37, 99, 235, .15);
+    .video-frame {
+      position: relative;
+      border-radius: 24px;
+      padding: 24px;
+      /* Efecto Glassmorphism */
+      background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.07) 0%,
+        rgba(255, 255, 255, 0.03) 100%
+      );
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow:
+        0 20px 40px -4px rgba(0, 0, 0, 0.4),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
-    .video{
-      position:relative;
-      aspect-ratio:16/9;
-    }
-
-    @supports not (color: color-mix(in oklab, black 50%, white)) {
-      .mission__tag{
-        background: rgba(16, 24, 40, 0.55);
-      }
-      .mission__subtitle{
-        color: rgba(226, 232, 240, 0.74);
-      }
-      :root:not(.dark) .mission__subtitle{
-        color: rgba(15, 23, 42, 0.7);
-      }
-      .video-frame{
-        border-color: rgba(37, 99, 235, 0.18);
-      }
+    .video {
+      position: relative;
+      aspect-ratio: 16/9;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
   </style>
 </section>

@@ -22,32 +22,34 @@ import { whyUsCards } from "../data/why-us";
       class="why__subtitle reveal"
       style="--reveal-delay:.2s;--reveal-duration:.45s;--reveal-distance:10px"
     >
-      Descubra por qué Inovasore se destaca en ofrecer soluciones de diseño y desarrollo web innovadoras y centradas en
-      el cliente.
+      Descubra por qué Inovasore se destaca en ofrecer soluciones de diseño y
+      desarrollo web innovadoras y centradas en el cliente.
     </p>
 
     <div class="why__grid">
-      {whyUsCards.map((card, index) => {
-        const style = [
-          `--reveal-delay:${(0.06 + index * 0.06).toFixed(2)}s`,
-          '--reveal-duration:.45s',
-          '--reveal-distance:12px'
-        ].join(';');
+      {
+        whyUsCards.map((card, index) => {
+          const style = [
+            `--reveal-delay:${(0.06 + index * 0.06).toFixed(2)}s`,
+            "--reveal-duration:.45s",
+            "--reveal-distance:12px",
+          ].join(";");
 
-        return (
-          <article class="why__card reveal" style={style}>
-            <div class="why__icon" aria-hidden="true">
-              <span class="material-symbols-rounded" aria-hidden="true">
-                {card.icon}
-              </span>
-            </div>
-            <div class="why__card-body">
-              <h3 class="why__card-title">{card.title}</h3>
-              <p class="why__card-desc">{card.description}</p>
-            </div>
-          </article>
-        );
-      })}
+          return (
+            <article class="why__card reveal" style={style}>
+              <div class="why__icon" aria-hidden="true">
+                <span class="material-symbols-rounded" aria-hidden="true">
+                  {card.icon}
+                </span>
+              </div>
+              <div class="why__card-body">
+                <h3 class="why__card-title">{card.title}</h3>
+                <p class="why__card-desc">{card.description}</p>
+              </div>
+            </article>
+          );
+        })
+      }
     </div>
   </div>
 
@@ -56,26 +58,13 @@ import { whyUsCards } from "../data/why-us";
       position: relative;
       overflow: hidden;
       isolation: isolate;
-      padding: var(--section-padding-y) 0;
+      padding: clamp(160px, 20vh, 220px) 0 60px 0;
       background: var(--color-bg);
       color: var(--color-text);
     }
 
-    .dark .why {
-      background:
-        radial-gradient(520px 320px at 20% 18%, rgba(37, 99, 235, .22), transparent 72%),
-        radial-gradient(460px 280px at 80% 26%, rgba(79, 70, 229, .18), transparent 75%),
-        radial-gradient(720px 520px at 50% 100%, rgba(15, 23, 42, .6), transparent 80%),
-        #050615;
-      color: var(--color-text);
-    }
-
-    .why__tag {
-      color: var(--color-text-muted, #ffffff);
-    }
-
     .why__title {
-      font-size: clamp(1.8rem, 3.2vw + .6rem, 2.5rem);
+      font-size: clamp(1.8rem, 3.2vw + 0.6rem, 2.5rem);
       font-weight: 600;
       line-height: 1.15;
       margin: clamp(12px, 2.4vh, 18px) auto clamp(10px, 2.4vh, 18px);
@@ -83,7 +72,13 @@ import { whyUsCards } from "../data/why-us";
     }
 
     .why__title .highlight {
-      background-image: linear-gradient(90deg, #26d2f8, #23b2ff, #0973e1 70%, #3b5bff 100%);
+      background-image: linear-gradient(
+        90deg,
+        #26d2f8,
+        #23b2ff,
+        #0973e1 70%,
+        #3b5bff 100%
+      );
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
@@ -91,7 +86,7 @@ import { whyUsCards } from "../data/why-us";
 
     .why__subtitle {
       color: color-mix(in oklab, var(--color-text) 60%, transparent);
-      font-size: clamp(1rem, .9rem + .35vw, 1.15rem);
+      font-size: clamp(1rem, 0.9rem + 0.35vw, 1.15rem);
       margin: 0 auto clamp(26px, 6vh, 40px);
       max-width: 60ch;
       font-weight: 300;
@@ -109,22 +104,25 @@ import { whyUsCards } from "../data/why-us";
       text-align: left;
       padding: 20px 22px;
       border-radius: 18px;
-      border: 1px solid var(--border);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       background: linear-gradient(
         180deg,
-        color-mix(in oklab, var(--surface, #121826) 45%, transparent),
-        color-mix(in oklab, var(--surface, #121826) 45%, transparent)
+        rgba(12, 14, 22, 0.92),
+        rgba(12, 14, 22, 0.86)
       );
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
       display: grid;
       grid-template-columns: auto 1fr;
       gap: 16px;
       align-items: start;
-      transition: transform .18s ease, box-shadow .25s ease, border-color .25s ease;
+      transition:
+        transform 0.18s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
     }
 
     .why__card::before {
-      content: '';
+      content: "";
       position: absolute;
       top: 0;
       left: 18px;
@@ -133,36 +131,44 @@ import { whyUsCards } from "../data/why-us";
       border-radius: 0 0 8px 8px;
       pointer-events: none;
       z-index: 2;
-      opacity: .95;
+      opacity: 0.95;
     }
 
+    /* .why__card::after is merged here from dark override */
     .why__card::after {
-      content: '';
+      content: "";
       position: absolute;
       inset: -1px;
       border-radius: inherit;
       pointer-events: none;
       z-index: 1;
       background:
-        radial-gradient(420px 260px at 110% 120%, color-mix(in oklab, var(--color-primary) 22%, transparent), transparent 60%),
-        radial-gradient(300px 220px at -8% 12%, color-mix(in oklab, var(--color-primary-dark) 14%, transparent), transparent 72%);
+        radial-gradient(
+          420px 260px at 110% 120%,
+          rgba(9, 115, 225, 0.04),
+          transparent 60%
+        ),
+        radial-gradient(
+          300px 220px at -8% 12%,
+          rgba(9, 115, 225, 0.02),
+          transparent 72%
+        );
       mix-blend-mode: screen;
-      opacity: .22;
-      transition: opacity .25s ease;
+      opacity: 0.24;
+      transition: opacity 0.25s ease;
     }
 
     .why__card:hover {
       transform: translateY(-2px);
-      border-color: color-mix(in oklab, var(--color-primary) 40%, var(--border));
+      border-color: rgba(59, 130, 246, 0.35);
       box-shadow:
-        var(--shadow-elevated),
-        0 14px 36px color-mix(in oklab, var(--color-primary) 18%, transparent),
-        inset 0 1px 0 rgba(255, 255, 255, .06);
+        0 10px 30px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
       filter: saturate(112%) brightness(1.02);
     }
 
     .why__card:hover::after {
-      opacity: .3;
+      opacity: 0.3;
     }
 
     .why__icon {
@@ -194,71 +200,11 @@ import { whyUsCards } from "../data/why-us";
       margin: 0;
     }
 
-    :root:not(.dark) .why__card-title {
-      color: #0f172a;
-    }
-
     .why__card-desc {
       color: var(--color-text-muted, #9ca3af);
-      font-size: .98rem;
+      font-size: 0.98rem;
       margin: 0;
       line-height: 1.5;
-    }
-
-    :root:not(.dark) .why {
-      background: var(--color-bg);
-    }
-
-    :root:not(.dark) .why__tag {
-      background: rgba(255, 255, 255, .9);
-      color: rgba(15, 23, 42, .72);
-    }
-
-    :root:not(.dark) .why__subtitle {
-      color: rgba(15, 23, 42, .64);
-    }
-
-    :root:not(.dark) .why__card {
-      border-color: rgba(0, 0, 0, .12);
-      background: linear-gradient(
-        180deg,
-        color-mix(in oklab, var(--surface, #f3f4f6) 60%, transparent),
-        color-mix(in oklab, var(--surface, #f3f4f6) 55%, transparent)
-      );
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1);
-    }
-
-    :root:not(.dark) .why__card::after {
-      content: none;
-    }
-
-    :root:not(.dark) .why__card-desc {
-      color: #334155;
-    }
-
-    .dark .why__card {
-      border-color: rgba(255, 255, 255, .08);
-      background: linear-gradient(180deg, rgba(12, 14, 22, .92), rgba(12, 14, 22, .86));
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .03);
-    }
-
-    .dark .why__card::after {
-      background:
-        radial-gradient(420px 260px at 110% 120%, rgba(9, 115, 225, .12), transparent 60%),
-        radial-gradient(300px 220px at -8% 12%, rgba(9, 115, 225, .06), transparent 72%);
-      mix-blend-mode: screen;
-      opacity: .24;
-    }
-
-    .dark .why__card:hover {
-      border-color: rgba(59, 130, 246, .35);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, .25), inset 0 1px 0 rgba(255, 255, 255, .04);
-    }
-
-    .dark .why__icon {
-      background: var(--color-primary);
-      border: none;
-      box-shadow: none;
     }
 
     @media (max-width: 840px) {
@@ -286,35 +232,5 @@ import { whyUsCards } from "../data/why-us";
         text-align: left;
       }
     }
-
-    @supports not (color: color-mix(in oklab, black 50%, white)) {
-      .why__tag{
-        background: rgba(16, 24, 38, 0.85);
-      }
-      :root:not(.dark) .why__tag{
-        background: rgba(255, 255, 255, 0.92);
-      }
-      .why__subtitle{
-        color: rgba(226, 232, 240, 0.7);
-      }
-      :root:not(.dark) .why__subtitle{
-        color: rgba(15, 23, 42, 0.64);
-      }
-      .why__card{
-        background: rgba(12, 14, 22, 0.9);
-        border-color: rgba(255, 255, 255, 0.08);
-      }
-      :root:not(.dark) .why__card{
-        background: rgba(243, 244, 246, 0.95);
-        border-color: rgba(0, 0, 0, 0.12);
-      }
-      .why__card-desc{
-        color: rgba(226, 232, 240, 0.76);
-      }
-      :root:not(.dark) .why__card-desc{
-        color: #334155;
-      }
-    }
   </style>
 </section>
-

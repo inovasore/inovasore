@@ -1,4 +1,5 @@
 ﻿---
+
 ---
 
 <section class="process" id="proceso">
@@ -6,7 +7,7 @@
   <div class="section-inner section-inner--center process__inner">
     <div
       class="section-tag process__tag reveal"
-      style="--reveal-delay:.08s;--reveal-duration:.45s;--reveal-distance:10px"
+      style="--reveal-delay:.08s;--reveal-duration:.45s;--reveal-distance:10px;border:1px solid #1B56FD !important"
     >
       Nuestro Proceso
     </div>
@@ -20,7 +21,8 @@
       class="process__subtitle reveal"
       style="--reveal-delay:.24s;--reveal-duration:.45s;--reveal-distance:10px"
     >
-      Explore nuestro enfoque optimizado para crear sitios web personalizados que se alineen con sus objetivos.
+      Explore nuestro enfoque optimizado para crear sitios web personalizados
+      que se alineen con sus objetivos.
     </p>
 
     <div class="process__grid">
@@ -34,7 +36,8 @@
         <div class="process__badge">Paso 01</div>
         <h3 class="process__card-title">Fase de descubrimiento</h3>
         <p class="process__card-desc">
-          Comprender su marca, objetivos y público objetivo para definir las metas del proyecto.
+          Comprender su marca, objetivos y público objetivo para definir las
+          metas del proyecto.
         </p>
       </article>
 
@@ -43,13 +46,15 @@
         style="--reveal-delay:.12s;--reveal-duration:.4s;--reveal-distance:10px"
       >
         <div class="process__icon" aria-hidden="true">
-          <span class="material-symbols-rounded" aria-hidden="true">design_services</span>
+          <span class="material-symbols-rounded" aria-hidden="true"
+            >design_services</span
+          >
         </div>
         <div class="process__badge">Paso 02</div>
         <h3 class="process__card-title">Concepto de diseño</h3>
         <p class="process__card-desc">
-          Creación de conceptos de diseño iniciales basados en conocimientos recopilados durante la fase de
-          descubrimiento.
+          Creación de conceptos de diseño iniciales basados en conocimientos
+          recopilados durante la fase de descubrimiento.
         </p>
       </article>
 
@@ -63,7 +68,8 @@
         <div class="process__badge">Paso 03</div>
         <h3 class="process__card-title">Desarrollo y pruebas</h3>
         <p class="process__card-desc">
-          Construir y perfeccionar el sitio web, garantizando la funcionalidad y compatibilidad en todos los dispositivos.
+          Construir y perfeccionar el sitio web, garantizando la funcionalidad y
+          compatibilidad en todos los dispositivos.
         </p>
       </article>
 
@@ -72,12 +78,15 @@
         style="--reveal-delay:.24s;--reveal-duration:.4s;--reveal-distance:10px"
       >
         <div class="process__icon" aria-hidden="true">
-          <span class="material-symbols-rounded" aria-hidden="true">rocket_launch</span>
+          <span class="material-symbols-rounded" aria-hidden="true"
+            >rocket_launch</span
+          >
         </div>
         <div class="process__badge">Paso 04</div>
         <h3 class="process__card-title">Lanzamiento y soporte</h3>
         <p class="process__card-desc">
-          Implementar el sitio web finalizado y brindar soporte continuo para garantizar el éxito a largo plazo.
+          Implementar el sitio web finalizado y brindar soporte continuo para
+          garantizar el éxito a largo plazo.
         </p>
       </article>
     </div>
@@ -85,7 +94,7 @@
 
   <style>
     .process {
-      padding: var(--section-padding-y) 0;
+      padding: var(--section-padding-y) 0 calc(var(--section-padding-y) * 2);
       position: relative;
       overflow: hidden;
       background: var(--color-bg);
@@ -93,47 +102,46 @@
       isolation: isolate;
     }
 
-    .process__tag {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: .45rem;
-      padding: .6rem 1.35rem;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, .35);
-      background: color-mix(in oklab, var(--surface, #101828) 55%, transparent);
-      color: rgba(248, 250, 252, .96);
-      font-size: clamp(.9rem, .85rem + .25vw, 1rem);
-      font-weight: 500;
-      letter-spacing: .03em;
-      text-transform: none;
-      width: fit-content;
-      margin: 0 auto clamp(10px, 2.6vh, 16px);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06);
-    }
-
-    :root:not(.dark) .process__tag {
-      color: rgba(15, 23, 42, .92);
-      background: rgba(255, 255, 255, .94);
-      border-color: rgba(15, 23, 42, .1);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9);
+    /* Merged .dark .process::before content here */
+    .process::before {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+      z-index: -1;
+      inset: -10%;
+      background:
+        radial-gradient(
+          900px 600px at 85% 70%,
+          rgba(9, 115, 225, 0.18),
+          transparent 60%
+        ),
+        radial-gradient(
+          800px 520px at 10% 20%,
+          rgba(9, 115, 225, 0.08),
+          transparent 70%
+        );
+      filter: saturate(115%);
+      opacity: 0.55;
     }
 
     .process__title {
-    font-size: clamp(1.8rem, 3.2vw + .6rem, 2.5rem);
-    font-weight: 600;
-    line-height: 1.15;
-    margin: clamp(4px, 2.8vh, 8px) auto clamp(7px, 2.2vh, 14px);
-    max-width: 28ch;
-    }
-
-    .dark .process__title {
+      font-size: clamp(1.8rem, 3.2vw + 0.6rem, 2.5rem);
+      font-weight: 600;
+      line-height: 1.15;
+      margin: clamp(4px, 2.8vh, 8px) auto clamp(7px, 2.2vh, 14px);
+      max-width: 28ch;
       color: #fff;
     }
 
     .process__title .highlight {
       display: inline-block;
-      background-image: linear-gradient(90deg, #26d2f8 0%, #23b2ff 35%, #0973e1 70%, #3b5bff 100%);
+      background-image: linear-gradient(
+        90deg,
+        #26d2f8 0%,
+        #23b2ff 35%,
+        #0973e1 70%,
+        #3b5bff 100%
+      );
       background-size: 100% 100%;
       background-repeat: no-repeat;
       -webkit-background-clip: text;
@@ -146,7 +154,7 @@
       color: color-mix(in oklab, var(--color-text) 60%, transparent);
       max-width: 60ch;
       margin: 0 auto clamp(32px, 5.4vh, 40px);
-      font-size: clamp(1rem, .9rem + .25vw, 1.1rem);
+      font-size: clamp(1rem, 0.9rem + 0.25vw, 1.1rem);
       font-weight: 300;
     }
 
@@ -168,18 +176,21 @@
       text-align: left;
       padding: 20px 22px;
       border-radius: 18px;
-      border: 1px solid var(--border);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       background: linear-gradient(
         180deg,
-        color-mix(in oklab, var(--surface, #121826) 60%, transparent),
-        color-mix(in oklab, var(--surface, #121826) 55%, transparent)
+        rgba(12, 14, 22, 0.92),
+        rgba(12, 14, 22, 0.86)
       );
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06);
-      transition: transform .18s ease, box-shadow .25s ease, border-color .25s ease;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+      transition:
+        transform 0.18s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
     }
 
     .process__card::before {
-      content: '';
+      content: "";
       position: absolute;
       top: 0;
       left: 18px;
@@ -189,32 +200,39 @@
       pointer-events: none;
       z-index: 2;
       background: linear-gradient(90deg, #0973e1 0%, #0446ba 100%);
-      box-shadow: 0 8px 18px rgba(9, 115, 225, .35);
-      opacity: .95;
+      box-shadow: 0 8px 18px rgba(9, 115, 225, 0.35);
+      opacity: 0.95;
     }
 
     .process__card::after {
-      content: '';
+      content: "";
       position: absolute;
       inset: -1px;
       border-radius: inherit;
       pointer-events: none;
       z-index: 1;
       background:
-        radial-gradient(420px 260px at 110% 120%, color-mix(in oklab, var(--color-primary) 22%, transparent), transparent 60%),
-        radial-gradient(300px 220px at -8% 12%, color-mix(in oklab, var(--color-primary-dark) 14%, transparent), transparent 72%);
+        radial-gradient(
+          420px 260px at 110% 120%,
+          rgba(9, 115, 225, 0.12),
+          transparent 60%
+        ),
+        radial-gradient(
+          300px 220px at -8% 12%,
+          rgba(9, 115, 225, 0.06),
+          transparent 72%
+        );
       mix-blend-mode: screen;
-      opacity: .22;
-      transition: opacity .25s ease;
+      opacity: 0.24;
+      transition: opacity 0.25s ease;
     }
 
     .process__card:hover {
       transform: translateY(-2px);
-      border-color: color-mix(in oklab, var(--color-primary) 40%, var(--border));
+      border-color: rgba(59, 130, 246, 0.35);
       box-shadow:
-        var(--shadow-elevated),
-        0 14px 36px color-mix(in oklab, var(--color-primary) 18%, transparent),
-        inset 0 1px 0 rgba(255, 255, 255, .06);
+        0 10px 30px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
       filter: saturate(112%) brightness(1.02);
     }
 
@@ -237,14 +255,14 @@
       position: absolute;
       right: 14px;
       top: 12px;
-      padding: .35rem .7rem;
+      padding: 0.5rem 1rem;
       border-radius: 999px;
-      font-size: .85rem;
+      font-size: 0.85rem;
       font-weight: 400;
       color: var(--color-text);
       background: color-mix(in oklab, var(--surface, #121826) 40%, transparent);
       border: 1px solid var(--border);
-      opacity: .9;
+      opacity: 0.9;
     }
 
     .process__card-title {
@@ -253,121 +271,16 @@
       color: #fff;
     }
 
-    :root:not(.dark) .process__card-title {
-      color: #0f172a;
-    }
-
     .process__card-desc {
-      color: var(--color-text-muted, #9ca3af);
-      font-size: .98rem;
-      margin-top: .35rem;
-    }
-
-    :root:not(.dark) .process__card-desc {
-      color: #334155;
-    }
-
-    .dark .process__card-desc {
       color: #d6e0ef;
+      font-size: 0.98rem;
+      margin-top: 0.35rem;
+      font-weight: 300;
+      line-height: 1.4;
     }
 
     .process__bg {
-      position: absolute;
-      inset: -10% -10% 0 -10%;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .process__bg::before,
-    .process__bg::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-    }
-
-    .process__bg,
-    .process__bg::before,
-    .process__bg::after {
       display: none !important;
-    }
-
-    .dark .process::before {
-      content: '';
-      position: absolute;
-      pointer-events: none;
-      z-index: -1;
-      inset: -10%;
-      background:
-        radial-gradient(900px 600px at 85% 70%, rgba(9, 115, 225, .18), transparent 60%),
-        radial-gradient(800px 520px at 10% 20%, rgba(9, 115, 225, .08), transparent 70%);
-      filter: saturate(115%);
-      opacity: .55;
-    }
-
-    .dark .process__bg {
-      display: none;
-    }
-
-    .dark .process__card {
-      border-color: rgba(255, 255, 255, .08);
-      background: linear-gradient(180deg, rgba(12, 14, 22, .92), rgba(12, 14, 22, .86));
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .03);
-    }
-
-    .dark .process__card::after {
-      background:
-        radial-gradient(420px 260px at 110% 120%, rgba(9, 115, 225, .12), transparent 60%),
-        radial-gradient(300px 220px at -8% 12%, rgba(9, 115, 225, .06), transparent 72%);
-      mix-blend-mode: screen;
-      opacity: .24;
-    }
-
-    .dark .process__card:hover {
-      border-color: rgba(59, 130, 246, .35);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, .25), inset 0 1px 0 rgba(255, 255, 255, .04);
-    }
-
-    .dark .process__icon {
-      background: var(--color-primary);
-      color: #fff;
-      border: none;
-      box-shadow: none;
-    }
-
-    @supports not (color: color-mix(in oklab, black 50%, white)) {
-      .process__tag{
-        background: rgba(16, 24, 40, 0.55);
-      }
-      :root:not(.dark) .process__tag{
-        background: rgba(255, 255, 255, 0.94);
-      }
-      .process__subtitle{
-        color: rgba(226, 232, 240, 0.72);
-      }
-      :root:not(.dark) .process__subtitle{
-        color: rgba(15, 23, 42, 0.7);
-      }
-      .process__card{
-        background: rgba(12, 14, 22, 0.92);
-        border-color: rgba(59, 130, 246, 0.28);
-      }
-      :root:not(.dark) .process__card{
-        background: rgba(247, 248, 250, 0.96);
-        border-color: rgba(0, 0, 0, 0.12);
-      }
-      .process__card-desc{
-        color: rgba(226, 232, 240, 0.78);
-      }
-      :root:not(.dark) .process__card-desc{
-        color: #334155;
-      }
-      .process__badge{
-        background: rgba(18, 24, 38, 0.55);
-      }
     }
   </style>
 </section>
-
-
-

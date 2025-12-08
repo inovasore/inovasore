@@ -48,9 +48,9 @@ const serviceChips = [
   <div class="section-inner contact-panel__inner">
     <div class="contact-panel__info">
       <div class="contact-panel__info-header">
-        <p class="contact-panel__eyebrow">Cont&aacute;ctanos</p>
+        <p class="contact-panel__eyebrow">Contáctanos</p>
         <p class="contact-panel__subtitle">
-          Escoge el servicio que necesitas y cu&eacute;ntanos qu&eacute; est&aacute;s buscando. Respondemos por WhatsApp con un plan de acci&oacute;n personalizado.
+          Escoge el servicio que necesitas y cuéntanos qué estás buscando. Respondemos por WhatsApp con un plan de acción personalizado.
         </p>
       </div>
 
@@ -75,7 +75,7 @@ const serviceChips = [
       </div>
 
       <p class="contact-panel__note">
-        Atendemos proyectos en Ecuador y de forma remota en LATAM. Agenda una videollamada o trabajemos por fases seg&uacute;n tus objetivos.
+        Atendemos proyectos en Ecuador y de forma remota en LATAM. Agenda una videollamada o trabajemos por fases según tus objetivos.
       </p>
     </div>
 
@@ -112,19 +112,19 @@ const serviceChips = [
             id="contact-business"
             name="business"
             type="text"
-            placeholder="&iquest;Cu&aacute;l es tu marca o empresa?"
-            title="&iquest;Cu&aacute;l es tu marca o empresa?"
+            placeholder="¿Cuál es tu marca o empresa?"
+            title="¿Cuál es tu marca o empresa?"
             autocomplete="organization"
           />
         </div>
       </div>
 
       <div class="contact-panel__field-group contact-panel__field-group--full">
-        <label class="contact-panel__label" for="contact-service">Servicio de inter&eacute;s</label>
+        <label class="contact-panel__label" for="contact-service">Servicio de interés</label>
         <div class="contact-panel__input-wrapper">
           <span class="material-symbols-rounded" aria-hidden="true">work</span>
           <select id="contact-service" name="service">
-            <option value="">Selecciona una opci&oacute;n</option>
+            <option value="">Selecciona una opción</option>
             {mainServices.map((service) => (
               <option value={service.title.replace(/&/g, "y")}>{service.title.replace(/&/g, "y")}</option>
             ))}
@@ -140,7 +140,7 @@ const serviceChips = [
           <textarea
             id="contact-message"
             name="message"
-            placeholder="Cu&eacute;ntanos brevemente tu proyecto, tiempos y qu&eacute; necesitas lograr."
+            placeholder="Cuéntanos brevemente tu proyecto, tiempos y qué necesitas lograr."
             rows="5"
             maxlength="500"
             required
@@ -161,11 +161,11 @@ const serviceChips = [
 
       {hasWhatsapp ? (
         <p class="contact-panel__disclaimer">
-          Al enviar se abrir&aacute; WhatsApp con un mensaje prellenado. Puedes revisarlo y enviarlo para continuar la asesor&iacute;a.
+          Al enviar se abrirá WhatsApp con un mensaje prellenado. Puedes revisarlo y enviarlo para continuar la asesoría.
         </p>
       ) : (
         <p class="contact-panel__disclaimer contact-panel__disclaimer--warning">
-          WhatsApp no est&aacute; disponible por el momento. Escr&iacute;benos a
+          WhatsApp no está disponible por el momento. Escríbenos a
           {' '}
           <a href={`mailto:${fallbackEmail}`}>{fallbackEmail}</a>
           {' '}
@@ -181,7 +181,7 @@ const serviceChips = [
       ) : (
         <a class="contact-panel__submit contact-panel__submit--alt" href={`mailto:${fallbackEmail}`} data-contact-submit>
           <span class="material-symbols-rounded" aria-hidden="true">mail</span>
-          Escr&iacute;benos por correo
+          Escríbenos por correo
         </a>
       )}
     </form>
@@ -410,32 +410,6 @@ const serviceChips = [
 </script>
 
 <style>
-  :root {
-    --contact-panel-bg: transparent;
-    --contact-panel-text: color-mix(in oklab, var(--color-text) 95%, #0f172a);
-    --contact-panel-surface: linear-gradient(
-      180deg,
-      color-mix(in oklab, var(--surface, #f3f4f6) 60%, transparent),
-      color-mix(in oklab, var(--surface, #f3f4f6) 55%, transparent)
-    );
-    --contact-panel-border: rgba(0, 0, 0, 0.12);
-    --contact-panel-muted: color-mix(in oklab, var(--color-text) 68%, transparent);
-    --contact-panel-chip-bg: rgba(15, 23, 42, 0.035);
-    --contact-panel-chip-border: rgba(15, 23, 42, 0.08);
-    --contact-panel-form-bg: linear-gradient(
-      180deg,
-      color-mix(in oklab, var(--surface, #f3f4f6) 60%, transparent),
-      color-mix(in oklab, var(--surface, #f3f4f6) 55%, transparent)
-    );
-    --contact-panel-form-border: rgba(0, 0, 0, 0.12);
-    --contact-panel-input-bg: rgba(255, 255, 255, 0.98);
-    --contact-panel-input-border: rgba(148, 163, 184, 0.28);
-    --contact-panel-eyebrow-color: color-mix(in oklab, var(--color-text) 90%, transparent);
-    --contact-panel-option-bg: color-mix(in oklab, var(--surface, #f3f4f6) 60%, transparent);
-    --contact-panel-option-text: var(--contact-panel-text);
-  }
-
-  :root.dark {
     --contact-panel-bg: transparent;
     --contact-panel-text: #f8fafc;
     --contact-panel-surface: linear-gradient(180deg, rgba(12, 14, 22, 0.92), rgba(12, 14, 22, 0.86));
@@ -452,19 +426,9 @@ const serviceChips = [
     --contact-panel-option-text: #f8fafc;
   }
 
-  @supports not (color: color-mix(in oklab, black 50%, white)) {
-    :root {
-      --contact-panel-text: #0f172a;
-      --contact-panel-surface: linear-gradient(
-        180deg,
-        rgba(243, 244, 246, 0.9),
-        rgba(243, 244, 246, 0.82)
-      );
-      --contact-panel-muted: rgba(15, 23, 42, 0.68);
-      --contact-panel-option-bg: rgba(243, 244, 246, 0.6);
-      --contact-panel-option-text: #0f172a;
-    }
-  }
+
+
+
 
   .contact-panel {
     position: relative;
@@ -628,10 +592,7 @@ const serviceChips = [
     position: relative;
   }
 
-  :root:not(.dark) .contact-panel__info,
-  :root:not(.dark) .contact-panel__form {
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1);
-  }
+
 
   .contact-panel__field-group {
     display: flex;

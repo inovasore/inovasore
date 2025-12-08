@@ -3,11 +3,11 @@ import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
 import Mission from "../components/Mission.astro";
 import WhyUs from "../components/WhyUs.astro";
-import Callout from "../components/Callout.astro";
 import Services from "../components/Services.astro";
 import Process from "../components/Process.astro";
-import Tools from "../components/Tools.astro";
 import Projects from "../components/Projects.astro";
+import CTA from "../components/CTA.astro";
+import DiscountBanner from "../components/DiscountBanner.astro";
 import FAQ from "../components/FAQ.astro";
 ---
 
@@ -19,21 +19,27 @@ import FAQ from "../components/FAQ.astro";
   ogImage="/Web-Novasore.webp"
 >
   <Hero />
-  <Mission />
-
-  <WhyUs />
-  <Callout />
-  <Services />
+  <div class="shared-bg-wrapper">
+    <Mission />
+    <Services />
+  </div>
   <Process />
-  <Tools />
   <Projects />
+  <CTA />
+  <DiscountBanner />
+  <WhyUs />
   <FAQ />
 </Layout>
 
+<style>
+  .shared-bg-wrapper {
+    position: relative;
+    background-color: var(--color-bg);
+    overflow: hidden;
+  }
 
-
-
-
-
-
-
+  .shared-bg-wrapper > :global(*) {
+    position: relative;
+    z-index: 1;
+  }
+</style>

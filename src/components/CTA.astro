@@ -1,0 +1,203 @@
+---
+
+---
+
+<section class="cta" id="cta">
+  <div class="cta__bg" aria-hidden="true"></div>
+  <div class="cta__watermark-wrapper" aria-hidden="true">
+    <div class="cta__watermark-track" id="watermarkTrack">
+      <span class="cta__watermark-text">INOVASORE</span>
+      <span class="cta__watermark-text">INOVASORE</span>
+      <span class="cta__watermark-text">INOVASORE</span>
+      <span class="cta__watermark-text">INOVASORE</span>
+    </div>
+  </div>
+  <div class="cta__inner">
+    <h2
+      class="cta__title reveal"
+      style="--reveal-delay:.1s;--reveal-duration:.55s;--reveal-distance:14px"
+    >
+      ¡Mejora tu presencia online y conéctate<br />
+      con aquellos que realmente son<br />
+      <span class="highlight">importantes para tu negocio!</span>
+    </h2>
+    <a
+      href="/contacto"
+      class="cta__btn reveal"
+      style="--reveal-delay:.18s;--reveal-duration:.45s;--reveal-distance:10px"
+    >
+      Iniciar Proyecto
+      <span class="material-symbols-rounded" aria-hidden="true"
+        >chevron_right</span
+      >
+    </a>
+  </div>
+</section>
+
+<script>
+  const track = document.getElementById("watermarkTrack");
+  if (track) {
+    const speed = 40; // pixels per second
+    let offset = 0;
+    let animationId: number;
+
+    // Clone children for seamless loop
+    const children = Array.from(track.children);
+    children.forEach((child) => {
+      const clone = child.cloneNode(true);
+      track.appendChild(clone);
+    });
+
+    function animate() {
+      offset += speed / 60; // 60fps
+
+      const firstChild = track.firstElementChild as HTMLElement;
+      if (firstChild) {
+        const childWidth = firstChild.offsetWidth;
+        const gap = 40; // same as CSS gap
+        const totalWidth = childWidth + gap;
+
+        if (offset >= totalWidth) {
+          offset -= totalWidth;
+        }
+
+        track.style.transform = `translateX(-${offset}px)`;
+      }
+
+      animationId = requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // Cleanup on navigation
+    document.addEventListener("astro:before-swap", () => {
+      cancelAnimationFrame(animationId);
+    });
+  }
+</script>
+
+<style>
+  .cta {
+    position: relative;
+    padding: clamp(80px, 12vh, 140px) 0 clamp(160px, 20vh, 220px) 0;
+    background: transparent;
+    color: #ffffff;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .cta__bg {
+    position: absolute;
+    inset: 0;
+    background: url("/bg04.webp") center top / cover no-repeat;
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
+  .cta__watermark-wrapper {
+    position: absolute;
+    top: -80px;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .cta__watermark-track {
+    display: flex;
+    gap: 40px;
+    will-change: transform;
+  }
+
+  .cta__watermark-text {
+    font-size: clamp(8rem, 18vw, 30rem);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: rgba(139, 124, 247, 0.18);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .cta__inner {
+    position: relative;
+    z-index: 1;
+    width: clamp(280px, 90vw, 900px);
+    margin: 0 auto;
+    padding: clamp(220px, 26vh, 350px) clamp(16px, 4vw, 32px) 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(32px, 5vh, 48px);
+  }
+
+  .cta__title {
+    font-size: clamp(1.8rem, 3.2vw + 0.6rem, 2.6rem);
+    font-weight: 600;
+    line-height: 1.15;
+    margin: 0;
+    text-align: center;
+    color: #ffffff;
+  }
+
+  .cta__title .highlight {
+    background-image: linear-gradient(
+      90deg,
+      #26d2f8,
+      #23b2ff,
+      #0973e1 70%,
+      #3b5bff
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 600;
+  }
+
+  .cta__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 14px 28px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #1b56fd 0%, #133db4 100%);
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 1rem;
+    text-decoration: none;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+    box-shadow: 0 4px 12px rgba(27, 86, 253, 0.3);
+  }
+
+  .cta__btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(27, 86, 253, 0.4);
+  }
+
+  .cta__btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 12px rgba(27, 86, 253, 0.3);
+  }
+
+  .cta__btn .material-symbols-rounded {
+    font-size: 1.2rem;
+  }
+
+  @media (max-width: 640px) {
+    .cta__watermark-wrapper {
+      top: 60px;
+    }
+
+    .cta__title {
+      font-size: clamp(1.3rem, 1rem + 2vw, 1.8rem);
+    }
+
+    .cta__btn {
+      padding: 12px 24px;
+      font-size: 0.9rem;
+    }
+  }
+</style>

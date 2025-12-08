@@ -1,0 +1,144 @@
+---
+// src/components/DiscountBanner.astro
+const repeats = Array(12).fill(0);
+---
+
+<section class="discount-banner">
+  <div class="ribbon ribbon--top">
+    <div class="ribbon__track">
+      {
+        repeats.map(() => (
+          <span class="ribbon__text">
+            <span class="text-highlight">DESCUENTO DEL 30%</span>• HASTA EL 31
+            DE DICIEMBRE •
+          </span>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="ribbon ribbon--bottom">
+    <div class="ribbon__track ribbon__track--reverse">
+      {
+        repeats.map(() => (
+          <span class="ribbon__text">
+            <span class="text-highlight"> • DESCUENTO DEL 30% •</span>HASTA EL
+            31 DE DICIEMBRE
+          </span>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  /* CONFIGURACIÓN DEL CONTENEDOR */
+  .discount-banner {
+    position: relative;
+    padding: 40px 0;
+    margin-top: -100px;
+    margin-bottom: -100px;
+    overflow: hidden;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+    width: 100%;
+    z-index: 30;
+  }
+
+  /* CINTAS */
+  .ribbon {
+    position: absolute;
+    left: -10%;
+    width: 120%;
+    height: 80px;
+    background: #1b56fd;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  }
+
+  .ribbon--top {
+    transform: rotate(-3deg);
+    z-index: 10;
+  }
+
+  .ribbon--bottom {
+    transform: rotate(3deg);
+    z-index: 20;
+  }
+
+  /* ANIMACIÓN */
+  .ribbon__track {
+    display: flex;
+    white-space: nowrap;
+    will-change: transform;
+    animation: scroll-left 70s linear infinite;
+  }
+
+  .ribbon__track--reverse {
+    animation: scroll-right 70s linear infinite;
+  }
+
+  /* TEXTOS */
+  .ribbon__text {
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-weight: 900;
+    color: #ffffff;
+    letter-spacing: 0.08em;
+    padding: 0 15px;
+    white-space: nowrap;
+    display: flex;
+    gap: 0.3em;
+    text-transform: uppercase;
+  }
+
+  /* ESTILO PARA EL TEXTO NEGRO */
+  .text-highlight {
+    color: #000000;
+  }
+
+  /* KEYFRAMES */
+  @keyframes scroll-left {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes scroll-right {
+    0% {
+      transform: translateX(-50%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  /* MOBILE */
+  @media (max-width: 640px) {
+    .discount-banner {
+      padding: 80px 0;
+      min-height: 200px;
+    }
+    .ribbon {
+      height: 60px;
+      width: 150%;
+      left: -25%;
+    }
+    .ribbon--top {
+      transform: rotate(-5deg);
+    }
+    .ribbon--bottom {
+      transform: rotate(5deg);
+    }
+    .ribbon__text {
+      font-size: 1rem;
+    }
+  }
+</style>

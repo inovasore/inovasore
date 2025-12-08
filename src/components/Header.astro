@@ -1,0 +1,336 @@
+---
+const links = [
+  { href: "/", label: "Inicio" },
+  { href: "/servicios", label: "Servicios" },
+  { href: "/proyectos", label: "Proyectos" },
+  { href: "/nosotros", label: "Nosotros" },
+];
+---
+
+<header class="header" data-header>
+  <div class="header__inner">
+    <a href="/" class="logo" aria-label="Inovasore, volver al inicio">
+      <img
+        src="/Logotipo.svg"
+        alt="Logotipo de Inovasore"
+        width="48"
+        height="48"
+      />
+    </a>
+
+    <button
+      class="header__toggle"
+      type="button"
+      aria-label="Abrir menú"
+      aria-expanded="false"
+      aria-controls="mobile-navigation"
+    >
+      <span class="material-symbols-rounded">menu</span>
+    </button>
+
+    <nav class="nav" id="mobile-navigation">
+      <ul class="nav__list">
+        {
+          links.map((link) => (
+            <li>
+              <a href={link.href} class="nav__link">
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a href="/contacto" class="btn-contact btn-contact--mobile">Contactos</a>
+    </nav>
+
+    <a href="/contacto" class="btn-contact btn-contact--desktop">Contactos</a>
+  </div>
+  <div class="header__backdrop" aria-hidden="true"></div>
+</header>
+
+<style>
+  .header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 24px 0;
+    background: transparent;
+  }
+
+  .header__inner {
+    width: clamp(280px, 90vw, 1200px);
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: #fff;
+    user-select: none;
+  }
+
+  .logo img {
+    height: 36px;
+    width: auto;
+    display: block;
+  }
+
+  .logo__text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.15;
+  }
+
+  .logo__title {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .logo__subtitle {
+    font-size: 9px;
+    text-transform: uppercase;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: -1px;
+  }
+
+  .nav__list {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 46px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav__link {
+    font-size: 1.125rem;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .nav__link:hover {
+    color: #1b56fd;
+  }
+
+  .btn-contact {
+    background: linear-gradient(90deg, #1b56fd 0%, #133db4 100%);
+    color: #fff;
+    padding: 10px 28px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.125rem;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .btn-contact:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(27, 86, 253, 0.4);
+  }
+
+  .header__toggle {
+    display: none;
+  }
+
+  .header__backdrop {
+    display: none;
+  }
+
+  .btn-contact--mobile {
+    display: none;
+  }
+
+  @media (max-width: 1024px) {
+    .header__inner {
+      padding: 16px;
+      justify-content: space-between;
+      gap: 16px;
+      max-width: 95%;
+    }
+
+    .header__toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: transparent;
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      z-index: 1000;
+    }
+
+    .header__toggle:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .header__toggle:active {
+      transform: scale(0.95);
+    }
+
+    .nav {
+      display: none;
+      position: fixed;
+      top: 85px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 500px;
+      background: rgba(15, 23, 42, 0.98);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 24px 50px rgb(2 6 23 / 60%);
+      padding: 20px;
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+    }
+
+    .header.header--open .nav {
+      display: block;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .header__backdrop {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgb(0 0 0 / 50%);
+      z-index: 998;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .header.header--open .header__backdrop {
+      display: block;
+      opacity: 1;
+    }
+
+    .nav__list {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+    }
+
+    .nav__list li {
+      width: 100%;
+    }
+
+    .nav__link {
+      display: block;
+      padding: 12px 16px;
+      border-radius: 12px;
+      background: transparent;
+      transition: all 0.2s ease;
+    }
+
+    .nav__link:hover {
+      background: rgb(27 86 253 / 10%);
+    }
+
+    .btn-contact--desktop {
+      display: none;
+    }
+
+    .btn-contact--mobile {
+      display: block;
+      width: 100%;
+      text-align: center;
+      margin-top: 16px;
+    }
+
+    .logo__title {
+      font-size: 22px;
+    }
+
+    .logo__subtitle {
+      font-size: 10px;
+    }
+
+    .logo img {
+      height: 36px;
+    }
+  }
+</style>
+
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    const header = document.querySelector("[data-header]");
+    if (!header) return;
+
+    const toggle = header.querySelector(".header__toggle");
+    const nav = header.querySelector(".nav");
+    const backdrop = header.querySelector(".header__backdrop");
+
+    let menuOpen = false;
+
+    const openMenu = () => {
+      menuOpen = true;
+      header.classList.add("header--open");
+      toggle?.setAttribute("aria-expanded", "true");
+      toggle?.setAttribute("aria-label", "Cerrar menú");
+      document.body.style.overflow = "hidden";
+    };
+
+    const closeMenu = () => {
+      menuOpen = false;
+      header.classList.remove("header--open");
+      toggle?.setAttribute("aria-expanded", "false");
+      toggle?.setAttribute("aria-label", "Abrir menú");
+      document.body.style.overflow = "";
+    };
+
+    toggle?.addEventListener("click", () => {
+      if (menuOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    backdrop?.addEventListener("click", closeMenu);
+
+    nav?.addEventListener("click", (e) => {
+      if (e.target instanceof Element && e.target.closest("a")) {
+        closeMenu();
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && menuOpen) {
+        e.preventDefault();
+        closeMenu();
+      }
+    });
+  });
+</script>
