@@ -1,5 +1,6 @@
 ---
 import { projects } from "../data/projects";
+import { Image } from "astro:assets";
 ---
 
 <section class="projects" id="proyectos">
@@ -58,8 +59,9 @@ import { projects } from "../data/projects";
               data-index={index}
               style={`--reveal-delay:${(0.16 + (index % 3) * 0.08).toFixed(2)}s;--reveal-duration:.45s;--reveal-distance:12px; display: ${index < 3 ? "flex" : "none"};`}
             >
+              >
               <figure class="project-card__media">
-                <img
+                <Image
                   src={project.image}
                   alt={project.title}
                   loading="lazy"

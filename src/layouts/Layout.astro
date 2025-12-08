@@ -85,13 +85,21 @@ const organizationSchema = JSON.stringify({
 
     {
       pathname === "/" && (
-        <link
-          rel="preload"
-          as="image"
-          href="/works/work-1.webp"
-          imagesizes="(min-width: 1024px) 30vw, 80vw"
-          fetchpriority="high"
-        />
+        <>
+          <link
+            rel="preload"
+            as="image"
+            href="/Vectorbg.svg"
+            fetchpriority="high"
+          />
+          <link
+            rel="preload"
+            as="image"
+            href="/works/work-1.webp"
+            imagesizes="(min-width: 1024px) 30vw, 80vw"
+            fetchpriority="high"
+          />
+        </>
       )
     }
 

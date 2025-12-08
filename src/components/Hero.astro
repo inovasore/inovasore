@@ -1,5 +1,6 @@
 ﻿---
 import { heroContent } from "../data/hero";
+import { Image } from "astro:assets";
 
 const { title, tagline, subtitle, works } = heroContent;
 const [primaryWork, ...secondaryWorks] = works;
@@ -82,26 +83,26 @@ const [primaryWork, ...secondaryWorks] = works;
   <div class="carousel carousel--auto" data-speed="35">
     <div class="carousel__track" tabindex="-1">
       <figure class="carousel__item">
-        <img
+        <Image
           src={primaryWork}
           alt="Proyecto destacado 1"
           loading="eager"
           decoding="async"
           fetchpriority="high"
-          width="440"
-          height="275"
+          width={440}
+          height={275}
         />
       </figure>
       {
         secondaryWorks.map((src, i) => (
           <figure class="carousel__item">
-            <img
+            <Image
               src={src}
               alt={`Proyecto ${i + 2}`}
               loading="lazy"
               decoding="async"
-              width="440"
-              height="275"
+              width={440}
+              height={275}
             />
           </figure>
         ))
@@ -110,7 +111,7 @@ const [primaryWork, ...secondaryWorks] = works;
   </div>
 </section>
 
-<script is:inline>
+<script>
   const setupAutoCarousels = () => {
     // Mobile check removed to allow animation on all devices
 
@@ -121,48 +122,69 @@ const [primaryWork, ...secondaryWorks] = works;
       return;
     }
 
-    const cleanups = [];
+    const cleanups: (() => void)[] = [];
 
     document
       .querySelectorAll(".carousel.carousel--auto")
       .forEach((carousel) => {
-        const track = carousel.querySelector(".carousel__track");
+        const track = carousel.querySelector(".carousel__track") as HTMLElement;
         if (!track || track.dataset.running === "true") return;
         track.dataset.running = "true";
 
-        const originals = Array.from(track.children);
-        const gap = () => parseFloat(getComputedStyle(track).gap || "0") || 0;
-        const widthWithGap = (node) =>
-          node.getBoundingClientRect().width + gap();
+        const originals = Array.from(track.children) as HTMLElement[];
+
+        // Calculate dimensions once to avoid reflow in loop
+        let gap = parseFloat(getComputedStyle(track).gap || "0") || 0;
+        let itemWidths = originals.map(
+          (node) => node.getBoundingClientRect().width + gap,
+        );
 
         const ensureCoverage = () => {
+          gap = parseFloat(getComputedStyle(track).gap || "0") || 0;
           const required = carousel.clientWidth * 2;
           let total = 0;
-          Array.from(track.children).forEach((child) => {
-            total += widthWithGap(child);
+
+          // Re-calculate current total width
+          const currentChildren = Array.from(track.children) as HTMLElement[];
+          currentChildren.forEach((child) => {
+            total += child.getBoundingClientRect().width + gap;
           });
+
+          // Only clone if needed
           let guard = 0;
           while (total < required && guard++ < 12) {
             originals.forEach((node) => {
-              const clone = node.cloneNode(true);
+              const clone = node.cloneNode(true) as HTMLElement;
               track.appendChild(clone);
-              total += widthWithGap(clone);
+              // Optimistically add width to total to avoid reading DOM again immediately
+              total += node.getBoundingClientRect().width + gap;
             });
           }
         };
 
+        // Initial coverage check
         ensureCoverage();
-        const resizeHandler = () => ensureCoverage();
+
+        // Debounced resize handler
+        let resizeTimeout: ReturnType<typeof setTimeout>;
+        const resizeHandler = () => {
+          clearTimeout(resizeTimeout);
+          resizeTimeout = setTimeout(() => {
+            ensureCoverage();
+          }, 100);
+        };
         window.addEventListener("resize", resizeHandler, { passive: true });
 
+        // Ensure images are loaded before final measurement
         track.querySelectorAll("img").forEach((img) => {
+          if (img.complete) return;
           img.addEventListener("load", () => ensureCoverage(), { once: true });
         });
 
         let inView = true;
-        let observer;
+        let observer: IntersectionObserver;
 
-        const speed = Number(carousel.dataset.speed || 28);
+        const speed = Number((carousel as HTMLElement).dataset.speed || 28);
         let offset = 0;
         let last = 0;
         let frameId = 0;
@@ -177,7 +199,7 @@ const [primaryWork, ...secondaryWorks] = works;
           last = 0;
         };
 
-        const step = (now) => {
+        const step = (now: number) => {
           if (!shouldRun()) {
             stop();
             return;
@@ -191,13 +213,23 @@ const [primaryWork, ...secondaryWorks] = works;
           last = now;
 
           offset += speed * delta;
-          let first = track.firstElementChild;
-          while (first) {
-            const width = widthWithGap(first);
-            if (offset < width) break;
-            track.appendChild(first);
-            offset -= width;
-            first = track.firstElementChild;
+
+          // Optimization: Check first element width without constant DOM reads if possible,
+          // but for variable widths involved with gap, we might need one read.
+          // To strictly avoid layout thrashing, we can rely on cached widths if items are uniform,
+          // but here they might be. Let's optimize by checking offset only when it grows large.
+
+          let first = track.firstElementChild as HTMLElement;
+          if (first) {
+            // We can check offset against a threshold before querying DOM.
+            // Assuming min width is around 200px.
+            if (offset > 200) {
+              const width = first.getBoundingClientRect().width + gap;
+              if (offset >= width) {
+                track.appendChild(first);
+                offset -= width;
+              }
+            }
           }
 
           track.style.transform = `translate3d(${-offset}px,0,0)`;
