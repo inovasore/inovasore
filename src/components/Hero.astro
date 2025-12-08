@@ -112,10 +112,7 @@ const [primaryWork, ...secondaryWorks] = works;
 
 <script is:inline>
   const setupAutoCarousels = () => {
-    const mobileMq = window.matchMedia("(max-width: 768px)");
-    if (mobileMq?.matches) {
-      return;
-    }
+    // Mobile check removed to allow animation on all devices
 
     if (
       window.matchMedia &&
@@ -366,7 +363,7 @@ const [primaryWork, ...secondaryWorks] = works;
     font-weight: 600;
     line-height: 1.1;
     letter-spacing: 0.2px;
-    font-size: clamp(1.8rem, 3.1vw + 1rem, 3.1rem);
+    font-size: clamp(1.6rem, 2.5vw + 1rem, 3.1rem);
     margin: 0.35rem auto 0;
     max-width: 100%;
   }
@@ -508,18 +505,30 @@ const [primaryWork, ...secondaryWorks] = works;
     transform: translateY(0) !important;
   }
 
+  .desktop-only {
+    display: block;
+  }
+
   @media (max-width: 768px) {
+    .desktop-only {
+      display: none;
+    }
+    .mobile-nowrap {
+      white-space: nowrap;
+      display: inline-block; /* Helps prevent break inside if parent allows */
+    }
     .pill {
       gap: 0.5rem;
-      padding: 0.45rem 0.7rem;
+      padding: 6px 6px 6px 16px;
       margin-bottom: 12px;
-      max-width: min(100%, 320px);
+      width: fit-content;
+      max-width: 100%;
     }
 
     .pill__text {
       font-size: clamp(0.78rem, 3vw, 0.92rem);
-      line-height: 1.15;
-      white-space: nowrap;
+      line-height: 1.2;
+      text-align: left;
     }
 
     .pill__cta {
@@ -602,6 +611,8 @@ const [primaryWork, ...secondaryWorks] = works;
     transform: translateZ(0);
   }
 
+  /* Mobile overrides removed to keep marquee animation */
+  /*
   @media (max-width: 768px) {
     .carousel {
       width: 100%;
@@ -632,6 +643,7 @@ const [primaryWork, ...secondaryWorks] = works;
       scrollbar-width: none;
     }
   }
+  */
 
   @supports not (color: color-mix(in oklab, black 50%, white)) {
     .pill {

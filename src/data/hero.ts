@@ -1,5 +1,5 @@
 ﻿export const heroContent = {
-  title: "Estrategia, Diseño y Automatización<br>El Poder Digital que tu Empresa<br>necesita",
+  title: "Estrategia, Diseño y Automatización<br>El Poder Digital que tu <span class=\"mobile-nowrap\">Empresa <br class=\"desktop-only\" />necesita</span>",
   tagline: "Soluciones digitales que marcan la diferencia",
   subtitle: "Expertos en Marketing Digital, Automatización y Páginas Web en Ambato",
   works: [
