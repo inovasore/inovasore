@@ -7,32 +7,73 @@ const [primaryWork, ...secondaryWorks] = works;
 
 <section class="hero">
   <div class="hero__inner">
-    <div class="pill reveal" style="--reveal-delay:.08s;--reveal-duration:.48s;--reveal-distance:10px;--pill-weight:400">
+    <div
+      class="pill reveal"
+      style="--reveal-delay:.08s;--reveal-duration:.48s;--reveal-distance:10px;--pill-weight:400"
+    >
       <span class="pill__text">{tagline}</span>
       <a class="pill__cta" href="/contacto" aria-label="Ir a contacto">
         <img src="/Bar01.svg" alt="" width="28" height="28" />
       </a>
     </div>
 
-    <h1 class="hero__title reveal" style="--reveal-delay:.16s;--reveal-duration:.55s;--reveal-distance:14px" set:html={title} />
+    <h1
+      class="hero__title reveal"
+      style="--reveal-delay:.16s;--reveal-duration:.55s;--reveal-distance:14px"
+      set:html={title}
+    />
 
-
-    <p class="hero__subtitle reveal" style="--reveal-delay:.26s;--reveal-duration:.45s;--reveal-distance:10px">
+    <p
+      class="hero__subtitle reveal"
+      style="--reveal-delay:.26s;--reveal-duration:.45s;--reveal-distance:10px"
+    >
       {subtitle}
     </p>
 
     <div class="hero__actions">
-      <a class="btn-hero-primary reveal" href="/contacto" style="--reveal-delay:.34s;--reveal-duration:.45s">
+      <a
+        class="btn-hero-primary reveal"
+        href="/contacto"
+        style="--reveal-delay:.34s;--reveal-duration:.45s"
+      >
         Contáctanos
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M7.5 15L12.5 10L7.5 5"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
         </svg>
       </a>
       <div class="btn-wrapper">
-        <svg class="border-line" viewBox="0 0 160 50" preserveAspectRatio="none">
-          <rect class="line-path" x="1" y="1" width="158" height="48" rx="24" fill="none" stroke="#3B82F6" stroke-width="2.5"/>
+        <svg
+          class="border-line"
+          viewBox="0 0 160 50"
+          preserveAspectRatio="none"
+        >
+          <rect
+            class="line-path"
+            x="1"
+            y="1"
+            width="158"
+            height="48"
+            rx="24"
+            fill="none"
+            stroke="#3B82F6"
+            stroke-width="2.5"></rect>
         </svg>
-        <a class="btn-hero-outline reveal" href="/servicios" style="--reveal-delay:.42s;--reveal-duration:.45s">
+        <a
+          class="btn-hero-outline reveal"
+          href="/servicios"
+          style="--reveal-delay:.42s;--reveal-duration:.45s"
+        >
           Servicios
         </a>
       </div>
@@ -51,162 +92,177 @@ const [primaryWork, ...secondaryWorks] = works;
           height="275"
         />
       </figure>
-      {secondaryWorks.map((src, i) => (
-        <figure class="carousel__item">
-          <img
-            src={src}
-            alt={`Proyecto ${i + 2}`}
-            loading="lazy"
-            decoding="async"
-            width="440"
-            height="275"
-          />
-        </figure>
-      ))}
+      {
+        secondaryWorks.map((src, i) => (
+          <figure class="carousel__item">
+            <img
+              src={src}
+              alt={`Proyecto ${i + 2}`}
+              loading="lazy"
+              decoding="async"
+              width="440"
+              height="275"
+            />
+          </figure>
+        ))
+      }
     </div>
   </div>
 </section>
 
 <script is:inline>
   const setupAutoCarousels = () => {
-    const mobileMq = window.matchMedia('(max-width: 768px)');
+    const mobileMq = window.matchMedia("(max-width: 768px)");
     if (mobileMq?.matches) {
       return;
     }
 
-    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
       return;
     }
 
     const cleanups = [];
 
-    document.querySelectorAll(".carousel.carousel--auto").forEach((carousel) => {
-      const track = carousel.querySelector(".carousel__track");
-      if (!track || track.dataset.running === "true") return;
-      track.dataset.running = "true";
+    document
+      .querySelectorAll(".carousel.carousel--auto")
+      .forEach((carousel) => {
+        const track = carousel.querySelector(".carousel__track");
+        if (!track || track.dataset.running === "true") return;
+        track.dataset.running = "true";
 
-      const originals = Array.from(track.children);
-      const gap = () => parseFloat(getComputedStyle(track).gap || "0") || 0;
-      const widthWithGap = (node) => node.getBoundingClientRect().width + gap();
+        const originals = Array.from(track.children);
+        const gap = () => parseFloat(getComputedStyle(track).gap || "0") || 0;
+        const widthWithGap = (node) =>
+          node.getBoundingClientRect().width + gap();
 
-      const ensureCoverage = () => {
-        const required = carousel.clientWidth * 2;
-        let total = 0;
-        Array.from(track.children).forEach((child) => {
-          total += widthWithGap(child);
-        });
-        let guard = 0;
-        while (total < required && guard++ < 12) {
-          originals.forEach((node) => {
-            const clone = node.cloneNode(true);
-            track.appendChild(clone);
-            total += widthWithGap(clone);
+        const ensureCoverage = () => {
+          const required = carousel.clientWidth * 2;
+          let total = 0;
+          Array.from(track.children).forEach((child) => {
+            total += widthWithGap(child);
           });
-        }
-      };
-
-      ensureCoverage();
-      const resizeHandler = () => ensureCoverage();
-      window.addEventListener("resize", resizeHandler, { passive: true });
-
-      track.querySelectorAll("img").forEach((img) => {
-        img.addEventListener("load", () => ensureCoverage(), { once: true });
-      });
-
-      let inView = true;
-      let observer;
-
-      const speed = Number(carousel.dataset.speed || 28);
-      let offset = 0;
-      let last = 0;
-      let frameId = 0;
-
-      const shouldRun = () => !document.hidden && inView;
-
-      const stop = () => {
-        if (frameId) {
-          cancelAnimationFrame(frameId);
-          frameId = 0;
-        }
-        last = 0;
-      };
-
-      const step = (now) => {
-        if (!shouldRun()) {
-          stop();
-          return;
-        }
-
-        if (!last) {
-          last = now;
-        }
-
-        const delta = (now - last) / 1000;
-        last = now;
-
-        offset += speed * delta;
-        let first = track.firstElementChild;
-        while (first) {
-          const width = widthWithGap(first);
-          if (offset < width) break;
-          track.appendChild(first);
-          offset -= width;
-          first = track.firstElementChild;
-        }
-
-        track.style.transform = `translate3d(${-offset}px,0,0)`;
-        frameId = requestAnimationFrame(step);
-      };
-
-      const start = () => {
-        if (frameId || !shouldRun()) return;
-        last = performance.now();
-        frameId = requestAnimationFrame(step);
-      };
-
-      const updateRunner = () => {
-        if (shouldRun()) {
-          start();
-        } else {
-          stop();
-        }
-      };
-
-      const visibilityHandler = () => updateRunner();
-      document.addEventListener("visibilitychange", visibilityHandler);
-
-      if ("IntersectionObserver" in window) {
-        observer = new IntersectionObserver((entries) => {
-          const visible = entries.some((entry) => entry.isIntersecting);
-          if (visible !== inView) {
-            inView = visible;
-            updateRunner();
+          let guard = 0;
+          while (total < required && guard++ < 12) {
+            originals.forEach((node) => {
+              const clone = node.cloneNode(true);
+              track.appendChild(clone);
+              total += widthWithGap(clone);
+            });
           }
-        }, { threshold: 0.01 });
-        observer.observe(carousel);
-      }
+        };
 
-      updateRunner();
+        ensureCoverage();
+        const resizeHandler = () => ensureCoverage();
+        window.addEventListener("resize", resizeHandler, { passive: true });
 
-      const cleanup = () => {
-        stop();
-        window.removeEventListener("resize", resizeHandler);
-        document.removeEventListener("visibilitychange", visibilityHandler);
-        observer?.disconnect();
-        delete track.dataset.running;
-        track.style.transform = `translate3d(${-offset}px,0,0)`;
-      };
+        track.querySelectorAll("img").forEach((img) => {
+          img.addEventListener("load", () => ensureCoverage(), { once: true });
+        });
 
-      cleanups.push(cleanup);
-    });
+        let inView = true;
+        let observer;
+
+        const speed = Number(carousel.dataset.speed || 28);
+        let offset = 0;
+        let last = 0;
+        let frameId = 0;
+
+        const shouldRun = () => !document.hidden && inView;
+
+        const stop = () => {
+          if (frameId) {
+            cancelAnimationFrame(frameId);
+            frameId = 0;
+          }
+          last = 0;
+        };
+
+        const step = (now) => {
+          if (!shouldRun()) {
+            stop();
+            return;
+          }
+
+          if (!last) {
+            last = now;
+          }
+
+          const delta = (now - last) / 1000;
+          last = now;
+
+          offset += speed * delta;
+          let first = track.firstElementChild;
+          while (first) {
+            const width = widthWithGap(first);
+            if (offset < width) break;
+            track.appendChild(first);
+            offset -= width;
+            first = track.firstElementChild;
+          }
+
+          track.style.transform = `translate3d(${-offset}px,0,0)`;
+          frameId = requestAnimationFrame(step);
+        };
+
+        const start = () => {
+          if (frameId || !shouldRun()) return;
+          last = performance.now();
+          frameId = requestAnimationFrame(step);
+        };
+
+        const updateRunner = () => {
+          if (shouldRun()) {
+            start();
+          } else {
+            stop();
+          }
+        };
+
+        const visibilityHandler = () => updateRunner();
+        document.addEventListener("visibilitychange", visibilityHandler);
+
+        if ("IntersectionObserver" in window) {
+          observer = new IntersectionObserver(
+            (entries) => {
+              const visible = entries.some((entry) => entry.isIntersecting);
+              if (visible !== inView) {
+                inView = visible;
+                updateRunner();
+              }
+            },
+            { threshold: 0.01 },
+          );
+          observer.observe(carousel);
+        }
+
+        updateRunner();
+
+        const cleanup = () => {
+          stop();
+          window.removeEventListener("resize", resizeHandler);
+          document.removeEventListener("visibilitychange", visibilityHandler);
+          observer?.disconnect();
+          delete track.dataset.running;
+          track.style.transform = `translate3d(${-offset}px,0,0)`;
+        };
+
+        cleanups.push(cleanup);
+      });
 
     if (cleanups.length) {
       const runCleanups = () => {
         cleanups.splice(0).forEach((fn) => {
-          try { fn(); } catch (_) {}
+          try {
+            fn();
+          } catch (_) {}
         });
       };
-      document.addEventListener("astro:before-swap", runCleanups, { once: true });
+      document.addEventListener("astro:before-swap", runCleanups, {
+        once: true,
+      });
       window.addEventListener("beforeunload", runCleanups, { once: true });
     }
   };
@@ -235,16 +291,21 @@ const [primaryWork, ...secondaryWorks] = works;
     --nav-gap: 12px;
 
     --indigo: #6366f1;
-    --blue:   #3b82f6;
-    --cyan:   #0ea5e9;
+    --blue: #3b82f6;
+    --cyan: #0ea5e9;
   }
 
-  .navbar { position: fixed; z-index: 200; }
-  .hero { z-index: 0; }
+  .navbar {
+    position: fixed;
+    z-index: 200;
+  }
+  .hero {
+    z-index: 0;
+  }
 
   .hero {
     position: relative;
-    padding: calc(var(--nav-h,72px) + 80px) 0 var(--section-padding-y);
+    padding: calc(var(--nav-h, 72px) + 80px) 0 var(--section-padding-y);
     min-height: 86vh;
     background: var(--color-bg);
     color: var(--color-text);
@@ -252,13 +313,14 @@ const [primaryWork, ...secondaryWorks] = works;
   }
 
   .hero::before {
-    content:"";
-    position:absolute; inset:0;
-    background: 
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
       url("/Vectorbg.svg") center center / cover,
       url("/bg-hero.svg") no-repeat center top / 1600px auto;
-    opacity:.95;
-    pointer-events:none;
+    opacity: 0.95;
+    pointer-events: none;
     z-index: -1;
     will-change: opacity;
   }
@@ -273,50 +335,65 @@ const [primaryWork, ...secondaryWorks] = works;
   }
 
   .pill {
-    display:inline-flex; align-items:center; gap:.75rem;
-    padding:.6rem .9rem;
-    border-radius:999px;
-    border:1px solid var(--border);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
     background: color-mix(in oklab, var(--surface, #f3f4f6) 60%, transparent);
     backdrop-filter: blur(6px);
     color: var(--color-text);
     margin-bottom: 20px;
   }
-  .pill__text { font-weight: var(--pill-weight, 400); }
+  .pill__text {
+    font-weight: var(--pill-weight, 400);
+  }
   .pill__cta {
-    display:inline-grid; place-items:center;
-    width:28px; height:28px; border-radius:999px;
-    background: var(--color-primary); color:#fff; text-decoration:none;
-    font-weight:400; line-height:1;
+    display: inline-grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    background: var(--color-primary);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 400;
+    line-height: 1;
   }
 
   .hero__title {
     font-weight: 600;
     line-height: 1.1;
-    letter-spacing: .2px;
+    letter-spacing: 0.2px;
     font-size: clamp(1.8rem, 3.1vw + 1rem, 3.1rem);
-    margin: .35rem auto 0;
+    margin: 0.35rem auto 0;
     max-width: 100%;
   }
 
   .hero__subtitle {
     color: var(--color-text-muted, #6b7280);
-    font-size: clamp(1.05rem, .9rem + .4vw, 1.2rem);
+    font-size: clamp(1.05rem, 0.9rem + 0.4vw, 1.2rem);
     margin: 8px auto 24px;
     max-width: 60ch;
     font-weight: 400;
   }
 
   .hero__actions {
-    display:flex; align-items:center; justify-content:center; gap:1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
     margin-bottom: clamp(18px, 4vh, 34px);
   }
 
   .btn-cta {
     font-weight: 500;
-    background: linear-gradient(90deg, #1B56FD 0%, #133DB4 100%);
+    background: linear-gradient(90deg, #1b56fd 0%, #133db4 100%);
     box-shadow: 0 4px 12px rgba(27, 86, 253, 0.3);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
   }
 
   .btn-cta:hover {
@@ -335,12 +412,14 @@ const [primaryWork, ...secondaryWorks] = works;
     gap: 8px !important;
     padding: 14px 28px !important;
     border-radius: 999px !important;
-    background: linear-gradient(90deg, #1B56FD 0%, #133DB4 100%) !important;
+    background: linear-gradient(90deg, #1b56fd 0%, #133db4 100%) !important;
     color: #fff !important;
     text-decoration: none !important;
     font-weight: 500 !important;
     font-size: 1.0625rem !important;
-    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease !important;
     box-shadow: 0 4px 12px rgba(27, 86, 253, 0.3) !important;
     border: none !important;
   }
@@ -348,7 +427,7 @@ const [primaryWork, ...secondaryWorks] = works;
   .btn-hero-primary:hover {
     transform: translateY(-2px) !important;
     box-shadow: 0 8px 20px rgba(27, 86, 253, 0.4) !important;
-    background: linear-gradient(90deg, #1B56FD 0%, #133DB4 100%) !important;
+    background: linear-gradient(90deg, #1b56fd 0%, #133db4 100%) !important;
   }
 
   .btn-hero-primary:active {
@@ -362,7 +441,6 @@ const [primaryWork, ...secondaryWorks] = works;
   .btn-hero-primary:hover svg {
     transform: translateX(3px);
   }
-
 
   .btn-wrapper {
     position: relative;
@@ -392,7 +470,8 @@ const [primaryWork, ...secondaryWorks] = works;
     height: 100%;
     pointer-events: none;
     z-index: 3;
-    filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.9)) drop-shadow(0 0 15px rgba(37, 99, 235, 0.6));
+    filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.9))
+      drop-shadow(0 0 15px rgba(37, 99, 235, 0.6));
   }
 
   .line-path {
@@ -429,16 +508,16 @@ const [primaryWork, ...secondaryWorks] = works;
     transform: translateY(0) !important;
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 768px) {
     .pill {
-      gap: .5rem;
-      padding: .45rem .7rem;
+      gap: 0.5rem;
+      padding: 0.45rem 0.7rem;
       margin-bottom: 12px;
       max-width: min(100%, 320px);
     }
 
     .pill__text {
-      font-size: clamp(.78rem, 3vw, .92rem);
+      font-size: clamp(0.78rem, 3vw, 0.92rem);
       line-height: 1.15;
       white-space: nowrap;
     }
@@ -452,7 +531,7 @@ const [primaryWork, ...secondaryWorks] = works;
 
     .hero__actions {
       flex-direction: column;
-      gap: .55rem;
+      gap: 0.55rem;
       align-items: center;
       margin-inline: auto;
     }
@@ -463,18 +542,31 @@ const [primaryWork, ...secondaryWorks] = works;
       padding-inline: 1rem;
     }
 
+    .btn-wrapper,
+    .btn-hero-outline {
+      display: none !important;
+    }
+
     .status {
       justify-content: center;
-      font-size: .9rem;
+      font-size: 0.9rem;
       text-align: center;
     }
   }
 
-  .status { display:flex; align-items:center; gap:.5rem; color: var(--color-text-muted, #6b7280); }
+  .status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-text-muted, #6b7280);
+  }
   .dot {
-    width:10px; height:10px; border-radius:999px; display:inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    display: inline-block;
     background: radial-gradient(circle at 30% 30%, #22c55e, #16a34a);
-    box-shadow: 0 0 10px rgba(34,197,94,.6);
+    box-shadow: 0 0 10px rgba(34, 197, 94, 0.6);
   }
 
   .carousel {
@@ -482,14 +574,15 @@ const [primaryWork, ...secondaryWorks] = works;
     width: 100vw;
     max-width: none;
     margin-top: 12px;
-    left: 50%; transform: translateX(-50%);
+    left: 50%;
+    transform: translateX(-50%);
     overflow: hidden;
   }
   .carousel__track {
     display: flex;
     gap: 18px;
     will-change: transform;
-    transform: translate3d(0,0,0);
+    transform: translate3d(0, 0, 0);
     scroll-behavior: auto !important;
   }
 
@@ -549,7 +642,3 @@ const [primaryWork, ...secondaryWorks] = works;
     }
   }
 </style>
-
-
-
-
