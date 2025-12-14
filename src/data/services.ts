@@ -36,21 +36,21 @@
 
 export const featuredServices = [
   {
-    title: 'Redes Sociales & Contenido',
+    title: 'Diseño y Desarrollo de Páginas Web',
     description:
-      'Gestión integral de tu presencia digital. Nos encargamos de la producción de videos y diseño de posts, sumado a estrategias de publicidad pagadas (Ads) enfocadas en ventas reales.',
+      'Desarrollamos Páginas Web profesionales, Tiendas Online y Landing Pages ultrarrápidas. Usamos tecnología moderna para garantizar el mejor SEO y una experiencia de usuario superior.',
     icon: 'person',
   },
   {
-    title: 'Diseño & Desarrollo Web',
+    title: 'Diseño y Desarrollo de Tiendas en Línea',
     description:
-      'Creamos sitios web ultra-rápidos con tecnología Astro. Garantizamos una estructura técnica impecable que asegura velocidad de carga instantánea y una experiencia de usuario superior.',
+      'Desarrollamos Tiendas Online robustas y escalables para vender en Ambato y todo Ecuador. Integramos pasarelas de pago y sistemas de gestión para que tu e-commerce sea tu vendedor más eficiente 24/7.',
     icon: 'laptop_mac',
   },
   {
     title: 'Automatización & IA',
     description:
-      'Vende las 24 horas y reduce costos operativos. Implementamos Chatbots inteligentes y flujos de trabajo automatizados que atenden clientes, gestionan y cierran ventas mientras duermes.',
+      'Implementamos soluciones de Automatización para optimizar tus ventas 24/7. Desde Chatbots para atención al cliente hasta la integración de sistemas, eliminamos tareas manuales en tu negocio.',
     icon: 'robot_2',
   },
   {
