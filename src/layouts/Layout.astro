@@ -4,11 +4,11 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 
 const {
-  title = "Agencia de Publicidad y Páginas Web en Ambato | Inovasore",
+  title = "Diseño de Páginas Web en Ambato: E-commerce, Landing Pages y Tiendas Online. | Inovasore",
   description = "Creamos páginas web y tiendas online que convierten: landing pages, e-commerce, webs institucionales y plataformas educativas. Diseño moderno, SEO técnico y alto rendimiento.",
   ogTitle = "Desarrollo web y tiendas online que convierten | Inovasore",
   ogDescription = "Impulsa tu presencia digital con sitios rápidos, seguros y optimizados: landing pages, e-commerce, webs institucionales y plataformas educativas. Diseño, SEO técnico y performance para atraer y vender más.",
-  ogImage = "/Web-Inovasore.webp",
+  ogImage = "/social-image.png",
   navOffset = "5rem",
 } = Astro.props;
 
@@ -42,7 +42,7 @@ const organizationSchema = JSON.stringify({
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="p:domain_verify" content="fafbb18240a0e4aa2cd1dedbbb307a59"/>
+    <meta name="p:domain_verify" content="fafbb18240a0e4aa2cd1dedbbb307a59" />
     <link rel="canonical" href={canonical} />
 
     <!-- Favicon -->
@@ -112,7 +112,7 @@ const organizationSchema = JSON.stringify({
     <meta property="og:title" content={ogTitle} />
     <meta property="og:description" content={ogDescription} />
     <meta property="og:image" content={new URL(ogImage, siteOrigin).href} />
-    <meta property="og:image:type" content="image/webp" />
+    <meta property="og:image:type" content="image/png" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={ogTitle} />
