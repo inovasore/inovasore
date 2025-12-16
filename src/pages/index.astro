@@ -9,14 +9,29 @@ import Projects from "../components/Projects.astro";
 import CTA from "../components/CTA.astro";
 import DiscountBanner from "../components/DiscountBanner.astro";
 import FAQ from "../components/FAQ.astro";
+import { faqs } from "../data/faqs";
+
+// FAQ Schema para AEO (Answer Engine Optimization)
+const faqSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
+});
 ---
 
 <Layout
-  title="Inovasore | Diseño de Páginas Web en Ambato: E-commerce, Landing Pages y Tiendas Online."
-  description="Creamos páginas web y tiendas online que convierten: landing pages, e-commerce, webs institucionales y plataformas educativas. Diseño moderno, SEO técnico y alto rendimiento."
+  title="Inovasore | Diseño y Desarrollo de Páginas Web en Ambato: E-commerce, Landing Pages y Tiendas Online."
+  description="Creamos páginas web y tiendas online que convierten: landing pages, e-commerce, webs institucionales y plataformas educativas. Diseño moderno, SEO técnico y alto rendimiento en Ambato y todo Ecuador."
   ogTitle="Desarrollo web y tiendas online que convierten | Inovasore"
   ogDescription="Impulsa tu presencia digital con sitios rápidos, seguros y optimizados: landing pages, e-commerce, webs institucionales y plataformas educativas. Diseño, SEO técnico y performance para atraer y vender más."
-  ogImage="/Web-Novasore.webp"
+  ogImage="/Web-Inovasore.webp"
 >
   <Hero />
   <div class="shared-bg-wrapper">
@@ -29,6 +44,9 @@ import FAQ from "../components/FAQ.astro";
   <DiscountBanner />
   <WhyUs />
   <FAQ />
+
+  <!-- FAQ Schema para AEO (Answer Engine Optimization) -->
+  <script type="application/ld+json" set:html={faqSchema} />
 </Layout>
 
 <style>

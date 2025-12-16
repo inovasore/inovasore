@@ -5,7 +5,7 @@ import Footer from "../components/Footer.astro";
 
 const {
   title = "Diseño de Páginas Web en Ambato: E-commerce, Landing Pages y Tiendas Online. | Inovasore",
-  description = "Creamos páginas web y tiendas online que convierten: landing pages, e-commerce, webs institucionales y plataformas educativas. Diseño moderno, SEO técnico y alto rendimiento.",
+  description = "Creamos páginas web y tiendas online que convierten: landing pages, e-commerce, webs institucionales y plataformas educativas. Diseño moderno, SEO técnico y alto rendimiento en Ambato y todo Ecuador.",
   ogTitle = "Desarrollo web y tiendas online que convierten | Inovasore",
   ogDescription = "Impulsa tu presencia digital con sitios rápidos, seguros y optimizados: landing pages, e-commerce, webs institucionales y plataformas educativas. Diseño, SEO técnico y performance para atraer y vender más.",
   ogImage = "/social-image.png",
@@ -21,16 +21,66 @@ const interHref =
   "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap";
 const materialHref =
   "https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24..48,600,1,0&display=swap";
-const organizationSchema = JSON.stringify({
+// LocalBusiness Schema para SEO Local, AEO y GEO
+const localBusinessSchema = JSON.stringify({
   "@context": "https://schema.org",
-  "@type": "Organization",
+  "@type": "LocalBusiness",
   name: "Inovasore",
-  url: siteOrigin,
-  sameAs: [
-    "https://www.facebook.com/Inovasore",
-    "https://www.instagram.com/Inovasore/",
-  ],
+  description:
+    "Agencia digital especializada en desarrollo web, e-commerce, landing pages y marketing digital en Ambato, Ecuador. Creamos sitios web que convierten con diseño moderno, SEO técnico y alto rendimiento.",
+  image: siteOrigin + "/Logotipo.svg",
   logo: siteOrigin + "/Logotipo.svg",
+  "@id": siteOrigin,
+  url: siteOrigin,
+  telephone: "+593961141127",
+  email: "disenoweb@inovasore.com",
+  priceRange: "$180-$1200",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Rio Patate & Rio Chambo",
+    addressLocality: "Ambato",
+    addressRegion: "Tungurahua",
+    postalCode: "180207",
+    addressCountry: "EC",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: -1.2717715287074494,
+    longitude: -78.62341846076843,
+  },
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    opens: "08:00",
+    closes: "24:00",
+  },
+  sameAs: [
+    "https://www.facebook.com/inovasore.ec",
+    "https://www.instagram.com/inovasore/",
+    "https://x.com/inovasore",
+    "https://wa.me/593961141127",
+  ],
+  areaServed: [
+    {
+      "@type": "City",
+      name: "Ambato",
+      "@id": "https://www.wikidata.org/wiki/Q338450",
+    },
+    {
+      "@type": "Country",
+      name: "Ecuador",
+      "@id": "https://www.wikidata.org/wiki/Q736",
+    },
+  ],
+  serviceArea: {
+    "@type": "GeoCircle",
+    geoMidpoint: {
+      "@type": "GeoCoordinates",
+      latitude: -1.2717715287074494,
+      longitude: -78.62341846076843,
+    },
+    geoRadius: "100000",
+  },
 });
 ---
 
@@ -122,7 +172,7 @@ const organizationSchema = JSON.stringify({
     <script
       type="application/ld+json"
       is:inline
-      set:html={organizationSchema}
+      set:html={localBusinessSchema}
     />
   </head>
 
