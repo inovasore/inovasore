@@ -10,7 +10,7 @@ import imgWeb from '../assets/works/diseño-web-ambato.webp';
 
 export const heroContent = {
   title: "Diseño, Desarrollo y Automatización para <span class=\"mobile-nowrap\"> Negocios de Alto Rendimiento. </or class=\"desktop-only\"/>",
-  tagline: "Diseño Web y Automatización enfocados en la Rentabilidad.",
+  tagline: "Diseño, Desarrollo y Automatización.",
   subtitle: "Expertos en Páginas Web, Tiendas Online, Landing Pages y Chatbots a la medida en Ambato.",
   works: [
     imgPageWeb,
