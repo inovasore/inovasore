@@ -43,6 +43,19 @@ const { offsetTop = "0px" } = Astro.props;
           const style = `--reveal-delay:${(0.16 + index * 0.08).toFixed(2)}s;--reveal-duration:.45s;--reveal-distance:12px`;
           return (
             <article class={cardClass} style={style}>
+              <a
+                href="/servicios"
+                class="spotlight-card__link"
+                aria-label={`Ver más sobre ${service.title}`}
+              >
+                <span class="spotlight-card__link-text">Ver más</span>
+                <img
+                  src="/arrow.svg"
+                  alt=""
+                  class="spotlight-card__arrow"
+                  aria-hidden="true"
+                />
+              </a>
               <div class="spotlight-card__icon" aria-hidden="true">
                 <span class="material-symbols-rounded" aria-hidden="true">
                   {service.icon}
@@ -223,6 +236,52 @@ const { offsetTop = "0px" } = Astro.props;
       transform 0.18s ease,
       box-shadow 0.25s ease,
       border-color 0.25s ease;
+  }
+
+  .spotlight-card__link {
+    position: absolute;
+    top: 20px;
+    right: 22px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50px;
+    background: transparent;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    font-weight: 400;
+    z-index: 3;
+    transition: all 0.25s ease;
+    backdrop-filter: blur(4px);
+  }
+
+  .spotlight-card__link:hover {
+    background: transparent;
+    border-color: rgba(59, 130, 246, 0.6);
+    color: #fff;
+    transform: translateX(2px);
+  }
+
+  .spotlight-card__link:active {
+    background: rgba(59, 130, 246, 0.2);
+    border-color: rgba(59, 130, 246, 0.4);
+  }
+
+  .spotlight-card__link-text {
+    font-size: 0.9rem;
+  }
+
+  .spotlight-card__arrow {
+    width: 14px;
+    height: 14px;
+    transition: transform 0.25s ease;
+  }
+
+  .spotlight-card__link:hover .spotlight-card__arrow {
+    transform: translate(2px, -2px);
   }
 
   .spotlight-card::before {

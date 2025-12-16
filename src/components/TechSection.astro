@@ -1,0 +1,138 @@
+---
+// No props needed for this component
+---
+
+<section class="tech-section">
+    <div class="tech-section__inner">
+        <div class="tech-section__image">
+            <img
+                src="/world.png"
+                alt="Mapa mundial conectado representando tecnología global"
+                width="450"
+                height="450"
+            />
+        </div>
+        <div class="tech-section__content">
+            <div class="tech-section__line" aria-hidden="true"></div>
+            <h2 class="tech-section__title">
+                ¡Tecnología de Alto Rendimiento Probada en todo Ecuador!
+            </h2>
+            <p class="tech-section__description">
+                Nuestra tecnología ha impulsado negocios desde Ambato hasta
+                Guayaquil. Elegimos es optar por soluciones robustas que
+                funcionan sin importar tu ubicación.
+            </p>
+            <a href="#contacto" class="tech-section__cta">
+                ¡Quiero Cotizar mi Proyecto
+            </a>
+        </div>
+    </div>
+</section>
+
+<style>
+    .tech-section {
+        position: relative;
+        padding: clamp(60px, 12vh, 100px) clamp(20px, 4vw, 40px);
+        background: #ffffff;
+        color: #000;
+    }
+
+    .tech-section__inner {
+        max-width: 1040px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(40px, 6vw, 80px);
+        align-items: center;
+    }
+
+    .tech-section__image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .tech-section__image img {
+        width: 100%;
+        max-width: 450px;
+        height: auto;
+        object-fit: contain;
+    }
+
+    .tech-section__content {
+        display: flex;
+        flex-direction: column;
+        gap: clamp(12px, 2vh, 20px);
+    }
+
+    .tech-section__line {
+        width: 60px;
+        height: 3px;
+        background: var(--color-primary);
+        border-radius: 2px;
+    }
+
+    .tech-section__title {
+        font-size: clamp(1.6rem, 2.2vw + 0.8rem, 2.2rem);
+        font-weight: 700;
+        line-height: 1.2;
+        color: #000000;
+        margin: 0;
+    }
+
+    .tech-section__description {
+        font-size: clamp(0.95rem, 0.9rem + 0.2vw, 1.05rem);
+        line-height: 1.6;
+        color: #666666;
+        font-weight: 300;
+        margin: 0;
+    }
+
+    .tech-section__cta {
+    background: linear-gradient(90deg, #1b56fd 0%, #133db4 100%);
+    color: #fff;
+    padding: 10px 28px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.125rem;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+  }
+
+  .tech-section__cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(27, 86, 253, 0.4);
+  }
+
+  .tech-section__cta:active {
+    transform: translateY(0);
+  }  }
+
+    @media (max-width: 768px) {
+        .tech-section__inner {
+            grid-template-columns: 1fr;
+            gap: clamp(30px, 5vh, 40px);
+        }
+
+        .tech-section__image {
+            order: 2;
+        }
+
+        .tech-section__content {
+            order: 1;
+            text-align: center;
+            align-items: center;
+        }
+
+        .tech-section__line {
+            margin: 0 auto;
+        }
+    }
+</style>
