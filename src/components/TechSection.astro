@@ -4,6 +4,20 @@
 
 <section class="tech-section">
     <div class="tech-section__inner">
+        <div class="tech-section__content">
+            <div class="tech-section__line" aria-hidden="true"></div>
+            <h2 class="tech-section__title">
+                ¡Tecnología de Alto Rendimiento Probada en todo el Mundo!
+            </h2>
+            <p class="tech-section__description">
+                Nuestra tecnología ha impulsado negocios desde Ambato Ecuador hasta
+                New York Estados Unidos. Elegimos es optar por soluciones robustas que
+                funcionan sin importar tu ubicación.
+            </p>
+            <a href="http://wa.me/593961141127" class="tech-section__cta">
+                ¡Quiero Cotizar mi Proyecto
+            </a>
+        </div>
         <div class="tech-section__image">
             <img
                 src="/world.png"
@@ -11,20 +25,6 @@
                 width="450"
                 height="450"
             />
-        </div>
-        <div class="tech-section__content">
-            <div class="tech-section__line" aria-hidden="true"></div>
-            <h2 class="tech-section__title">
-                ¡Tecnología de Alto Rendimiento Probada en todo Ecuador!
-            </h2>
-            <p class="tech-section__description">
-                Nuestra tecnología ha impulsado negocios desde Ambato hasta
-                Guayaquil. Elegimos es optar por soluciones robustas que
-                funcionan sin importar tu ubicación.
-            </p>
-            <a href="http://wa.me/593961141127" class="tech-section__cta">
-                ¡Quiero Cotizar mi Proyecto
-            </a>
         </div>
     </div>
 </section>
@@ -121,18 +121,21 @@
             gap: clamp(30px, 5vh, 40px);
         }
 
-        .tech-section__image {
-            order: 2;
-        }
-
         .tech-section__content {
-            order: 1;
             text-align: center;
             align-items: center;
         }
 
         .tech-section__line {
             margin: 0 auto;
+        }
+
+        .tech-section__image {
+            order: 2;
+        }
+
+        .tech-section__image img {
+            max-width: 350px;
         }
     }
 </style>
