@@ -34,14 +34,14 @@ import Testimonials from "../components/Testimonials.astro";
     content: "";
     position: absolute;
     inset: 0;
-    background-image: url("/bg-hero.svg"), url("/Vectorbg.svg");
+    background-image: url("/Vectorbg.svg"), url("/bg-hero.svg");
     background-position:
-      center top,
-      center center;
+      center 15px,
+      center top;
     background-size:
-      1600px auto,
-      auto;
-    background-repeat: no-repeat, repeat;
+      auto,
+      1600px auto;
+    background-repeat: repeat, no-repeat;
     opacity: 0.95;
     pointer-events: none;
     z-index: 0;
@@ -60,5 +60,14 @@ import Testimonials from "../components/Testimonials.astro";
   /* Reduce padding for Testimonials component only in services page */
   .services-page-bg :global(.testimonials) {
     padding-top: clamp(50px, 8vh, 80px);
+  }
+
+  /* Adjust grid position on mobile */
+  @media (max-width: 768px) {
+    .services-page-bg::before {
+      background-position:
+        center -10px,
+        center top;
+    }
   }
 </style>

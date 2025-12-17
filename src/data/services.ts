@@ -40,6 +40,7 @@ export const featuredServices = [
     description:
       'Desarrollamos Páginas Web profesionales, Tiendas Online y Landing Pages ultrarrápidas. Usamos tecnología moderna para garantizar el mejor SEO y una experiencia de usuario superior.',
     icon: 'person',
+    link: '/paginas-web-ambato',
   },
   {
     title: 'Diseño y Desarrollo de Tiendas en Línea',

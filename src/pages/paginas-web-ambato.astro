@@ -1,0 +1,56 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PaginasWebHero from "../components/PaginasWebHero.astro";
+---
+
+<Layout
+    title="Páginas Web Ambato | Diseño y Desarrollo Web Profesional"
+    description="Desarrollo de páginas web profesionales en Ambato. Diseños modernos, responsive y optimizados para SEO. Tu web a otro nivel con velocidad extrema y diseño único."
+    navOffset="clamp(82px, 18vw, 120px)"
+>
+    <div class="paginas-web-page-bg">
+        <div style="height: clamp(100px, 15vh, 120px);"></div>
+
+        <PaginasWebHero />
+    </div>
+</Layout>
+
+<style>
+    .paginas-web-page-bg {
+        position: relative;
+        min-height: 100vh;
+        background: var(--color-bg);
+        overflow: hidden;
+    }
+
+    .paginas-web-page-bg::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url("/Vectorbg.svg"), url("/bg-hero.svg");
+        background-position:
+            center 15px,
+            center top;
+        background-size:
+            auto,
+            1600px auto;
+        background-repeat: repeat, no-repeat;
+        opacity: 0.95;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .paginas-web-page-bg > * {
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Adjust grid position on mobile */
+    @media (max-width: 768px) {
+        .paginas-web-page-bg::before {
+            background-position:
+                center -10px,
+                center top;
+        }
+    }
+</style>

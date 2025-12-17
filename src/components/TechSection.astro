@@ -115,21 +115,24 @@
     transform: translateY(0);
   }  }
 
-    @media (max-width: 900px) {
+    /* Hide image on all devices smaller than desktop */
+    @media (max-width: 1200px) {
+        .tech-section__image {
+            display: none !important;
+            visibility: hidden !important;
+        }
+    }
+
+    @media (max-width: 1024px) {
         .tech-section__inner {
             display: block !important;
-            max-width: 100%;
         }
 
         .tech-section__content {
-            display: block;
             text-align: center;
+            width: 100%;
+            max-width: 100%;
             margin-bottom: clamp(40px, 6vh, 60px);
-        }
-
-        .tech-section__content > * {
-            margin-left: auto;
-            margin-right: auto;
         }
 
         .tech-section__line {
@@ -142,18 +145,9 @@
             text-align: center;
         }
 
-        .tech-section__image {
-            display: block;
-            width: 100%;
-            text-align: center;
-        }
-
-        .tech-section__image img {
-            display: block;
-            width: 85%;
-            max-width: 400px;
-            height: auto;
-            margin: 0 auto;
+        .tech-section__cta {
+            margin-left: auto;
+            margin-right: auto;
         }
     }
 </style>

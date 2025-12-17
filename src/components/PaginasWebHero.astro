@@ -1,0 +1,203 @@
+---
+// No props needed for this component
+---
+
+<section class="paginas-web-hero">
+    <div class="hero-inner">
+        <div class="hero-tag">Diseño y desarrollo de sitios web</div>
+
+        <h1 class="hero-title">
+            Velocidad Extrema. Diseño Único.<br />
+            <span class="highlight">Tu Web a otro nivel.</span>
+        </h1>
+
+        <p class="hero-description">
+            Cada Sitio Web es optimizado para maximizar la velocidad, con
+            diseños únicos y animaciones modernas.
+        </p>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <span class="material-symbols-rounded">devices</span>
+                </div>
+                <h3 class="feature-title">Web Responsive al 100%</h3>
+                <p class="feature-description">
+                    Más del 80% de tus clientes te visitarán desde su celular.
+                    Garantizamos que tu web se adapte, visualice y funcione a la
+                    perfección en cualquier pantalla (iPhone, Android, Tablet o
+                    Desktop).
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <span class="material-symbols-rounded">speed</span>
+                </div>
+                <h3 class="feature-title">Páginas Web Super Rápidas</h3>
+                <p class="feature-description">
+                    En internet, cada segundo cuenta. Optimizamos cada imagen y
+                    línea de código para lograr tiempos de carga instantáneos,
+                    mejorando tu posicionamiento en Google y evitando que tus
+                    clientes se vayan por esperar.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <span class="material-symbols-rounded">palette</span>
+                </div>
+                <h3 class="feature-title">Diseños Únicos y Modernos</h3>
+                <p class="feature-description">
+                    Diseñamos interfaces desde cero (prototipado en Figma),
+                    fusionando estética moderna con estrategia, UX/UI. Creamos
+                    una identidad visual única que diferencia a tu negocio de la
+                    competencia y enamora a primera vista.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <span class="material-symbols-rounded">shield</span>
+                </div>
+                <h3 class="feature-title">La mejor Seguridad para Web</h3>
+                <p class="feature-description">
+                    Implementamos las mejores prácticas de ciberseguridad y
+                    protocolos SSL para proteger la integridad de tu sitio web y
+                    brindar la tutus sensibles de tus clientes. Una web segura
+                    es una web que vende con confianza.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .paginas-web-hero {
+        position: relative;
+        padding: calc(var(--section-padding-y) * 1.35) 0
+            var(--section-padding-y);
+        color: var(--color-text);
+        overflow: hidden;
+    }
+
+    .hero-inner {
+        max-width: 1080px; /* Matched to Services max-width */
+        margin: 0 auto;
+        padding-inline: 16px; /* Added consistant padding */
+        text-align: center;
+    }
+
+    .hero-tag {
+        display: inline-block;
+        padding: 0.85rem 0.85rem;
+        background: transparent;
+        border: 1px solid #1b56fd;
+        border-radius: 999px;
+        font-size: clamp(0.9rem, 0.85rem + 0.2vw, 1rem);
+        font-weight: 400;
+        color: var(--color-text);
+        margin-bottom: clamp(20px, 3vh, 30px);
+    }
+
+    .hero-title {
+        font-size: clamp(1.8rem, 3.1vw + 0.6rem, 2.5rem);
+        font-weight: 600;
+        line-height: 1.13;
+        margin: clamp(6px, 1.2vh, 10px) auto clamp(4px, 1vh, 8px);
+        max-width: 28ch;
+        color: #fff;
+    }
+
+    .hero-title .highlight {
+        display: inline-block;
+        background-image: linear-gradient(
+            90deg,
+            #26d2f8 0%,
+            #23b2ff 35%,
+            #0973e1 70%,
+            #3b5bff 100%
+        );
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent !important;
+        -webkit-text-fill-color: transparent !important;
+    }
+
+    .hero-description {
+        color: color-mix(in oklab, var(--color-text) 70%, transparent);
+        max-width: 58ch;
+        margin: 0 auto clamp(48px, 7vh, 72px);
+        font-size: clamp(1rem, 0.9rem + 0.25vw, 1.1rem);
+        font-weight: 300;
+        line-height: 1.6;
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+        margin-top: clamp(40px, 6vh, 60px);
+    }
+
+    @media (min-width: 768px) {
+        .features-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    .feature-card {
+        position: relative;
+        text-align: left;
+        padding: 28px 24px;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: linear-gradient(
+            180deg,
+            rgba(12, 14, 22, 0.7),
+            rgba(12, 14, 22, 0.5)
+        );
+        transition:
+            transform 0.2s ease,
+            border-color 0.3s ease,
+            box-shadow 0.3s ease;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-2px);
+        border-color: rgba(27, 86, 253, 0.3);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    .feature-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: grid;
+        place-items: center;
+        background: var(--color-primary);
+        color: #fff;
+        margin-bottom: 16px;
+    }
+
+    .feature-icon .material-symbols-rounded {
+        font-size: 24px;
+    }
+
+    .feature-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #fff;
+        margin: 0 0 12px 0;
+    }
+
+    .feature-description {
+        color: color-mix(in oklab, var(--color-text) 75%, transparent);
+        font-size: 0.95rem;
+        font-weight: 300;
+        line-height: 1.5;
+        margin: 0;
+    }
+</style>

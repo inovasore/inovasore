@@ -42,7 +42,7 @@ const { offsetTop = "0px" } = Astro.props;
           return (
             <article class={cardClass} style={style}>
               <a
-                href="/servicios"
+                href={service.link || "/servicios"}
                 class="spotlight-card__link"
                 aria-label={`Ver más sobre ${service.title}`}
               >
