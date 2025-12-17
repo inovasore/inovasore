@@ -9,8 +9,6 @@ const { offsetTop = "0px" } = Astro.props;
   id="servicios"
   style={`--services-offset:${offsetTop}`}
 >
-  <div class="services__glow" aria-hidden="true"></div>
-
   <div class="section-inner section-inner--center services__inner">
     <span
       class="section-tag services__tag services__tag--compact reveal"
@@ -143,10 +141,6 @@ const { offsetTop = "0px" } = Astro.props;
     background: transparent;
     color: var(--color-text);
     scroll-margin-top: var(--services-offset, clamp(72px, 14vw, 120px));
-  }
-
-  .services__glow {
-    display: none;
   }
 
   .services__inner {

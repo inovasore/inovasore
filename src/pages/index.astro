@@ -60,4 +60,15 @@ const faqSchema = JSON.stringify({
     position: relative;
     z-index: 1;
   }
+
+  /* Extra padding for FAQ component */
+  :global(.faq) {
+    padding-top: clamp(80px, 12vh, 120px) !important;
+    padding-bottom: clamp(100px, 14vh, 140px) !important;
+  }
+
+  /* Reduce padding for Process component in home page */
+  :global(.process) {
+    padding-top: clamp(30px, 4vh, 50px) !important;
+  }
 </style>

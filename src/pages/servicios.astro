@@ -11,9 +11,54 @@ import Testimonials from "../components/Testimonials.astro";
   description="Explora nuestros servicios principales: diseño web, tiendas online, landing pages, SEO técnico y soporte continuo."
   navOffset="clamp(82px, 18vw, 120px)"
 >
-  <div style="height: clamp(100px, 15vh, 120px);"></div>
-  <Services offsetTop="clamp(82px, 18vw, 120px)" />
-  <TechSection />
-  <Process />
-  <Testimonials />
+  <div class="services-page-bg">
+    <div style="height: clamp(100px, 15vh, 120px);"></div>
+
+    <Services offsetTop="clamp(82px, 18vw, 120px)" />
+
+    <TechSection />
+    <Process />
+    <Testimonials />
+  </div>
 </Layout>
+
+<style>
+  .services-page-bg {
+    position: relative;
+    min-height: 100vh;
+    background: var(--color-bg);
+    overflow: hidden;
+  }
+
+  .services-page-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("/bg-hero.svg"), url("/Vectorbg.svg");
+    background-position:
+      center top,
+      center center;
+    background-size:
+      1600px auto,
+      auto;
+    background-repeat: no-repeat, repeat;
+    opacity: 0.95;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .services-page-bg > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Extra padding for Process component only in services page */
+  .services-page-bg :global(.process) {
+    padding-top: clamp(80px, 14vh, 130px);
+  }
+
+  /* Reduce padding for Testimonials component only in services page */
+  .services-page-bg :global(.testimonials) {
+    padding-top: clamp(50px, 8vh, 80px);
+  }
+</style>
