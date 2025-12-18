@@ -249,6 +249,67 @@
       color: #fff;
       border: none;
       box-shadow: none;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .process__icon .material-symbols-rounded {
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .process__card:hover .process__icon {
+      transform: scale(1.1);
+    }
+
+    .process__card:nth-child(1):hover .process__icon .material-symbols-rounded {
+      animation: bounce-rotate 0.6s ease;
+    }
+
+    .process__card:nth-child(2):hover .process__icon .material-symbols-rounded {
+      animation: pulse-scale 0.5s ease;
+    }
+
+    .process__card:nth-child(3):hover .process__icon .material-symbols-rounded {
+      animation: shake 0.5s ease;
+    }
+
+    .process__card:nth-child(4):hover .process__icon .material-symbols-rounded {
+      animation: bounce-rotate 0.6s ease;
+    }
+
+    @keyframes bounce-rotate {
+      0%,
+      100% {
+        transform: rotate(0deg) scale(1);
+      }
+      25% {
+        transform: rotate(-10deg) scale(1.15);
+      }
+      75% {
+        transform: rotate(10deg) scale(1.15);
+      }
+    }
+
+    @keyframes pulse-scale {
+      0%,
+      100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.25);
+      }
+    }
+
+    @keyframes shake {
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+      25% {
+        transform: translateX(-4px) rotate(-5deg);
+      }
+      75% {
+        transform: translateX(4px) rotate(5deg);
+      }
     }
 
     .process__badge {

@@ -72,13 +72,24 @@ const { offsetTop = "0px" } = Astro.props;
 
   <div class="scroll-reveal-container">
     <p class="scroll-reveal-text">
-      <span class="scroll-line" data-line="1"
+      <span
+        class="scroll-line reveal"
+        data-line="1"
+        style="--reveal-delay:.08s;--reveal-duration:.55s;--reveal-distance:14px"
         >¡AUMENTA TU PRESENCIA ONLINE Y</span
       >
-      <span class="scroll-line" data-line="2"
+      <span
+        class="scroll-line reveal"
+        data-line="2"
+        style="--reveal-delay:.16s;--reveal-duration:.55s;--reveal-distance:14px"
         >CONÉCTATE CON LO QUE REALMENTE</span
       >
-      <span class="scroll-line" data-line="3">IMPORTA PARA TU NEGOCIO!</span>
+      <span
+        class="scroll-line reveal"
+        data-line="3"
+        style="--reveal-delay:.24s;--reveal-duration:.55s;--reveal-distance:14px"
+        >IMPORTA PARA TU NEGOCIO!</span
+      >
     </p>
   </div>
 </section>
@@ -338,6 +349,70 @@ const { offsetTop = "0px" } = Astro.props;
     color: #fff;
     border: none;
     box-shadow: none;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .spotlight-card__icon .material-symbols-rounded {
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* Animaciones específicas por tarjeta al hacer hover */
+  .spotlight-card:hover .spotlight-card__icon {
+    transform: scale(1.1);
+  }
+
+  .spotlight-card:nth-child(1):hover
+    .spotlight-card__icon
+    .material-symbols-rounded {
+    animation: bounce-rotate 0.6s ease;
+  }
+
+  .spotlight-card:nth-child(2):hover
+    .spotlight-card__icon
+    .material-symbols-rounded {
+    animation: pulse-scale 0.5s ease;
+  }
+
+  .spotlight-card:nth-child(3):hover
+    .spotlight-card__icon
+    .material-symbols-rounded {
+    animation: shake 0.5s ease;
+  }
+
+  @keyframes bounce-rotate {
+    0%,
+    100% {
+      transform: rotate(0deg) scale(1);
+    }
+    25% {
+      transform: rotate(-10deg) scale(1.15);
+    }
+    75% {
+      transform: rotate(10deg) scale(1.15);
+    }
+  }
+
+  @keyframes pulse-scale {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.25);
+    }
+  }
+
+  @keyframes shake {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-4px) rotate(-5deg);
+    }
+    75% {
+      transform: translateX(4px) rotate(5deg);
+    }
   }
 
   .spotlight-card__body {

@@ -4,20 +4,34 @@
 
 <section class="paginas-web-hero">
     <div class="hero-inner">
-        <div class="hero-tag">Diseño y desarrollo de sitios web</div>
+        <div
+            class="hero-tag reveal"
+            style="--reveal-delay:.08s;--reveal-duration:.45s;--reveal-distance:10px"
+        >
+            Diseño y desarrollo de sitios web
+        </div>
 
-        <h1 class="hero-title">
+        <h1
+            class="hero-title reveal"
+            style="--reveal-delay:.16s;--reveal-duration:.55s;--reveal-distance:14px"
+        >
             Velocidad Extrema. Diseño Único.<br />
             <span class="highlight">Tu Web a otro nivel.</span>
         </h1>
 
-        <p class="hero-description">
+        <p
+            class="hero-description reveal"
+            style="--reveal-delay:.24s;--reveal-duration:.45s;--reveal-distance:10px"
+        >
             Cada Sitio Web es optimizado para maximizar la velocidad, con
             diseños únicos y animaciones modernas.
         </p>
 
         <div class="features-grid">
-            <div class="feature-card">
+            <div
+                class="feature-card reveal"
+                style="--reveal-delay:.32s;--reveal-duration:.45s;--reveal-distance:12px"
+            >
                 <div class="feature-icon">
                     <span class="material-symbols-rounded">devices</span>
                 </div>
@@ -30,7 +44,10 @@
                 </p>
             </div>
 
-            <div class="feature-card">
+            <div
+                class="feature-card reveal"
+                style="--reveal-delay:.40s;--reveal-duration:.45s;--reveal-distance:12px"
+            >
                 <div class="feature-icon">
                     <span class="material-symbols-rounded">speed</span>
                 </div>
@@ -43,7 +60,10 @@
                 </p>
             </div>
 
-            <div class="feature-card">
+            <div
+                class="feature-card reveal"
+                style="--reveal-delay:.48s;--reveal-duration:.45s;--reveal-distance:12px"
+            >
                 <div class="feature-icon">
                     <span class="material-symbols-rounded">palette</span>
                 </div>
@@ -56,7 +76,10 @@
                 </p>
             </div>
 
-            <div class="feature-card">
+            <div
+                class="feature-card reveal"
+                style="--reveal-delay:.56s;--reveal-duration:.45s;--reveal-distance:12px"
+            >
                 <div class="feature-icon">
                     <span class="material-symbols-rounded">shield</span>
                 </div>
@@ -180,10 +203,68 @@
         background: var(--color-primary);
         color: #fff;
         margin-bottom: 16px;
+        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .feature-icon .material-symbols-rounded {
         font-size: 24px;
+        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .feature-card:hover .feature-icon {
+        transform: scale(1.1);
+    }
+
+    .feature-card:nth-child(1):hover .feature-icon .material-symbols-rounded {
+        animation: bounce-rotate 0.6s ease;
+    }
+
+    .feature-card:nth-child(2):hover .feature-icon .material-symbols-rounded {
+        animation: pulse-scale 0.5s ease;
+    }
+
+    .feature-card:nth-child(3):hover .feature-icon .material-symbols-rounded {
+        animation: shake 0.5s ease;
+    }
+
+    .feature-card:nth-child(4):hover .feature-icon .material-symbols-rounded {
+        animation: bounce-rotate 0.6s ease;
+    }
+
+    @keyframes bounce-rotate {
+        0%,
+        100% {
+            transform: rotate(0deg) scale(1);
+        }
+        25% {
+            transform: rotate(-10deg) scale(1.15);
+        }
+        75% {
+            transform: rotate(10deg) scale(1.15);
+        }
+    }
+
+    @keyframes pulse-scale {
+        0%,
+        100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.25);
+        }
+    }
+
+    @keyframes shake {
+        0%,
+        100% {
+            transform: translateX(0);
+        }
+        25% {
+            transform: translateX(-4px) rotate(-5deg);
+        }
+        75% {
+            transform: translateX(4px) rotate(5deg);
+        }
     }
 
     .feature-title {
