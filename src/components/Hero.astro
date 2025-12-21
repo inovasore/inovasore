@@ -37,47 +37,24 @@ const [primaryWork, ...secondaryWorks] = works;
         href="/contacto"
         style="--reveal-delay:.34s;--reveal-duration:.45s"
       >
-        Contáctanos
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 20 20"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M7.5 15L12.5 10L7.5 5"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"></path>
-        </svg>
-      </a>
-      <div class="btn-wrapper">
-        <svg
-          class="border-line"
-          viewBox="0 0 160 50"
-          preserveAspectRatio="none"
-        >
-          <rect
-            class="line-path"
-            x="1"
-            y="1"
-            width="158"
-            height="48"
-            rx="24"
+        <span class="btn-icon-circle">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
             fill="none"
-            stroke="#3B82F6"
-            stroke-width="2.5"></rect>
-        </svg>
-        <a
-          class="btn-hero-outline reveal"
-          href="/servicios"
-          style="--reveal-delay:.42s;--reveal-duration:.45s"
-        >
-          Servicios
-        </a>
-      </div>
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7.5 5L12.5 10L7.5 15"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+        </span>
+        Empezar Proyecto
+      </a>
     </div>
   </div>
   <div class="carousel carousel--auto" data-speed="35">
@@ -212,27 +189,22 @@ const [primaryWork, ...secondaryWorks] = works;
           const delta = (now - last) / 1000;
           last = now;
 
-          offset += speed * delta;
+          offset -= speed * delta;
 
-          // Optimization: Check first element width without constant DOM reads if possible,
-          // but for variable widths involved with gap, we might need one read.
-          // To strictly avoid layout thrashing, we can rely on cached widths if items are uniform,
-          // but here they might be. Let's optimize by checking offset only when it grows large.
-
+          // For left-to-right scrolling visually, we decrement offset (move left)
+          // and move first element to end when it goes off screen
           let first = track.firstElementChild as HTMLElement;
           if (first) {
-            // We can check offset against a threshold before querying DOM.
-            // Assuming min width is around 200px.
-            if (offset > 200) {
+            if (Math.abs(offset) > 200) {
               const width = first.getBoundingClientRect().width + gap;
-              if (offset >= width) {
+              if (Math.abs(offset) >= width) {
                 track.appendChild(first);
-                offset -= width;
+                offset += width;
               }
             }
           }
 
-          track.style.transform = `translate3d(${-offset}px,0,0)`;
+          track.style.transform = `translate3d(${offset}px,0,0)`;
           frameId = requestAnimationFrame(step);
         };
 
@@ -334,7 +306,7 @@ const [primaryWork, ...secondaryWorks] = works;
 
   .hero {
     position: relative;
-    padding: calc(var(--nav-h, 72px) + 80px) 0 var(--section-padding-y);
+    padding: calc(var(--nav-h, 72px) + 120px) 0 var(--section-padding-y);
     min-height: 86vh;
     background: var(--color-bg);
     color: var(--color-text);
@@ -395,7 +367,7 @@ const [primaryWork, ...secondaryWorks] = works;
     font-weight: 600;
     line-height: 1.1;
     letter-spacing: 0.2px;
-    font-size: clamp(1.6rem, 2.5vw + 1rem, 3.1rem);
+    font-size: clamp(1.6rem, 2.5vw + 1rem, 4.5rem);
     margin: 0.35rem auto 0;
     max-width: 100%;
   }
@@ -413,7 +385,7 @@ const [primaryWork, ...secondaryWorks] = works;
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    margin-bottom: clamp(18px, 4vh, 34px);
+    margin-bottom: clamp(45px, 8vh, 75px);
   }
 
   .btn-cta {
@@ -438,8 +410,8 @@ const [primaryWork, ...secondaryWorks] = works;
   .btn-hero-primary {
     display: inline-flex !important;
     align-items: center !important;
-    gap: 8px !important;
-    padding: 14px 28px !important;
+    gap: 10px !important;
+    padding: 12px 22px 12px 16px !important;
     border-radius: 999px !important;
     background: linear-gradient(90deg, #1b56fd 0%, #133db4 100%) !important;
     color: #fff !important;
@@ -463,12 +435,26 @@ const [primaryWork, ...secondaryWorks] = works;
     transform: translateY(0) !important;
   }
 
-  .btn-hero-primary svg {
+  .btn-icon-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    transition:
+      background 0.3s ease,
+      box-shadow 0.3s ease,
+      transform 0.3s ease;
+  }
+
+  .btn-icon-circle svg {
     transition: transform 0.2s ease;
   }
 
-  .btn-hero-primary:hover svg {
-    transform: translateX(3px);
+  .btn-hero-primary:hover .btn-icon-circle {
+    background: rgba(255, 255, 255, 0.25);
   }
 
   .btn-wrapper {
