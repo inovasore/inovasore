@@ -523,17 +523,25 @@ const [primaryWork, ...secondaryWorks] = works;
     transform: translateY(0) !important;
   }
 
-  .desktop-only {
+  /* Global styles for injected HTML content */
+  :global(.mobile-br) {
+    display: none;
+  }
+
+  :global(.desktop-br) {
     display: block;
   }
 
   @media (max-width: 768px) {
-    .desktop-only {
-      display: none;
-    }
-    .mobile-nowrap {
+    :global(.mobile-nowrap) {
       white-space: nowrap;
-      display: inline-block; /* Helps prevent break inside if parent allows */
+      display: inline-block;
+    }
+    :global(.mobile-br) {
+      display: block;
+    }
+    :global(.desktop-br) {
+      display: none;
     }
     .pill {
       gap: 0.5rem;

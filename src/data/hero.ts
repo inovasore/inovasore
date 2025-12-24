@@ -9,7 +9,7 @@ import imgGrafico from '../assets/works/diseño-grafico-ambato.webp';
 import imgWeb from '../assets/works/diseño-web-ambato.webp';
 
 export const heroContent = {
-  title: "Diseño, Desarrollo y Automatización para <span class=\"mobile-nowrap\"> Negocios <br> de Alto Rendimiento. </or class=\"desktop-only\"/>",
+  title: "Diseño, Desarrollo y Automatización para Negocios <br class=\"desktop-br\"/> de <br class=\"mobile-br\"/> Alto Rendimiento.",
   tagline: "Diseño, Desarrollo y Automatización.",
   subtitle: "Expertos en Páginas Web, Tiendas Online, Landing Pages y Chatbots a la medida en Ambato.",
   works: [
