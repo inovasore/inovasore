@@ -1,347 +1,380 @@
-﻿---
-
+---
+const steps = [
+  {
+    number: "01",
+    title: "Reunión de descubrimiento",
+    desc: "Analizamos tu negocio, tus metas y tu competencia. Juntos definimos la hoja de ruta antes de escribir una sola línea de código.",
+  },
+  {
+    number: "02",
+    title: "Estrategia & Diseño",
+    desc: "Diseñamos primero, codificamos después. Apruebas cada pantalla antes de continuar para que el resultado sea exactamente lo que imaginaste.",
+  },
+  {
+    number: "03",
+    title: "Desarrollo & Optimización",
+    desc: "Código limpio, rápido y optimizado para SEO desde el día uno. Tu web construida con tecnología de punta, lista para escalar.",
+  },
+  {
+    number: "04",
+    title: "Lanzamiento & Crecimiento",
+    desc: "Publicamos, medimos y ajustamos. No te dejamos solo: soporte real post-lanzamiento y seguimiento de resultados incluido.",
+  },
+];
 ---
 
 <section class="process" id="proceso">
-  <div class="process__bg" aria-hidden="true"></div>
-  <div class="section-inner section-inner--center process__inner">
-    <div
-      class="section-tag process__tag reveal"
-      style="--reveal-delay:.08s;--reveal-duration:.45s;--reveal-distance:10px;border:1px solid #1B56FD !important"
-    >
-      Nuestro Proceso
+  <div class="section-inner process__inner">
+
+    <div class="process__header">
+      <span
+        class="section-tag process__tag reveal"
+        style="--reveal-delay:.08s;--reveal-duration:.45s;--reveal-distance:10px;border:1px solid #1B56FD !important"
+      >
+        Cómo trabajamos
+      </span>
+      <h2
+        class="process__title reveal"
+        style="--reveal-delay:.16s;--reveal-duration:.55s;--reveal-distance:12px"
+      >
+        Nuestro <span class="highlight">proceso de trabajo</span>
+      </h2>
+      <p
+        class="process__subtitle reveal"
+        style="--reveal-delay:.24s;--reveal-duration:.45s;--reveal-distance:10px"
+      >
+        Un flujo claro y transparente, donde tú siempre sabes qué viene después.
+      </p>
     </div>
-    <h2
-      class="process__title reveal"
-      style="--reveal-delay:.16s;--reveal-duration:.55s;--reveal-distance:12px"
-    >
-      Nuestro <span class="highlight">proceso de diseño</span>
-    </h2>
-    <p
-      class="process__subtitle reveal"
-      style="--reveal-delay:.24s;--reveal-duration:.45s;--reveal-distance:10px"
-    >
-      Explore nuestro enfoque optimizado para crear sitios web personalizados
-      que se alineen con sus objetivos.
-    </p>
 
-    <div class="process__grid">
-      <article
-        class="process__card reveal"
-        style="--reveal-delay:.06s;--reveal-duration:.4s;--reveal-distance:10px"
-      >
-        <div class="process__icon" aria-hidden="true">
-          <span class="material-symbols-rounded" aria-hidden="true">star</span>
-        </div>
-        <div class="process__badge">Paso 01</div>
-        <h3 class="process__card-title">Fase de descubrimiento</h3>
-        <p class="process__card-desc">
-          Comprender su marca, objetivos y público objetivo para definir las
-          metas del proyecto.
-        </p>
-      </article>
+    <div class="process__zigzag">
+      <!-- Overlay SVG drawn by JS after layout -->
+      <svg class="process__lines" aria-hidden="true" focusable="false"></svg>
 
-      <article
-        class="process__card reveal"
-        style="--reveal-delay:.12s;--reveal-duration:.4s;--reveal-distance:10px"
-      >
-        <div class="process__icon" aria-hidden="true">
-          <span class="material-symbols-rounded" aria-hidden="true"
-            >design_services</span
-          >
-        </div>
-        <div class="process__badge">Paso 02</div>
-        <h3 class="process__card-title">Concepto de diseño</h3>
-        <p class="process__card-desc">
-          Creación de conceptos de diseño iniciales basados en conocimientos
-          recopilados durante la fase de descubrimiento.
-        </p>
-      </article>
-
-      <article
-        class="process__card reveal"
-        style="--reveal-delay:.18s;--reveal-duration:.4s;--reveal-distance:10px"
-      >
-        <div class="process__icon" aria-hidden="true">
-          <span class="material-symbols-rounded" aria-hidden="true">code</span>
-        </div>
-        <div class="process__badge">Paso 03</div>
-        <h3 class="process__card-title">Desarrollo y pruebas</h3>
-        <p class="process__card-desc">
-          Construir y perfeccionar el sitio web, garantizando la funcionalidad y
-          compatibilidad en todos los dispositivos.
-        </p>
-      </article>
-
-      <article
-        class="process__card reveal"
-        style="--reveal-delay:.24s;--reveal-duration:.4s;--reveal-distance:10px"
-      >
-        <div class="process__icon" aria-hidden="true">
-          <span class="material-symbols-rounded" aria-hidden="true"
-            >rocket_launch</span
-          >
-        </div>
-        <div class="process__badge">Paso 04</div>
-        <h3 class="process__card-title">Lanzamiento y soporte</h3>
-        <p class="process__card-desc">
-          Implementar el sitio web finalizado y brindar soporte continuo para
-          garantizar el éxito a largo plazo.
-        </p>
-      </article>
+      {steps.map((step, i) => {
+        const isRight = i % 2 === 1;
+        const isLast  = i === steps.length - 1;
+        return (
+          <div class={`process__item${isRight ? " process__item--right" : ""}`}>
+            <div
+              class={`process__card${isLast ? " process__card--accent" : ""} reveal`}
+              style={`--reveal-delay:${(0.1 + i * 0.12).toFixed(2)}s;--reveal-duration:.5s;--reveal-distance:14px`}
+            >
+              <div class="process__badge-row">
+                <span class="process__badge">Paso {step.number}</span>
+                <!-- dot is the anchor for the connector line -->
+                <span class="process__dot" aria-hidden="true" />
+              </div>
+              <p class="process__desc">{step.desc}</p>
+            </div>
+          </div>
+        );
+      })}
     </div>
+
   </div>
-
-  <style>
-    .process {
-      padding: var(--section-padding-y) 0 calc(var(--section-padding-y) * 2);
-      position: relative;
-      overflow: hidden;
-      background: var(--color-bg);
-      color: var(--color-text);
-      isolation: isolate;
-    }
-
-    /* Merged .dark .process::before content here */
-    .process::before {
-      content: "";
-      position: absolute;
-      pointer-events: none;
-      z-index: -1;
-      inset: -10%;
-      background:
-        radial-gradient(
-          900px 600px at 85% 70%,
-          rgba(9, 115, 225, 0.18),
-          transparent 60%
-        ),
-        radial-gradient(
-          800px 520px at 10% 20%,
-          rgba(9, 115, 225, 0.08),
-          transparent 70%
-        );
-      filter: saturate(115%);
-      opacity: 0.55;
-    }
-
-    .process__title {
-      font-size: clamp(1.8rem, 3.2vw + 0.6rem, 2.5rem);
-      font-weight: 600;
-      line-height: 1.15;
-      margin: clamp(4px, 2.8vh, 8px) auto clamp(7px, 2.2vh, 14px);
-      max-width: 28ch;
-      color: #fff;
-    }
-
-    .process__title .highlight {
-      display: inline-block;
-      background-image: linear-gradient(
-        90deg,
-        #26d2f8 0%,
-        #23b2ff 35%,
-        #0973e1 70%,
-        #3b5bff 100%
-      );
-      background-size: 100% 100%;
-      background-repeat: no-repeat;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent !important;
-      -webkit-text-fill-color: transparent !important;
-    }
-
-    .process__subtitle {
-      color: color-mix(in oklab, var(--color-text) 60%, transparent);
-      max-width: 60ch;
-      margin: 0 auto clamp(32px, 5.4vh, 40px);
-      font-size: clamp(1rem, 0.9rem + 0.25vw, 1.1rem);
-      font-weight: 300;
-    }
-
-    .process__grid {
-      display: grid;
-      gap: 18px;
-      grid-template-columns: 1fr;
-      margin-top: clamp(24px, 4vw, 40px);
-    }
-
-    @media (min-width: 740px) {
-      .process__grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    .process__card {
-      position: relative;
-      text-align: left;
-      padding: 20px 22px;
-      border-radius: 18px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: linear-gradient(
-        180deg,
-        rgba(12, 14, 22, 0.92),
-        rgba(12, 14, 22, 0.86)
-      );
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
-      transition:
-        transform 0.18s ease,
-        box-shadow 0.25s ease,
-        border-color 0.25s ease;
-    }
-
-    .process__card::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 18px;
-      height: 4px;
-      width: 76px;
-      border-radius: 0 0 8px 8px;
-      pointer-events: none;
-      z-index: 2;
-      background: linear-gradient(90deg, #0973e1 0%, #0446ba 100%);
-      box-shadow: 0 8px 18px rgba(9, 115, 225, 0.35);
-      opacity: 0.95;
-    }
-
-    .process__card::after {
-      content: "";
-      position: absolute;
-      inset: -1px;
-      border-radius: inherit;
-      pointer-events: none;
-      z-index: 1;
-      background:
-        radial-gradient(
-          420px 260px at 110% 120%,
-          rgba(9, 115, 225, 0.12),
-          transparent 60%
-        ),
-        radial-gradient(
-          300px 220px at -8% 12%,
-          rgba(9, 115, 225, 0.06),
-          transparent 72%
-        );
-      mix-blend-mode: screen;
-      opacity: 0.24;
-      transition: opacity 0.25s ease;
-    }
-
-    .process__card:hover {
-      transform: translateY(-2px);
-      border-color: rgba(59, 130, 246, 0.35);
-      box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.25),
-        inset 0 1px 0 rgba(255, 255, 255, 0.04);
-      filter: saturate(112%) brightness(1.02);
-    }
-
-    .process__icon {
-      position: relative;
-      width: 44px;
-      height: 45px;
-      border-radius: 10px;
-      display: grid;
-      place-items: center;
-      font-size: 20px;
-      margin-bottom: 8px;
-      background: var(--color-primary);
-      color: #fff;
-      border: none;
-      box-shadow: none;
-      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    .process__icon .material-symbols-rounded {
-      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    .process__card:hover .process__icon {
-      transform: scale(1.1);
-    }
-
-    .process__card:nth-child(1):hover .process__icon .material-symbols-rounded {
-      animation: bounce-rotate 0.6s ease;
-    }
-
-    .process__card:nth-child(2):hover .process__icon .material-symbols-rounded {
-      animation: pulse-scale 0.5s ease;
-    }
-
-    .process__card:nth-child(3):hover .process__icon .material-symbols-rounded {
-      animation: shake 0.5s ease;
-    }
-
-    .process__card:nth-child(4):hover .process__icon .material-symbols-rounded {
-      animation: bounce-rotate 0.6s ease;
-    }
-
-    @keyframes bounce-rotate {
-      0%,
-      100% {
-        transform: rotate(0deg) scale(1);
-      }
-      25% {
-        transform: rotate(-10deg) scale(1.15);
-      }
-      75% {
-        transform: rotate(10deg) scale(1.15);
-      }
-    }
-
-    @keyframes pulse-scale {
-      0%,
-      100% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.25);
-      }
-    }
-
-    @keyframes shake {
-      0%,
-      100% {
-        transform: translateX(0);
-      }
-      25% {
-        transform: translateX(-4px) rotate(-5deg);
-      }
-      75% {
-        transform: translateX(4px) rotate(5deg);
-      }
-    }
-
-    .process__badge {
-      position: absolute;
-      right: 14px;
-      top: 12px;
-      padding: 0.5rem 1rem;
-      border-radius: 999px;
-      font-size: 0.85rem;
-      font-weight: 400;
-      color: var(--color-text);
-      background: color-mix(in oklab, var(--surface, #121826) 40%, transparent);
-      border: 1px solid var(--border);
-      opacity: 0.9;
-    }
-
-    .process__card-title {
-      font-size: 1.15rem;
-      font-weight: 600;
-      color: #fff;
-    }
-
-    .process__card-desc {
-      color: #d6e0ef;
-      font-size: 0.98rem;
-      margin-top: 0.35rem;
-      font-weight: 300;
-      line-height: 1.4;
-    }
-
-    .process__bg {
-      display: none !important;
-    }
-  </style>
 </section>
+
+<style>
+  /* ─── Section ─── */
+  .process {
+    padding: var(--section-padding-y) 0;
+    position: relative;
+    overflow: hidden;
+    background: var(--color-bg);
+    color: var(--color-text);
+    isolation: isolate;
+  }
+  .process::before {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+    z-index: -1;
+    inset: -10%;
+    background:
+      radial-gradient(900px 600px at 85% 70%, rgba(9,115,225,.14), transparent 60%),
+      radial-gradient(800px 520px at 10% 20%, rgba(9,115,225,.07), transparent 70%);
+    opacity: .6;
+  }
+  .process__inner { max-width: 920px; }
+
+  /* ─── Header ─── */
+  .process__header {
+    text-align: center;
+    margin-bottom: clamp(36px, 6vh, 56px);
+  }
+  .process__title {
+    font-size: clamp(1.8rem, 3.2vw + .6rem, 2.5rem);
+    font-weight: 600;
+    line-height: 1.15;
+    margin: clamp(4px,2.8vh,8px) auto clamp(7px,2.2vh,14px);
+    max-width: 28ch;
+    color: #fff;
+  }
+  .process__title .highlight {
+    display: inline-block;
+    background-image: linear-gradient(90deg,#26d2f8 0%,#23b2ff 35%,#0973e1 70%,#3b5bff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+  .process__subtitle {
+    color: color-mix(in oklab, var(--color-text) 60%, transparent);
+    max-width: none;
+    white-space: nowrap;
+    margin: 0 auto;
+    font-size: clamp(1rem, .9rem + .25vw, 1.1rem);
+    font-weight: 300;
+  }
+
+  @media (max-width: 640px) {
+    .process__subtitle {
+      white-space: normal;
+    }
+  }
+
+  /* ─── Zigzag ─── */
+  .process__zigzag {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* Overlay SVG covers the full zigzag area */
+  .process__lines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: visible;
+    z-index: 0;
+  }
+
+  /* ─── Each item ─── */
+  .process__item {
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+    z-index: 1;
+  }
+  .process__item + .process__item {
+    margin-top: -20px;
+  }
+  .process__item--right {
+    justify-content: flex-end;
+  }
+
+  /* ─── Card ─── */
+  .process__card {
+    width: min(380px, 48%);
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 16px;
+    padding: clamp(18px, 2.4vw, 28px);
+    backdrop-filter: blur(6px);
+    transition: transform .4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color .25s, box-shadow .25s;
+  }
+  .process__card:hover {
+    border-color: rgba(27,86,253,.5);
+    box-shadow: 0 10px 30px rgba(27,86,253,.1);
+    transform: translateY(-8px) scale(1.02);
+  }
+  .process__card--accent {
+    background: linear-gradient(135deg, #1B56FD 0%, #0e3fc2 100%);
+    border-color: transparent;
+  }
+  .process__card--accent:hover {
+    box-shadow: 0 15px 40px rgba(27,86,253,.45);
+    border-color: transparent;
+    transform: translateY(-8px) scale(1.02);
+  }
+
+  /* ─── Badge row ─── */
+  .process__badge-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .process__badge {
+    display: inline-flex;
+    align-items: center;
+    background: #1B56FD;
+    color: #fff;
+    font-size: .9rem;
+    font-weight: 700;
+    letter-spacing: .03em;
+    padding: 6px 15px;
+    border-radius: 999px;
+  }
+  .process__card--accent .process__badge {
+    background: rgba(0,0,0,.28);
+  }
+  .process__dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #1B56FD;
+    box-shadow: 0 0 8px rgba(27,86,253,.8);
+    flex-shrink: 0;
+  }
+  .process__card--accent .process__dot {
+    background: #fff;
+    box-shadow: 0 0 8px rgba(255,255,255,.55);
+  }
+
+  /* ─── Description ─── */
+  .process__desc {
+    color: color-mix(in oklab, var(--color-text) 70%, transparent);
+    font-size: .93rem;
+    line-height: 1.6;
+    font-weight: 300;
+    margin: 0;
+  }
+  .process__card--accent .process__desc { color: rgba(255,255,255,.85); }
+
+  /* ─── Mobile ─── */
+  @media (max-width: 640px) {
+    .process__zigzag { 
+      gap: 32px; 
+      display: flex;
+      flex-direction: column;
+    }
+    .process__item + .process__item { 
+      margin-top: 0; 
+    }
+    .process__card { 
+      width: 100%; 
+      padding: 24px;
+      max-width: none;
+    }
+    .process__item { 
+      justify-content: stretch; 
+    }
+    .process__item--right { 
+      justify-content: stretch; 
+    }
+    .process__lines { 
+      display: none; 
+    }
+    .process__dot {
+      display: none;
+    }
+  }
+    @media (max-width: 840px) {
+        .testimonial-card:hover {
+            transform: none !important;
+        }
+    }
+  @media (max-width: 840px) {
+    .process__card:hover,
+    .process__card--accent:hover {
+      transform: none !important;
+    }
+  }
+</style>
+
+<script>
+  function drawProcessLines() {
+    const zigzag = document.querySelector<HTMLElement>('.process__zigzag');
+    const svg    = zigzag?.querySelector<SVGSVGElement>('.process__lines');
+    if (!zigzag || !svg) return;
+
+    const dots = [...zigzag.querySelectorAll<HTMLElement>('.process__dot')];
+    if (dots.length < 2) return;
+
+    const base = zigzag.getBoundingClientRect();
+    const W = base.width;
+    const H = base.height;
+
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svg.setAttribute('width',  String(W));
+    svg.setAttribute('height', String(H));
+    svg.innerHTML = '';
+
+    const NS = 'http://www.w3.org/2000/svg';
+
+    // Measure all dot centres relative to the zigzag container
+    const pts = dots.map(dot => {
+      const r = dot.getBoundingClientRect();
+      return {
+        x: r.left - base.left + r.width  / 2,
+        y: r.top  - base.top  + r.height / 2,
+      };
+    });
+
+    // Even connections (0→1, 2→3) route through the right channel.
+    // Odd connections (1→2) route through the left channel.
+    // Cards behind the SVG (z-index:1) hide whichever segment crosses them,
+    // so only the visible portion outside the cards is shown.
+    const rightChannelX = Math.max(...pts.map(p => p.x));
+    const leftChannelX  = Math.min(...pts.map(p => p.x));
+
+    // Build a path with rounded corners using quadratic bezier curves.
+    function roundedZigzag(x1: number, y1: number, cX: number, y2: number, x2: number, r: number) {
+      const hLen1 = Math.abs(cX - x1);
+      const vLen  = Math.abs(y2 - y1);
+      const hLen2 = Math.abs(x2 - cX);
+      const r1 = Math.min(r, hLen1 * 0.5, vLen * 0.5);
+      const r2 = Math.min(r, hLen2 * 0.5, vLen * 0.5);
+      const dx1 = cX >= x1 ? 1 : -1;
+      const dx2 = x2 >= cX ? 1 : -1;
+      const dy  = y2 >= y1 ? 1 : -1;
+
+      let d = `M${x1},${y1}`;
+      d += ` L${cX - dx1 * r1},${y1}`;
+      d += ` Q${cX},${y1} ${cX},${y1 + dy * r1}`;
+      if (hLen2 > 1) {
+        d += ` L${cX},${y2 - dy * r2}`;
+        d += ` Q${cX},${y2} ${cX + dx2 * r2},${y2}`;
+      } else {
+        d += ` L${cX},${y2}`;
+      }
+      d += ` L${x2},${y2}`;
+      return d;
+    }
+
+    for (let i = 0; i < pts.length - 1; i++) {
+      const { x: x1, y: y1 } = pts[i];
+      const { x: x2, y: y2 } = pts[i + 1];
+
+      const channelX = i % 2 === 0 ? rightChannelX : leftChannelX;
+      const d = roundedZigzag(x1, y1, channelX, y2, x2, 18);
+
+      const path = document.createElementNS(NS, 'path');
+      path.setAttribute('d', d);
+      path.setAttribute('fill', 'none');
+      path.setAttribute('stroke', 'rgba(27,86,253,0.7)');
+      path.setAttribute('stroke-width', '2');
+      path.setAttribute('stroke-dasharray', '6 4');
+      path.setAttribute('stroke-linecap', 'round');
+      path.setAttribute('stroke-linejoin', 'round');
+      svg.appendChild(path);
+    }
+  }
+
+  function scheduleDraw() {
+    // requestAnimationFrame ensures the browser has painted at least one frame
+    requestAnimationFrame(() => {
+      drawProcessLines();
+      // Second pass catches late font/image shifts
+      setTimeout(drawProcessLines, 400);
+    });
+  }
+
+  if (document.readyState === 'complete') {
+    scheduleDraw();
+  } else {
+    window.addEventListener('load', scheduleDraw);
+  }
+
+  // Redraw on resize
+  let raf = 0;
+  window.addEventListener('resize', () => {
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(drawProcessLines);
+  });
+</script>

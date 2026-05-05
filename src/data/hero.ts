@@ -1,4 +1,4 @@
-﻿import imgPageWeb from '../assets/works/paginas-web-ambato.webp';
+import imgPageWeb from '../assets/works/paginas-web-ambato.webp';
 import imgMarketing from '../assets/works/marketing-digital-ambato.webp';
 import imgAuto from '../assets/works/automatizacion-ambato.webp';
 import imgTiendas from '../assets/works/tiendas-en-linea-ambato.webp';
@@ -9,9 +9,9 @@ import imgGrafico from '../assets/works/diseño-grafico-ambato.webp';
 import imgWeb from '../assets/works/diseño-web-ambato.webp';
 
 export const heroContent = {
-  title: "Diseño, Desarrollo y Automatización para Negocios <br class=\"desktop-br\"/> de <br class=\"mobile-br\"/> Alto Rendimiento.",
+  title: "Impulsa tu negocio con páginas web, tiendas online y sistemas que generan ventas 24/7",
   tagline: "Diseño, Desarrollo y Automatización.",
-  subtitle: "Expertos en Páginas Web, Tiendas Online, Landing Pages y Chatbots a la medida en Ambato.",
+  subtitle: "Expertos en desarrollo web, creación de contenido y automatización digital para negocios que buscan crecer.",
   works: [
     imgPageWeb,
     imgMarketing,

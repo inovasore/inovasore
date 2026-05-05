@@ -1,4 +1,4 @@
-﻿---
+---
 import { heroContent } from "../data/hero";
 import { Image } from "astro:assets";
 
@@ -7,15 +7,26 @@ const [primaryWork, ...secondaryWorks] = works;
 ---
 
 <section class="hero">
+  <div class="hero__glow" aria-hidden="true"></div>
   <div class="hero__inner">
     <div
-      class="pill reveal"
-      style="--reveal-delay:.08s;--reveal-duration:.48s;--reveal-distance:10px;--pill-weight:400"
+      class="announcement reveal"
+      style="--reveal-delay:.08s;--reveal-duration:.48s;--reveal-distance:10px"
     >
-      <span class="pill__text">{tagline}</span>
-      <a class="pill__cta" href="/contacto" aria-label="Ir a contacto">
-        <img src="/Bar01.svg" alt="" width="28" height="28" />
-      </a>
+      <svg class="announcement__svg" preserveAspectRatio="none">
+        <rect fill="none" width="100%" height="100%" rx="50%" ry="50%"></rect>
+      </svg>
+      <!-- <div class="announcement__dot"></div> -->
+      <div class="announcement__content">
+        <span class="announcement__tag">{tagline}</span>
+        <a
+          class="announcement__cta"
+          href="/contacto"
+          aria-label="Ir a contacto"
+        >
+          <img src="/Bar01.svg" alt="" width="28" height="28" />
+        </a>
+      </div>
     </div>
 
     <h1
@@ -37,24 +48,21 @@ const [primaryWork, ...secondaryWorks] = works;
         href="/contacto"
         style="--reveal-delay:.34s;--reveal-duration:.45s"
       >
-        <span class="btn-icon-circle">
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M7.5 5L12.5 10L7.5 15"
-              stroke="currentColor"
-              stroke-width="2.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"></path>
-          </svg>
-        </span>
-        Empezar Proyecto
+        Quiero crecer
+        <span class="material-symbols-rounded" aria-hidden="true"
+          >chevron_right</span
+        >
       </a>
+      <div
+        class="btn-outline-wrapper reveal"
+        style="--reveal-delay:.42s;--reveal-duration:.45s"
+      >
+        <svg class="moving-border__svg" preserveAspectRatio="none">
+          <rect fill="none" width="100%" height="100%" rx="50%" ry="50%"></rect>
+        </svg>
+        <div class="moving-border__dot"></div>
+        <a class="btn-hero-outline" href="/servicios"> Servicios </a>
+      </div>
     </div>
   </div>
   <div class="carousel carousel--auto" data-speed="35">
@@ -87,6 +95,99 @@ const [primaryWork, ...secondaryWorks] = works;
     </div>
   </div>
 </section>
+
+<script is:inline>
+  (() => {
+    if (
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    )
+      return;
+
+    // Glass spotlight — rAF-throttled, cleaned up on page transitions
+    var hero = document.querySelector(".hero");
+    if (hero) {
+      var spotRaf = false;
+      var spotX = 0,
+        spotY = 0;
+
+      function applySpot() {
+        hero.style.setProperty("--mouse-x", spotX + "%");
+        hero.style.setProperty("--mouse-y", spotY + "%");
+        spotRaf = false;
+      }
+
+      function onHeroMove(e) {
+        var rect = hero.getBoundingClientRect();
+        spotX = ((e.clientX - rect.left) / rect.width) * 100;
+        spotY = ((e.clientY - rect.top) / rect.height) * 100;
+        if (!spotRaf) {
+          spotRaf = true;
+          requestAnimationFrame(applySpot);
+        }
+      }
+
+      hero.addEventListener("mousemove", onHeroMove);
+      document.addEventListener(
+        "astro:before-swap",
+        function () {
+          hero.removeEventListener("mousemove", onHeroMove);
+        },
+        { once: true },
+      );
+    }
+
+    // Collect all moving border pairs: announcement + Servicios button
+    const pairs = [];
+
+    // const announcement = document.querySelector(".announcement");
+    // if (announcement) {
+    //   const rect = announcement.querySelector(".announcement__svg rect");
+    //   const dot = announcement.querySelector(".announcement__dot");
+    //   if (rect && dot) pairs.push({ rect, dot, duration: 6500 });
+    // }
+
+    document
+      .querySelectorAll(".btn-outline-wrapper")
+      .forEach(function (wrapper) {
+        var rect = wrapper.querySelector(".moving-border__svg rect");
+        var dot = wrapper.querySelector(".moving-border__dot");
+        if (rect && dot) pairs.push({ rect, dot, duration: 3000 });
+      });
+
+    if (!pairs.length) return;
+
+    let rafId;
+
+    function animate(time) {
+      pairs.forEach(function (p) {
+        var length = p.rect.getTotalLength();
+        if (length) {
+          var pxPerMs = length / p.duration;
+          var progress = (time * pxPerMs) % length;
+          var point = p.rect.getPointAtLength(progress);
+          p.dot.style.transform =
+            "translate(" +
+            point.x +
+            "px," +
+            point.y +
+            "px) translate(-50%,-50%)";
+        }
+      });
+      rafId = requestAnimationFrame(animate);
+    }
+
+    rafId = requestAnimationFrame(animate);
+
+    document.addEventListener(
+      "astro:before-swap",
+      function () {
+        cancelAnimationFrame(rafId);
+      },
+      { once: true },
+    );
+  })();
+</script>
 
 <script>
   const setupAutoCarousels = () => {
@@ -311,6 +412,27 @@ const [primaryWork, ...secondaryWorks] = works;
     background: var(--color-bg);
     color: var(--color-text);
     overflow: hidden;
+    --mouse-x: 50%;
+    --mouse-y: 50%;
+  }
+
+  .hero__glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(
+      700px circle at var(--mouse-x) var(--mouse-y),
+      rgba(27, 86, 253, 0.13),
+      transparent 55%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    will-change: background;
+  }
+
+  .hero:hover .hero__glow {
+    opacity: 1;
   }
 
   .hero::before {
@@ -330,27 +452,71 @@ const [primaryWork, ...secondaryWorks] = works;
   }
 
   .hero__inner {
-    width: clamp(280px, 90vw, 1100px);
+    width: clamp(280px, 92vw, 1200px);
     margin: 0 auto;
     text-align: center;
   }
 
-  .pill {
+  /* ── Announcement with Moving Border ── */
+  .announcement {
+    position: relative;
+    display: inline-flex;
+    border-radius: 999px;
+    padding: 0;
+    margin-bottom: 20px;
+    background: transparent;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .announcement__svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .announcement__dot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      #5b9cff 0%,
+      #3b82f6 15%,
+      #1b56fd 30%,
+      rgba(27, 86, 253, 0.4) 50%,
+      rgba(27, 86, 253, 0.1) 70%,
+      transparent 100%
+    );
+    filter: blur(4px);
+    pointer-events: none;
+    z-index: 0;
+    will-change: transform;
+  }
+
+  .announcement__content {
+    position: relative;
+    z-index: 1;
     display: inline-flex;
     align-items: center;
     gap: 0.75rem;
-    padding: 0.6rem 0.9rem;
+    padding: 0.55rem 0.85rem;
     border-radius: 999px;
-    border: 1px solid var(--border);
-    background: color-mix(in oklab, var(--surface, #f3f4f6) 60%, transparent);
-    backdrop-filter: blur(6px);
+    background: #0d1a3e;
     color: var(--color-text);
-    margin-bottom: 20px;
   }
-  .pill__text {
-    font-weight: var(--pill-weight, 400);
+
+  .announcement__tag {
+    font-weight: 400;
+    font-size: 0.95rem;
   }
-  .pill__cta {
+
+  .announcement__cta {
     display: inline-grid;
     place-items: center;
     width: 28px;
@@ -410,19 +576,24 @@ const [primaryWork, ...secondaryWorks] = works;
   .btn-hero-primary {
     display: inline-flex !important;
     align-items: center !important;
-    gap: 10px !important;
-    padding: 12px 22px 12px 16px !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    padding: 14px 28px !important;
     border-radius: 999px !important;
     background: linear-gradient(90deg, #1b56fd 0%, #133db4 100%) !important;
     color: #fff !important;
     text-decoration: none !important;
     font-weight: 500 !important;
-    font-size: 1.0625rem !important;
+    font-size: 1rem !important;
     transition:
       transform 0.2s ease,
       box-shadow 0.2s ease !important;
     box-shadow: 0 4px 12px rgba(27, 86, 253, 0.3) !important;
-    border: none !important;
+    border: 1.5px solid transparent !important;
+  }
+
+  .btn-hero-primary .material-symbols-rounded {
+    font-size: 1.2rem;
   }
 
   .btn-hero-primary:hover {
@@ -435,47 +606,67 @@ const [primaryWork, ...secondaryWorks] = works;
     transform: translateY(0) !important;
   }
 
-  .btn-icon-circle {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.15);
-    transition:
-      background 0.3s ease,
-      box-shadow 0.3s ease,
-      transform 0.3s ease;
-  }
-
-  .btn-icon-circle svg {
-    transition: transform 0.2s ease;
-  }
-
-  .btn-hero-primary:hover .btn-icon-circle {
-    background: rgba(255, 255, 255, 0.25);
-  }
-
   .btn-wrapper {
     position: relative;
     display: inline-flex;
   }
 
+  .btn-outline-wrapper {
+    position: relative;
+    display: inline-flex;
+    border-radius: 999px;
+    padding: 1.4px;
+    background: rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+  }
+
+  .moving-border__svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .moving-border__dot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      #5b9cff 0%,
+      #3b82f6 15%,
+      #1b56fd 30%,
+      rgba(27, 86, 253, 0.4) 50%,
+      rgba(27, 86, 253, 0.1) 70%,
+      transparent 100%
+    );
+    filter: blur(4px);
+    pointer-events: none;
+    z-index: 0;
+    will-change: transform;
+  }
+
   .btn-hero-outline {
+    position: relative !important;
+    z-index: 1 !important;
     display: inline-flex !important;
     align-items: center !important;
+    justify-content: center !important;
     padding: 14px 28px !important;
     border-radius: 999px !important;
-    background: #000 !important;
+    background: var(--color-bg, #0a0b10) !important;
     color: #fff !important;
     text-decoration: none !important;
     font-weight: 400 !important;
-    font-size: 1.0625rem !important;
-    transition: transform 0.2s ease !important;
-    position: relative !important;
-    z-index: 2 !important;
-    border: 1.5px solid rgba(59, 130, 246, 0.2) !important;
+    font-size: 1rem !important;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease !important;
+    border: none !important;
   }
 
   .border-line {
@@ -504,23 +695,12 @@ const [primaryWork, ...secondaryWorks] = works;
     }
   }
 
-  .btn-hero-outline:hover {
-    background: #000 !important;
-    transform: translateY(-2px) !important;
+  .btn-outline-wrapper:hover {
+    transform: translateY(-2px);
   }
 
-  .btn-hero-outline:active {
-    transform: translateY(0) !important;
-  }
-
-  .btn-hero-outline:hover {
-    border-color: rgba(59, 130, 246, 0.4) !important;
-    background: #000 !important;
-    transform: translateY(-2px) !important;
-  }
-
-  .btn-hero-outline:active {
-    transform: translateY(0) !important;
+  .btn-outline-wrapper:active {
+    transform: translateY(0);
   }
 
   /* Global styles for injected HTML content */
@@ -543,21 +723,22 @@ const [primaryWork, ...secondaryWorks] = works;
     :global(.desktop-br) {
       display: none;
     }
-    .pill {
-      gap: 0.5rem;
-      padding: 6px 6px 6px 16px;
+    .announcement {
       margin-bottom: 12px;
-      width: fit-content;
-      max-width: 100%;
     }
 
-    .pill__text {
+    .announcement__content {
+      gap: 0.5rem;
+      padding: 6px 6px 6px 16px;
+    }
+
+    .announcement__tag {
       font-size: clamp(0.78rem, 3vw, 0.92rem);
       line-height: 1.2;
       text-align: left;
     }
 
-    .pill__cta {
+    .announcement__cta {
       width: 30px;
       height: 30px;
       flex: 0 0 30px;
@@ -565,9 +746,10 @@ const [primaryWork, ...secondaryWorks] = works;
     }
 
     .hero__actions {
-      flex-direction: column;
-      gap: 0.55rem;
+      flex-direction: row;
+      gap: 0.65rem;
       align-items: center;
+      justify-content: center;
       margin-inline: auto;
     }
 
@@ -577,9 +759,14 @@ const [primaryWork, ...secondaryWorks] = works;
       padding-inline: 1rem;
     }
 
-    .btn-wrapper,
-    .btn-hero-outline {
+    .btn-wrapper {
       display: none !important;
+    }
+
+    .btn-hero-primary,
+    .btn-hero-outline {
+      padding: 12px 20px !important;
+      font-size: 0.95rem !important;
     }
 
     .status {
@@ -672,8 +859,8 @@ const [primaryWork, ...secondaryWorks] = works;
   */
 
   @supports not (color: color-mix(in oklab, black 50%, white)) {
-    .pill {
-      background: rgba(243, 244, 246, 0.6);
+    .announcement__content {
+      background: #0a0b10;
     }
     .carousel__item {
       border-color: rgba(99, 102, 241, 0.26);

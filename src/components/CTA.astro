@@ -92,12 +92,14 @@
     background: url("/bg04.webp") center top / cover no-repeat;
     opacity: 0.7;
     pointer-events: none;
+    z-index: -1;
   }
 
   .cta__watermark-wrapper {
     position: absolute;
-    top: -80px;
+    top: 40%;
     left: 0;
+    transform: translateY(-50%);
     width: 100%;
     overflow: hidden;
     z-index: 0;
@@ -111,12 +113,13 @@
   }
 
   .cta__watermark-text {
-    font-size: clamp(8rem, 18vw, 30rem);
-    font-weight: 700;
+    font-size: clamp(12rem, 28vw, 48rem);
+    font-weight: 800;
     letter-spacing: 0.08em;
-    color: rgba(139, 124, 247, 0.18);
+    color: rgba(139, 124, 247, 0.14);
     white-space: nowrap;
     flex-shrink: 0;
+    line-height: 1;
   }
 
   .cta__inner {
@@ -188,7 +191,7 @@
 
   @media (max-width: 640px) {
     .cta__watermark-wrapper {
-      top: 60px;
+      /* Mantiene el centrado vertical de 50% */
     }
 
     .cta__btn {

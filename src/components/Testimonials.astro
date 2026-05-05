@@ -71,8 +71,9 @@ import { testimonials } from "../data/testimonials";
         let intervalId: number | null = null;
 
         function updateCarousel(smooth = true) {
-            const isMobile = window.innerWidth < 768;
-            const cardsToShow = isMobile ? 1 : 2;
+            const isMobile = window.innerWidth <= 768;
+            const isTablet = window.innerWidth <= 1024 && window.innerWidth > 768;
+            const cardsToShow = isMobile ? 1 : isTablet ? 2 : 3;
             const firstCard = cards[0] as HTMLElement;
             const cardWidth = firstCard?.offsetWidth || 0;
             const gap = isMobile ? 20 : 32;
@@ -88,8 +89,9 @@ import { testimonials } from "../data/testimonials";
         }
 
         function nextSlide() {
-            const isMobile = window.innerWidth < 768;
-            const cardsToShow = isMobile ? 1 : 2;
+            const isMobile = window.innerWidth <= 768;
+            const isTablet = window.innerWidth <= 1024 && window.innerWidth > 768;
+            const cardsToShow = isMobile ? 1 : isTablet ? 2 : 3;
 
             currentIndex++;
 
@@ -136,16 +138,16 @@ import { testimonials } from "../data/testimonials";
 <style>
     .testimonials {
         position: relative;
-        padding: clamp(60px, 12vh, 100px) 0;
+        padding: clamp(32px, 6vh, 56px) 0;
         background: var(--color-bg);
         color: var(--color-text);
         overflow: hidden;
     }
 
     .testimonials__inner {
-        max-width: 1040px;
+        width: clamp(280px, 92vw, 1200px);
         margin: 0 auto;
-        padding: 0 clamp(20px, 4vw, 40px);
+        padding: 0;
         text-align: center;
     }
 
@@ -189,7 +191,7 @@ import { testimonials } from "../data/testimonials";
 
     .testimonials__carousel-wrapper {
         position: relative;
-        max-width: 1000px;
+        width: 100%;
         margin: 0 auto;
         overflow: hidden;
     }
@@ -201,7 +203,7 @@ import { testimonials } from "../data/testimonials";
     }
 
     .testimonial-card {
-        flex: 0 0 calc(50% - 16px);
+        flex: 0 0 calc(33.333% - 21.333px);
         background: linear-gradient(
             180deg,
             rgba(12, 14, 22, 0.92),
@@ -215,6 +217,18 @@ import { testimonials } from "../data/testimonials";
         flex-direction: column;
         gap: 20px;
         box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        transition: 
+            transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+            border-color 0.3s ease,
+            box-shadow 0.3s ease;
+    }
+
+    .testimonial-card:hover {
+        transform: translateY(-8px) scale(1.02);
+        border-color: rgba(59, 130, 246, 0.3);
+        box-shadow: 
+            0 20px 40px rgba(0, 0, 0, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.05);
     }
 
     .testimonial-card__stars {
@@ -255,6 +269,12 @@ import { testimonials } from "../data/testimonials";
         font-weight: 500;
     }
 
+    @media (max-width: 1024px) {
+        .testimonial-card {
+            flex: 0 0 calc(50% - 16px);
+        }
+    }
+
     @media (max-width: 768px) {
         .testimonial-card {
             flex: 0 0 100%;
@@ -262,6 +282,11 @@ import { testimonials } from "../data/testimonials";
 
         .testimonials__carousel {
             gap: 20px;
+        }
+    }
+    @media (max-width: 840px) {
+        .testimonial-card:hover {
+            transform: none !important;
         }
     }
 </style>

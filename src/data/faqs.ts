@@ -1,52 +1,42 @@
 export const faqs = [
   {
-    question: '¿Qué servicios ofrece Inovasore?',
+    question: '¿Cuánto cuesta hacer una página web?',
     answer:
-      'Ofrecemos soluciones digitales integrales que incluyen diseño web, desarrollo de sitios y sistemas, marketing digital, branding e identidad visual. Acompañamos a tu marca desde la estrategia hasta la implementación final.',
+      'El precio varía según el alcance del proyecto. Una landing page parte desde $250, un sitio institucional desde $350 y un e-commerce desde $600. Agenda una llamada gratuita y te entregamos una cotización exacta sin compromisos.',
   },
   {
-    question: '¿Cuánto tiempo toma completar un proyecto web?',
+    question: '¿Cuánto tiempo tarda en estar lista mi página web?',
     answer:
-      'Depende del tipo de proyecto. Un sitio web institucional puede tardar entre 3 y 5 semanas, mientras que un e-commerce o sistema personalizado puede requerir entre 6 y 10 semanas. Todo se planifica según tus necesidades y objetivos.',
+      'Una landing page o sitio institucional tarda entre 2 y 4 semanas. Un e-commerce o sistema personalizado puede requerir entre 5 y 8 semanas. Siempre te damos una fecha de entrega clara desde el primer día.',
   },
   {
-    question: '¿Puedo solicitar cambios o revisiones durante el proceso?',
+    question: '¿Puedo pedir cambios durante el proceso?',
     answer:
-      'Por supuesto. En Inovasore trabajamos con un flujo flexible donde puedes revisar avances y solicitar ajustes en cada etapa del diseño y desarrollo, asegurando un resultado final que cumpla tus expectativas.',
+      'Sí. Trabajamos por etapas: primero te mostramos el diseño completo para tu aprobación y luego pasamos al desarrollo. Puedes pedir ajustes en cada fase sin costos adicionales dentro del alcance acordado.',
   },
   {
-    question: '¿Incluyen servicios de hosting o dominio?',
+    question: '¿El sitio funciona bien en celulares y tablets?',
     answer:
-      'Sí, podemos ayudarte con la contratación, configuración e integración del hosting y dominio de tu sitio. También ofrecemos recomendaciones según tu presupuesto y el nivel de tráfico que esperes recibir.',
+      'Sí, todos nuestros proyectos son 100% responsivos. Además, los desarrollamos con tecnología Astro, lo que garantiza velocidades de carga superiores al promedio del mercado y mejor posicionamiento en Google.',
   },
   {
-    question: '¿Ofrecen soporte continuo después del lanzamiento del sitio web?',
+    question: '¿Incluyen hosting, dominio y correo corporativo?',
     answer:
-      'Sí. Contamos con planes de mantenimiento y soporte para garantizar que tu sitio se mantenga actualizado, seguro y con el mejor rendimiento a largo plazo.',
+      'Sí. Te ayudamos a seleccionar, contratar y configurar el hosting y dominio que mejor se ajuste a tu presupuesto. También configuramos correos con tu propio dominio (ej: info@tunegocio.com).',
   },
   {
-    question: '¿El diseño se adapta a celulares y tablets?',
+    question: '¿Hacen SEO y campañas de publicidad digital?',
     answer:
-      'Sí, todos nuestros proyectos son 100 % responsivos. Esto significa que tu sitio se verá y funcionará perfectamente en cualquier dispositivo, ya sea computadora, tableta o smartphone.',
+      'Sí. Optimizamos tu sitio para aparecer en Google (SEO técnico y de contenido) y gestionamos campañas en Google Ads, Meta Ads y TikTok Ads. Medimos cada dólar invertido para maximizar tu retorno.',
   },
   {
-    question: '¿Ofrecen posicionamiento SEO y marketing digital?',
+    question: '¿Qué tipo de negocios atienden?',
     answer:
-      'Sí. Además de diseñar y desarrollar sitios web, optimizamos su estructura y contenido para mejorar su visibilidad en buscadores. También gestionamos campañas publicitarias en Google Ads, Meta y TikTok para impulsar tu marca.',
+      'Trabajamos con emprendedores, pymes y empresas de todos los sectores en Ecuador y LATAM: tiendas que quieren vender online, profesionales independientes, restaurantes, clínicas, academias y más.',
   },
   {
-    question: '¿Qué necesito para empezar un proyecto con Inovasore?',
+    question: '¿Ofrecen soporte después del lanzamiento?',
     answer:
-      'Solo necesitas tener clara la idea general de tu proyecto. Nosotros te guiamos paso a paso: desde la definición de objetivos y contenido hasta el diseño visual, desarrollo y publicación.',
-  },
-  {
-    question: '¿Puedo ver ejemplos de trabajos anteriores?',
-    answer:
-      'Sí. Contamos con un portafolio en constante actualización donde puedes ver proyectos de diferentes sectores: empresas, tiendas online, marcas personales y más. Solo tienes que solicitarlo a nuestro equipo.',
-  },
-  {
-    question: '¿Qué hace diferente a Inovasore de otras agencias?',
-    answer:
-      'Nuestro enfoque combina creatividad, tecnología y estrategia. No solo creamos sitios web bonitos, sino plataformas que impulsan resultados reales, con una experiencia de usuario optimizada y un soporte que acompaña el crecimiento de tu marca.',
+      'Sí. Contamos con planes de soporte mensual que incluyen actualizaciones, corrección de errores, backups y monitoreo de seguridad. No te dejamos solo una vez que tu sitio está publicado.',
   },
 ] as const;

@@ -1,6 +1,4 @@
-﻿---
-import { featuredServices } from "../data/services";
-
+---
 const { offsetTop = "0px" } = Astro.props;
 ---
 
@@ -32,41 +30,254 @@ const { offsetTop = "0px" } = Astro.props;
       experiencias digitales a medida.
     </p>
 
-    <div class="services__spotlight">
-      {
-        featuredServices.map((service, index) => {
-          const cardClass = ["spotlight-card", "reveal"]
-            .filter(Boolean)
-            .join(" ");
-          const style = `--reveal-delay:${(0.16 + index * 0.08).toFixed(2)}s;--reveal-duration:.45s;--reveal-distance:12px`;
-          return (
-            <article class={cardClass} style={style}>
-              <a
-                href={service.link || "/servicios"}
-                class="spotlight-card__link"
-                aria-label={`Ver más sobre ${service.title}`}
+    <div class="services__grid">
+      <article
+        class="spotlight-card spotlight-card--social reveal"
+        style="--reveal-delay:0.1s;--reveal-duration:.5s;--reveal-distance:15px"
+      >
+        <div class="spotlight-card__header">
+          <h3 class="spotlight-card__title">Redes Sociales</h3>
+          <p class="spotlight-card__desc">
+            Eleva tu marca con contenido premium y conecta con clientes de
+            primer nivel.
+          </p>
+        </div>
+
+        <div class="spotlight-card__ill svc-ill--social" aria-hidden="true">
+          <div class="soc-pill soc-fb">
+            <span class="soc-icon soc-icon-fb">
+              <svg
+                viewBox="0 0 24 24"
+                width="18"
+                height="18"
+                fill="currentColor"
               >
-                <span class="spotlight-card__link-text">Ver más</span>
-                <img
-                  src="/arrow.svg"
-                  alt=""
-                  class="spotlight-card__arrow"
-                  aria-hidden="true"
-                />
-              </a>
-              <div class="spotlight-card__icon" aria-hidden="true">
-                <span class="material-symbols-rounded" aria-hidden="true">
-                  {service.icon}
+                <path
+                  d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4v-8.5z"
+                ></path>
+              </svg>
+            </span>
+            <span class="soc-pill__copy">
+              <strong>Facebook</strong>
+              <small>Contenido activo</small>
+            </span>
+            <span class="material-symbols-rounded check">check</span>
+          </div>
+
+          <div class="soc-pill soc-ig">
+            <span class="soc-icon soc-icon-ig">
+              <svg
+                viewBox="0 0 24 24"
+                width="18"
+                height="18"
+                fill="currentColor"
+              >
+                <path
+                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"
+                ></path>
+              </svg>
+            </span>
+            <span class="soc-pill__copy">
+              <strong>Instagram</strong>
+              <small>Campañas listas</small>
+            </span>
+            <span class="material-symbols-rounded check check-blue">check</span>
+          </div>
+
+          <div class="soc-pill soc-tk">
+            <span class="soc-icon soc-icon-tk">
+              <svg
+                viewBox="0 0 24 24"
+                width="18"
+                height="18"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 3.18-4.51v-3.5a6.33 6.33 0 0 0-5.39 10.69 6.33 6.33 0 0 0 10.86-4.42V8.69a8.18 8.18 0 0 0 4.77 1.53V6.79z"
+                ></path>
+              </svg>
+            </span>
+            <span class="soc-pill__copy">
+              <strong>TikTok</strong>
+              <small>Alcance diario</small>
+            </span>
+            <span class="material-symbols-rounded check">check</span>
+          </div>
+        </div>
+      </article>
+
+      <article
+        class="spotlight-card spotlight-card--web reveal"
+        style="--reveal-delay:0.2s;--reveal-duration:.5s;--reveal-distance:15px"
+      >
+        <div class="spotlight-card__header">
+          <h3 class="spotlight-card__title">Diseño & Desarrollo Web</h3>
+          <p class="spotlight-card__desc">
+            Sitios web optimizados que cargan rápido y convierten más.
+          </p>
+        </div>
+
+        <div class="spotlight-card__ill svc-ill--web" aria-hidden="true">
+          <div class="web-stage">
+            <div class="web-insight">
+              <div class="web-token">
+                <span class="web-token__mark">
+                  <span class="material-symbols-rounded">language</span>
                 </span>
+                <strong>Tu Marca</strong>
+                <span class="material-symbols-rounded check">check</span>
               </div>
-              <div class="spotlight-card__body">
-                <h3 class="spotlight-card__title">{service.title}</h3>
-                <p class="spotlight-card__desc">{service.description}</p>
+            </div>
+
+            <div class="web-panel">
+              <div class="web-item active">
+                <span>Sitios corporativos</span>
+                <span class="material-symbols-rounded">north_east</span>
               </div>
-            </article>
-          );
-        })
-      }
+              <div class="web-item">
+                <span>E-commerce</span>
+                <span class="material-symbols-rounded">north_east</span>
+              </div>
+              <div class="web-item">
+                <span>Landing pages</span>
+                <span class="material-symbols-rounded">north_east</span>
+              </div>
+              <div class="web-item">
+                <span>Aulas virtuales</span>
+                <span class="material-symbols-rounded">north_east</span>
+              </div>
+              <div class="web-item">
+                <span>Reservas online</span>
+                <span class="material-symbols-rounded">north_east</span>
+              </div>
+              <div class="web-item">
+                <span>Integraciones</span>
+                <span class="material-symbols-rounded">north_east</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article
+        class="spotlight-card spotlight-card--auto reveal"
+        style="--reveal-delay:0.3s;--reveal-duration:.5s;--reveal-distance:15px"
+      >
+        <div class="spotlight-card__header">
+          <h3 class="spotlight-card__title">Automatizaciones & IA</h3>
+          <p class="spotlight-card__desc">
+            Automatiza tus procesos, atiende 24/7 y gana tiempo para vender
+            mejor.
+          </p>
+        </div>
+
+        <div class="spotlight-card__ill svc-ill--auto" aria-hidden="true">
+          <div class="auto-dash-wrapper">
+            <div class="auto-chart">
+              <div class="auto-chart__header">
+                <span>Ver crecimiento</span>
+                <span class="material-symbols-rounded">expand_less</span>
+              </div>
+              <div class="auto-chart__tabs">
+                <span
+                  ><span class="material-symbols-rounded">smart_toy</span> Agentes IA</span
+                >
+                <span
+                  ><span class="material-symbols-rounded">forum</span> chatbots</span
+                >
+              </div>
+
+              <div class="auto-active">
+                <span class="material-symbols-rounded icon-sys">hub</span>
+                Sistema activo
+                <span class="material-symbols-rounded icon-check">check</span>
+              </div>
+            </div>
+
+            <div class="auto-dash">
+              <div class="auto-dash-header">
+                <span>Flujo IA</span>
+                <span class="material-symbols-rounded">auto_awesome</span>
+              </div>
+              <div class="auto-list">
+                <div class="auto-list-item">
+                  <span class="check-box"
+                    ><span class="material-symbols-rounded">check</span></span
+                  >
+                  Respuestas instantáneas
+                </div>
+                <div class="auto-list-item">
+                  <span class="check-box"
+                    ><span class="material-symbols-rounded">check</span></span
+                  >
+                  Seguimiento automático
+                </div>
+                <div class="auto-list-item">
+                  <span class="check-box"
+                    ><span class="material-symbols-rounded">check</span></span
+                  >
+                  Datos listos para vender
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article
+        class="spotlight-card spotlight-card--seo reveal"
+        style="--reveal-delay:0.4s;--reveal-duration:.5s;--reveal-distance:15px"
+      >
+        <div class="spotlight-card__header">
+          <h3 class="spotlight-card__title">SEO & Publicidad Digital</h3>
+          <p class="spotlight-card__desc">
+            Aparece primero y atrae clientes de alto valor combinando SEO y
+            campañas pagadas.
+          </p>
+        </div>
+
+        <div class="spotlight-card__ill svc-ill--seo" aria-hidden="true">
+          <div class="seo-console">
+            <div class="seo-grid">
+              <div class="seo-item">
+                <span class="material-symbols-rounded">bar_chart</span> Posicionamiento
+              </div>
+              <div class="seo-item">
+                <span class="material-symbols-rounded">schedule</span> Trafico Orgánico
+              </div>
+              <div class="seo-item">
+                <span class="material-symbols-rounded">sync_alt</span> Campañas
+              </div>
+              <div class="seo-item">
+                <span class="material-symbols-rounded">groups</span> Leads
+              </div>
+              <div class="seo-item">
+                <span class="material-symbols-rounded">percent</span> Conversión
+              </div>
+              <div class="seo-item">
+                <span class="material-symbols-rounded">payments</span> Rentabilidad
+              </div>
+            </div>
+            <div class="seo-bottom">
+              <div class="seo-pill">
+                <span class="seo-pill__mark seo-pill__mark--blue">
+                  <span class="material-symbols-rounded">campaign</span>
+                </span>
+                Google Ads
+                <span class="material-symbols-rounded check">check</span>
+              </div>
+              <div class="seo-pill">
+                <span class="seo-pill__mark seo-pill__mark--rose">
+                  <span class="material-symbols-rounded">ads_click</span>
+                </span>
+                Meta Ads
+                <span class="material-symbols-rounded check">check</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
     </div>
   </div>
 
@@ -95,7 +306,55 @@ const { offsetTop = "0px" } = Astro.props;
 </section>
 
 <script>
+  let spotlightActive = false;
+  let scrollRevealCleanup: (() => void) | null = null;
+
+  function initCardSpotlight() {
+    if (spotlightActive) return;
+    spotlightActive = true;
+
+    const cleanups: (() => void)[] = [];
+
+    document
+      .querySelectorAll<HTMLElement>(".spotlight-card")
+      .forEach((card) => {
+        let rafPending = false;
+        let cx = 0,
+          cy = 0;
+
+        const update = () => {
+          card.style.setProperty("--mouse-x", `${cx}px`);
+          card.style.setProperty("--mouse-y", `${cy}px`);
+          rafPending = false;
+        };
+
+        const onMove = (e: MouseEvent) => {
+          const rect = card.getBoundingClientRect();
+          cx = e.clientX - rect.left;
+          cy = e.clientY - rect.top;
+          if (!rafPending) {
+            rafPending = true;
+            requestAnimationFrame(update);
+          }
+        };
+
+        card.addEventListener("mousemove", onMove);
+        cleanups.push(() => card.removeEventListener("mousemove", onMove));
+      });
+
+    document.addEventListener(
+      "astro:before-swap",
+      () => {
+        cleanups.forEach((fn) => fn());
+        spotlightActive = false;
+      },
+      { once: true },
+    );
+  }
+
   function initScrollReveal() {
+    if (scrollRevealCleanup) return;
+
     const lines = document.querySelectorAll(
       ".scroll-line",
     ) as NodeListOf<HTMLElement>;
@@ -107,8 +366,6 @@ const { offsetTop = "0px" } = Astro.props;
 
       const rect = container.getBoundingClientRect();
       const windowHeight = window.innerHeight;
-
-      // Calcular progreso general (0 a 1)
       const start = windowHeight * 0.85;
       const end = windowHeight * 0.25;
 
@@ -118,27 +375,37 @@ const { offsetTop = "0px" } = Astro.props;
       }
       overallProgress = Math.min(Math.max(overallProgress, 0), 1);
 
-      // Dividir el progreso entre las 3 líneas
-      // Línea 1: 0% - 33%, Línea 2: 33% - 66%, Línea 3: 66% - 100%
       lines.forEach((line, index) => {
         const lineStart = index / lines.length;
         const lineEnd = (index + 1) / lines.length;
-
         let lineProgress = 0;
         if (overallProgress > lineStart) {
           lineProgress = (overallProgress - lineStart) / (lineEnd - lineStart);
         }
-        lineProgress = Math.min(Math.max(lineProgress, 0), 1);
-
-        line.style.setProperty("--line-progress", `${lineProgress * 100}%`);
+        line.style.setProperty(
+          "--line-progress",
+          `${Math.min(Math.max(lineProgress, 0), 1) * 100}%`,
+        );
       });
     };
 
     window.addEventListener("scroll", updateScroll, { passive: true });
     updateScroll();
+
+    scrollRevealCleanup = () => {
+      window.removeEventListener("scroll", updateScroll);
+      scrollRevealCleanup = null;
+    };
+    document.addEventListener("astro:before-swap", scrollRevealCleanup, {
+      once: true,
+    });
   }
 
-  document.addEventListener("astro:page-load", initScrollReveal);
+  document.addEventListener("astro:page-load", () => {
+    initCardSpotlight();
+    initScrollReveal();
+  });
+  initCardSpotlight();
   initScrollReveal();
 </script>
 
@@ -148,7 +415,7 @@ const { offsetTop = "0px" } = Astro.props;
     overflow: hidden;
     isolation: isolate;
     margin: 0;
-    padding: calc(var(--section-padding-y) * 1.35) 0 var(--section-padding-y);
+    padding: calc(var(--section-padding-y) * 0.9) 0 var(--section-padding-y);
     background: transparent;
     color: var(--color-text);
     scroll-margin-top: var(--services-offset, clamp(72px, 14vw, 120px));
@@ -156,14 +423,15 @@ const { offsetTop = "0px" } = Astro.props;
 
   .services__inner {
     display: grid;
-    row-gap: clamp(2px, 1.2vh, 10px);
+    row-gap: 0;
     text-align: center;
-    max-width: 1080px;
+    max-width: 1200px;
   }
 
   @media (max-width: 720px) {
     .services {
-      margin-top: clamp(12px, 4vh, 26px);
+      margin-top: clamp(8px, 2vh, 16px);
+      padding-top: calc(var(--section-padding-y) * 0.7);
     }
 
     .services__tag {
@@ -180,9 +448,9 @@ const { offsetTop = "0px" } = Astro.props;
   }
 
   .services__subtitle {
-    color: color-mix(in oklab, var(--color-text) 50%, transparent);
+    color: color-mix(in oklab, var(--color-text) 60%, transparent);
     font-size: clamp(1rem, 0.9rem + 0.25vw, 1.1rem);
-    margin: 0 auto clamp(12px, 2.6vh, 18px);
+    margin: 0 auto clamp(32px, 5vh, 48px);
     max-width: 60ch;
     font-weight: 300;
   }
@@ -202,7 +470,7 @@ const { offsetTop = "0px" } = Astro.props;
       #26d2f8 0%,
       #23b2ff 35%,
       #0973e1 70%,
-      #3b5bff 100%
+      #3b5bff 60%
     );
     background-size: 100% 100%;
     background-repeat: no-repeat;
@@ -212,119 +480,59 @@ const { offsetTop = "0px" } = Astro.props;
     -webkit-text-fill-color: transparent;
   }
 
-  .services__spotlight {
+  .services__grid {
     display: grid;
-    gap: clamp(18px, 2.6vw, 32px);
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    margin-top: clamp(4px, 1.2vw, 12px);
+    gap: clamp(12px, 1.8vw, 18px);
+    grid-template-columns: 1fr;
+    margin-top: clamp(16px, 2vw, 24px);
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
-  @media (min-width: 768px) {
-    .services__spotlight {
-      grid-template-columns: repeat(2, 1fr);
+  @media (min-width: 900px) {
+    .services__grid {
+      grid-template-columns: repeat(12, 1fr);
+    }
+    .spotlight-card:nth-child(1) {
+      grid-column: span 5;
+    }
+    .spotlight-card:nth-child(2) {
+      grid-column: span 7;
+    }
+    .spotlight-card:nth-child(3) {
+      grid-column: span 7;
+    }
+    .spotlight-card:nth-child(4) {
+      grid-column: span 5;
     }
   }
 
   .spotlight-card {
-    position: relative;
-    text-align: left;
-    padding: 20px 22px;
-    border-radius: 18px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    --card-radius: 24px;
     background: linear-gradient(
       180deg,
       rgba(12, 14, 22, 0.92),
       rgba(12, 14, 22, 0.86)
     );
+    border-radius: var(--card-radius);
+    padding: clamp(16px, 2vw, 22px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    min-height: clamp(240px, 20vw, 290px);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
     transition:
-      transform 0.18s ease,
-      box-shadow 0.25s ease,
-      border-color 0.25s ease;
+      transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 0.4s ease,
+      border-color 0.4s ease;
   }
 
-  .spotlight-card__link {
-    position: absolute;
-    top: 20px;
-    right: 22px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 16px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 50px;
-    background: transparent;
-    text-decoration: none;
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 0.9rem;
-    font-weight: 400;
-    z-index: 3;
-    transition: all 0.25s ease;
-    backdrop-filter: blur(4px);
-  }
-
-  .spotlight-card__link:hover {
-    background: transparent;
-    border-color: rgba(59, 130, 246, 0.6);
-    color: #fff;
-    transform: translateX(2px);
-  }
-
-  .spotlight-card__link:active {
-    background: rgba(59, 130, 246, 0.2);
-    border-color: rgba(59, 130, 246, 0.4);
-  }
-
-  .spotlight-card__link-text {
-    font-size: 0.9rem;
-  }
-
-  .spotlight-card__arrow {
-    width: 14px;
-    height: 14px;
-    transition: transform 0.25s ease;
-  }
-
-  .spotlight-card__link:hover .spotlight-card__arrow {
-    transform: translate(2px, -2px);
-  }
-
-  .spotlight-card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 18px;
-    height: 4px;
-    width: 76px;
-    border-radius: 0 0 8px 8px;
-    pointer-events: none;
-    z-index: 2;
-    background: linear-gradient(90deg, #0973e1 0%, #0446ba 100%);
-    box-shadow: 0 8px 18px rgba(9, 115, 225, 0.35);
-    opacity: 0.95;
-  }
-
-  .spotlight-card::after {
-    content: "";
-    position: absolute;
-    inset: -1px;
-    border-radius: inherit;
-    pointer-events: none;
-    z-index: 1;
-    background:
-      radial-gradient(
-        420px 260px at 110% 120%,
-        rgba(9, 115, 225, 0.12),
-        transparent 60%
-      ),
-      radial-gradient(
-        300px 220px at -8% 12%,
-        rgba(9, 115, 225, 0.06),
-        transparent 72%
-      );
-    mix-blend-mode: screen;
-    opacity: 0.24;
-    transition: opacity 0.25s ease;
+  .spotlight-card--web,
+  .spotlight-card--auto {
+    min-height: clamp(260px, 22vw, 310px);
   }
 
   .spotlight-card:hover {
@@ -333,112 +541,826 @@ const { offsetTop = "0px" } = Astro.props;
     box-shadow:
       0 10px 30px rgba(0, 0, 0, 0.25),
       inset 0 1px 0 rgba(255, 255, 255, 0.04);
-    filter: saturate(112%) brightness(1.02);
   }
 
-  .spotlight-card__icon {
+  .spotlight-card::before,
+  .spotlight-card::after {
+    content: "";
+    position: absolute;
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  .spotlight-card::before {
+    inset: 0;
+    z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.035;
+    mix-blend-mode: overlay;
+  }
+
+  .spotlight-card::after {
+    inset: 0;
+    z-index: 0;
+    background: radial-gradient(
+      600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(27, 86, 253, 0.08),
+      transparent 40%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .spotlight-card:hover::after {
+    opacity: 1;
+  }
+
+  .spotlight-card__header {
     position: relative;
-    width: 44px;
-    height: 45px;
-    border-radius: 10px;
-    display: grid;
-    place-items: center;
-    font-size: 20px;
-    margin-bottom: 8px;
-    background: var(--color-primary);
-    color: #fff;
-    border: none;
-    box-shadow: none;
-    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  .spotlight-card__icon .material-symbols-rounded {
-    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  /* Animaciones específicas por tarjeta al hacer hover */
-  .spotlight-card:hover .spotlight-card__icon {
-    transform: scale(1.1);
-  }
-
-  .spotlight-card:nth-child(1):hover
-    .spotlight-card__icon
-    .material-symbols-rounded {
-    animation: bounce-rotate 0.6s ease;
-  }
-
-  .spotlight-card:nth-child(2):hover
-    .spotlight-card__icon
-    .material-symbols-rounded {
-    animation: pulse-scale 0.5s ease;
-  }
-
-  .spotlight-card:nth-child(3):hover
-    .spotlight-card__icon
-    .material-symbols-rounded {
-    animation: shake 0.5s ease;
-  }
-
-  @keyframes bounce-rotate {
-    0%,
-    100% {
-      transform: rotate(0deg) scale(1);
-    }
-    25% {
-      transform: rotate(-10deg) scale(1.15);
-    }
-    75% {
-      transform: rotate(10deg) scale(1.15);
-    }
-  }
-
-  @keyframes pulse-scale {
-    0%,
-    100% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.25);
-    }
-  }
-
-  @keyframes shake {
-    0%,
-    100% {
-      transform: translateX(0);
-    }
-    25% {
-      transform: translateX(-4px) rotate(-5deg);
-    }
-    75% {
-      transform: translateX(4px) rotate(5deg);
-    }
-  }
-
-  .spotlight-card__body {
-    display: grid;
-    gap: 0.45rem;
-    position: relative;
-    z-index: 1;
+    z-index: 2;
+    margin-bottom: clamp(12px, 1.6vw, 18px);
+    text-align: left;
   }
 
   .spotlight-card__title {
-    font-size: 1.15rem;
-    font-weight: 600;
-    color: #fff;
+    font-size: clamp(1.3rem, 1.5vw + 1rem, 1.6rem);
+    font-weight: 700;
+    color: #f8fafc;
+    margin: 0 0 8px 0;
+    letter-spacing: 0;
   }
 
   .spotlight-card__desc {
-    color: #d6e0ef;
+    color: color-mix(in oklab, var(--color-text) 60%, transparent);
     font-size: 0.98rem;
-    margin-top: 0.35rem;
-    font-weight: 300;
     line-height: 1.4;
+    font-weight: 300;
+    margin: 0;
+    max-width: 36rem;
+  }
+
+  .spotlight-card__ill {
+    flex: 1;
+    position: relative;
+    display: flex;
+    z-index: 2;
+    min-height: 174px;
+  }
+
+  /* Social */
+  .svc-ill--social {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    min-height: 160px;
+    padding: 28px 0 0;
+  }
+
+  .soc-orbit {
+    position: absolute;
+    inset: auto 8% 8% 8%;
+    height: 78%;
+    border-radius: 999px;
+    background:
+      radial-gradient(
+        circle at 45% 50%,
+        rgba(91, 124, 255, 0.28),
+        transparent 46%
+      ),
+      radial-gradient(
+        circle at 58% 42%,
+        rgba(38, 210, 248, 0.16),
+        transparent 38%
+      );
+    filter: blur(24px);
+    opacity: 0.75;
+  }
+
+  .soc-pill {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: min(75%, 260px);
+    min-height: 46px;
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 6px 10px;
+    border-radius: 10px;
+    color: #f1f5f9;
+    font-weight: 600;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.34);
+    transition:
+      transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  .soc-fb {
+    margin: 0 auto;
+    transform: translateX(-38px);
+  }
+
+  .soc-ig {
+    margin: -4px auto 0;
+    z-index: 4;
+  }
+
+  .soc-tk {
+    margin: -4px auto 0;
+    transform: translateX(38px);
+  }
+
+  .spotlight-card:hover .soc-fb {
+    transform: translate(-50px, -6px);
+  }
+  .spotlight-card:hover .soc-ig {
+    transform: translate(0, -4px);
+  }
+  .spotlight-card:hover .soc-tk {
+    transform: translate(50px, 5px);
+  }
+
+  .soc-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    color: white;
+  }
+
+  .soc-icon-fb {
+    background: #1877f2;
+  }
+  .soc-icon-ig {
+    background: radial-gradient(
+      circle at 30% 107%,
+      #fdf497 0%,
+      #fd5949 45%,
+      #d6249f 62%,
+      #285aeb 100%
+    );
+  }
+  .soc-icon-tk {
+    background: #050505;
+  }
+
+  .soc-pill__copy {
+    display: grid;
+    min-width: 0;
+    line-height: 1.1;
+  }
+
+  .soc-pill__copy strong {
+    overflow: hidden;
+    color: #f7f8ff;
+    font-size: clamp(0.9rem, 0.2vw + 0.85rem, 1rem);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .soc-pill__copy small {
+    margin-top: 5px;
+    color: rgba(218, 224, 240, 0.58);
+    font-size: 0.68rem;
+    font-weight: 500;
+  }
+
+  .spotlight-card .check {
+    color: #fbbf24;
+    font-size: 18px;
+    font-weight: 700;
+    margin-left: auto;
+  }
+
+  .spotlight-card .check-blue {
+    color: #28a9ff;
+  }
+
+  /* Web */
+  .svc-ill--web {
+    align-items: stretch;
+    justify-content: stretch;
+    min-height: 190px;
+  }
+
+  .web-stage {
+    position: relative;
+    width: 100%;
+    min-height: 190px;
+  }
+
+  .web-insight {
+    position: absolute;
+    left: 0;
+    bottom: 24px;
+    width: min(68%, 462px);
+    height: 150px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    background: linear-gradient(
+      180deg,
+      rgba(18, 20, 32, 0.9),
+      rgba(7, 9, 16, 0.96)
+    );
+  }
+
+  .web-token {
+    position: absolute;
+    top: 34px;
+    left: 32px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    max-width: calc(100% - 64px);
+    padding: 10px 14px 10px 10px;
+    color: #f8fafc;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    background: rgba(24, 25, 38, 0.94);
+    box-shadow: 0 24px 42px rgba(0, 0, 0, 0.32);
+  }
+
+  .web-token__mark {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .web-token__mark .material-symbols-rounded {
+    font-size: 20px;
+    color: #fff;
+  }
+
+  .web-token strong {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .web-panel {
+    position: absolute;
+    right: -4px;
+    bottom: 38px;
+    z-index: 3;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    width: min(70%, 456px);
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    background: linear-gradient(
+      180deg,
+      rgba(16, 18, 29, 0.96),
+      rgba(7, 9, 16, 0.96)
+    );
+    box-shadow: 0 26px 56px rgba(0, 0, 0, 0.45);
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .spotlight-card:hover .web-panel {
+    transform: translateY(-10px);
+  }
+
+  .web-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    min-width: 0;
+    min-height: 38px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    color: rgba(220, 226, 240, 0.46);
+    background: rgba(16, 21, 32, 0.72);
+    font-size: clamp(0.78rem, 0.2vw + 0.74rem, 0.9rem);
+    font-weight: 300;
+    transition:
+      transform 0.3s ease,
+      color 0.3s ease,
+      background 0.3s ease;
+  }
+
+  .web-item span:first-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .web-item.active {
+    color: #f8fafc;
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .web-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: #f8fafc;
+    transform: translateY(-2px);
+  }
+
+  .web-item .material-symbols-rounded {
+    flex: 0 0 auto;
+    color: #a8bbff;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .web-wave {
+    position: absolute;
+    right: 0;
+    bottom: 26px;
+    width: 100%;
+    height: 104px;
+  }
+
+  /* Auto */
+  .svc-ill--auto {
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 200px;
+  }
+
+  .auto-top {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .auto-badge {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 38px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(18, 22, 34, 0.78);
+    color: #aeb6ca;
+    font-size: 0.78rem;
+    font-weight: 500;
+    transition: transform 0.3s ease;
+  }
+
+  .spotlight-card:hover .auto-badge {
+    transform: translateY(-2px);
+  }
+
+  .auto-badge .material-symbols-rounded {
+    color: #9fb5ff;
+    font-size: 18px;
+  }
+
+  .auto-dash-wrapper {
+    position: relative;
+    min-height: 180px;
+    width: 100%;
+  }
+
+  .auto-chart,
+  .auto-dash {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    background: linear-gradient(
+      180deg,
+      rgba(16, 18, 29, 0.96),
+      rgba(7, 9, 16, 0.96)
+    );
+    box-shadow: 0 26px 60px rgba(0, 0, 0, 0.46);
+  }
+
+  .auto-chart {
+    position: absolute;
+    left: 0;
+    bottom: 24px;
+    width: min(62%, 452px);
+    height: 170px;
+    overflow: hidden;
+    padding: 18px;
+  }
+
+  .auto-chart__header,
+  .auto-dash-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #f8fafc;
+    font-size: 0.92rem;
+    font-weight: 600;
+  }
+
+  .auto-chart__tabs {
+    display: flex;
+    gap: 16px;
+    margin-top: 14px;
+  }
+
+  .auto-chart__tabs span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 30px;
+    padding: 5px 10px;
+    color: #c2cae0;
+    border: 1px solid rgba(138, 160, 214, 0.32);
+    border-radius: 6px;
+    background: rgba(21, 27, 42, 0.82);
+    font-size: 0.75rem;
+  }
+
+  .auto-chart__tabs .material-symbols-rounded {
+    color: #9fb5ff;
+    font-size: 16px;
+  }
+
+  .auto-dash {
+    position: absolute;
+    right: 0;
+    bottom: 42px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+    z-index: 2;
+    width: min(48%, 392px);
+    padding: 18px;
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .spotlight-card:hover .auto-dash {
+    transform: translateY(-10px);
+  }
+
+  .auto-dash-header {
+    margin-bottom: 12px;
+  }
+
+  .auto-list-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgba(224, 230, 244, 0.56);
+    font-size: clamp(0.78rem, 0.2vw + 0.74rem, 0.9rem);
+    margin-bottom: 8px;
+    font-weight: 300;
+    transition: transform 0.3s ease;
+  }
+
+  .auto-list-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .auto-list-item:hover {
+    color: #f8fafc;
+    transform: translateX(4px);
+  }
+
+  .check-box {
+    flex: 0 0 auto;
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8fafc;
+  }
+
+  .check-box .material-symbols-rounded {
+    color: #111827;
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  .auto-wave {
+    position: absolute;
+    right: 0;
+    bottom: 44px;
+    left: 0;
+    width: 100%;
+    height: 130px;
+  }
+
+  .auto-active {
+    position: absolute;
+    bottom: 42px;
+    left: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    max-width: calc(100% - 40px);
+    padding: 10px 14px;
+    border-radius: 6px;
+    border: 1px solid rgba(111, 136, 218, 0.38);
+    background: rgba(21, 28, 54, 0.94);
+    color: #f8fafc;
+    font-size: 0.82rem;
+    font-weight: 600;
+    z-index: 4;
+    box-shadow: 0 18px 32px rgba(0, 0, 0, 0.34);
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .spotlight-card:hover .auto-active {
+    transform: translateY(-8px);
+  }
+
+  .auto-active .icon-check {
+    color: #fbbf24;
+    font-size: 16px;
+    margin-left: auto;
+    font-weight: 700;
+  }
+
+  .auto-active .icon-sys {
+    color: #93c5fd;
+    font-size: 16px;
+  }
+
+  /* SEO */
+  .svc-ill--seo {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 180px;
+  }
+
+  .seo-console {
+    width: min(100%, 410px);
+    padding: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    background: linear-gradient(
+      180deg,
+      rgba(16, 18, 29, 0.94),
+      rgba(7, 9, 16, 0.98)
+    );
+    box-shadow: 0 26px 60px rgba(0, 0, 0, 0.48);
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .spotlight-card:hover .seo-console {
+    transform: translateY(-8px);
+  }
+
+  .seo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+    margin-bottom: 12px;
+  }
+
+  .seo-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    min-height: 34px;
+    padding: 6px 8px;
+    border-radius: 8px;
+    background: rgba(17, 22, 34, 0.72);
+    color: rgba(224, 230, 244, 0.48);
+    font-size: clamp(0.76rem, 0.18vw + 0.72rem, 0.86rem);
+    font-weight: 300;
+    transition:
+      transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+      color 0.3s ease,
+      background 0.3s ease;
+  }
+
+  .spotlight-card:hover .seo-item:nth-child(odd) {
+    transform: translateY(-2px);
+  }
+  .spotlight-card:hover .seo-item:nth-child(even) {
+    transform: translateY(-4px);
+  }
+
+  .seo-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: #f8fafc;
+    transform: translateY(-5px) !important;
+  }
+
+  .seo-item .material-symbols-rounded {
+    flex: 0 0 auto;
+    color: #9fb5ff;
+    font-size: 18px;
+  }
+
+  .seo-bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .seo-pill {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-width: 0;
+    min-height: 38px;
+    padding: 4px 8px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(25, 27, 46, 0.88);
+    color: #f8fafc;
+    font-size: clamp(0.72rem, 0.2vw + 0.7rem, 0.82rem);
+    font-weight: 600;
+    box-shadow: 0 18px 34px rgba(0, 0, 0, 0.28);
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .spotlight-card:hover .seo-pill {
+    transform: translateY(-3px);
+  }
+
+  .seo-pill:hover {
+    transform: translateY(-6px) !important;
+    border-color: rgba(159, 181, 255, 0.32);
+  }
+
+  .seo-pill__mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 26px;
+    height: 26px;
+    border-radius: 8px;
+    color: #fff;
+  }
+
+  .seo-pill__mark .material-symbols-rounded {
+    font-size: 16px;
+  }
+
+  .seo-pill__mark--blue {
+    background: #2563eb;
+  }
+
+  .seo-pill__mark--rose {
+    background: #f43f5e;
+  }
+
+  @media (max-width: 899px) {
+    .services__grid {
+      max-width: 720px;
+    }
+
+    .spotlight-card,
+    .spotlight-card--web {
+      min-height: 520px;
+    }
+    .spotlight-card--auto {
+      min-height: 540px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .spotlight-card {
+      --card-radius: 22px;
+      min-height: 290px;
+      padding: 20px;
+    }
+
+    .spotlight-card__header {
+      margin-bottom: 14px;
+    }
+
+    .spotlight-card__ill {
+      min-height: 184px;
+    }
+
+    .soc-pill {
+      width: min(92%, 290px);
+    }
+
+    .soc-fb, .soc-ig, .soc-tk {
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+      transform: none !important;
+    }
+    .soc-ig, .soc-tk {
+      margin-top: 8px;
+    }
+
+    .web-stage {
+      min-height: 380px;
+      margin-top: 10px;
+    }
+
+    .web-insight {
+      position: relative;
+      width: 88%;
+      height: 170px;
+    }
+
+    .web-token {
+      top: 24px;
+      left: 22px;
+    }
+
+    .web-panel {
+      position: absolute;
+      top: 110px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      grid-template-columns: 1fr;
+      gap: 6px;
+      padding: 10px;
+    }
+
+    .web-item {
+      min-height: 36px;
+      padding: 6px 10px;
+    }
+
+    .auto-dash-wrapper {
+      min-height: 326px;
+    }
+
+    .auto-chart {
+      position: relative;
+      width: 100%;
+      height: 204px;
+      margin-top: 20px;
+    }
+
+    .auto-dash {
+      position: relative;
+      right: auto;
+      bottom: auto;
+      width: 100%;
+      margin-top: 20px;
+      margin-left: 0;
+    }
+    
+    .auto-active {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) !important;
+      width: max-content;
+      z-index: 5;
+    }
+
+    .auto-chart__tabs {
+      flex-wrap: wrap;
+    }
+
+    .seo-console {
+      width: 100%;
+      padding: 12px;
+    }
+
+    .spotlight-card:hover .web-panel {
+      transform: translateX(-50%) !important;
+    }
+
+    .spotlight-card:hover .soc-fb,
+    .spotlight-card:hover .soc-ig,
+    .spotlight-card:hover .soc-tk,
+    .spotlight-card:hover .auto-dash,
+    .spotlight-card:hover .auto-active,
+    .spotlight-card:hover .seo-console {
+      transform: none !important;
+    }
+
+    .web-item:hover,
+    .seo-item:hover,
+    .seo-pill:hover,
+    .auto-badge:hover,
+    .auto-list-item:hover {
+      transform: none !important;
+    }
+  }
+
+  @media (max-width: 460px) {
+    .seo-grid,
+    .seo-bottom {
+      grid-template-columns: 1fr;
+    }
+
+    .soc-icon {
+      width: 40px;
+      height: 40px;
+    }
   }
 
   .scroll-reveal-container {
     margin-top: clamp(60px, 12vh, 100px);
-    margin-bottom: clamp(40px, 8vh, 60px);
+    margin-bottom: clamp(16px, 3vh, 28px);
     width: 100%;
     display: flex;
     justify-content: center;

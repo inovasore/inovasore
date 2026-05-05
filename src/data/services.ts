@@ -36,30 +36,30 @@
 
 export const featuredServices = [
   {
-    title: 'Diseño y Desarrollo de Páginas Web',
+    title: 'Redes Sociales & Contenido',
     description:
-      'Creamos sitios rápidos y modernos, listos para escalar tu negocio.',
+      'Videos, posts y Ads pagados orientados a ventas reales.',
+    icon: 'campaign',
+    link: '/servicios',
+  },
+  {
+    title: 'Diseño & Desarrollo Web',
+    description:
+      'Webs ultra-rápidas con Astro: carga instantánea, SEO técnico y UX superior.',
     icon: 'language',
     link: '/paginas-web-ambato',
   },
   {
-    title: 'Diseño y Desarrollo de Tiendas en Línea',
-    description:
-      'Tiendas completas con sistemas de pago y gestión de inventario.',
-    icon: 'storefront',
-    link: '/servicios',
-  },
-  {
     title: 'Automatización & IA',
     description:
-      'Soluciones de automatización para optimizar tus ventas 24/7.',
+      'Chatbots e IA que atienden, agendan y venden 24/7 sin intervención humana.',
     icon: 'psychology',
     link: '/servicios',
   },
   {
     title: 'SEO & Publicidad Digital (Ads)',
     description:
-      'Domina los buscadores y maximiza tu ROI. Combinamos SEO para aparecer primero en Google con campañas estratégicas.',
+      'SEO + Google Ads + Meta Ads: visibilidad orgánica y pagada para captar clientes listos para comprar.',
     icon: 'trending_up',
     link: '/servicios',
   },

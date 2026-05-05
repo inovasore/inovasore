@@ -1,4 +1,4 @@
-﻿/* Fuentes cargadas vía <link> en el <head> */
+/* Fuentes cargadas vía <link> en el <head> */
 
 * {
   margin: 0;
@@ -47,7 +47,7 @@ body {
   top: 1rem;
   left: 50%;
   transform: translateX(-50%);
-  width: clamp(280px, 92vw, 1080px);
+  width: clamp(280px, 92vw, 1200px);
   padding: .75rem 1.75rem;
   border-radius: 35px;
   backdrop-filter: blur(12px);
@@ -318,7 +318,7 @@ body.nav-open {
 
 /* Utilidades para contenedores de sección */
 .section-inner {
-  width: clamp(280px, 92vw, 1140px);
+  width: clamp(280px, 92vw, 1200px);
   margin: 0 auto;
   padding-inline: 16px;
 }
@@ -401,6 +401,24 @@ body.nav-open {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Shared icon animations used across card components */
+@keyframes bounce-rotate {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  25%       { transform: rotate(-10deg) scale(1.15); }
+  75%       { transform: rotate(10deg) scale(1.15); }
+}
+
+@keyframes pulse-scale {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.25); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25%       { transform: translateX(-4px) rotate(-5deg); }
+  75%       { transform: translateX(4px) rotate(5deg); }
 }
 
 @supports not (color: color-mix(in oklab, black 50%, white)) {
