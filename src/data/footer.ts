@@ -31,12 +31,12 @@ export const footerData = {
     },
     {
       label: 'Facebook',
-      href: 'https://www.facebook.com/inovasore.ec',
+      href: 'https://www.facebook.com/inovasore.ecc',
       icon: 'facebook',
     },
     {
       label: 'X',
-      href: 'https://x.com/inovasore',
+      href: 'https://x.com/inovasore.ecc',
       icon: 'x',
     },
   ],
