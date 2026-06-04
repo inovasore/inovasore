@@ -1,66 +1,77 @@
-﻿export const mainServices = [
+export const mainServices = [
   {
-    title: 'Diseño web & experiencia de usuario (UI/UX)',
+    title: 'Sitios web de alto rendimiento',
     summary:
-      'Creamos sitios web visualmente cautivadores y centrados en la experiencia del usuario. Cada interacción refleja tu marca y genera conexión con tu audiencia.',
+      'Desarrollamos sitios rápidos, seguros y optimizados para ofrecer la mejor experiencia y posicionarte en Google.',
     bullets: [
-      'Diseño visual personalizado.',
-      'Interfaz moderna y funcional (UI).',
-      'Experiencias optimizadas para móviles (UX).',
-      'Prototipos y wireframes interactivos.',
+      'Carga ultra rápida con Astro.',
+      'Optimización para SEO de Google.',
+      'Diseño completamente responsivo.',
+      'Experiencia de usuario premium (UI/UX).',
     ],
   },
   {
-    title: 'Desarrollo web & sistemas digitales',
+    title: 'Software a medida para tu operación',
     summary:
-      'Construimos soluciones web sólidas, rápidas y seguras: desde páginas corporativas hasta plataformas personalizadas orientadas al rendimiento.',
+      'Creamos sistemas y aplicaciones personalizadas que automatizan procesos, mejoran la productividad y hacen crecer tu negocio.',
     bullets: [
-      'Sitios autoadministrables (CMS).',
-      'Integración con API, bases de datos y servicios externos.',
-      'Seguridad, mantenimiento y soporte continuo.',
-      'Optimización para rendimiento y SEO técnico.',
+      'Automatización de flujos y procesos.',
+      'Desarrollo de sistemas internos personalizados.',
+      'Integración con APIs y bases de datos.',
+      'Paneles de administración avanzados.',
     ],
   },
   {
-    title: 'Marketing digital & estrategia de marca',
+    title: 'Estrategia digital & crecimiento',
     summary:
-      'Impulsamos tu presencia online con estrategias creativas y campañas que conectan con tu público ideal y obtienen resultados medibles.',
+      'Te ayudamos a atraer más clientes con estrategias digitales efectivas: SEO, publicidad y embudos que convierten.',
     bullets: [
-      'Diseño de publicaciones para redes sociales.',
-      'Campañas publicitarias (Meta Ads, Google Ads, TikTok Ads).',
-      'Branding e identidad visual.',
-      'Análisis y optimización de resultados.',
+      'Campañas efectivas de publicidad pagada.',
+      'Embudos de venta optimizados.',
+      'Posicionamiento orgánico y SEO de contenidos.',
+      'Medición, análisis e informes detallados.',
+    ],
+  },
+  {
+    title: 'Soporte & mantenimiento continuo',
+    summary:
+      'Mantenemos tus plataformas actualizadas, seguras y siempre disponibles para que tu negocio no se detenga.',
+    bullets: [
+      'Soporte técnico prioritario y rápido.',
+      'Actualizaciones de seguridad continuas.',
+      'Copias de seguridad automáticas diarias.',
+      'Monitoreo constante de disponibilidad (uptime).',
     ],
   },
 ] as const;
 
 export const featuredServices = [
   {
-    title: 'Redes Sociales & Contenido',
+    title: 'Sitios web de alto rendimiento',
     description:
-      'Videos, posts y Ads pagados orientados a ventas reales.',
-    icon: 'campaign',
-    link: '/servicios',
-  },
-  {
-    title: 'Diseño & Desarrollo Web',
-    description:
-      'Webs ultra-rápidas con Astro: carga instantánea, SEO técnico y UX superior.',
+      'Desarrollamos sitios rápidos, seguros y optimizados para ofrecer la mejor experiencia y posicionarte en Google.',
     icon: 'language',
     link: '/paginas-web-ambato',
   },
   {
-    title: 'Automatización & IA',
+    title: 'Software a medida para tu operación',
     description:
-      'Chatbots e IA que atienden, agendan y venden 24/7 sin intervención humana.',
-    icon: 'psychology',
+      'Creamos sistemas y aplicaciones personalizadas que automatizan procesos, mejoran la productividad y hacen crecer tu negocio.',
+    icon: 'code',
     link: '/servicios',
   },
   {
-    title: 'SEO & Publicidad Digital (Ads)',
+    title: 'Estrategia digital & crecimiento',
     description:
-      'SEO + Google Ads + Meta Ads: visibilidad orgánica y pagada para captar clientes listos para comprar.',
+      'Te ayudamos a atraer más clientes con estrategias digitales efectivas: SEO, publicidad y embudos que convierten.',
     icon: 'trending_up',
+    link: '/servicios',
+  },
+  {
+    title: 'Soporte & mantenimiento continuo',
+    description:
+      'Mantenemos tus plataformas actualizadas, seguras y siempre disponibles para que tu negocio no se detenga.',
+    icon: 'settings',
     link: '/servicios',
   },
 ] as const;
