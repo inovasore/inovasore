@@ -12,5 +12,10 @@ export default defineConfig({
     inlineStylesheets: 'always',
   },
 
+  // Astro 7 cambió el valor por defecto a 'jsx', que elimina espacios entre
+  // texto y etiquetas en línea ("Porque Novasore <span>…"). true conserva
+  // el comportamiento anterior.
+  compressHTML: true,
+
   integrations: [sitemap()],
 });

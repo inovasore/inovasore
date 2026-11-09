@@ -12,6 +12,12 @@
 - No cambiar el diseño visual ni los textos de forma drástica sin consultar; si una etapa altera el diseño, avisar antes.
 - Si algo no está claro o hay una decisión importante, preguntar antes de seguir.
 
+## Entorno
+
+- Astro 7 (compilador Rust, Vite 8). Requiere **Node ≥ 22.23.4** (`engines` en `package.json`); Vercel lo toma de ahí.
+- `compressHTML: true` en `astro.config.mjs`: el valor por defecto de Astro 7 (`'jsx'`) elimina espacios entre texto y etiquetas en línea.
+- No combinar `transform` con `scale`/`translate`/`rotate` en la misma regla: el compilador CSS de Astro 7 los fusiona en una sola matriz.
+
 ## Convenciones del código
 
 - Diseño y animaciones: seguir la skill `.claude/skills/apple-design/SKILL.md`, **excepto la tipografía**: se usa Instrument Sans Variable (alojada en el sitio con `@fontsource-variable/instrument-sans`), no la fuente del sistema.

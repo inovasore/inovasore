@@ -143,7 +143,8 @@ const variantWidths = (max: number) =>
       };
 
       const apply = () => {
-        if (cta) cta.style.translate = `${current.x}px ${current.y}px`;
+        // Incluye el centrado (-50%): la pastilla no usa `transform`
+        if (cta) cta.style.translate = `calc(-50% + ${current.x}px) calc(-50% + ${current.y}px)`;
       };
 
       const step = (now: number) => {
@@ -473,7 +474,10 @@ const variantWidths = (max: number) =>
       white-space: nowrap;
       box-shadow: 0 10px 30px rgb(27 86 253 / 0.45);
       pointer-events: none;
-      transform: translate(-50%, -50%);
+      /* Solo propiedades individuales (translate/scale), sin `transform`:
+         el compilador CSS de Astro 7 fusiona transform + scale en una sola
+         matriz y el hover dejaría de cambiar la escala. */
+      translate: -50% -50%;
       opacity: 0;
       scale: 0.9;
       transition:
@@ -493,7 +497,7 @@ const variantWidths = (max: number) =>
         left: auto;
         right: 14px;
         top: 14px;
-        transform: none;
+        translate: none;
         opacity: 1;
         scale: 1;
         padding: 10px 14px 10px 16px;
