@@ -1,9 +1,13 @@
 ---
+import { Picture } from "astro:assets";
 import { projects } from "../data/projects";
-import { Image } from "astro:assets";
+
+// Anchos de las variantes: solo hasta el tamaño real de cada imagen (no se amplía).
+const variantWidths = (max: number) =>
+  [480, 720, 960, 1280, 1600, 2000, 2880].filter((w) => w < max).concat(max);
 ---
 
-<section class="projects" id="proyectos">
+<section class="projects" id="proyectos" data-projects>
   <div class="projects__halo" aria-hidden="true"></div>
   <img
     src="/Grilla02.svg"
@@ -42,109 +46,174 @@ import { Image } from "astro:assets";
       capacidad para crear estrategias y visuales impactantes.
     </p>
 
-    <div class="projects__nav-wrapper">
-      <button
-        class="projects__nav-btn projects__nav-btn--prev"
-        aria-label="Proyecto anterior"
-        id="prevBtn"
-      >
-        <img src="/Raw01.svg" alt="" width="24" height="24" />
-      </button>
-
-      <div class="projects__grid">
-        {
-          projects.map((project, index) => (
-            <article
-              class="project-card reveal"
-              data-index={index}
-              style={`--reveal-delay:${(0.16 + (index % 3) * 0.08).toFixed(2)}s;--reveal-duration:.45s;--reveal-distance:12px; display: ${index < 3 ? "flex" : "none"};`}
+    <!-- Tarjetas apiladas: cada una queda fija (sticky) y la siguiente sube
+         encima; la de abajo se reduce y oscurece (animation-timeline). -->
+    <ol class="pstack" role="list" style={`--n:${projects.length}`}>
+      {
+        projects.map((project, i) => (
+          <li class="pstack__item" style={`--i:${i}`}>
+            <a
+              class="pcard"
+              href={project.href}
+              aria-label={`Ver proyecto: ${project.title}`}
+              data-pcard
             >
-              <figure class="project-card__media">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <div class="project-card__body">
-                <div class="project-card__heading">
-                  <h3>{project.title}</h3>
-                  <span class="project-card__pill">{project.category}</span>
-                </div>
-                <p class="project-card__description">{project.description}</p>
-                <a class="project-card__link tap" href={project.url}>
-                  Solicita un proyecto similar
-                  <span class="material-symbols-rounded" aria-hidden="true">
-                    arrow_outward
-                  </span>
-                </a>
-              </div>
-            </article>
-          ))
-        }
-      </div>
+              <Picture
+                src={project.image}
+                alt={project.imageAlt}
+                formats={["avif", "webp"]}
+                widths={variantWidths(project.image.width)}
+                sizes="(min-width: 1568px) 1440px, calc(100vw - 2 * clamp(20px, 5vw, 64px))"
+                loading={i === 0 ? "eager" : "lazy"}
+                decoding="async"
+                class="pcard__img"
+              />
 
-      <button
-        class="projects__nav-btn projects__nav-btn--next"
-        aria-label="Siguiente proyecto"
-        id="nextBtn"
-      >
-        <img src="/Raw02.svg" alt="" width="24" height="24" />
-      </button>
-    </div>
+              <div class="pcard__bar">
+                <div class="pcard__info">
+                  <h3 class="pcard__heading">
+                    <span class="pcard__title">{project.title}</span>
+                    <span class="pcard__category">{project.category}</span>
+                  </h3>
+                  <p class="pcard__desc">{project.description}</p>
+                </div>
+                <ul class="pcard__chips" role="list">
+                  {project.chips.map((chip) => (
+                    <li class="pcard__chip">{chip}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <span class="pcard__shade" aria-hidden="true" />
+
+              <span class="pcard__cta" aria-hidden="true" data-pcard-cta>
+                Ver proyecto
+                <svg viewBox="0 0 20 20" width="16" height="16">
+                  <path
+                    d="M6 14 14 6M7.5 6H14v6.5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
   </div>
 
   <script>
-    const prevBtn = document.getElementById(
-      "prevBtn",
-    ) as HTMLButtonElement | null;
-    const nextBtn = document.getElementById(
-      "nextBtn",
-    ) as HTMLButtonElement | null;
-    const projectCards = document.querySelectorAll(".project-card");
-    const VISIBLE_ITEMS = 3;
-    const totalProjects = projectCards.length;
-    let startIndex = 0;
+    /*
+     * Pastilla "Ver proyecto" que sigue al puntero (skill apple-design):
+     * - resorte críticamente amortiguado (sin rebote), solo `translate`;
+     * - al entrar arranca en la posición del puntero (sin "vuelo" desde 0,0);
+     * - escucha punteros solo mientras la sección está en pantalla;
+     * - solo con ratón/trackpad y sin prefers-reduced-motion.
+     */
+    const section = document.querySelector<HTMLElement>("[data-projects]");
+    const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-    function updateProjects() {
-      projectCards.forEach((card, index) => {
-        const htmlCard = card as HTMLElement;
-        let isVisible = false;
-        let visualOrder = -1;
+    if (section && "IntersectionObserver" in window) {
+      const cards = [...section.querySelectorAll<HTMLElement>("[data-pcard]")];
+      const RESPONSE = 0.09; // s: menor = más rápido en alcanzar el puntero
 
-        // Check if this card should be visible and calculate its visual order
-        for (let i = 0; i < VISIBLE_ITEMS; i++) {
-          const visibleIndex = (startIndex + i) % totalProjects;
-          if (index === visibleIndex) {
-            isVisible = true;
-            visualOrder = i;
-            break;
-          }
+      let active: HTMLElement | null = null;
+      let cta: HTMLElement | null = null;
+      let target = { x: 0, y: 0 };
+      let current = { x: 0, y: 0 };
+      let frame = 0;
+      let last = 0;
+
+      const pointToOffset = (card: HTMLElement, e: PointerEvent) => {
+        const r = card.getBoundingClientRect();
+        const pill = cta?.getBoundingClientRect();
+        const maxX = r.width / 2 - (pill ? pill.width / 2 : 0) - 12;
+        const anchorY = r.top + r.height * 0.42; // ancla CSS: top 42%
+        const maxUp = r.height * 0.42 - (pill ? pill.height / 2 : 0) - 12;
+        const maxDown = r.height * 0.58 - (pill ? pill.height / 2 : 0) - 12;
+        return {
+          x: Math.max(-maxX, Math.min(maxX, e.clientX - (r.left + r.width / 2))),
+          y: Math.max(-maxUp, Math.min(maxDown, e.clientY - anchorY)),
+        };
+      };
+
+      const apply = () => {
+        if (cta) cta.style.translate = `${current.x}px ${current.y}px`;
+      };
+
+      const step = (now: number) => {
+        const dt = Math.min(0.05, (now - last) / 1000);
+        last = now;
+        const k = 1 - Math.exp(-dt / RESPONSE);
+        current.x += (target.x - current.x) * k;
+        current.y += (target.y - current.y) * k;
+        apply();
+        const settled =
+          Math.abs(target.x - current.x) < 0.1 && Math.abs(target.y - current.y) < 0.1;
+        frame = settled ? 0 : requestAnimationFrame(step);
+      };
+
+      const kick = () => {
+        if (frame) return;
+        last = performance.now();
+        frame = requestAnimationFrame(step);
+      };
+
+      const onEnter = (e: PointerEvent) => {
+        if (e.pointerType !== "mouse" && e.pointerType !== "pen") return;
+        active = e.currentTarget as HTMLElement;
+        cta = active.querySelector<HTMLElement>("[data-pcard-cta]");
+        target = pointToOffset(active, e);
+        current = { ...target }; // aparece donde está el puntero
+        apply();
+      };
+
+      const onMove = (e: PointerEvent) => {
+        if (!active || e.currentTarget !== active) return;
+        target = pointToOffset(active, e);
+        kick();
+      };
+
+      const onLeave = () => {
+        active = null; // el fade lo hace CSS (opacity)
+      };
+
+      const bind = (on: boolean) => {
+        for (const card of cards) {
+          const method = on ? "addEventListener" : "removeEventListener";
+          card[method]("pointerenter", onEnter as EventListener);
+          card[method]("pointermove", onMove as EventListener);
+          card[method]("pointerleave", onLeave);
         }
-
-        if (isVisible) {
-          htmlCard.style.display = "flex";
-          htmlCard.style.order = visualOrder.toString();
-        } else {
-          htmlCard.style.display = "none";
-          htmlCard.style.order = "999";
+        if (!on && frame) {
+          cancelAnimationFrame(frame);
+          frame = 0;
         }
-      });
+      };
+
+      let bound = false;
+      const update = (visible: boolean) => {
+        const should = visible && finePointer.matches && !reducedMotion.matches;
+        if (should !== bound) {
+          bind(should);
+          bound = should;
+        }
+      };
+
+      let visible = false;
+      new IntersectionObserver((entries) => {
+        visible = entries.some((entry) => entry.isIntersecting);
+        update(visible);
+      }).observe(section);
+
+      finePointer.addEventListener("change", () => update(visible));
+      reducedMotion.addEventListener("change", () => update(visible));
     }
-
-    prevBtn?.addEventListener("click", () => {
-      startIndex = (startIndex - 1 + totalProjects) % totalProjects;
-      updateProjects();
-    });
-
-    nextBtn?.addEventListener("click", () => {
-      startIndex = (startIndex + 1) % totalProjects;
-      updateProjects();
-    });
-
-    // Initialize
-    updateProjects();
   </script>
 
   <style>
@@ -226,140 +295,280 @@ import { Image } from "astro:assets";
       opacity: 1;
     }
 
-    .projects__nav-wrapper {
-      display: flex;
-      align-items: center;
-      gap: clamp(16px, 2vw, 32px);
-      justify-content: center;
-    }
+    /* ================= Tarjetas apiladas ================= */
+    .pstack {
+      --stack-top: clamp(16px, 4vh, 40px);
+      --stack-step: 14px; /* cada tarjeta queda un poco más abajo: se ve el borde de la anterior */
+      --stack-gap: clamp(24px, 5vh, 56px);
 
-    .projects__nav-btn {
-      flex-shrink: 0;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      border: 1px solid rgba(30, 30, 60, 0.15);
-      background: #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-    }
-
-    .projects__nav-btn:disabled {
-      cursor: not-allowed;
-    }
-
-    .projects__nav-btn:hover {
-      border-color: rgba(59, 91, 255, 0.3);
-      box-shadow: 0 4px 16px rgba(59, 91, 255, 0.12);
-    }
-
-    .projects__nav-btn img {
-      width: 20px;
-      height: 20px;
-      object-fit: contain;
-    }
-
-    .projects__grid {
+      list-style: none;
+      margin: 0;
+      padding: 0;
       display: grid;
-      grid-template-columns: repeat(3, 1fr); /* Exactamente 3 columnas */
-      gap: clamp(16px, 2.8vw, 28px);
-      justify-items: stretch;
-      flex: 1;
+      gap: var(--stack-gap);
+      text-align: left;
+      view-timeline: --pstack block;
     }
 
-    .project-card {
-      --project-card-radius: clamp(18px, 2.6vw, 24px);
+    .pstack__item {
+      position: sticky;
+      top: calc(var(--stack-top) + var(--i) * var(--stack-step));
+    }
+
+    .pcard {
+      --card-top: calc(var(--stack-top) + var(--i) * var(--stack-step));
+
       position: relative;
-      background: #ffffff;
-      border-radius: var(--project-card-radius);
-      border: 1px solid rgba(30, 30, 60, 0.1);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-      transition:
-        transform 0.2s ease,
-        box-shadow 0.25s ease,
-        border-color 0.25s ease;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .project-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(59, 91, 255, 0.25);
-      box-shadow: 0 12px 40px rgba(59, 91, 255, 0.12);
-    }
-
-    .project-card__media {
-      margin: clamp(16px, 2.4vw, 24px);
-      border-radius: calc(var(--project-card-radius, 24px) - 4px);
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      /* Nunca más alta que la pantalla: la barra inferior no se corta */
+      max-height: calc(100vh - var(--card-top) - 24px);
+      max-height: calc(100svh - var(--card-top) - 24px);
+      border-radius: clamp(20px, 2.4vw, 32px);
       overflow: hidden;
-      position: relative;
-      aspect-ratio: 4 / 3;
-      background: #f1f5f9;
+      isolation: isolate;
+      background: #0b1020;
+      color: #fff;
+      text-decoration: none;
+      box-shadow: 0 24px 60px -24px rgb(15 23 42 / 0.45);
+      transform-origin: 50% 0;
+      container-type: inline-size;
     }
 
-    .project-card__media img {
+    .pcard:focus-visible {
+      outline: 3px solid var(--color-primary);
+      outline-offset: 4px;
+    }
+
+    .pcard :global(picture),
+    .pcard :global(img) {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
+    }
+
+    .pcard :global(img) {
       object-fit: cover;
-      display: block;
+      object-position: 50% 0; /* capturas de sitios: priorizar la parte superior */
     }
 
-    .project-card__body {
-      padding: 0 clamp(16px, 2.5vw, 24px) clamp(20px, 2.8vw, 28px);
-      color: #1a1a2e;
-      text-align: left;
-      display: flex;
-      flex-direction: column;
-      gap: clamp(10px, 2vh, 14px);
+    /* Barra glass inferior (skill apple-design §12) */
+    .pcard__bar {
+      position: absolute;
+      inset: auto 14px 14px;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 12px 24px;
+      padding: 18px 22px;
+      border-radius: clamp(14px, 1.6vw, 20px);
+      border: 1px solid rgb(255 255 255 / 0.14);
+      /* 0.7 de opacidad: ≥ 4.5:1 de contraste incluso sobre una imagen blanca */
+      background: rgb(10 14 28 / 0.7);
+      -webkit-backdrop-filter: blur(18px) saturate(160%);
+      backdrop-filter: blur(18px) saturate(160%);
     }
 
-    .project-card__heading {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .project-card__heading h3 {
-      font-size: clamp(1.05rem, 1rem + 0.4vw, 1.3rem);
-      font-weight: 600;
-      color: #1a1a2e;
+    .pcard__heading {
       margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 4px 12px;
     }
 
-    .project-card__pill {
-      display: none; /* Ocultar pill en este diseño */
+    .pcard__title {
+      font-size: var(--text-h3);
+      font-weight: 600;
+      line-height: var(--leading-snug);
+      letter-spacing: var(--tracking-h3);
     }
 
-    .project-card__description {
-      font-size: 0.9rem;
-      color: rgba(30, 30, 60, 0.7);
-      line-height: 1.55;
+    .pcard__category {
+      font-size: var(--text-small);
+      letter-spacing: var(--tracking-small);
+      color: #d7deea;
     }
 
-    .project-card__link {
+    .pcard__desc {
+      margin: 6px 0 0;
+      max-width: 62ch;
+      font-size: var(--text-small);
+      line-height: 1.5;
+      color: #e2e8f0;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .pcard__chips {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+      max-width: 420px;
+    }
+
+    .pcard__chip {
+      padding: 6px 12px;
+      border: 1px solid rgb(255 255 255 / 0.32);
+      border-radius: 999px;
+      font-size: var(--text-xs);
+      line-height: var(--leading-snug);
+      color: #fff;
+      white-space: nowrap;
+    }
+
+    /* Tarjetas angostas (móvil): chips debajo del texto */
+    @container (max-width: 720px) {
+      .pcard__bar {
+        grid-template-columns: minmax(0, 1fr);
+        inset: auto 10px 10px;
+        padding: 14px 16px;
+      }
+
+      .pcard__chips {
+        justify-content: flex-start;
+        max-width: none;
+      }
+
+      .pcard__desc {
+        -webkit-line-clamp: 3;
+      }
+    }
+
+    /* Sombra para la tarjeta que queda debajo (se anima su opacidad) */
+    .pcard__shade {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      background: #000;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Pastilla "Ver proyecto" (la mueve el script con `translate`) */
+    .pcard__cta {
+      position: absolute;
+      left: 50%;
+      top: 42%;
+      z-index: 4;
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      gap: 0.4rem;
-      padding: 0.6rem 1.2rem;
-      border: 1px solid rgba(59, 91, 255, 0.4);
+      gap: 8px;
+      padding: 12px 18px 12px 20px;
       border-radius: 999px;
-      color: #3b5bff;
-      font-weight: 500;
-      text-decoration: none;
-      font-size: 0.85rem;
-      transition: all 0.2s ease;
-      width: fit-content;
+      background: var(--color-primary);
+      color: #fff;
+      font-size: var(--text-body);
+      font-weight: 600;
+      white-space: nowrap;
+      box-shadow: 0 10px 30px rgb(27 86 253 / 0.45);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      scale: 0.9;
+      transition:
+        opacity 0.2s ease-out,
+        scale 0.2s ease-out;
     }
 
-    .project-card__link:hover {
-      background: rgba(59, 91, 255, 0.08);
-      border-color: #3b5bff;
+    .pcard:hover .pcard__cta,
+    .pcard:focus-visible .pcard__cta {
+      opacity: 1;
+      scale: 1;
+    }
+
+    /* Pantallas táctiles: sin cursor, la pastilla queda fija y visible */
+    @media (pointer: coarse) {
+      .pcard__cta {
+        left: auto;
+        right: 14px;
+        top: 14px;
+        transform: none;
+        opacity: 1;
+        scale: 1;
+        padding: 10px 14px 10px 16px;
+        font-size: var(--text-small);
+      }
+    }
+
+    /* Profundidad: la tarjeta que queda debajo se reduce y oscurece mientras
+       la siguiente sube. Rango calculado por posición (--i de --n) sobre el
+       recorrido de la lista. Sin soporte: el apilado sticky funciona igual. */
+    @media (prefers-reduced-motion: no-preference) {
+      @supports (animation-timeline: view()) {
+        .pstack__item:not(:last-child) .pcard,
+        .pstack__item:not(:last-child) .pcard__shade {
+          animation-timeline: --pstack;
+          animation-fill-mode: both;
+          animation-timing-function: linear;
+          animation-range:
+            exit-crossing calc(var(--i) / var(--n) * 100%)
+            exit-crossing calc((var(--i) + 1) / var(--n) * 100%);
+        }
+
+        .pstack__item:not(:last-child) .pcard {
+          animation-name: pstack-recede;
+        }
+
+        .pstack__item:not(:last-child) .pcard__shade {
+          animation-name: pstack-dim;
+        }
+      }
+    }
+
+    @keyframes pstack-recede {
+      to {
+        scale: 0.93;
+      }
+    }
+
+    @keyframes pstack-dim {
+      to {
+        opacity: 0.4;
+      }
+    }
+
+    /* Móvil vertical: tarjeta más alta para la barra con chips debajo */
+    @media (max-width: 640px) {
+      .pcard {
+        aspect-ratio: 4 / 5;
+      }
+    }
+
+    /* Pantalla muy baja: sin sticky (tarjetas una debajo de otra) */
+    @media (max-height: 340px) {
+      .pstack__item {
+        position: static;
+      }
+    }
+
+    /* Transparencia reducida: barra sólida */
+    @media (prefers-reduced-transparency: reduce) {
+      .pcard__bar {
+        background: rgb(10 14 28 / 0.94);
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+      }
+    }
+
+    /* Movimiento reducido: sin apilado ni pastilla que sigue al cursor */
+    @media (prefers-reduced-motion: reduce) {
+      .pstack__item {
+        position: static;
+      }
+
+      .pcard__cta {
+        transition: none;
+      }
     }
 
     @media (max-width: 720px) {
@@ -370,11 +579,6 @@ import { Image } from "astro:assets";
       .projects__inner {
         text-align: center;
       }
-
-      .project-card__heading {
-        flex-direction: column;
-        align-items: flex-start;
-      }
     }
 
     @media (max-width: 640px) {
@@ -382,68 +586,14 @@ import { Image } from "astro:assets";
         padding-top: calc(var(--section-padding-y) * 2.5);
       }
 
-      .projects__nav-wrapper {
-        display: block;
-      }
-
-      .projects__nav-btn {
-        display: none !important;
-      }
-
-      .projects__grid {
-        display: flex;
-        flex-direction: row; /* Cambiar a fila para horizontal */
-        flex-wrap: nowrap; /* No envolver */
-        gap: 16px;
-        max-width: 100%;
-        width: 100%;
-        margin-inline: auto;
-        overflow-x: auto; /* Permitir scroll horizontal */
-        scroll-snap-type: x mandatory; /* Snap al deslizar */
-        padding: 0 16px 20px; /* Padding lateral y espacio abajo */
-        -webkit-overflow-scrolling: touch;
-      }
-
-      /* Ocultar barra de scroll */
-      .projects__grid::-webkit-scrollbar {
-        display: none;
-      }
-      .projects__grid {
-        -ms-overflow-style: none; /* IE and Edge */
-        scrollbar-width: none; /* Firefox */
-      }
-
-      .project-card {
-        flex: 0 0 88%; /* Tarjeta ocupa 88% del ancho */
-        width: 88%;
-        display: flex !important;
-        order: unset !important;
-        scroll-snap-align: center; /* Centrar al soltar */
-      }
-
       .projects__grid-decoration {
         display: none;
-      }
-
-      .project-card__media {
-        aspect-ratio: 16 / 10;
-        margin: clamp(16px, 4vw, 20px);
-      }
-
-      .project-card__body {
-        padding: 0 clamp(16px, 4vw, 20px) clamp(20px, 5vw, 24px);
       }
     }
 
     @media (max-width: 520px) {
       .projects__subtitle {
         margin-bottom: clamp(20px, 6vh, 32px);
-      }
-    }
-
-    @media (max-width: 400px) {
-      .project-card__media {
-        aspect-ratio: 16 / 9;
       }
     }
   </style>
