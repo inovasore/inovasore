@@ -141,13 +141,13 @@ const links = [
   }
 
   .logo__title {
-    font-size: 20px;
+    font-size: var(--text-body);
     font-weight: 700;
     letter-spacing: -0.01em;
   }
 
   .logo__subtitle {
-    font-size: 9px;
+    font-size: var(--text-xs);
     text-transform: uppercase;
     font-weight: 400;
     letter-spacing: 0.05em;
@@ -165,7 +165,7 @@ const links = [
   }
 
   .nav__link {
-    font-size: 1.125rem;
+    font-size: var(--text-body);
     color: #fff;
     text-decoration: none;
     font-weight: 400;
@@ -204,7 +204,7 @@ const links = [
   }
 
   .nav__link--dropdown-text {
-    font-size: 1.125rem;
+    font-size: var(--text-body);
     color: #fff;
     text-decoration: none;
     font-weight: 400;
@@ -324,7 +324,7 @@ const links = [
   }
 
   .dropdown__title {
-    font-size: 0.95rem;
+    font-size: var(--text-body);
     font-weight: 600;
     margin: 0 0 4px 0;
     color: #fff;
@@ -332,7 +332,7 @@ const links = [
   }
 
   .dropdown__description {
-    font-size: 0.8rem;
+    font-size: var(--text-small);
     line-height: 1.4;
     color: rgba(255, 255, 255, 0.7);
     margin: 0;
@@ -346,7 +346,7 @@ const links = [
     border-radius: 999px;
     text-decoration: none;
     font-weight: 500;
-    font-size: 1.125rem;
+    font-size: var(--text-body);
     transition:
       transform 0.2s ease,
       box-shadow 0.2s ease;
@@ -555,7 +555,6 @@ const links = [
     }
 
     .dropdown__title {
-      font-size: 0.9rem;
       margin: 0;
       white-space: normal;
       word-wrap: break-word;
@@ -602,11 +601,9 @@ const links = [
     }
 
     .logo__title {
-      font-size: 22px;
     }
 
     .logo__subtitle {
-      font-size: 10px;
     }
 
     .logo :global(img) {

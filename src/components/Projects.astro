@@ -262,11 +262,12 @@ const variantWidths = (max: number) =>
 
     .projects__title {
       font-weight: 600;
-      font-size: clamp(1.8rem, 3.2vw + 0.6rem, 2.6rem);
-      line-height: 1.15;
+      font-size: var(--text-h2);
       margin: clamp(12px, 2.4vh, 18px) auto clamp(10px, 2.4vh, 14px);
       max-width: 28ch;
       color: #1a1a2e;
+      line-height: var(--leading-heading);
+      letter-spacing: var(--tracking-h2);
     }
 
     .projects__title .highlight {
@@ -286,7 +287,7 @@ const variantWidths = (max: number) =>
       color: rgba(30, 30, 60, 0.65);
       max-width: 60ch;
       margin: 0 auto clamp(20px, 6vh, 40px);
-      font-size: clamp(1rem, 0.9rem + 0.25vw, 1.1rem);
+      font-size: var(--text-lead);
       font-weight: 400;
     }
 
@@ -396,7 +397,7 @@ const variantWidths = (max: number) =>
     .pcard__desc {
       margin: 6px 0 0;
       max-width: 62ch;
-      font-size: var(--text-small);
+      font-size: var(--text-body);
       line-height: 1.5;
       color: #e2e8f0;
       display: -webkit-box;
@@ -420,7 +421,7 @@ const variantWidths = (max: number) =>
       padding: 6px 12px;
       border: 1px solid rgb(255 255 255 / 0.32);
       border-radius: 999px;
-      font-size: var(--text-xs);
+      font-size: var(--text-small);
       line-height: var(--leading-snug);
       color: #fff;
       white-space: nowrap;

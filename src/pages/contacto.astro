@@ -44,13 +44,13 @@ import { site } from "../config/site";
 
   .contact-page-hero__title {
     margin: clamp(2px, 1vh, 6px) auto clamp(3px, 1.2vh, 8px);
-    max-width: 21ch;
-    font-size: clamp(1.9rem, 2.4vw + 0.95rem, 2.35rem);
+    max-width: 26ch;
+    font-size: var(--text-h1);
     font-weight: 600;
-    letter-spacing: 0.2px;
-    line-height: 1.08;
     text-wrap: balance;
     text-align: center;
+    line-height: var(--leading-heading);
+    letter-spacing: var(--tracking-h2);
   }
 
   .contact-page-hero__nowrap {
@@ -85,7 +85,7 @@ import { site } from "../config/site";
   .contact-page-hero__subtitle {
     margin: 0 auto clamp(4px, 1.8vh, 10px);
     max-width: 52ch;
-    font-size: clamp(0.95rem, 0.9rem + 0.22vw, 1.06rem);
+    font-size: var(--text-lead);
     font-weight: 350;
     line-height: 1.32;
     color: color-mix(in oklab, var(--color-text) 72%, transparent);

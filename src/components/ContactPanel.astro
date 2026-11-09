@@ -468,7 +468,7 @@ const serviceChips = [
   .contact-panel__eyebrow {
     text-transform: uppercase;
     letter-spacing: 0.18em;
-    font-size: clamp(0.88rem, 0.82rem + 0.25vw, 1.05rem);
+    font-size: var(--text-small);
     font-weight: 600;
     color: var(--contact-panel-eyebrow-color, #ffffff);
     margin: 0;
@@ -476,17 +476,18 @@ const serviceChips = [
 
   .contact-panel__title {
     margin: 0;
-    font-size: clamp(1.4rem, 1.1rem + 0.9vw, 1.9rem);
+    font-size: var(--text-h3);
     font-weight: 700;
-    line-height: 1.15;
     color: var(--contact-panel-text);
     text-wrap: balance;
+    line-height: var(--leading-snug);
+    letter-spacing: var(--tracking-h3);
   }
 
   .contact-panel__subtitle {
     margin: 0;
     color: var(--contact-panel-muted);
-    font-size: clamp(0.92rem, 0.88rem + 0.25vw, 1.02rem);
+    font-size: var(--text-body);
     max-width: 42ch;
     font-weight: 400;
   }
@@ -499,7 +500,7 @@ const serviceChips = [
 
   .contact-panel__services-title {
     margin: 0 0 0.6rem;
-    font-size: 0.92rem;
+    font-size: var(--text-small);
     font-weight: 600;
     color: color-mix(in oklab, var(--contact-panel-text) 72%, transparent);
     letter-spacing: 0.03em;
@@ -518,7 +519,7 @@ const serviceChips = [
     align-items: flex-start;
     gap: 0.45rem;
     color: color-mix(in oklab, var(--contact-panel-text) 82%, transparent);
-    font-size: 0.9rem;
+    font-size: var(--text-body);
     line-height: 1.45;
   }
 
@@ -547,7 +548,7 @@ const serviceChips = [
     color: color-mix(in oklab, var(--contact-panel-text) 88%, transparent);
     padding: 0.5rem 0.9rem;
     border-radius: 999px;
-    font-size: 0.83rem;
+    font-size: var(--text-small);
     cursor: pointer;
     transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   }
@@ -564,13 +565,13 @@ const serviceChips = [
   .contact-panel__note {
     margin-top: clamp(24px, 3vw, 32px);
     color: var(--contact-panel-muted);
-    font-size: 0.86rem;
+    font-size: var(--text-body);
     max-width: 36ch;
   }
 
   .contact-panel__noscript {
     margin-top: clamp(20px, 3vw, 28px);
-    font-size: 0.9rem;
+    font-size: var(--text-small);
     color: var(--contact-panel-muted);
   }
 
@@ -609,7 +610,7 @@ const serviceChips = [
   }
 
   .contact-panel__label {
-    font-size: 0.82rem;
+    font-size: var(--text-small);
     font-weight: 600;
     letter-spacing: 0.02em;
     color: color-mix(in oklab, var(--contact-panel-text) 70%, transparent);
@@ -648,7 +649,7 @@ const serviceChips = [
     background: transparent;
     border: none;
     color: var(--contact-panel-text);
-    font-size: 0.92rem;
+    font-size: var(--text-body);
     padding: 0.7rem 0.95rem;
     min-height: 44px;
     min-width: 0;
@@ -685,14 +686,14 @@ const serviceChips = [
     position: absolute;
     bottom: 10px;
     right: 16px;
-    font-size: 0.72rem;
+    font-size: var(--text-xs);
     color: color-mix(in oklab, var(--contact-panel-muted) 85%, transparent);
   }
 
   .contact-panel__disclaimer {
     grid-column: 1 / -1;
     margin: 0.2rem 0 0;
-    font-size: 0.8rem;
+    font-size: var(--text-small);
     color: color-mix(in oklab, var(--contact-panel-muted) 90%, transparent);
   }
 
@@ -721,7 +722,7 @@ const serviceChips = [
     gap: 0.5rem;
     padding: 0.8rem 1.5rem;
     border-radius: 999px;
-    font-size: 0.95rem;
+    font-size: var(--text-body);
     font-weight: 600;
     cursor: pointer;
     position: relative;

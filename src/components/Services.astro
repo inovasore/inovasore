@@ -13,7 +13,7 @@ const { offsetTop = "0px" } = Astro.props;
   <div class="container container--center services__inner">
     <span
       class="section-tag services__tag services__tag--compact enter"
-      style="--enter-delay:.04s;--enter-duration:.45s;--enter-distance:10px;padding-inline:0.5rem;font-size:0.95rem;"
+      style="--enter-delay:.04s;--enter-duration:.45s;--enter-distance:10px;padding-inline:0.5rem;"
     >
       ¿Qué hacemos?
     </span>
@@ -102,16 +102,17 @@ const { offsetTop = "0px" } = Astro.props;
   }
 
   .services__title {
-    font-size: clamp(1.8rem, 3.1vw + 0.6rem, 2.5rem);
+    font-size: var(--text-h2);
     font-weight: 600;
-    line-height: 1.13;
     margin: clamp(6px, 1.2vh, 10px) auto clamp(4px, 1vh, 8px);
     max-width: 26ch;
+    line-height: var(--leading-heading);
+    letter-spacing: var(--tracking-h2);
   }
 
   .services__subtitle {
     color: color-mix(in oklab, var(--color-text) 50%, transparent);
-    font-size: clamp(1rem, 0.9rem + 0.25vw, 1.1rem);
+    font-size: var(--text-lead);
     margin: 0 auto clamp(12px, 2.6vh, 18px);
     max-width: 60ch;
     font-weight: 300;
@@ -119,7 +120,6 @@ const { offsetTop = "0px" } = Astro.props;
 
   .services__tag--compact {
     padding-inline: 0.85rem !important;
-    font-size: clamp(0.9rem, 0.85rem + 0.2vw, 1rem) !important;
     display: inline-flex !important;
     width: fit-content !important;
     margin-inline: auto !important;
@@ -186,7 +186,7 @@ const { offsetTop = "0px" } = Astro.props;
     background: transparent;
     text-decoration: none;
     color: rgba(255, 255, 255, 0.7);
-    font-size: 0.9rem;
+    font-size: var(--text-small);
     font-weight: 400;
     z-index: 3;
     transition: all 0.25s ease;
@@ -206,7 +206,7 @@ const { offsetTop = "0px" } = Astro.props;
   }
 
   .spotlight-card__link-text {
-    font-size: 0.9rem;
+    font-size: var(--text-small);
   }
 
   .spotlight-card__arrow {
@@ -353,14 +353,16 @@ const { offsetTop = "0px" } = Astro.props;
   }
 
   .spotlight-card__title {
-    font-size: 1.15rem;
+    font-size: var(--text-h3);
     font-weight: 600;
     color: #fff;
+    line-height: var(--leading-snug);
+    letter-spacing: var(--tracking-h3);
   }
 
   .spotlight-card__desc {
     color: #d6e0ef;
-    font-size: 0.98rem;
+    font-size: var(--text-body);
     margin-top: 0.35rem;
     font-weight: 300;
     line-height: 1.4;

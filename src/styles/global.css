@@ -44,13 +44,18 @@ body {
 
   /* Escala tipográfica (único origen de los tamaños de texto).
      Valores aprox. a 390px → 1366px → 1920px de ancho. */
-  --text-display: clamp(2.25rem, 1.75rem + 1.9vw, 4.5rem);   /* h1: 36 → 54 → 64px */
-  --text-h2: clamp(1.875rem, 1.4rem + 1.6vw, 2.875rem);      /* 30 → 44 → 46px */
-  --text-h3: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem);       /* 20 → 26px */
-  --text-lead: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);      /* subtítulos: 17 → 20px */
-  --text-body: clamp(1rem, 0.96rem + 0.15vw, 1.0625rem);     /* 16 → 17px */
-  --text-small: 0.875rem;                                     /* chips, notas: 14px */
-  --text-xs: 0.8125rem;                                       /* etiquetas en mayúsculas: 13px */
+  --text-display: clamp(2.25rem, 1.75rem + 1.9vw, 4.5rem);   /* h1 del hero del inicio: 36 → 54 → 64px */
+  --text-h1: clamp(2.25rem, 1.7rem + 1.8vw, 3.25rem);        /* h1 de páginas internas: 36 → 52px */
+  --text-h2: clamp(2rem, 1.6rem + 1.6vw, 2.875rem);          /* títulos de sección: 32 → 46px */
+  --text-h3: clamp(1.125rem, 1rem + 0.45vw, 1.375rem);       /* títulos de tarjeta: 18 → 22px */
+  --text-lead: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);       /* subtítulos de sección: 16.4 → 18px */
+  --text-body: 1rem;                                          /* textos de tarjeta, listas, botones: 16px */
+  --text-small: 0.875rem;                                     /* chips y etiquetas: 14px */
+  --text-xs: 0.8125rem;                                       /* contadores y microtexto: 13px */
+
+  /* Solo el hero del inicio conserva sus tamaños anteriores */
+  --text-hero-lead: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem); /* 17 → 20px */
+  --text-hero-body: clamp(1rem, 0.96rem + 0.15vw, 1.0625rem); /* 16 → 17px */
 
   /* Interlineado: más ajustado cuanto más grande es el texto */
   --leading-display: 1.05;
@@ -418,7 +423,8 @@ body.nav-open {
   border-radius: 999px;
   border: 1px solid #1B56FD;
   background: transparent;
-  font-size: clamp(1rem, .9rem + .25vw, 1.1rem);
+  font-size: var(--text-small);
+  letter-spacing: var(--tracking-small);
   font-weight: 400;
   opacity: .95;
   color: var(--color-text);

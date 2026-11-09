@@ -65,11 +65,12 @@ import { whyUsCards } from "../data/why-us";
     }
 
     .why__title {
-      font-size: clamp(1.8rem, 3.2vw + 0.6rem, 2.5rem);
+      font-size: var(--text-h2);
       font-weight: 600;
-      line-height: 1.15;
       margin: clamp(12px, 2.4vh, 18px) auto clamp(10px, 2.4vh, 18px);
       max-width: 28ch;
+      line-height: var(--leading-heading);
+      letter-spacing: var(--tracking-h2);
     }
 
     .why__title .highlight {
@@ -87,7 +88,7 @@ import { whyUsCards } from "../data/why-us";
 
     .why__subtitle {
       color: color-mix(in oklab, var(--color-text) 62%, transparent);
-      font-size: clamp(1rem, 0.9rem + 0.35vw, 1.1rem);
+      font-size: var(--text-lead);
       max-width: 60ch;
       margin: 0 auto clamp(26px, 6vh, 40px);
       font-weight: 300;
@@ -246,14 +247,16 @@ import { whyUsCards } from "../data/why-us";
     }
 
     .why__card-title {
-      font-size: 1.15rem;
+      font-size: var(--text-h3);
       font-weight: 600;
       color: #fff;
+      line-height: var(--leading-snug);
+      letter-spacing: var(--tracking-h3);
     }
 
     .why__card-desc {
       color: #d6e0ef;
-      font-size: 0.98rem;
+      font-size: var(--text-body);
       margin-top: 0.35rem;
       font-weight: 300;
       line-height: 1.4;

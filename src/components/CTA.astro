@@ -134,12 +134,21 @@
   }
 
   .cta__title {
-    font-size: clamp(1.8rem, 3.2vw + 0.6rem, 2.6rem);
+    text-wrap: balance;
+    font-size: var(--text-h2);
     font-weight: 600;
-    line-height: 1.15;
     margin: 0;
     text-align: center;
     color: #ffffff;
+    line-height: var(--leading-heading);
+    letter-spacing: var(--tracking-h2);
+  }
+
+  /* En pantallas angostas los saltos fijos partían cada línea en dos */
+  @media (max-width: 900px) {
+    .cta__title br {
+      display: none;
+    }
   }
 
   .cta__title .highlight {
@@ -166,7 +175,7 @@
     background: linear-gradient(90deg, #1b56fd 0%, #133db4 100%);
     color: #ffffff;
     font-weight: 500;
-    font-size: 1rem;
+    font-size: var(--text-body);
     text-decoration: none;
     transition:
       transform 0.2s ease,
@@ -195,7 +204,6 @@
 
     .cta__btn {
       padding: 12px 24px;
-      font-size: 0.9rem;
     }
   }
 </style>

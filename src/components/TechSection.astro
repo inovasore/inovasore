@@ -71,15 +71,16 @@
     }
 
     .tech-section__title {
-        font-size: clamp(1.6rem, 2.2vw + 0.8rem, 2.2rem);
+        font-size: var(--text-h2);
         font-weight: 700;
-        line-height: 1.2;
         color: #000000;
         margin: 0;
+        line-height: var(--leading-heading);
+        letter-spacing: var(--tracking-h2);
     }
 
     .tech-section__description {
-        font-size: clamp(0.95rem, 0.9rem + 0.2vw, 1.05rem);
+        font-size: var(--text-lead);
         line-height: 1.6;
         color: #666666;
         font-weight: 300;
@@ -93,7 +94,7 @@
         border-radius: 999px;
         text-decoration: none;
         font-weight: 500;
-        font-size: 1.125rem;
+        font-size: var(--text-body);
         transition:
             transform 0.2s ease,
             box-shadow 0.2s ease;

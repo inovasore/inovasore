@@ -64,11 +64,12 @@ import { faqs } from "../data/faqs";
     }
 
     .faq__title {
-      font-size: clamp(1.8rem, 3.2vw + 0.6rem, 2.6rem);
+      font-size: var(--text-h2);
       font-weight: 600;
-      line-height: 1.15;
       margin: clamp(4px, 1.8vh, 8px) auto clamp(4px, 1.8vh, 8px);
       max-width: 28ch;
+      line-height: var(--leading-heading);
+      letter-spacing: var(--tracking-h2);
     }
 
     .faq__title .highlight {
@@ -86,7 +87,7 @@ import { faqs } from "../data/faqs";
 
     .faq__subtitle {
       color: color-mix(in oklab, var(--color-text) 62%, transparent);
-      font-size: clamp(1rem, 0.9rem + 0.35vw, 1.1rem);
+      font-size: var(--text-lead);
       max-width: 60ch;
       margin: 0 auto clamp(26px, 6vh, 40px);
       font-weight: 300;
@@ -179,16 +180,16 @@ import { faqs } from "../data/faqs";
       padding: 0.9rem 1.15rem;
       border-radius: calc(clamp(12px, 1.4vw, 16px) - 0.25rem);
       color: color-mix(in oklab, var(--color-text) 88%, transparent);
-      font-size: clamp(1rem, 0.85rem + 0.2vw, 1.18rem);
+      font-size: var(--text-h3);
       font-weight: 400;
-      letter-spacing: 0.01em;
-      line-height: 1.35;
       cursor: pointer;
       background: transparent;
       border: none;
       text-align: left;
       font-family: inherit;
       transition: color 0.22s ease;
+      line-height: var(--leading-snug);
+      letter-spacing: var(--tracking-h3);
     }
 
     .faq__question > span:first-child {
@@ -238,7 +239,7 @@ import { faqs } from "../data/faqs";
       margin: 0;
       padding: 0 1.2rem 1.05rem;
       color: color-mix(in oklab, var(--color-text) 70%, transparent);
-      font-size: clamp(0.92rem, 0.9rem + 0.18vw, 1.05rem);
+      font-size: var(--text-body);
       line-height: 1.65;
       position: relative;
       text-align: left;

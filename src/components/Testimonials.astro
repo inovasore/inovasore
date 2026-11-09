@@ -156,11 +156,12 @@ import { testimonials } from "../data/testimonials";
     }
 
     .testimonials__title {
-        font-size: clamp(1.8rem, 3.1vw + 0.6rem, 2.5rem);
+        font-size: var(--text-h2);
         font-weight: 600;
-        line-height: 1.13;
         margin: clamp(6px, 1.2vh, 10px) auto clamp(4px, 1vh, 8px);
         max-width: 26ch;
+        line-height: var(--leading-heading);
+        letter-spacing: var(--tracking-h2);
     }
 
     .testimonials__title .highlight {
@@ -182,7 +183,7 @@ import { testimonials } from "../data/testimonials";
 
     .testimonials__subtitle {
         color: color-mix(in oklab, var(--color-text) 50%, transparent);
-        font-size: clamp(1rem, 0.9rem + 0.25vw, 1.1rem);
+        font-size: var(--text-lead);
         margin: 0 auto clamp(32px, 5vh, 48px);
         max-width: 60ch;
         font-weight: 300;
@@ -228,7 +229,7 @@ import { testimonials } from "../data/testimonials";
 
     .testimonial-card__text {
         color: #d6e0ef;
-        font-size: clamp(0.95rem, 0.9rem + 0.2vw, 1.05rem);
+        font-size: var(--text-body);
         line-height: 1.6;
         margin: 0;
         font-weight: 300;
@@ -250,7 +251,7 @@ import { testimonials } from "../data/testimonials";
 
     .testimonial-card__name {
         color: #fff;
-        font-size: 1rem;
+        font-size: var(--text-body);
         font-weight: 500;
     }
 
