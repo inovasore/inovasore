@@ -54,7 +54,10 @@ import { whyUsCards } from "../data/why-us";
   <style>
     .why {
       position: relative;
-      overflow: hidden;
+      /* clip (no hidden): no crea un contenedor de scroll, así funciona
+         animation-timeline: view(). flow-root conserva el BFC de hidden. */
+      overflow: clip;
+      display: flow-root;
       isolation: isolate;
       padding: clamp(160px, 20vh, 220px) 0 60px 0;
       background: var(--color-bg);

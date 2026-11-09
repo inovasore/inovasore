@@ -12,22 +12,22 @@ const { offsetTop = "0px" } = Astro.props;
 >
   <div class="container container--center services__inner">
     <span
-      class="section-tag services__tag services__tag--compact reveal"
-      style="--reveal-delay:.04s;--reveal-duration:.45s;--reveal-distance:10px;padding-inline:0.5rem;font-size:0.95rem;"
+      class="section-tag services__tag services__tag--compact enter"
+      style="--enter-delay:.04s;--enter-duration:.45s;--enter-distance:10px;padding-inline:0.5rem;font-size:0.95rem;"
     >
       ¿Qué hacemos?
     </span>
 
     <h2
-      class="services__title reveal"
-      style="--reveal-delay:.12s;--reveal-duration:.55s;--reveal-distance:12px"
+      class="services__title enter"
+      style="--enter-delay:.12s;--enter-duration:.55s;--enter-distance:12px"
     >
       Porque Novasore <span class="highlight">potencia tus servicios.</span>
     </h2>
 
     <p
-      class="services__subtitle reveal"
-      style="--reveal-delay:.2s;--reveal-duration:.45s;--reveal-distance:10px"
+      class="services__subtitle enter"
+      style="--enter-delay:.2s;--enter-duration:.45s;--enter-distance:10px"
     >
       Nuestro equipo combina estrategia, diseño y desarrollo para construir
       experiencias digitales a medida.
@@ -36,10 +36,10 @@ const { offsetTop = "0px" } = Astro.props;
     <div class="services__spotlight">
       {
         featuredServices.map((service, index) => {
-          const cardClass = ["spotlight-card", "reveal"]
+          const cardClass = ["spotlight-card", "enter"]
             .filter(Boolean)
             .join(" ");
-          const style = `--reveal-delay:${(0.16 + index * 0.08).toFixed(2)}s;--reveal-duration:.45s;--reveal-distance:12px`;
+          const style = `--enter-delay:${(0.16 + index * 0.08).toFixed(2)}s;--enter-duration:.45s;--enter-distance:12px`;
           return (
             <article class={cardClass} style={style}>
               <a

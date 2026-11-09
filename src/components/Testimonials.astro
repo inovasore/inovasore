@@ -140,7 +140,10 @@ import { testimonials } from "../data/testimonials";
         padding: clamp(60px, 12vh, 100px) 0;
         background: var(--color-bg);
         color: var(--color-text);
-        overflow: hidden;
+        /* clip (no hidden): no crea un contenedor de scroll, así funciona
+           animation-timeline: view(). flow-root conserva el BFC de hidden. */
+        overflow: clip;
+        display: flow-root;
     }
 
     .testimonials__inner {

@@ -83,7 +83,10 @@
     padding: clamp(80px, 12vh, 140px) 0 clamp(160px, 20vh, 220px) 0;
     background: transparent;
     color: #ffffff;
-    overflow: hidden;
+    /* clip (no hidden): no crea un contenedor de scroll, así funciona
+       animation-timeline: view(). flow-root conserva el BFC de hidden. */
+    overflow: clip;
+    display: flow-root;
     text-align: center;
   }
 

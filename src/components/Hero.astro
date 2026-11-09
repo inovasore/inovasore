@@ -9,8 +9,8 @@ const [primaryWork, ...secondaryWorks] = works;
 <section class="hero">
   <div class="container hero__inner">
     <div
-      class="pill reveal"
-      style="--reveal-delay:.08s;--reveal-duration:.48s;--reveal-distance:10px;--pill-weight:400"
+      class="pill enter"
+      style="--enter-delay:.08s;--enter-duration:.48s;--enter-distance:10px;--pill-weight:400"
     >
       <span class="pill__text">{tagline}</span>
       <a class="pill__cta tap" href="/contacto" aria-label="Ir a contacto">
@@ -18,21 +18,26 @@ const [primaryWork, ...secondaryWorks] = works;
       </a>
     </div>
 
-    <!-- Sin animación de entrada: es el elemento LCP -->
-    <h1 class="hero__title">{title}</h1>
+    <!-- Es el elemento LCP: entra con animación CSS (sin esperar a JS) -->
+    <h1
+      class="hero__title enter"
+      style="--enter-delay:.16s;--enter-duration:.55s;--enter-distance:14px"
+    >
+      {title}
+    </h1>
 
     <p
-      class="hero__subtitle reveal"
-      style="--reveal-delay:.26s;--reveal-duration:.45s;--reveal-distance:10px"
+      class="hero__subtitle enter"
+      style="--enter-delay:.26s;--enter-duration:.45s;--enter-distance:10px"
     >
       {subtitle}
     </p>
 
     <div class="hero__actions">
       <a
-        class="btn-hero-primary reveal"
+        class="btn-hero-primary enter"
         href="/contacto"
-        style="--reveal-delay:.34s;--reveal-duration:.45s"
+        style="--enter-delay:.34s;--enter-duration:.45s;--enter-distance:10px"
       >
         <span class="btn-icon-circle">
           <svg
@@ -371,6 +376,7 @@ const [primaryWork, ...secondaryWorks] = works;
     max-width: 28ch;
     text-wrap: balance;
   }
+
 
   .hero__subtitle {
     /* #cbd5e1: contraste ≥ 4.5:1 sobre el fondo y la cuadrícula del hero */

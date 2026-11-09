@@ -325,27 +325,55 @@ body.nav-open {
 
 
 
-/* Fade-in-up sutil y configurable */
-.reveal {
+/* ==== Animaciones de entrada (solo CSS, sin JavaScript) ====
+   Mismo movimiento en todo el sitio: aparecer + subir unos px.
+   Se anima `translate` (no `transform`) para no pisar los efectos de
+   hover de las tarjetas, que usan `transform`. */
+
+/* .enter — contenido visible al abrir la página (heros). Por tiempo, con
+   retraso escalonado: --enter-delay, --enter-duration, --enter-distance.
+   Arranca en opacity 0.01 (no 0) para que el LCP se registre en el
+   primer pintado. */
+.enter {
+  animation: enter var(--enter-duration, .5s)
+    cubic-bezier(.2, .7, .2, 1) var(--enter-delay, 0s) both;
+}
+
+@keyframes enter {
+  from {
+    opacity: .01;
+    translate: 0 var(--enter-distance, 12px);
+  }
+  to {
+    opacity: 1;
+    translate: none;
+  }
+}
+
+/* .reveal — el resto del sitio: EXACTAMENTE la misma animación que .enter
+   (mismos keyframes, curva y escalonado con --reveal-delay/-duration/
+   -distance), pero arranca cuando el elemento entra en pantalla.
+   El disparo lo hace un IntersectionObserver mínimo en Layout.astro que
+   solo añade .is-in. Sin JS (o sin soporte) el contenido se ve normal:
+   la clase .js-reveal de <html> solo la pone ese script. */
+.js-reveal .reveal:not(.is-in) {
   opacity: 0;
-  transform: translateY(var(--reveal-distance, 12px));
-  transition:
-    opacity var(--reveal-duration, .48s) ease-out var(--reveal-delay, 0s),
-    transform var(--reveal-duration, .48s) ease-out var(--reveal-delay, 0s);
-  will-change: opacity, transform;
 }
 
-.reveal.in {
-  opacity: 1;
-  transform: translateY(0);
+.reveal.is-in {
+  --enter-distance: var(--reveal-distance, 12px);
+  animation: enter var(--reveal-duration, .5s)
+    cubic-bezier(.2, .7, .2, 1) var(--reveal-delay, 0s) both;
 }
 
-/* Accesibilidad: respetar reducción de movimiento */
 @media (prefers-reduced-motion: reduce) {
-  .reveal {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
+  .enter,
+  .reveal.is-in {
+    animation: none;
+  }
+
+  .js-reveal .reveal:not(.is-in) {
+    opacity: 1;
   }
 }
 

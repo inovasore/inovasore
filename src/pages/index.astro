@@ -55,7 +55,10 @@ const faqSchema = JSON.stringify({
   .shared-bg-wrapper {
     position: relative;
     background-color: var(--color-bg);
-    overflow: hidden;
+    /* clip (no hidden): no crea un contenedor de scroll, así funciona
+       animation-timeline: view(). flow-root conserva el BFC de hidden. */
+    overflow: clip;
+    display: flow-root;
   }
 
   .shared-bg-wrapper > :global(*) {

@@ -55,7 +55,10 @@ import { faqs } from "../data/faqs";
   <style>
     .faq {
       position: relative;
-      overflow: hidden;
+      /* clip (no hidden): no crea un contenedor de scroll, así funciona
+         animation-timeline: view(). flow-root conserva el BFC de hidden. */
+      overflow: clip;
+      display: flow-root;
       isolation: isolate;
       padding: var(--section-padding-y) 0;
       background: var(--color-bg);
