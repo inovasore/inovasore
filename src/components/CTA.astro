@@ -35,8 +35,9 @@
 </section>
 
 <script>
-  const track = document.getElementById("watermarkTrack");
-  if (track) {
+  const trackEl = document.getElementById("watermarkTrack");
+  if (trackEl) {
+    const track: HTMLElement = trackEl;
     const speed = 40; // pixels per second
     let offset = 0;
     let animationId: number;

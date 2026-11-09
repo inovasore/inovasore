@@ -24,7 +24,7 @@ import { testimonials } from "../data/testimonials";
             class="testimonials__subtitle reveal"
             style="--reveal-delay:.2s;--reveal-duration:.45s;--reveal-distance:10px"
         >
-            Súmate a las nueva era tecnológica. ellos confiaron en Inovasore y
+            Súmate a la nueva era tecnológica. Ellos confiaron en Inovasore y
             transformaron sus resultados.
         </p>
 
@@ -63,8 +63,9 @@ import { testimonials } from "../data/testimonials";
 
 <script>
     function initTestimonials() {
-        const carousel = document.getElementById("testimonialsCarousel");
-        if (!carousel) return;
+        const carouselEl = document.getElementById("testimonialsCarousel");
+        if (!carouselEl) return;
+        const carousel: HTMLElement = carouselEl;
 
         const cards = carousel.querySelectorAll(".testimonial-card");
         let currentIndex = 0;

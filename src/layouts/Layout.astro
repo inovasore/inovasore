@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import { site } from "../config/site";
 
 const {
   title = "Diseño y Desarrollo de Páginas Web en Ambato: E-commerce, Landing Pages y Tiendas Online. | Inovasore",
@@ -33,7 +34,7 @@ const localBusinessSchema = JSON.stringify({
   "@id": siteOrigin,
   url: siteOrigin,
   telephone: "+593961141127",
-  email: "disenoweb@inovasore.com",
+  email: site.email,
   priceRange: "$180-$1200",
   address: {
     "@type": "PostalAddress",
@@ -141,13 +142,6 @@ const localBusinessSchema = JSON.stringify({
             rel="preload"
             as="image"
             href="/Vectorbg.svg"
-            fetchpriority="high"
-          />
-          <link
-            rel="preload"
-            as="image"
-            href="/works/work-1.webp"
-            imagesizes="(min-width: 1024px) 30vw, 80vw"
             fetchpriority="high"
           />
         </>

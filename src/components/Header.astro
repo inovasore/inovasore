@@ -4,8 +4,9 @@ import { studioServices } from "../data/services";
 const links = [
   { href: "/", label: "Inicio" },
   { href: "/servicios", label: "Servicios", hasDropdown: true },
-  { href: "/proyectos", label: "Proyectos" },
-  { href: "/nosotros", label: "Nosotros" },
+  // Provisional: apuntan a las secciones del inicio hasta crear sus páginas.
+  { href: "/#proyectos", label: "Proyectos" },
+  { href: "/#nosotros", label: "Nosotros" },
 ];
 ---
 
@@ -696,7 +697,7 @@ const links = [
         header.querySelectorAll(".nav__item--dropdown").forEach((item) => {
           if (item !== parent) {
             item.classList.remove("active");
-            const btn = item.querySelector(".nav__link--dropdown");
+            const btn = item.querySelector(".nav__link--dropdown-toggle");
             btn?.setAttribute("aria-expanded", "false");
           }
         });

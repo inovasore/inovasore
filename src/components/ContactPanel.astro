@@ -1,6 +1,7 @@
 ---
 import { footerData } from "../data/footer";
 import { mainServices } from "../data/services";
+import { site } from "../config/site";
 
 const rawWhatsappLink = footerData.contact.whatsappLink?.trim();
 let whatsappBase = "";
@@ -34,7 +35,7 @@ const whatsappAction = hasWhatsapp
 
 const fallbackWhatsappLink = hasWhatsapp ? (whatsappAction ?? whatsappBase) : undefined;
 
-const fallbackEmail = "info@inovasore.com";
+const fallbackEmail = site.formEmail;
 
 const serviceChips = [
   "Landing page optimizada",
@@ -240,7 +241,8 @@ const serviceChips = [
       const messageInput = form.querySelector('#contact-message');
       const charCountEl = form.querySelector('[data-char-count]');
       const charCountContainer = form.querySelector('[data-char-count-container]');
-      const chips = form.querySelectorAll('.contact-panel__chip');
+      // Los chips están fuera del <form>: se buscan en toda la sección.
+      const chips = (form.closest('.contact-panel') ?? form).querySelectorAll('.contact-panel__chip');
 
       if (messageInput && charCountEl) {
         const updateCount = () => {
@@ -410,6 +412,7 @@ const serviceChips = [
 </script>
 
 <style>
+  .contact-panel {
     --contact-panel-bg: transparent;
     --contact-panel-text: #f8fafc;
     --contact-panel-surface: linear-gradient(180deg, rgba(12, 14, 22, 0.92), rgba(12, 14, 22, 0.86));

@@ -1,6 +1,7 @@
 ﻿---
 import Layout from "../layouts/Layout.astro";
 import ContactPanel from "../components/ContactPanel.astro";
+import { site } from "../config/site";
 ---
 
 <Layout
@@ -19,7 +20,7 @@ import ContactPanel from "../components/ContactPanel.astro";
       <p class="contact-page-hero__subtitle">
         ¿Tienes un proyecto en mente? Cuéntanos más sobre él y descubre cómo
         podemos hacerlo realidad. También puedes escribirnos a:
-        <a href="mailto:info@inovasore.com">disenoweb@inovasore.com</a>.
+        <a href={`mailto:${site.email}`}>{site.email}</a>.
       </p>
     </div>
   </section>
