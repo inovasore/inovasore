@@ -232,19 +232,19 @@ const ctaHref = whatsappUrl(
     padding: 0.5rem 1rem;
     border: 1px solid var(--svc-accent);
     border-radius: 999px;
-    font-size: 0.8rem;
+    font-size: var(--text-xs);
     font-weight: 600;
-    letter-spacing: 0.14em;
+    letter-spacing: var(--tracking-caps);
     text-transform: uppercase;
     color: var(--svc-accent);
   }
 
   .svc__title {
     margin: 0;
-    font-size: clamp(1.9rem, 1.2rem + 2.2vw, 2.9rem);
+    font-size: var(--text-h2);
     font-weight: 600;
-    line-height: 1.1;
-    letter-spacing: -0.01em;
+    line-height: var(--leading-heading);
+    letter-spacing: var(--tracking-h2);
     text-wrap: balance;
   }
 
@@ -255,8 +255,8 @@ const ctaHref = whatsappUrl(
   .svc__lead {
     margin: 0;
     max-width: 44ch;
-    font-size: clamp(1rem, 0.95rem + 0.25vw, 1.1rem);
-    line-height: 1.55;
+    font-size: var(--text-lead);
+    line-height: var(--leading-body);
     color: var(--svc-muted);
   }
 
@@ -276,7 +276,7 @@ const ctaHref = whatsappUrl(
     );
     color: #fff;
     font-weight: 500;
-    font-size: 1rem;
+    font-size: var(--text-body);
     line-height: 1.2;
     text-decoration: none;
     box-shadow: 0 4px 12px rgb(27 86 253 / 0.25);
@@ -347,19 +347,19 @@ const ctaHref = whatsappUrl(
   }
 
   .svc-item__number {
-    font-size: 0.9rem;
+    font-size: var(--text-small);
     font-weight: 600;
     font-variant-numeric: tabular-nums;
-    letter-spacing: 0.04em;
+    letter-spacing: var(--tracking-small);
     color: var(--svc-accent);
   }
 
   .svc-item__title {
     margin: 0;
-    font-size: clamp(1.3rem, 1.05rem + 0.9vw, 1.65rem);
+    font-size: var(--text-h3);
     font-weight: 600;
-    line-height: 1.2;
-    letter-spacing: -0.005em;
+    line-height: var(--leading-snug);
+    letter-spacing: var(--tracking-h3);
   }
 
   /* Preparado para cuando cada servicio tenga página propia:
@@ -423,22 +423,22 @@ const ctaHref = whatsappUrl(
   }
 
   .svc-item__placeholder-number {
-    font-size: clamp(2.4rem, 2rem + 2vw, 3.6rem);
+    font-size: var(--text-display);
     font-weight: 700;
     line-height: 1;
     color: rgb(27 86 253 / 0.22);
   }
 
   .svc-item__placeholder-title {
-    font-size: clamp(0.95rem, 0.9rem + 0.3vw, 1.1rem);
+    font-size: var(--text-body);
     font-weight: 500;
     color: #334155;
   }
 
   .svc-item__desc {
     margin: 0;
-    font-size: 1rem;
-    line-height: 1.6;
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
     color: var(--svc-muted);
   }
 
@@ -458,8 +458,9 @@ const ctaHref = whatsappUrl(
     border: 1px solid var(--svc-chip-border);
     border-radius: 999px;
     background: transparent;
-    font-size: 0.875rem;
-    line-height: 1.3;
+    font-size: var(--text-small);
+    letter-spacing: var(--tracking-small);
+    line-height: var(--leading-snug);
     color: var(--svc-chip-text);
     transition: transform 0.2s cubic-bezier(0.2, 0.7, 0.2, 1);
   }
