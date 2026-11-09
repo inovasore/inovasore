@@ -119,7 +119,7 @@ export const studioServices: readonly StudioService[] = [
     title: 'Sitios web y tiendas en línea',
     description:
       'Sitios corporativos, landing pages y tiendas en línea diseñados a medida. Rápidos, adaptables a cualquier pantalla y pensados para convertir visitas en clientes.',
-    chips: ['Diseño a medida', 'Landing pages de conversión', 'Tiendas en línea', 'SEO y velocidad de carga'],
+    chips: ['Diseño a medida', 'Landing pages de conversión', 'Tiendas en línea', 'Velocidad de carga'],
     image: 'src/assets/services/01-sitios-web.webp',
     imageAlt: 'Sitio web diseñado por el estudio',
     menu: {
@@ -143,31 +143,31 @@ export const studioServices: readonly StudioService[] = [
     },
   },
   {
-    id: 'automatizaciones',
-    title: 'Automatizaciones para empresas',
+    id: 'automatizaciones-chatbots',
+    title: 'Automatizaciones y chatbots con IA',
     description:
-      'Conectamos tus herramientas para que las tareas repetitivas se hagan solas: formularios, reportes, facturación, notificaciones y seguimiento de clientes. Menos trabajo manual, menos errores.',
-    chips: ['Flujos de trabajo automáticos', 'Integración entre herramientas', 'Reportes automáticos', 'Avisos por WhatsApp y correo'],
-    image: 'src/assets/services/03-automatizaciones.webp',
-    imageAlt: 'Flujo de trabajo automatizado',
+      'Automatizamos las tareas repetitivas de tu negocio y creamos asistentes que atienden a tus clientes 24/7 en WhatsApp y en tu web. Respuestas al instante, procesos que se hacen solos y menos trabajo manual.',
+    chips: ['Chatbots para WhatsApp', 'Asistentes con IA', 'Flujos de trabajo automáticos', 'Integración entre herramientas'],
+    image: 'src/assets/services/03-automatizaciones-chatbots.webp',
+    imageAlt: 'Chatbot con IA atendiendo a un cliente por WhatsApp junto a un flujo de trabajo automatizado',
     menu: {
-      description: 'Tareas repetitivas que se hacen solas, sin errores.',
-      icon: 'bolt',
-      href: '/#automatizaciones',
+      description: 'Procesos que se hacen solos y asistentes que atienden 24/7.',
+      icon: 'smart_toy',
+      href: '/#automatizaciones-chatbots',
     },
   },
   {
-    id: 'chatbots-ia',
-    title: 'Chatbots con inteligencia artificial',
+    id: 'correo-seo',
+    title: 'Correo empresarial y posicionamiento SEO',
     description:
-      'Asistentes que atienden a tus clientes 24/7 en WhatsApp y en tu sitio web: responden preguntas, toman pedidos y agendan citas, y te pasan el contacto cuando hace falta una persona.',
-    chips: ['Chatbots para WhatsApp', 'Asistentes con IA', 'Captación de clientes', 'Conexión con tu CRM'],
-    image: 'src/assets/services/04-chatbots-ia.webp',
-    imageAlt: 'Chatbot con inteligencia artificial atendiendo por WhatsApp',
+      'Configuramos tu dominio y correos con el nombre de tu marca, y optimizamos tu sitio para que tus clientes te encuentren en Google. Una imagen profesional desde el primer contacto.',
+    chips: ['Correos con tu dominio', 'Configuración y migración', 'SEO local y técnico', 'Google Business Profile'],
+    image: 'src/assets/services/04-correo-seo.webp',
+    imageAlt: 'Correo con el dominio de la marca y resultados de búsqueda en Google',
     menu: {
-      description: 'Asistentes que atienden 24/7 en WhatsApp y en tu web.',
-      icon: 'smart_toy',
-      href: '/#chatbots-ia',
+      description: 'Correos con tu dominio y un sitio que aparece en Google.',
+      icon: 'mail',
+      href: '/#correo-seo',
     },
   },
 ];
