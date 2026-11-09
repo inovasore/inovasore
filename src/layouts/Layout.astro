@@ -3,11 +3,14 @@ import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { site } from "../config/site";
+import { getImage } from "astro:assets";
+import logoDark from "../assets/logotipo-novasore.png";
+import isotipo from "../assets/isotipo-novasore.png";
 
 const {
-  title = "Diseño y Desarrollo de Páginas Web en Ambato: E-commerce, Landing Pages y Tiendas Online. | Inovasore",
+  title = "Diseño y Desarrollo de Páginas Web en Ambato: E-commerce, Landing Pages y Tiendas Online. | Novasore",
   description = "Creamos páginas web y tiendas online que convierten: landing pages, e-commerce, webs institucionales y plataformas educativas. Diseño moderno, SEO técnico y alto rendimiento en Ambato y todo Ecuador.",
-  ogTitle = "Desarrollo web y tiendas online que convierten | Inovasore",
+  ogTitle = "Desarrollo web y tiendas online que convierten | Novasore",
   ogDescription = "Impulsa tu presencia digital con sitios rápidos, seguros y optimizados: landing pages, e-commerce, webs institucionales y plataformas educativas. Diseño, SEO técnico y performance para atraer y vender más.",
   ogImage = "/Web-Inovasore.webp",
   navOffset = "5rem",
@@ -22,15 +25,19 @@ const interHref =
   "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap";
 const materialHref =
   "https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24..48,600,1,0&display=swap";
+// Logos para el JSON-LD (PNG generados en el build)
+const schemaLogo = await getImage({ src: isotipo, format: "png", width: 512 });
+const schemaImage = await getImage({ src: logoDark, format: "png", width: 1200 });
+
 // LocalBusiness Schema para SEO Local, AEO y GEO
 const localBusinessSchema = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  name: "Inovasore",
+  name: site.name,
   description:
     "Agencia digital especializada en desarrollo web, e-commerce, landing pages y marketing digital en Ambato, Ecuador. Creamos sitios web que convierten con diseño moderno, SEO técnico y alto rendimiento.",
-  image: siteOrigin + "/Logotipo.svg",
-  logo: siteOrigin + "/Logotipo.svg",
+  image: new URL(schemaImage.src, siteOrigin).href,
+  logo: new URL(schemaLogo.src, siteOrigin).href,
   "@id": siteOrigin,
   url: siteOrigin,
   telephone: "+593961141127",
@@ -56,9 +63,9 @@ const localBusinessSchema = JSON.stringify({
     closes: "24:00",
   },
   sameAs: [
-    "https://www.facebook.com/inovasore.ec",
-    "https://www.instagram.com/inovasore/",
-    "https://x.com/inovasore",
+    site.social.facebook,
+    site.social.instagram,
+    site.social.x,
     "https://wa.me/593961141127",
   ],
   areaServed: [
@@ -150,7 +157,7 @@ const localBusinessSchema = JSON.stringify({
 
     <!-- Open Graph / Twitter -->
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Inovasore" />
+    <meta property="og:site_name" content={site.name} />
     <meta property="og:locale" content="es_ES" />
     <meta property="og:url" content={canonical} />
     <meta property="og:title" content={ogTitle} />

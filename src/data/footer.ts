@@ -1,9 +1,11 @@
+import { site } from '../config/site';
+
 export const footerData = {
   agency: {
-    name: 'Inovasore',
+    name: 'Novasore',
     tagline: '',
     description:
-      'Inovasore – Agencia digital especializada en desarrollo web, marketing y automatización empresarial.',
+      'Novasore – Agencia digital especializada en desarrollo web, marketing y automatización empresarial.',
   },
   contact: {
     headline: 'Conversemos sobre tu próximo proyecto',
@@ -13,7 +15,7 @@ export const footerData = {
     serviceArea: 'Atendemos proyectos en Ecuador y de forma remota en LATAM.',
   },
   navChips: [
-    { label: 'Sobre Inovasore', href: '/#nosotros' },
+    { label: 'Sobre Novasore', href: '/#nosotros' },
     { label: 'Proyectos', href: '/#proyectos' },
     { label: 'Servicios', href: '/servicios' },
     { label: 'Preguntas frecuentes', href: '/#faq' },
@@ -26,22 +28,22 @@ export const footerData = {
     },
     {
       label: 'Instagram',
-      href: 'https://www.instagram.com/inovasore/',
+      href: site.social.instagram,
       icon: 'instagram',
     },
     {
       label: 'Facebook',
-      href: 'https://www.facebook.com/inovasore.ec',
+      href: site.social.facebook,
       icon: 'facebook',
     },
     {
       label: 'X',
-      href: 'https://x.com/inovasore',
+      href: site.social.x,
       icon: 'x',
     },
   ],
   quickLinks: [
-    { label: 'Sobre Inovasore', href: '/#nosotros' },
+    { label: 'Sobre Novasore', href: '/#nosotros' },
     { label: 'Servicios', href: '/servicios' },
     { label: 'Proyectos', href: '/#proyectos' },
     { label: 'FAQ', href: '/#faq' },

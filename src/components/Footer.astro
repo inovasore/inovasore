@@ -1,5 +1,7 @@
 ---
+import { Image } from "astro:assets";
 import { footerData } from "../data/footer";
+import logoLight from "../assets/logotipo-novasore-claro.png";
 
 const year = new Date().getFullYear();
 const phone = footerData.contact.phone?.trim();
@@ -15,7 +17,7 @@ const phoneHref = phone ? `tel:${phone.replace(/\s+/g, "")}` : null;
           class="footer__heading footer__heading--logo"
           aria-label={footerData.contact.headline}
         >
-          <img src="/Logotipo.svg" alt="Inovasore" width="32" height="32" />
+          <Image src={logoLight} alt={footerData.agency.name} height={36} densities={[1, 2]} />
         </h2>
         <address>
           {footerData.contact.addressLines.map((line) => <span>{line}</span>)}
@@ -25,7 +27,7 @@ const phoneHref = phone ? `tel:${phone.replace(/\s+/g, "")}` : null;
       </div>
 
       <div class="footer__about">
-        <h3>Sobre Inovasore</h3>
+        <h3>Sobre {footerData.agency.name}</h3>
         <p>{footerData.agency.description}</p>
         <a
           class="footer__whatsapp tap"
@@ -50,7 +52,7 @@ const phoneHref = phone ? `tel:${phone.replace(/\s+/g, "")}` : null;
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={`Inovasore en ${social.label}`}
+                aria-label={`${footerData.agency.name} en ${social.label}`}
               >
                 <span class="footer__social-icon" aria-hidden="true">
                   {(() => {
@@ -225,7 +227,7 @@ const phoneHref = phone ? `tel:${phone.replace(/\s+/g, "")}` : null;
     gap: 0.4rem;
   }
 
-  .footer__heading--logo img {
+  .footer__heading--logo :global(img) {
     height: 36px;
     width: auto;
     display: block;

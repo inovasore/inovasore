@@ -1,6 +1,6 @@
 export const faqs = [
   {
-    question: '¿Qué servicios ofrece Inovasore?',
+    question: '¿Qué servicios ofrece Novasore?',
     answer:
       'Ofrecemos soluciones digitales integrales que incluyen diseño web, desarrollo de sitios y sistemas, marketing digital, branding e identidad visual. Acompañamos a tu marca desde la estrategia hasta la implementación final.',
   },
@@ -12,7 +12,7 @@ export const faqs = [
   {
     question: '¿Puedo solicitar cambios o revisiones durante el proceso?',
     answer:
-      'Por supuesto. En Inovasore trabajamos con un flujo flexible donde puedes revisar avances y solicitar ajustes en cada etapa del diseño y desarrollo, asegurando un resultado final que cumpla tus expectativas.',
+      'Por supuesto. En Novasore trabajamos con un flujo flexible donde puedes revisar avances y solicitar ajustes en cada etapa del diseño y desarrollo, asegurando un resultado final que cumpla tus expectativas.',
   },
   {
     question: '¿Incluyen servicios de hosting o dominio?',
@@ -35,7 +35,7 @@ export const faqs = [
       'Sí. Además de diseñar y desarrollar sitios web, optimizamos su estructura y contenido para mejorar su visibilidad en buscadores. También gestionamos campañas publicitarias en Google Ads, Meta y TikTok para impulsar tu marca.',
   },
   {
-    question: '¿Qué necesito para empezar un proyecto con Inovasore?',
+    question: '¿Qué necesito para empezar un proyecto con Novasore?',
     answer:
       'Solo necesitas tener clara la idea general de tu proyecto. Nosotros te guiamos paso a paso: desde la definición de objetivos y contenido hasta el diseño visual, desarrollo y publicación.',
   },
@@ -45,7 +45,7 @@ export const faqs = [
       'Sí. Contamos con un portafolio en constante actualización donde puedes ver proyectos de diferentes sectores: empresas, tiendas online, marcas personales y más. Solo tienes que solicitarlo a nuestro equipo.',
   },
   {
-    question: '¿Qué hace diferente a Inovasore de otras agencias?',
+    question: '¿Qué hace diferente a Novasore de otras agencias?',
     answer:
       'Nuestro enfoque combina creatividad, tecnología y estrategia. No solo creamos sitios web bonitos, sino plataformas que impulsan resultados reales, con una experiencia de usuario optimizada y un soporte que acompaña el crecimiento de tu marca.',
   },

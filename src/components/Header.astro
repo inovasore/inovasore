@@ -1,5 +1,8 @@
 ---
+import { Image } from "astro:assets";
+import logoLight from "../assets/logotipo-novasore-claro.png";
 import { studioServices } from "../data/services";
+import { site } from "../config/site";
 
 const links = [
   { href: "/", label: "Inicio" },
@@ -12,12 +15,13 @@ const links = [
 
 <header class="header" data-header>
   <div class="container header__inner">
-    <a href="/" class="logo tap" aria-label="Inovasore, volver al inicio">
-      <img
-        src="/Logotipo.svg"
-        alt="Logotipo de Inovasore"
-        width="48"
-        height="48"
+    <a href="/" class="logo tap" aria-label={`${site.name}, volver al inicio`}>
+      <Image
+        src={logoLight}
+        alt=""
+        height={40}
+        densities={[1, 2]}
+        loading="eager"
       />
     </a>
 
@@ -123,7 +127,7 @@ const links = [
     user-select: none;
   }
 
-  .logo img {
+  .logo :global(img) {
     height: 36px;
     width: auto;
     display: block;
@@ -605,7 +609,7 @@ const links = [
       font-size: 10px;
     }
 
-    .logo img {
+    .logo :global(img) {
       height: 36px;
     }
   }
