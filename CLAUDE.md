@@ -14,7 +14,7 @@
 
 ## Convenciones del código
 
-- Diseño y animaciones: seguir la skill `.claude/skills/apple-design/SKILL.md`, **excepto la tipografía**: se mantiene Inter (no la fuente del sistema).
+- Diseño y animaciones: seguir la skill `.claude/skills/apple-design/SKILL.md`, **excepto la tipografía**: se usa Instrument Sans Variable (alojada en el sitio con `@fontsource-variable/instrument-sans`), no la fuente del sistema.
 - **Todos los tamaños de texto salen de la escala de `global.css`** (`--text-display`, `--text-h2`, `--text-h3`, `--text-lead`, `--text-body`, `--text-small`, `--text-xs`), junto con su interlineado (`--leading-*`) y tracking (`--tracking-*`). No usar `font-size` fijos ni `clamp()` propios en los componentes. El h1 no baja de 36px en móvil.
 - Anchos: usar siempre el contenedor común de `src/styles/global.css` (`.container`, `.container--wide`, `.container--narrow`; variables `--container*` y `--gutter`). No definir anchos propios en los componentes.
 - Áreas táctiles de al menos 44×44 px: clase `.tap` (usa `::after`).

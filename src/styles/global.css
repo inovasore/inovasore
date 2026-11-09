@@ -22,7 +22,7 @@ body {
 
 /* Modo oscuro por defecto */
 :root {
-  --font-base: 'Inter', sans-serif;
+  --font-base: 'Instrument Sans Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --color-bg: #000000;
   --color-text: #f1f5f9;
   --color-primary: #1b56fd;

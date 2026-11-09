@@ -1,4 +1,8 @@
 ---
+// Fuente del sitio alojada localmente (Google Fonts vía Fontsource): sin
+// conexión a terceros antes de mostrar el texto.
+import "@fontsource-variable/instrument-sans";
+import instrumentSansLatin from "@fontsource-variable/instrument-sans/files/instrument-sans-latin-wght-normal.woff2?url";
 import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
@@ -21,8 +25,6 @@ const siteOrigin = Astro.site
   : "https://Inovasore.com";
 const pathname = Astro.url?.pathname ?? "/";
 const canonical = siteOrigin.replace(/\/$/, "") + pathname;
-const interHref =
-  "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap";
 const materialHref =
   "https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24..48,600,1,0&display=swap";
 // Logos para el JSON-LD (PNG generados en el build)
@@ -112,13 +114,18 @@ const localBusinessSchema = JSON.stringify({
     <link rel="apple-touch-icon" href="/Icono.svg" />
     <meta name="theme-color" content="#000000" />
 
-    <!-- Webfonts: link instead of @import for better performance -->
+    <!-- Instrument Sans (local): precarga del subconjunto latino -->
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href={instrumentSansLatin}
+      crossorigin
+    />
+
+    <!-- Material Symbols (Google Icons) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href={interHref} />
-    <link id="font-inter" rel="stylesheet" href={interHref} media="print" />
-    <noscript><link rel="stylesheet" href={interHref} /></noscript>
-    <!-- Material Symbols (Google Icons) -->
     <link rel="preload" as="style" href={materialHref} />
     <link
       id="font-material"
@@ -141,7 +148,6 @@ const localBusinessSchema = JSON.stringify({
             { once: true },
           );
         };
-        enableFont("font-inter");
         enableFont("font-material");
       })();
     </script>
