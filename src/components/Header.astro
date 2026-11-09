@@ -1,5 +1,5 @@
 ---
-import { featuredServices } from "../data/services";
+import { studioServices } from "../data/services";
 
 const links = [
   { href: "/", label: "Inicio" },
@@ -62,15 +62,15 @@ const links = [
                   </div>
                   <div class="nav__dropdown">
                     <div class="nav__dropdown-inner">
-                      {featuredServices.map((service) => (
-                        <a href={service.link} class="dropdown__item">
+                      {studioServices.map((service) => (
+                        <a href={service.menu.href} class="dropdown__item">
                           <span class="material-symbols-rounded dropdown__icon">
-                            {service.icon}
+                            {service.menu.icon}
                           </span>
                           <div class="dropdown__content">
                             <h3 class="dropdown__title">{service.title}</h3>
                             <p class="dropdown__description">
-                              {service.description}
+                              {service.menu.description}
                             </p>
                           </div>
                         </a>

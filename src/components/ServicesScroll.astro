@@ -1,0 +1,568 @@
+---
+/**
+ * Sección de servicios del inicio: columna izquierda fija (sticky) y los
+ * servicios en la columna derecha, sin tarjetas. Fondo claro a todo el
+ * ancho, con corte recto respecto a las secciones oscuras.
+ *
+ * Imágenes: si existe un archivo en src/assets/services/ con el mismo nombre
+ * base que `service.image` (ver src/data/services.ts), se sirve con <Picture>
+ * en AVIF/WebP. Si no, se muestra un espacio provisional 16:10.
+ */
+import type { ImageMetadata } from "astro";
+import { Picture } from "astro:assets";
+import { studioServices } from "../data/services";
+import { whatsappUrl } from "../config/site";
+
+const assetImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/services/*.{webp,avif,jpg,jpeg,png}",
+  { eager: true },
+);
+const stem = (path: string) =>
+  path.split("/").pop()!.replace(/\.[^.]+$/, "").toLowerCase();
+const imagesByStem = new Map(
+  Object.entries(assetImages).map(([path, mod]) => [stem(path), mod.default]),
+);
+
+const items = studioServices.map((service, index) => ({
+  ...service,
+  number: String(index + 1).padStart(2, "0"),
+  picture: imagesByStem.get(stem(service.image)),
+}));
+
+const ctaHref = whatsappUrl(
+  "Hola, quiero cotizar un proyecto. ¿Me pueden dar más información?",
+);
+---
+
+<section
+  class="svc"
+  id="servicios"
+  aria-labelledby="svc-title"
+  data-svc
+>
+  <div class="svc__inner">
+    <header class="svc__intro">
+      <p class="svc__tag">Servicios</p>
+      <h2 class="svc__title" id="svc-title">
+        Tu proyecto digital completo, <span class="svc__title-accent"
+          >en manos de un solo estudio.</span
+        >
+      </h2>
+      <p class="svc__lead">
+        Trabajas directamente con nosotros de principio a fin: estrategia,
+        diseño, desarrollo y puesta en marcha. Un equipo pequeño, sin
+        intermediarios y con trato directo.
+      </p>
+      <a
+        class="svc__cta"
+        href={ctaHref}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <svg
+          class="svc__cta-icon"
+          viewBox="0 0 24 24"
+          width="20"
+          height="20"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path
+            fill="currentColor"
+            d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm0 18.15c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 4.54 0 8.24 3.7 8.24 8.24 0 4.55-3.7 8.24-8.24 8.24Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.13-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07s.88 2.39 1 2.56c.12.16 1.74 2.65 4.21 3.72.59.25 1.05.4 1.41.52.59.19 1.13.16 1.56.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.16-.48-.29Z"
+          ></path>
+        </svg>
+        <span>Cotizar mi proyecto por WhatsApp</span>
+        <svg
+          class="svc__cta-arrow"
+          viewBox="0 0 20 20"
+          width="18"
+          height="18"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path
+            d="M7.5 5 12.5 10l-5 5"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+        </svg>
+        <span class="sr-only">(se abre en una pestaña nueva)</span>
+      </a>
+    </header>
+
+    <ol class="svc__list" role="list">
+      {
+        items.map((service) => (
+          <li class="svc-item" id={service.id}>
+            <article
+              class:list={[
+                "svc-item__card",
+                { "svc-item__card--linked": service.detailHref },
+              ]}
+              aria-labelledby={`${service.id}-title`}
+            >
+              <div class="svc-item__head">
+                <span class="svc-item__number" aria-hidden="true">
+                  {service.number}
+                </span>
+                <h3 class="svc-item__title" id={`${service.id}-title`}>
+                  {service.detailHref ? (
+                    <a class="svc-item__link" href={service.detailHref}>
+                      {service.title}
+                    </a>
+                  ) : (
+                    service.title
+                  )}
+                </h3>
+              </div>
+
+              <div class="svc-item__media">
+                {service.picture ? (
+                  <Picture
+                    src={service.picture}
+                    alt={service.imageAlt}
+                    formats={["avif", "webp"]}
+                    widths={[400, 640, 880, 1200]}
+                    sizes="(min-width: 1100px) 600px, (min-width: 900px) 55vw, 92vw"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <div class="svc-item__placeholder" aria-hidden="true">
+                    <span class="svc-item__placeholder-number">
+                      {service.number}
+                    </span>
+                    <span class="svc-item__placeholder-title">
+                      {service.title}
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              <p class="svc-item__desc">{service.description}</p>
+
+              <ul class="svc-item__chips" aria-label="Incluye">
+                {service.chips.map((chip) => (
+                  <li class="svc-chip">{chip}</li>
+                ))}
+              </ul>
+            </article>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<script>
+  // Respaldo para navegadores sin animation-timeline: view().
+  // Usa IntersectionObserver (no escucha el scroll). Sin JS, todo se ve.
+  const section = document.querySelector<HTMLElement>("[data-svc]");
+  const supportsScrollTimeline =
+    typeof CSS !== "undefined" && CSS.supports("animation-timeline: view()");
+  const allowsMotion = window.matchMedia(
+    "(prefers-reduced-motion: no-preference)",
+  ).matches;
+
+  if (
+    section &&
+    !supportsScrollTimeline &&
+    allowsMotion &&
+    "IntersectionObserver" in window
+  ) {
+    section.dataset.anim = "io";
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      },
+      { rootMargin: "0px 0px -12% 0px", threshold: 0.05 },
+    );
+    section
+      .querySelectorAll(".svc-item")
+      .forEach((item) => observer.observe(item));
+  }
+</script>
+
+<style>
+  .svc {
+    /* Paleta propia de la sección (no toca las variables globales). */
+    --svc-bg: #f6f7fb;
+    --svc-text: #0b1020;
+    --svc-muted: #475569;
+    --svc-accent: var(--color-primary, #1b56fd);
+    --svc-accent-strong: #133db4;
+    --svc-chip-text: #1e293b;
+    --svc-chip-border: #cfd7e5;
+    --svc-chip-hover-bg: #e8eefc;
+
+    /* Fondo claro de borde a borde; corte recto con las secciones oscuras. */
+    position: relative;
+    background: var(--svc-bg);
+    color: var(--svc-text);
+    scroll-margin-top: clamp(72px, 14vw, 120px);
+  }
+
+  .svc__inner {
+    width: min(1140px, 100%);
+    margin-inline: auto;
+    padding: clamp(56px, 9vw, 120px) clamp(20px, 4vw, 48px);
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(32px, 6vw, 88px);
+    align-items: start;
+  }
+
+  /* ---------- Columna izquierda (sticky) ---------- */
+  .svc__intro {
+    position: sticky;
+    top: clamp(24px, 8vh, 72px);
+    display: grid;
+    justify-items: start;
+    gap: clamp(14px, 2vh, 20px);
+  }
+
+  .svc__tag {
+    margin: 0;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--svc-accent);
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--svc-accent);
+  }
+
+  .svc__title {
+    margin: 0;
+    font-size: clamp(1.9rem, 1.2rem + 2.2vw, 2.9rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  .svc__title-accent {
+    color: var(--svc-accent);
+  }
+
+  .svc__lead {
+    margin: 0;
+    max-width: 44ch;
+    font-size: clamp(1rem, 0.95rem + 0.25vw, 1.1rem);
+    line-height: 1.55;
+    color: var(--svc-muted);
+  }
+
+  .svc__cta {
+    position: relative;
+    isolation: isolate;
+    margin-top: clamp(4px, 1vh, 10px);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 20px 14px 18px;
+    border-radius: 999px;
+    background: linear-gradient(
+      90deg,
+      var(--svc-accent) 0%,
+      var(--svc-accent-strong) 100%
+    );
+    color: #fff;
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.2;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgb(27 86 253 / 0.25);
+    transition: transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  /* Sombra extra en hover animada solo con opacity. */
+  .svc__cta::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    box-shadow: 0 14px 30px rgb(27 86 253 / 0.35);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  .svc__cta-icon,
+  .svc__cta-arrow {
+    flex: none;
+  }
+
+  .svc__cta-arrow {
+    transition: transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .svc__cta:hover,
+  .svc__cta:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .svc__cta:hover::after,
+  .svc__cta:focus-visible::after {
+    opacity: 1;
+  }
+
+  .svc__cta:hover .svc__cta-arrow,
+  .svc__cta:focus-visible .svc__cta-arrow {
+    transform: translateX(3px);
+  }
+
+  .svc__cta:focus-visible {
+    outline: 3px solid var(--svc-accent);
+    outline-offset: 3px;
+  }
+
+  /* ---------- Columna derecha ---------- */
+  /* Espacio amplio entre servicios: flujo continuo, sin cajas. */
+  .svc__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: clamp(72px, 9vw, 128px);
+  }
+
+  .svc-item__card {
+    position: relative;
+    display: grid;
+    gap: clamp(16px, 2vw, 22px);
+  }
+
+  /* Número pequeño encima del título. */
+  .svc-item__head {
+    display: grid;
+    gap: 8px;
+  }
+
+  .svc-item__number {
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.04em;
+    color: var(--svc-accent);
+  }
+
+  .svc-item__title {
+    margin: 0;
+    font-size: clamp(1.3rem, 1.05rem + 0.9vw, 1.65rem);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.005em;
+  }
+
+  /* Preparado para cuando cada servicio tenga página propia:
+     el enlace del título cubre toda la tarjeta. */
+  .svc-item__link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .svc-item__link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+
+  .svc-item__link:focus-visible {
+    outline: none;
+  }
+
+  .svc-item__card--linked:focus-within {
+    outline: 3px solid var(--svc-accent);
+    outline-offset: 8px;
+    border-radius: 12px;
+  }
+
+  .svc-item__media {
+    aspect-ratio: 16 / 10;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #e8eefc;
+  }
+
+  .svc-item__media :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .svc-item__placeholder {
+    position: relative;
+    height: 100%;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 6px;
+    padding: 24px;
+    text-align: center;
+    background:
+      radial-gradient(
+        120% 90% at 100% 0%,
+        rgb(27 86 253 / 0.14),
+        transparent 60%
+      ),
+      radial-gradient(circle, rgb(27 86 253 / 0.16) 1px, transparent 1.5px) 0
+        0 / 18px 18px,
+      #e8eefc;
+  }
+
+  .svc-item__placeholder-number {
+    font-size: clamp(2.4rem, 2rem + 2vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1;
+    color: rgb(27 86 253 / 0.22);
+  }
+
+  .svc-item__placeholder-title {
+    font-size: clamp(0.95rem, 0.9rem + 0.3vw, 1.1rem);
+    font-weight: 500;
+    color: #334155;
+  }
+
+  .svc-item__desc {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--svc-muted);
+  }
+
+  .svc-item__chips {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .svc-chip {
+    position: relative;
+    isolation: isolate;
+    padding: 7px 14px;
+    border: 1px solid var(--svc-chip-border);
+    border-radius: 999px;
+    background: transparent;
+    font-size: 0.875rem;
+    line-height: 1.3;
+    color: var(--svc-chip-text);
+    transition: transform 0.2s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  /* Tinte de hover animado solo con opacity. */
+  .svc-chip::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    z-index: -1;
+    border: 1px solid rgb(27 86 253 / 0.45);
+    border-radius: inherit;
+    background: var(--svc-chip-hover-bg);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .svc-chip:hover {
+    transform: translateY(-2px);
+  }
+
+  .svc-chip:hover::before {
+    opacity: 1;
+  }
+
+  /* ---------- Entrada de cada servicio ---------- */
+  @keyframes svc-enter {
+    from {
+      opacity: 0;
+      transform: translateY(48px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .svc-item {
+        animation: svc-enter linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 70%;
+      }
+    }
+
+    /* Respaldo (lo activa el script solo si no hay soporte). */
+    .svc[data-anim="io"] .svc-item {
+      opacity: 0;
+      transform: translateY(32px);
+      transition:
+        opacity 0.6s ease,
+        transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+
+    .svc[data-anim="io"] .svc-item.is-visible {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .svc__cta,
+    .svc__cta-arrow,
+    .svc-chip {
+      transition: none;
+    }
+
+    .svc__cta:hover,
+    .svc__cta:focus-visible,
+    .svc__cta:hover .svc__cta-arrow,
+    .svc__cta:focus-visible .svc__cta-arrow,
+    .svc-chip:hover {
+      transform: none;
+    }
+  }
+
+  /* ---------- Móvil / tablet ---------- */
+  @media (max-width: 900px) {
+    .svc__inner {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .svc__intro {
+      position: static;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .svc__cta {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>

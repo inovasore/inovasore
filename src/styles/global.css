@@ -14,6 +14,9 @@ body {
   color: var(--color-text);
   transition: background .25s, color .25s;
   overflow-x: hidden;
+  /* clip recorta igual que hidden pero no crea un contenedor de scroll,
+     así position: sticky funciona (hidden queda como respaldo). */
+  overflow-x: clip;
   width: 100%;
 }
 
