@@ -7,7 +7,7 @@ const phoneHref = phone ? `tel:${phone.replace(/\s+/g, "")}` : null;
 ---
 
 <footer class="footer" aria-labelledby="site-footer-heading">
-  <div class="section-inner footer__inner">
+  <div class="container footer__inner">
     <div class="footer__main">
       <div class="footer__contact">
         <h2
@@ -28,7 +28,7 @@ const phoneHref = phone ? `tel:${phone.replace(/\s+/g, "")}` : null;
         <h3>Sobre Inovasore</h3>
         <p>{footerData.agency.description}</p>
         <a
-          class="footer__whatsapp"
+          class="footer__whatsapp tap"
           href={footerData.contact.whatsappLink}
           target="_blank"
           rel="noopener noreferrer"
@@ -46,7 +46,7 @@ const phoneHref = phone ? `tel:${phone.replace(/\s+/g, "")}` : null;
           {
             footerData.socialLinks.map((social) => (
               <a
-                class="footer__social-link"
+                class="footer__social-link tap"
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -88,7 +88,7 @@ const phoneHref = phone ? `tel:${phone.replace(/\s+/g, "")}` : null;
             ))
           }
         </div>
-        <a class="footer__btn footer__btn--ghost" href="/contacto">
+        <a class="footer__btn footer__btn--ghost tap" href="/contacto">
           Agenda una reunión
         </a>
       </div>
@@ -102,7 +102,7 @@ const phoneHref = phone ? `tel:${phone.replace(/\s+/g, "")}` : null;
       <nav class="footer__quick-links" aria-label="Accesos rápidos">
         {
           footerData.quickLinks.map((item) => (
-            <a href={item.href}>{item.label}</a>
+            <a class="tap" href={item.href}>{item.label}</a>
           ))
         }
       </nav>

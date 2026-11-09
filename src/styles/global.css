@@ -35,6 +35,12 @@ body {
   --shadow-elevated: 0 10px 30px rgba(0, 0, 0, .2);
   --section-padding-y: clamp(14px, 3vh, 30px);
   --section-padding-y-tight: clamp(10px, 2.5vh, 24px);
+
+  /* Sistema de anchos (único lugar donde se definen) */
+  --gutter: clamp(20px, 5vw, 64px);   /* margen lateral: 20px móvil → 64px escritorio */
+  --container: 1280px;                /* estándar */
+  --container-wide: 1440px;           /* grillas e imágenes (p. ej. Projects) */
+  --container-narrow: 760px;          /* bloques de texto centrado */
 }
 
 @media (min-width: 1024px) {
@@ -319,15 +325,39 @@ body.nav-open {
   }
 }
 
-/* Utilidades para contenedores de sección */
-.section-inner {
-  width: clamp(280px, 92vw, 1140px);
-  margin: 0 auto;
-  padding-inline: 16px;
+/* Contenedor común: todas las secciones lo usan para su ancho.
+   Modificadores: --wide (grillas/imágenes), --narrow (texto centrado). */
+.container {
+  width: min(100% - 2 * var(--gutter), var(--container));
+  margin-inline: auto;
 }
 
-.section-inner--center {
+.container--wide {
+  width: min(100% - 2 * var(--gutter), var(--container-wide));
+}
+
+.container--narrow {
+  width: min(100% - 2 * var(--gutter), var(--container-narrow));
+}
+
+.container--center {
   text-align: center;
+}
+
+/* Área táctil mínima de 44×44px sin cambiar el tamaño visible.
+   Usa ::after: no aplicar a elementos que ya lo usen. */
+.tap {
+  position: relative;
+}
+
+.tap::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100%, 44px);
+  height: max(100%, 44px);
+  transform: translate(-50%, -50%);
 }
 
 .section-tag {

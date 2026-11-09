@@ -3,7 +3,7 @@ import { whyUsCards } from "../data/why-us";
 ---
 
 <section class="why" id="nosotros">
-  <div class="section-inner section-inner--center why__inner">
+  <div class="container container--center why__inner">
     <div
       class="section-tag why__tag reveal"
       style="--reveal-delay:.04s;--reveal-duration:.45s;--reveal-distance:10px"
@@ -92,7 +92,7 @@ import { whyUsCards } from "../data/why-us";
 
     .why__grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: clamp(18px, 2.6vw, 26px);
       margin-top: clamp(28px, 6vh, 44px);
     }
@@ -256,9 +256,16 @@ import { whyUsCards } from "../data/why-us";
       line-height: 1.4;
     }
 
-    @media (max-width: 840px) {
+    /* 6 tarjetas: 3×2 en escritorio, 2×3 en tablet, 1 columna en móvil */
+    @media (max-width: 960px) {
       .why__grid {
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 600px) {
+      .why__grid {
+        grid-template-columns: minmax(0, 1fr);
       }
     }
   </style>

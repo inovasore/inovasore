@@ -3,7 +3,7 @@
 ---
 
 <section class="tech-section">
-    <div class="tech-section__inner">
+    <div class="container tech-section__inner">
         <div class="tech-section__content">
             <div class="tech-section__line" aria-hidden="true"></div>
             <h2 class="tech-section__title">
@@ -14,7 +14,7 @@
                 hasta New York Estados Unidos. Elegimos es optar por soluciones
                 robustas que funcionan sin importar tu ubicación.
             </p>
-            <a href="http://wa.me/593961141127" class="tech-section__cta">
+            <a href="http://wa.me/593961141127" class="tech-section__cta tap">
                 ¡Quiero Cotizar mi Proyecto
             </a>
         </div>
@@ -32,14 +32,12 @@
 <style>
     .tech-section {
         position: relative;
-        padding: clamp(60px, 12vh, 100px) clamp(20px, 4vw, 40px);
+        padding: clamp(60px, 12vh, 100px) 0;
         background: #ffffff;
         color: #000;
     }
 
     .tech-section__inner {
-        max-width: 1040px;
-        margin: 0 auto;
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: clamp(40px, 6vw, 80px);
@@ -118,7 +116,7 @@
     /* Increase padding on desktop */
     @media (min-width: 1024px) {
         .tech-section {
-            padding: clamp(140px, 20vh, 220px) clamp(20px, 4vw, 40px);
+            padding: clamp(140px, 20vh, 220px) 0;
         }
     }
 

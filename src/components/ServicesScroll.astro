@@ -40,7 +40,7 @@ const ctaHref = whatsappUrl(
   aria-labelledby="svc-title"
   data-svc
 >
-  <div class="svc__inner">
+  <div class="container svc__inner">
     <header class="svc__intro">
       <p class="svc__tag">Servicios</p>
       <h2 class="svc__title" id="svc-title">
@@ -126,7 +126,7 @@ const ctaHref = whatsappUrl(
                     alt={service.imageAlt}
                     formats={["avif", "webp"]}
                     widths={[400, 640, 880, 1200]}
-                    sizes="(min-width: 1100px) 600px, (min-width: 900px) 55vw, 92vw"
+                    sizes="(min-width: 1408px) 700px, (min-width: 901px) 52vw, calc(100vw - 40px)"
                     loading="lazy"
                     decoding="async"
                   />
@@ -210,9 +210,7 @@ const ctaHref = whatsappUrl(
   }
 
   .svc__inner {
-    width: min(1140px, 100%);
-    margin-inline: auto;
-    padding: clamp(56px, 9vw, 120px) clamp(20px, 4vw, 48px);
+    padding-block: clamp(56px, 9vw, 120px);
     display: grid;
     grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
     gap: clamp(32px, 6vw, 88px);
@@ -388,6 +386,8 @@ const ctaHref = whatsappUrl(
   }
 
   .svc-item__media {
+    /* 16:10 fijo; en pantallas bajas (horizontal) no supera el 70% del alto */
+    width: min(100%, 70svh * 1.6);
     aspect-ratio: 16 / 10;
     border-radius: 16px;
     overflow: hidden;
@@ -537,6 +537,14 @@ const ctaHref = whatsappUrl(
   }
 
   /* ---------- Móvil / tablet ---------- */
+  /* Pantallas bajas (p. ej. horizontal): sin sticky para no cortar el
+     título ni el botón. La columna mide hasta ~480px + 72px de top. */
+  @media (min-width: 901px) and (max-height: 600px) {
+    .svc__intro {
+      position: static;
+    }
+  }
+
   @media (max-width: 900px) {
     .svc__inner {
       grid-template-columns: minmax(0, 1fr);

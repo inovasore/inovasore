@@ -10,7 +10,7 @@ const { offsetTop = "0px" } = Astro.props;
   id="servicios"
   style={`--services-offset:${offsetTop}`}
 >
-  <div class="section-inner section-inner--center services__inner">
+  <div class="container container--center services__inner">
     <span
       class="section-tag services__tag services__tag--compact reveal"
       style="--reveal-delay:.04s;--reveal-duration:.45s;--reveal-distance:10px;padding-inline:0.5rem;font-size:0.95rem;"
@@ -44,7 +44,7 @@ const { offsetTop = "0px" } = Astro.props;
             <article class={cardClass} style={style}>
               <a
                 href={service.link || "/servicios"}
-                class="spotlight-card__link"
+                class="spotlight-card__link tap"
                 aria-label={`Ver más sobre ${service.title}`}
               >
                 <span class="spotlight-card__link-text">Ver más</span>
@@ -89,7 +89,6 @@ const { offsetTop = "0px" } = Astro.props;
     display: grid;
     row-gap: clamp(2px, 1.2vh, 10px);
     text-align: center;
-    max-width: 1080px;
   }
 
   @media (max-width: 720px) {

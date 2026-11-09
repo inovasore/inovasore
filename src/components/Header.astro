@@ -10,8 +10,8 @@ const links = [
 ---
 
 <header class="header" data-header>
-  <div class="header__inner">
-    <a href="/" class="logo" aria-label="Inovasore, volver al inicio">
+  <div class="container header__inner">
+    <a href="/" class="logo tap" aria-label="Inovasore, volver al inicio">
       <img
         src="/Logotipo.svg"
         alt="Logotipo de Inovasore"
@@ -87,10 +87,10 @@ const links = [
           ))
         }
       </ul>
-      <a href="/contacto" class="btn-contact btn-contact--mobile">Contactos</a>
+      <a href="/contacto" class="btn-contact btn-contact--mobile tap">Contactos</a>
     </nav>
 
-    <a href="/contacto" class="btn-contact btn-contact--desktop">Contactos</a>
+    <a href="/contacto" class="btn-contact btn-contact--desktop tap">Contactos</a>
   </div>
   <div class="header__backdrop" aria-hidden="true"></div>
 </header>
@@ -107,9 +107,6 @@ const links = [
   }
 
   .header__inner {
-    width: clamp(280px, 90vw, 1200px);
-    margin: 0 auto;
-    padding: 0 24px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -370,18 +367,17 @@ const links = [
 
   @media (max-width: 1024px) {
     .header__inner {
-      padding: 16px;
+      padding-block: 16px;
       justify-content: space-between;
       gap: 16px;
-      max-width: 95%;
     }
 
     .header__toggle {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 42px;
-      height: 42px;
+      width: 44px;
+      height: 44px;
       border-radius: 12px;
       border: 1px solid rgba(255, 255, 255, 0.1);
       background: transparent;
@@ -413,6 +409,11 @@ const links = [
       border: 1px solid rgba(255, 255, 255, 0.1);
       box-shadow: 0 24px 50px rgb(2 6 23 / 60%);
       padding: 20px;
+      /* En horizontal la pantalla es baja: el menú hace scroll interno */
+      max-height: calc(100vh - 85px - 16px);
+      max-height: calc(100dvh - 85px - 16px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
       z-index: 999;
       opacity: 0;
       pointer-events: none;

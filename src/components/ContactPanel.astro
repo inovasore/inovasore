@@ -45,7 +45,7 @@ const serviceChips = [
 ---
 
 <section class="contact-panel" id="contacto">
-  <div class="section-inner contact-panel__inner">
+  <div class="container contact-panel__inner">
     <div class="contact-panel__info">
       <div class="contact-panel__info-header">
         <p class="contact-panel__eyebrow">Contáctanos</p>
@@ -68,7 +68,7 @@ const serviceChips = [
 
       <div class="contact-panel__chips" aria-label="Sugerencias de mensaje">
         {serviceChips.map((chip) => (
-          <button type="button" class="contact-panel__chip" data-template={chip}>
+          <button type="button" class="contact-panel__chip tap" data-template={chip}>
             {chip}
           </button>
         ))}
@@ -531,7 +531,8 @@ const serviceChips = [
   .contact-panel__chips {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    /* fila de 14px: las áreas táctiles de 44px no se pisan */
+    gap: 14px 0.5rem;
     margin-top: clamp(24px, 3vw, 32px);
     position: relative;
     z-index: 1;
@@ -646,6 +647,7 @@ const serviceChips = [
     color: var(--contact-panel-text);
     font-size: 0.92rem;
     padding: 0.7rem 0.95rem;
+    min-height: 44px;
     min-width: 0;
     outline: none;
   }

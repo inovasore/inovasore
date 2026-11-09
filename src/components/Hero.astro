@@ -7,13 +7,13 @@ const [primaryWork, ...secondaryWorks] = works;
 ---
 
 <section class="hero">
-  <div class="hero__inner">
+  <div class="container hero__inner">
     <div
       class="pill reveal"
       style="--reveal-delay:.08s;--reveal-duration:.48s;--reveal-distance:10px;--pill-weight:400"
     >
       <span class="pill__text">{tagline}</span>
-      <a class="pill__cta" href="/contacto" aria-label="Ir a contacto">
+      <a class="pill__cta tap" href="/contacto" aria-label="Ir a contacto">
         <img src="/Bar01.svg" alt="" width="28" height="28" />
       </a>
     </div>
@@ -308,6 +308,7 @@ const [primaryWork, ...secondaryWorks] = works;
     position: relative;
     padding: calc(var(--nav-h, 72px) + 120px) 0 var(--section-padding-y);
     min-height: 86vh;
+    min-height: 86svh;
     background: var(--color-bg);
     color: var(--color-text);
     overflow: hidden;
@@ -330,8 +331,6 @@ const [primaryWork, ...secondaryWorks] = works;
   }
 
   .hero__inner {
-    width: clamp(280px, 90vw, 1100px);
-    margin: 0 auto;
     text-align: center;
   }
 

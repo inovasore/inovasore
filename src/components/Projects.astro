@@ -21,7 +21,7 @@ import { Image } from "astro:assets";
     class="projects__grid-decoration projects__grid-decoration--right"
     aria-hidden="true"
   />
-  <div class="projects__inner">
+  <div class="container container--wide projects__inner">
     <span
       class="section-tag projects__tag projects__tag--dark reveal"
       style="--reveal-delay:.06s;--reveal-duration:.45s;--reveal-distance:10px"
@@ -73,7 +73,7 @@ import { Image } from "astro:assets";
                   <span class="project-card__pill">{project.category}</span>
                 </div>
                 <p class="project-card__description">{project.description}</p>
-                <a class="project-card__link" href={project.url}>
+                <a class="project-card__link tap" href={project.url}>
                   Solicita un proyecto similar
                   <span class="material-symbols-rounded" aria-hidden="true">
                     arrow_outward
@@ -187,9 +187,7 @@ import { Image } from "astro:assets";
     .projects__inner {
       position: relative;
       z-index: 1;
-      width: clamp(280px, 92vw, 1180px);
-      margin: 0 auto clamp(4px, 1.2vh, 10px);
-      padding: 0 clamp(8px, 5vw, 32px);
+      margin-block: 0 clamp(4px, 1.2vh, 10px);
       text-align: center;
     }
 
@@ -271,7 +269,6 @@ import { Image } from "astro:assets";
       gap: clamp(16px, 2.8vw, 28px);
       justify-items: stretch;
       flex: 1;
-      max-width: 1000px;
     }
 
     .project-card {
@@ -445,10 +442,6 @@ import { Image } from "astro:assets";
     }
 
     @media (max-width: 400px) {
-      .projects__inner {
-        padding-inline: clamp(12px, 7vw, 18px);
-      }
-
       .project-card__media {
         aspect-ratio: 16 / 9;
       }
