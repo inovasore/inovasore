@@ -1,0 +1,89 @@
+/* ==== Animaciones de entrada (solo CSS, sin JavaScript) ====
+   Mismo movimiento en todo el sitio: aparecer + subir unos px.
+   Se anima `translate` (no `transform`) para no pisar los efectos de
+   hover de las tarjetas, que usan `transform`. */
+
+/* .enter — contenido visible al abrir la página (heros). Por tiempo, con
+   retraso escalonado: --enter-delay, --enter-duration, --enter-distance.
+   Arranca en opacity 0.01 (no 0) para que el LCP se registre en el
+   primer pintado. */
+.enter {
+  animation: enter var(--enter-duration, .5s)
+    cubic-bezier(.2, .7, .2, 1) var(--enter-delay, 0s) both;
+}
+
+@keyframes enter {
+  from {
+    opacity: .01;
+    translate: 0 var(--enter-distance, 12px);
+  }
+  to {
+    opacity: 1;
+    translate: none;
+  }
+}
+
+/* .reveal — el resto del sitio: EXACTAMENTE la misma animación que .enter
+   (mismos keyframes, curva y escalonado con --reveal-delay/-duration/
+   -distance), pero arranca cuando el elemento entra en pantalla.
+   El disparo lo hace un IntersectionObserver mínimo en Layout.astro que
+   solo añade .is-in. Sin JS (o sin soporte) el contenido se ve normal:
+   la clase .js-reveal de <html> solo la pone ese script. */
+.js-reveal .reveal:not(.is-in) {
+  opacity: 0;
+}
+
+.reveal.is-in {
+  --enter-distance: var(--reveal-distance, 12px);
+  animation: enter var(--reveal-duration, .5s)
+    cubic-bezier(.2, .7, .2, 1) var(--reveal-delay, 0s) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enter,
+  .reveal.is-in {
+    animation: none;
+  }
+
+  .js-reveal .reveal:not(.is-in) {
+    opacity: 1;
+  }
+}
+
+/* ==== Microanimaciones de íconos (hover en tarjetas) ====
+   Las usan Services, Process, WhyUs y PaginasWebHero. */
+@keyframes bounce-rotate {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(-10deg) scale(1.15);
+  }
+  75% {
+    transform: rotate(10deg) scale(1.15);
+  }
+}
+
+@keyframes pulse-scale {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-4px) rotate(-5deg);
+  }
+  75% {
+    transform: translateX(4px) rotate(5deg);
+  }
+}

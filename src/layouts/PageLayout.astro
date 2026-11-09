@@ -1,0 +1,64 @@
+---
+/**
+ * Layout de las páginas internas con el fondo de cuadrícula del hero
+ * (/servicios, /paginas-web-ambato). Recibe las mismas props que Layout
+ * y deja un espacio arriba para el header.
+ *
+ * `class` va al contenedor del fondo, para que la página pueda ajustar
+ * sus secciones con estilos globales (p. ej. `:global(.page-bg.services-page .process)`).
+ */
+import Layout, { type Props as LayoutProps } from "./Layout.astro";
+
+type Props = LayoutProps & { class?: string };
+
+const { class: className, ...layoutProps } = Astro.props;
+---
+
+<Layout {...layoutProps}>
+  <div class:list={["page-bg", className]}>
+    <div class="page-bg__spacer" aria-hidden="true"></div>
+    <slot />
+  </div>
+</Layout>
+
+<style>
+  .page-bg {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100svh;
+    background: var(--color-bg);
+    /* clip (no hidden): no crea un contenedor de scroll, así funciona
+       animation-timeline: view(). flow-root conserva el BFC de hidden. */
+    overflow: clip;
+    display: flow-root;
+  }
+
+  .page-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("/Vectorbg.svg"), url("/bg-hero.svg");
+    background-position:
+      center 15px,
+      center top;
+    background-size:
+      auto,
+      1600px auto;
+    background-repeat: repeat, no-repeat;
+    opacity: 0.95;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page-bg__spacer {
+    height: clamp(100px, 15vh, 120px);
+  }
+
+  @media (max-width: 768px) {
+    .page-bg::before {
+      background-position:
+        center -10px,
+        center top;
+    }
+  }
+</style>

@@ -1,0 +1,113 @@
+---
+import Ribbon from "../ui/Ribbon.astro";
+---
+
+<section class="macbook-section">
+    <div class="macbook-container">
+        <img
+            src="/Mackbook.webp"
+            alt="Macbook displaying website"
+            class="macbook-img"
+        />
+    </div>
+
+    <div class="ribbons-wrapper">
+        <Ribbon class="ribbon--top" />
+        <Ribbon class="ribbon--bottom" reverse />
+    </div>
+</section>
+
+<style>
+    .macbook-section {
+        position: relative;
+        padding: 0 0 100px;
+        /* Removed margin-top: -100px; */
+        z-index: 10;
+        /* Changed from hidden to visible */
+        overflow: visible;
+        /* Changed from linear-gradient to background-color */
+        background-color: #ffffff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+    .macbook-container {
+        position: relative;
+        z-index: 15; /* Above ribbons */
+        width: 80%;
+        max-width: 800px;
+        /* Floating animation */
+        animation: float 6s ease-in-out infinite;
+        /* Overlap effect: Pull image up */
+        margin-top: -40px;
+    }
+
+    /* Wrap ribbons to prevent horizontal scroll */
+    .ribbons-wrapper {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: 12; /* Between background and image? Image is z-15. Background is parent. */
+    }
+
+    .macbook-img {
+        width: 100%;
+        height: auto;
+        display: block;
+        /* filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.4)); */
+    }
+
+    /* Cintas (componente Ribbon): aquí solo tamaño y posición */
+    .ribbons-wrapper :global(.ribbon) {
+        height: 60px;
+        --ribbon-duration: 40s;
+    }
+
+    .ribbons-wrapper :global(.ribbon--top) {
+        bottom: 8%; /* Center crossing */
+        transform: rotate(-3deg);
+        z-index: 20;
+    }
+
+    .ribbons-wrapper :global(.ribbon--bottom) {
+        bottom: 8%;
+        transform: rotate(3deg);
+        z-index: 21;
+    }
+
+    @keyframes float {
+        0% {
+            transform: translateY(0px);
+        }
+        50% {
+            transform: translateY(-20px);
+        }
+        100% {
+            transform: translateY(0px);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .macbook-section {
+            padding: 60px 0;
+        }
+
+        .ribbons-wrapper :global(.ribbon) {
+            width: 150%;
+            left: -25%;
+        }
+
+        .ribbons-wrapper :global(.ribbon--top) {
+            bottom: 15%;
+        }
+
+        .ribbons-wrapper :global(.ribbon--bottom) {
+            bottom: 5%;
+        }
+    }
+</style>

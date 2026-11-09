@@ -1,5 +1,5 @@
 ---
-// No props needed for this component
+import { whatsappUrl } from "../../config/site";
 ---
 
 <section class="tech-section">
@@ -14,7 +14,7 @@
                 hasta New York Estados Unidos. Optamos por soluciones robustas
                 que funcionan sin importar tu ubicación.
             </p>
-            <a href="https://wa.me/593961141127" class="tech-section__cta tap">
+            <a href={whatsappUrl()} class="tech-section__cta tap">
                 ¡Quiero cotizar mi proyecto!
             </a>
         </div>

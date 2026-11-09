@@ -1,4 +1,6 @@
-﻿/* Fuentes cargadas vía <link> en el <head> */
+/* Estilos globales. La fuente (Instrument Sans) se importa en Layout.astro;
+   las animaciones compartidas viven en animations.css. */
+@import "./animations.css";
 
 * {
   margin: 0;
@@ -79,309 +81,6 @@ body {
   }
 }
 
-/* ========== NAVBAR (responsive) ========== */
-.navbar {
-  position: fixed;
-  top: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: clamp(280px, 92vw, 1080px);
-  padding: .75rem 1.75rem;
-  border-radius: 35px;
-  backdrop-filter: blur(12px);
-  background: rgba(15, 23, 42, .65);
-  box-shadow: 0 8px 32px rgba(2, 6, 23, .25);
-  z-index: 120;
-  transition: background .25s ease, box-shadow .25s ease;
-}
-
-.nav-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  position: relative;
-  z-index: 2;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-  text-decoration: none;
-  color: var(--color-text);
-  font-weight: 600;
-}
-
-.logo img {
-  height: 28px;
-  width: auto;
-  display: block;
-  flex: 0 0 auto;
-}
-
-.nav-menu {
-  display: flex;
-  align-items: center;
-  gap: 1.4rem;
-}
-
-.nav-links {
-  list-style: none;
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
-}
-
-.nav-links a {
-  color: var(--color-text);
-  text-decoration: none;
-  font-weight: 500;
-  transition: color .2s ease;
-}
-
-.nav-links a:hover {
-  color: var(--color-primary);
-}
-
-.nav-links a:focus-visible {
-  outline: 2px solid color-mix(in oklab, var(--color-primary) 70%, transparent);
-  outline-offset: 6px;
-  border-radius: 10px;
-}
-
-.nav-actions {
-  display: flex;
-  align-items: center;
-  gap: .75rem;
-}
-
-.nav-actions .btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-
-
-
-
-.nav-controls {
-  display: flex;
-  align-items: center;
-  gap: .6rem;
-}
-
-
-
-.nav-toggle {
-  display: none;
-  align-items: center;
-  justify-content: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  color: var(--color-text);
-  cursor: pointer;
-  transition: border-color .2s ease, background .2s ease, transform .08s ease;
-}
-
-.nav-toggle:hover {
-  border-color: color-mix(in oklab, var(--color-primary) 40%, var(--border));
-}
-
-.nav-toggle:active {
-  transform: scale(.97);
-}
-
-.nav-toggle__icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.6rem;
-  line-height: 1;
-}
-
-.nav-toggle__icon--close {
-  display: none !important;
-}
-
-.navbar--open .nav-toggle__icon--open {
-  display: none !important;
-}
-
-.navbar--open .nav-toggle__icon--close {
-  display: inline-flex !important;
-}
-
-.nav-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(15, 23, 42, .45);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .2s ease;
-  z-index: 1;
-}
-
-.navbar--open .nav-backdrop {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-body.nav-open {
-  overflow: hidden;
-}
-
-@media (max-width:960px) {
-  .navbar {
-    padding: .7rem 1.2rem;
-    width: clamp(260px, 92vw, 720px);
-  }
-
-  .nav-menu {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 1rem;
-    padding: 0;
-    position: static;
-    box-shadow: none;
-    border: none;
-    background: transparent;
-    width: 100%;
-  }
-
-  .navbar[data-enhanced="true"] .nav-menu {
-    position: absolute;
-    top: calc(100% + .75rem);
-    right: 0;
-    left: 0;
-    padding: 1.15rem;
-    border-radius: 26px;
-    border: 1px solid var(--border);
-    background: color-mix(in oklab, var(--surface, #f3f4f6) 78%, rgba(255, 255, 255, .85));
-    box-shadow: 0 24px 40px rgba(15, 23, 42, .22);
-    transform: translateY(-8px) scale(.98);
-    opacity: 0;
-    pointer-events: none;
-    visibility: hidden;
-    transition: opacity .25s ease, transform .25s ease;
-  }
-
-  .navbar[data-enhanced="true"] .nav-menu {
-    background: rgba(15, 23, 42, .92);
-    box-shadow: 0 24px 50px rgba(2, 6, 23, .6);
-  }
-
-  .navbar[data-enhanced="true"] .nav-menu[data-state="open"] {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateY(0) scale(1);
-    visibility: visible;
-  }
-
-  .nav-links {
-    flex-direction: column;
-    align-items: stretch;
-    gap: .35rem;
-  }
-
-  .nav-links li {
-    width: 100%;
-  }
-
-  .nav-links a {
-    padding: .65rem .75rem;
-    border-radius: 14px;
-    background: transparent;
-  }
-
-  .nav-links a:hover {
-    color: var(--color-primary);
-    background: color-mix(in oklab, var(--color-primary) 6%, transparent);
-  }
-
-  .nav-actions {
-    flex-direction: column;
-    align-items: stretch;
-    gap: .75rem;
-  }
-
-  .nav-actions .btn {
-    width: 100%;
-  }
-
-
-
-
-
-  .nav-toggle {
-    display: inline-flex;
-  }
-
-  .nav-content {
-    gap: .75rem;
-  }
-}
-
-/* Bloquea transiciones/animaciones durante el cambio de tema */
-
-
-
-/* ==== Animaciones de entrada (solo CSS, sin JavaScript) ====
-   Mismo movimiento en todo el sitio: aparecer + subir unos px.
-   Se anima `translate` (no `transform`) para no pisar los efectos de
-   hover de las tarjetas, que usan `transform`. */
-
-/* .enter — contenido visible al abrir la página (heros). Por tiempo, con
-   retraso escalonado: --enter-delay, --enter-duration, --enter-distance.
-   Arranca en opacity 0.01 (no 0) para que el LCP se registre en el
-   primer pintado. */
-.enter {
-  animation: enter var(--enter-duration, .5s)
-    cubic-bezier(.2, .7, .2, 1) var(--enter-delay, 0s) both;
-}
-
-@keyframes enter {
-  from {
-    opacity: .01;
-    translate: 0 var(--enter-distance, 12px);
-  }
-  to {
-    opacity: 1;
-    translate: none;
-  }
-}
-
-/* .reveal — el resto del sitio: EXACTAMENTE la misma animación que .enter
-   (mismos keyframes, curva y escalonado con --reveal-delay/-duration/
-   -distance), pero arranca cuando el elemento entra en pantalla.
-   El disparo lo hace un IntersectionObserver mínimo en Layout.astro que
-   solo añade .is-in. Sin JS (o sin soporte) el contenido se ve normal:
-   la clase .js-reveal de <html> solo la pone ese script. */
-.js-reveal .reveal:not(.is-in) {
-  opacity: 0;
-}
-
-.reveal.is-in {
-  --enter-distance: var(--reveal-distance, 12px);
-  animation: enter var(--reveal-duration, .5s)
-    cubic-bezier(.2, .7, .2, 1) var(--reveal-delay, 0s) both;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .enter,
-  .reveal.is-in {
-    animation: none;
-  }
-
-  .js-reveal .reveal:not(.is-in) {
-    opacity: 1;
-  }
-}
-
 /* Contenedor común: todas las secciones lo usan para su ancho.
    Modificadores: --wide (grillas/imágenes), --narrow (texto centrado). */
 .container {
@@ -445,26 +144,21 @@ body.nav-open {
   background: var(--color-primary-dark);
 }
 
-.btn--lg {
-  padding: .65rem 1.1rem;
-  border-radius: 999px;
-  font-weight: 700;
-}
-
-.status {
+/* Logo del header (Header.astro completa estos estilos) */
+.logo {
   display: flex;
   align-items: center;
   gap: .5rem;
-  color: var(--color-text-muted, #6b7280);
+  text-decoration: none;
+  color: var(--color-text);
+  font-weight: 600;
 }
 
-.dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 999px;
-  display: inline-block;
-  background: radial-gradient(circle at 30% 30%, #22c55e, #16a34a);
-  box-shadow: 0 0 10px rgba(34, 197, 94, .6);
+.logo img {
+  height: 28px;
+  width: auto;
+  display: block;
+  flex: 0 0 auto;
 }
 
 /* Focus visible para accesibilidad */
@@ -495,25 +189,8 @@ body.nav-open {
 }
 
 @supports not (color: color-mix(in oklab, black 50%, white)) {
-  .navbar {
-    background: rgba(243, 244, 246, 0.9);
-  }
-
-  .navbar[data-enhanced="true"] .nav-menu {
-    background: rgba(255, 255, 255, 0.96);
-  }
-
-  .nav-links a:focus-visible,
   .btn:focus-visible,
   .logo:focus-visible {
     outline-color: rgba(37, 99, 235, 0.7);
-  }
-
-  .nav-toggle:hover {
-    border-color: rgba(37, 99, 235, 0.4);
-  }
-
-  .nav-links a:hover {
-    background: rgba(37, 99, 235, 0.08);
   }
 }

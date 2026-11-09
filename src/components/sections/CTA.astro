@@ -1,5 +1,5 @@
 ---
-
+import { whatsappUrl } from "../../config/site";
 ---
 
 <section class="cta" id="cta">
@@ -22,7 +22,7 @@
       <span class="highlight">importantes para tu negocio!</span>
     </h2>
     <a
-      href="https://wa.me/593961141127"
+      href={whatsappUrl()}
       class="cta__btn tap reveal"
       style="--reveal-delay:.18s;--reveal-duration:.45s;--reveal-distance:10px"
     >

@@ -1,12 +1,11 @@
 ﻿import imgPageWeb from '../assets/works/paginas-web-ambato.webp';
 import imgMarketing from '../assets/works/marketing-digital-ambato.webp';
 import imgAuto from '../assets/works/automatizacion-ambato.webp';
-import imgTiendas from '../assets/works/tiendas-en-linea-ambato.webp';
 import imgAgency from '../assets/works/agencia-de-marketing-digital-ambato.webp';
-import imgPublicidad from '../assets/works/agencia-de-publicidad-ambato.webp';
-import imgDesarrollo from '../assets/works/desarrollo-web-ambato.webp';
 import imgGrafico from '../assets/works/diseño-grafico-ambato.webp';
-import imgWeb from '../assets/works/diseño-web-ambato.webp';
+
+// Por ahora hay 5 imágenes distintas; el carrusel repite algunas para llenar
+// sus 9 posiciones. Al tener capturas nuevas, se agregan aquí.
 
 export const heroContent = {
   title: "Desarrollo y automatización para negocios de alto rendimiento",
@@ -16,12 +15,12 @@ export const heroContent = {
     imgPageWeb,
     imgMarketing,
     imgAuto,
-    imgTiendas,
+    imgPageWeb,
     imgAgency,
-    imgPublicidad,
-    imgDesarrollo,
+    imgAuto,
+    imgPageWeb,
     imgGrafico,
-    imgWeb,
+    imgAuto,
   ],
 } as const;
 

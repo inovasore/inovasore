@@ -1,7 +1,7 @@
 ---
 import { Image } from "astro:assets";
-import { footerData } from "../data/footer";
-import logoLight from "../assets/logotipo-novasore-claro.png";
+import { footerData } from "../../data/footer";
+import logoLight from "../../assets/logotipo-novasore-claro.png";
 
 const year = new Date().getFullYear();
 const phone = footerData.contact.phone?.trim();
@@ -233,13 +233,6 @@ const phoneHref = phone ? `tel:${phone.replace(/\s+/g, "")}` : null;
     display: block;
   }
 
-  .footer__heading--logo-text {
-    font-size: var(--text-body);
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    color: color-mix(in oklab, var(--color-text) 95%, transparent);
-  }
-
   .footer__about {
     display: flex;
     flex-direction: column;
@@ -308,19 +301,6 @@ const phoneHref = phone ? `tel:${phone.replace(/\s+/g, "")}` : null;
       background-color 0.2s ease,
       color 0.2s ease,
       border-color 0.2s ease;
-  }
-
-  .footer__btn--primary {
-    background: var(--color-primary);
-    color: #fff;
-    border: 1px solid var(--color-primary);
-    box-shadow: 0 12px 30px rgba(37, 99, 235, 0.32);
-  }
-
-  .footer__btn--primary:hover,
-  .footer__btn--primary:focus-visible {
-    transform: translateY(-2px);
-    box-shadow: 0 16px 40px rgba(37, 99, 235, 0.4);
   }
 
   .footer__btn--ghost {

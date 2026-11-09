@@ -29,6 +29,11 @@ export const site = {
     instagram: 'https://www.instagram.com/novasore/',
     x: 'https://x.com/novasoreTech',
   },
+  /** Promoción de las cintas azules (DiscountBanner y MacbookSection). Se muestra en mayúsculas. */
+  promo: {
+    label: 'Descuento del 30%',
+    until: 'hasta el 28 de febrero',
+  },
   location: {
     city: 'Ambato',
     region: 'Tungurahua',

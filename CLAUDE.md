@@ -37,5 +37,6 @@
   El hero del inicio usa `--text-hero-lead` y `--text-hero-body` para conservar sus tamaños.
 - Anchos: usar siempre el contenedor común de `src/styles/global.css` (`.container`, `.container--wide`, `.container--narrow`; variables `--container*` y `--gutter`). No definir anchos propios en los componentes.
 - Áreas táctiles de al menos 44×44 px: clase `.tap` (usa `::after`).
-- Datos del estudio (nombre, dominio, correo, WhatsApp, redes): `src/config/site.ts`.
+- Datos del estudio (nombre, dominio, correo, WhatsApp, redes, promoción vigente): `src/config/site.ts`. No escribir esos datos a mano en los componentes.
+- Componentes por carpeta: `components/layout/` (Header, Footer), `components/sections/` (secciones de página), `components/ui/` (piezas reutilizables), `components/seo/`. Páginas internas con fondo de cuadrícula: `layouts/PageLayout.astro`. Keyframes compartidos: `src/styles/animations.css`.
 - Tono de los textos: "nosotros" como estudio pequeño y cercano, sin frases exageradas.

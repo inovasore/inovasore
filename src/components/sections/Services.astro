@@ -1,5 +1,5 @@
 ﻿---
-import { featuredServices } from "../data/services";
+import { featuredServices } from "../../data/services";
 import PresenceStatement from "./PresenceStatement.astro";
 
 const { offsetTop = "0px" } = Astro.props;
@@ -307,42 +307,6 @@ const { offsetTop = "0px" } = Astro.props;
     .spotlight-card__icon
     .material-symbols-rounded {
     animation: shake 0.5s ease;
-  }
-
-  @keyframes bounce-rotate {
-    0%,
-    100% {
-      transform: rotate(0deg) scale(1);
-    }
-    25% {
-      transform: rotate(-10deg) scale(1.15);
-    }
-    75% {
-      transform: rotate(10deg) scale(1.15);
-    }
-  }
-
-  @keyframes pulse-scale {
-    0%,
-    100% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.25);
-    }
-  }
-
-  @keyframes shake {
-    0%,
-    100% {
-      transform: translateX(0);
-    }
-    25% {
-      transform: translateX(-4px) rotate(-5deg);
-    }
-    75% {
-      transform: translateX(4px) rotate(5deg);
-    }
   }
 
   .spotlight-card__body {

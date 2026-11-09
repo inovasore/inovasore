@@ -1,8 +1,8 @@
 ---
 import { Image } from "astro:assets";
-import logoLight from "../assets/logotipo-novasore-claro.png";
-import { studioServices } from "../data/services";
-import { site } from "../config/site";
+import logoLight from "../../assets/logotipo-novasore-claro.png";
+import { studioServices } from "../../data/services";
+import { site } from "../../config/site";
 
 const links = [
   { href: "/", label: "Inicio" },
@@ -133,28 +133,6 @@ const links = [
     display: block;
   }
 
-  .logo__text {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    line-height: 1.15;
-  }
-
-  .logo__title {
-    font-size: var(--text-body);
-    font-weight: 700;
-    letter-spacing: -0.01em;
-  }
-
-  .logo__subtitle {
-    font-size: var(--text-xs);
-    text-transform: uppercase;
-    font-weight: 400;
-    letter-spacing: 0.05em;
-    color: rgba(255, 255, 255, 0.7);
-    margin-top: -1px;
-  }
-
   .nav__list {
     display: flex;
     align-items: center;
@@ -234,11 +212,6 @@ const links = [
 
   .nav__item--dropdown:hover .nav__chevron {
     transform: rotate(180deg);
-  }
-
-  .nav__link--dropdown-wrapper {
-    text-decoration: none;
-    color: inherit;
   }
 
   .nav__dropdown {
@@ -598,12 +571,6 @@ const links = [
       width: 100%;
       text-align: center;
       margin-top: 16px;
-    }
-
-    .logo__title {
-    }
-
-    .logo__subtitle {
     }
 
     .logo :global(img) {

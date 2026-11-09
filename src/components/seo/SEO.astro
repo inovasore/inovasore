@@ -1,0 +1,116 @@
+---
+/**
+ * Metadatos de cada página: título, descripción, canonical, Open Graph,
+ * Twitter y el JSON-LD de LocalBusiness. Lo usa Layout.astro dentro del <head>.
+ */
+import { site, whatsappUrl } from "../../config/site";
+import { getImage } from "astro:assets";
+import logoDark from "../../assets/logotipo-novasore.png";
+import isotipo from "../../assets/isotipo-novasore.png";
+
+interface Props {
+  title: string;
+  description: string;
+  ogTitle: string;
+  ogDescription: string;
+  ogImage: string;
+}
+
+const { title, description, ogTitle, ogDescription, ogImage } = Astro.props;
+
+const siteOrigin = Astro.site
+  ? new URL(Astro.site).origin
+  : "https://Inovasore.com";
+const pathname = Astro.url?.pathname ?? "/";
+const canonical = siteOrigin.replace(/\/$/, "") + pathname;
+const ogImageUrl = new URL(ogImage, siteOrigin).href;
+
+// Logos para el JSON-LD (PNG generados en el build)
+const schemaLogo = await getImage({ src: isotipo, format: "png", width: 512 });
+const schemaImage = await getImage({ src: logoDark, format: "png", width: 1200 });
+
+// LocalBusiness Schema para SEO Local, AEO y GEO
+const localBusinessSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: site.name,
+  description:
+    "Agencia digital especializada en desarrollo web, e-commerce, landing pages y marketing digital en Ambato, Ecuador. Creamos sitios web que convierten con diseño moderno, SEO técnico y alto rendimiento.",
+  image: new URL(schemaImage.src, siteOrigin).href,
+  logo: new URL(schemaLogo.src, siteOrigin).href,
+  "@id": siteOrigin,
+  url: siteOrigin,
+  telephone: `+${site.whatsapp.number}`,
+  email: site.email,
+  priceRange: "$180-$1200",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Rio Patate & Rio Chambo",
+    addressLocality: "Ambato",
+    addressRegion: "Tungurahua",
+    postalCode: "180207",
+    addressCountry: "EC",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: -1.2717715287074494,
+    longitude: -78.62341846076843,
+  },
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    opens: "08:00",
+    closes: "24:00",
+  },
+  sameAs: [
+    site.social.facebook,
+    site.social.instagram,
+    site.social.x,
+    whatsappUrl(),
+  ],
+  areaServed: [
+    {
+      "@type": "City",
+      name: "Ambato",
+      "@id": "https://www.wikidata.org/wiki/Q338450",
+    },
+    {
+      "@type": "Country",
+      name: "Ecuador",
+      "@id": "https://www.wikidata.org/wiki/Q736",
+    },
+  ],
+  serviceArea: {
+    "@type": "GeoCircle",
+    geoMidpoint: {
+      "@type": "GeoCoordinates",
+      latitude: -1.2717715287074494,
+      longitude: -78.62341846076843,
+    },
+    geoRadius: "100000",
+  },
+});
+---
+
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="p:domain_verify" content="fafbb18240a0e4aa2cd1dedbbb307a59" />
+<link rel="canonical" href={canonical} />
+
+<!-- Open Graph / Twitter -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content={site.name} />
+<meta property="og:locale" content="es_ES" />
+<meta property="og:url" content={canonical} />
+<meta property="og:title" content={ogTitle} />
+<meta property="og:description" content={ogDescription} />
+<meta property="og:image" content={ogImageUrl} />
+<meta property="og:image:type" content="image/png" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={ogTitle} />
+<meta name="twitter:description" content={ogDescription} />
+<meta name="twitter:image" content={ogImageUrl} />
+
+<script type="application/ld+json" is:inline set:html={localBusinessSchema} />

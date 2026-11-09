@@ -1,4 +1,6 @@
-import { site } from '../config/site';
+import { site, whatsappUrl } from '../config/site';
+
+const whatsappLink = whatsappUrl('¡Hola! Me interesa conocer más sobre sus servicios.');
 
 export const footerData = {
   agency: {
@@ -11,7 +13,7 @@ export const footerData = {
     headline: 'Conversemos sobre tu próximo proyecto',
     addressLines: ['Ambato, Ecuador'],
     phone: '',
-    whatsappLink: 'https://wa.me/593961141127?text=%C2%A1Hola!%20Me%20interesa%20conocer%20m%C3%A1s%20sobre%20sus%20servicios.',
+    whatsappLink,
     serviceArea: 'Atendemos proyectos en Ecuador y de forma remota en LATAM.',
   },
   navChips: [
@@ -23,7 +25,7 @@ export const footerData = {
   socialLinks: [
     {
       label: 'WhatsApp',
-      href: 'https://wa.me/593961141127?text=%C2%A1Hola!%20Me%20interesa%20conocer%20m%C3%A1s%20sobre%20sus%20servicios.',
+      href: whatsappLink,
       icon: 'whatsapp',
     },
     {

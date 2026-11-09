@@ -1,0 +1,99 @@
+---
+/**
+ * Cinta azul con el texto de la promoción vigente desplazándose en bucle.
+ * Solo define su aspecto; el tamaño, la posición y la rotación los pone
+ * quien la usa (DiscountBanner, MacbookSection) con la clase que le pasa.
+ *
+ * - `reverse`: la cinta se desplaza hacia la derecha y usa la variante
+ *   de texto con el descuento entre viñetas.
+ * - `--ribbon-duration` (CSS): duración de una vuelta (70s por defecto).
+ */
+import { site } from "../../config/site";
+
+interface Props {
+  reverse?: boolean;
+  class?: string;
+}
+
+const { reverse = false, class: className } = Astro.props;
+const { label, until } = site.promo;
+const repeats = Array.from({ length: 12 });
+---
+
+<div class:list={["ribbon", className]}>
+  <div class:list={["ribbon__track", { "ribbon__track--reverse": reverse }]}>
+    {
+      repeats.map(() =>
+        reverse ? (
+          <span class="ribbon__text">
+            <span class="ribbon__highlight">• {label} •</span>
+            {until}
+          </span>
+        ) : (
+          <span class="ribbon__text">
+            <span class="ribbon__highlight">{label}</span>• {until} •
+          </span>
+        ),
+      )
+    }
+  </div>
+</div>
+
+<style>
+  .ribbon {
+    position: absolute;
+    left: -10%;
+    width: 120%;
+    background: #1b56fd;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  }
+
+  .ribbon__track {
+    display: flex;
+    white-space: nowrap;
+    will-change: transform;
+    animation: ribbon-scroll-left var(--ribbon-duration, 70s) linear infinite;
+  }
+
+  .ribbon__track--reverse {
+    animation-name: ribbon-scroll-right;
+  }
+
+  .ribbon__text {
+    font-size: var(--text-h3);
+    font-weight: 900;
+    color: #ffffff;
+    padding: 0 15px;
+    white-space: nowrap;
+    display: flex;
+    gap: 0.3em;
+    text-transform: uppercase;
+    /* Cinta en mayúsculas: conserva su espaciado propio */
+    letter-spacing: 0.08em;
+  }
+
+  .ribbon__highlight {
+    color: #000000;
+  }
+
+  @keyframes ribbon-scroll-left {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes ribbon-scroll-right {
+    from {
+      transform: translateX(-50%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+</style>

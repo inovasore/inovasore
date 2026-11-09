@@ -1,77 +1,31 @@
-﻿---
-import Layout from "../layouts/Layout.astro";
-import Services from "../components/Services.astro";
-import TechSection from "../components/TechSection.astro";
-import Process from "../components/Process.astro";
-import Testimonials from "../components/Testimonials.astro";
+---
+import PageLayout from "../layouts/PageLayout.astro";
+import Services from "../components/sections/Services.astro";
+import TechSection from "../components/sections/TechSection.astro";
+import Process from "../components/sections/Process.astro";
+import Testimonials from "../components/sections/Testimonials.astro";
 ---
 
-<Layout
+<PageLayout
   title="Servicios | Novasore"
   description="Explora nuestros servicios principales: diseño web, tiendas online, landing pages, SEO técnico y soporte continuo."
-  navOffset="clamp(82px, 18vw, 120px)"
+  class="services-page"
 >
-  <div class="services-page-bg">
-    <div style="height: clamp(100px, 15vh, 120px);"></div>
-
-    <Services offsetTop="clamp(82px, 18vw, 120px)" />
-
-    <TechSection />
-    <Process />
-    <Testimonials />
-  </div>
-</Layout>
+  <Services offsetTop="clamp(82px, 18vw, 120px)" />
+  <TechSection />
+  <Process />
+  <Testimonials />
+</PageLayout>
 
 <style>
-  .services-page-bg {
-    position: relative;
-    min-height: 100vh;
-    min-height: 100svh;
-    background: var(--color-bg);
-    /* clip (no hidden): no crea un contenedor de scroll, así funciona
-       animation-timeline: view(). flow-root conserva el BFC de hidden. */
-    overflow: clip;
-    display: flow-root;
-  }
-
-  .services-page-bg::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image: url("/Vectorbg.svg"), url("/bg-hero.svg");
-    background-position:
-      center 15px,
-      center top;
-    background-size:
-      auto,
-      1600px auto;
-    background-repeat: repeat, no-repeat;
-    opacity: 0.95;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .services-page-bg > * {
-    position: relative;
-    z-index: 1;
-  }
-
-  /* Extra padding for Process component only in services page */
-  .services-page-bg :global(.process) {
+  /* Espaciado propio de las secciones en esta página. El contenedor lo
+     pinta PageLayout, por eso el selector es global (.page-bg.services-page
+     conserva la misma especificidad que tenía antes). */
+  :global(.page-bg.services-page .process) {
     padding-top: clamp(80px, 14vh, 130px);
   }
 
-  /* Reduce padding for Testimonials component only in services page */
-  .services-page-bg :global(.testimonials) {
+  :global(.page-bg.services-page .testimonials) {
     padding-top: clamp(50px, 8vh, 80px);
-  }
-
-  /* Adjust grid position on mobile */
-  @media (max-width: 768px) {
-    .services-page-bg::before {
-      background-position:
-        center -10px,
-        center top;
-    }
   }
 </style>

@@ -1,7 +1,7 @@
 ---
-import { footerData } from "../data/footer";
-import { mainServices } from "../data/services";
-import { site } from "../config/site";
+import { footerData } from "../../data/footer";
+import { mainServices } from "../../data/services";
+import { site } from "../../config/site";
 
 const rawWhatsappLink = footerData.contact.whatsappLink?.trim();
 let whatsappBase = "";
@@ -429,10 +429,6 @@ const serviceChips = [
     --contact-panel-option-text: #f8fafc;
   }
 
-
-
-
-
   .contact-panel {
     position: relative;
     padding: var(--section-padding-y) 0;
@@ -472,16 +468,6 @@ const serviceChips = [
     font-weight: 600;
     color: var(--contact-panel-eyebrow-color, #ffffff);
     margin: 0;
-  }
-
-  .contact-panel__title {
-    margin: 0;
-    font-size: var(--text-h3);
-    font-weight: 700;
-    color: var(--contact-panel-text);
-    text-wrap: balance;
-    line-height: var(--leading-snug);
-    letter-spacing: var(--tracking-h3);
   }
 
   .contact-panel__subtitle {
@@ -596,8 +582,6 @@ const serviceChips = [
     gap: clamp(16px, 2.4vw, 24px);
     position: relative;
   }
-
-
 
   .contact-panel__field-group {
     display: flex;

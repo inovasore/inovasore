@@ -1,5 +1,5 @@
 ﻿---
-import { whyUsCards } from "../data/why-us";
+import { whyUsCards } from "../../data/why-us";
 ---
 
 <section class="why" id="nosotros">
@@ -208,42 +208,6 @@ import { whyUsCards } from "../data/why-us";
     .why__card:nth-child(3):hover .why__icon .material-symbols-rounded,
     .why__card:nth-child(6):hover .why__icon .material-symbols-rounded {
       animation: shake 0.5s ease;
-    }
-
-    @keyframes bounce-rotate {
-      0%,
-      100% {
-        transform: rotate(0deg) scale(1);
-      }
-      25% {
-        transform: rotate(-10deg) scale(1.15);
-      }
-      75% {
-        transform: rotate(10deg) scale(1.15);
-      }
-    }
-
-    @keyframes pulse-scale {
-      0%,
-      100% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.25);
-      }
-    }
-
-    @keyframes shake {
-      0%,
-      100% {
-        transform: translateX(0);
-      }
-      25% {
-        transform: translateX(-4px) rotate(-5deg);
-      }
-      75% {
-        transform: translateX(4px) rotate(5deg);
-      }
     }
 
     .why__card-title {
