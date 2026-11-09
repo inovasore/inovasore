@@ -18,11 +18,8 @@ const [primaryWork, ...secondaryWorks] = works;
       </a>
     </div>
 
-    <h1
-      class="hero__title reveal"
-      style="--reveal-delay:.16s;--reveal-duration:.55s;--reveal-distance:14px"
-      set:html={title}
-    />
+    <!-- Sin animación de entrada: es el elemento LCP -->
+    <h1 class="hero__title">{title}</h1>
 
     <p
       class="hero__subtitle reveal"
@@ -348,6 +345,8 @@ const [primaryWork, ...secondaryWorks] = works;
   }
   .pill__text {
     font-weight: var(--pill-weight, 400);
+    font-size: var(--text-body);
+    letter-spacing: var(--tracking-body);
   }
   .pill__cta {
     display: inline-grid;
@@ -364,18 +363,24 @@ const [primaryWork, ...secondaryWorks] = works;
 
   .hero__title {
     font-weight: 600;
-    line-height: 1.1;
-    letter-spacing: 0.2px;
-    font-size: clamp(1.6rem, 2.5vw + 1rem, 4.5rem);
+    font-size: var(--text-display);
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
     margin: 0.35rem auto 0;
-    max-width: 100%;
+    /* Líneas parejas: 2 en escritorio/tablet/horizontal, 4 en móvil vertical */
+    max-width: 28ch;
+    text-wrap: balance;
   }
 
   .hero__subtitle {
-    color: var(--color-text-muted, #6b7280);
-    font-size: clamp(1.05rem, 0.9rem + 0.4vw, 1.2rem);
-    margin: 8px auto 24px;
-    max-width: 60ch;
+    /* #cbd5e1: contraste ≥ 4.5:1 sobre el fondo y la cuadrícula del hero */
+    color: #cbd5e1;
+    font-size: var(--text-lead);
+    line-height: var(--leading-body);
+    letter-spacing: var(--tracking-body);
+    margin: clamp(16px, 2.6vh, 28px) auto 28px;
+    max-width: 52ch;
+    text-wrap: balance;
     font-weight: 400;
   }
 
@@ -416,7 +421,7 @@ const [primaryWork, ...secondaryWorks] = works;
     color: #fff !important;
     text-decoration: none !important;
     font-weight: 500 !important;
-    font-size: 1.0625rem !important;
+    font-size: var(--text-body) !important;
     transition:
       transform 0.2s ease,
       box-shadow 0.2s ease !important;
@@ -522,26 +527,7 @@ const [primaryWork, ...secondaryWorks] = works;
     transform: translateY(0) !important;
   }
 
-  /* Global styles for injected HTML content */
-  :global(.mobile-br) {
-    display: none;
-  }
-
-  :global(.desktop-br) {
-    display: block;
-  }
-
   @media (max-width: 768px) {
-    :global(.mobile-nowrap) {
-      white-space: nowrap;
-      display: inline-block;
-    }
-    :global(.mobile-br) {
-      display: block;
-    }
-    :global(.desktop-br) {
-      display: none;
-    }
     .pill {
       gap: 0.5rem;
       padding: 6px 6px 6px 16px;
@@ -551,8 +537,9 @@ const [primaryWork, ...secondaryWorks] = works;
     }
 
     .pill__text {
-      font-size: clamp(0.78rem, 3vw, 0.92rem);
-      line-height: 1.2;
+      font-size: var(--text-small);
+      letter-spacing: var(--tracking-small);
+      line-height: var(--leading-snug);
       text-align: left;
     }
 
@@ -676,6 +663,33 @@ const [primaryWork, ...secondaryWorks] = works;
     }
     .carousel__item {
       border-color: rgba(99, 102, 241, 0.26);
+    }
+  }
+
+  /* Pantallas bajas en horizontal (p. ej. 844×390, 800×360): etiqueta,
+     título, subtítulo y botón visibles sin hacer scroll. El header se
+     compacta a 68px en Header.astro. */
+  @media (orientation: landscape) and (max-height: 500px) {
+    .hero {
+      padding-top: 76px;
+      min-height: auto;
+    }
+
+    .pill {
+      margin-bottom: 8px;
+    }
+
+    .hero__title {
+      /* mínimo de la escala (36px) */
+      font-size: min(var(--text-display), 2.25rem);
+    }
+
+    .hero__subtitle {
+      margin: 10px auto 14px;
+    }
+
+    .hero__actions {
+      margin-bottom: 20px;
     }
   }
 </style>

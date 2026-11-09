@@ -608,6 +608,26 @@ const links = [
       height: 36px;
     }
   }
+
+  /* Pantallas bajas en horizontal: header compacto (100px → 68px) para que
+     el contenido del hero quepa en la primera pantalla. */
+  @media (orientation: landscape) and (max-height: 500px) {
+    .header {
+      padding-block: 8px;
+    }
+
+    .header__inner {
+      padding-block: 8px;
+    }
+  }
+
+  @media (max-width: 1024px) and (orientation: landscape) and (max-height: 500px) {
+    .nav {
+      top: 72px;
+      max-height: calc(100vh - 72px - 12px);
+      max-height: calc(100dvh - 72px - 12px);
+    }
+  }
 </style>
 
 <script>
