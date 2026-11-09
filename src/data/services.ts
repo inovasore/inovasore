@@ -94,7 +94,11 @@ export interface StudioService {
    * Ruta de la imagen. Basta con guardar un archivo con ese nombre en
    * src/assets/services/ (vale .webp, .jpg, .png o .avif con el mismo nombre
    * base) y se sirve automáticamente con <Picture> en AVIF/WebP.
-   * Mientras no exista, se muestra un espacio provisional 16:10.
+   * Mientras no exista, se muestra un espacio provisional 16:9.
+   * Exportar a 1920×1080 px (16:9), WebP o JPG calidad ~80, idealmente
+   * < 400 KB. Nada se recorta (la proporción es la misma en todos los
+   * tamaños), pero deja ~4% de margen en los bordes por las esquinas
+   * redondeadas.
    */
   image: string;
   imageAlt: string;

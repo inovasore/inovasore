@@ -6,7 +6,8 @@
  *
  * Imágenes: si existe un archivo en src/assets/services/ con el mismo nombre
  * base que `service.image` (ver src/data/services.ts), se sirve con <Picture>
- * en AVIF/WebP. Si no, se muestra un espacio provisional 16:10.
+ * en AVIF/WebP. Si no, se muestra un espacio provisional 16:9.
+ * Exportar a 1920×1080 (16:9); ver src/data/services.ts.
  */
 import type { ImageMetadata } from "astro";
 import { Picture } from "astro:assets";
@@ -125,8 +126,8 @@ const ctaHref = whatsappUrl(
                     src={service.picture}
                     alt={service.imageAlt}
                     formats={["avif", "webp"]}
-                    widths={[400, 640, 880, 1200]}
-                    sizes="(min-width: 1408px) 700px, (min-width: 901px) 52vw, calc(100vw - 40px)"
+                    widths={[400, 640, 880, 1200, 1600]}
+                    sizes="(min-width: 1408px) 596px, (min-width: 901px) calc(50vw - 90px), calc(100vw - 40px)"
                     loading="lazy"
                     decoding="async"
                   />
@@ -212,7 +213,7 @@ const ctaHref = whatsappUrl(
   .svc__inner {
     padding-block: clamp(56px, 9vw, 120px);
     display: grid;
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: clamp(32px, 6vw, 88px);
     align-items: start;
   }
@@ -386,9 +387,9 @@ const ctaHref = whatsappUrl(
   }
 
   .svc-item__media {
-    /* 16:10 fijo; en pantallas bajas (horizontal) no supera el 70% del alto */
-    width: min(100%, 70svh * 1.6);
-    aspect-ratio: 16 / 10;
+    /* 16:9 fijo; en pantallas bajas (horizontal) no supera el 70% del alto */
+    width: min(100%, 70svh * 16 / 9);
+    aspect-ratio: 16 / 9;
     border-radius: 16px;
     overflow: hidden;
     background: #e8eefc;
