@@ -7,7 +7,7 @@ export const footerData = {
     name: 'Novasore',
     tagline: '',
     description:
-      'Novasore – Agencia digital especializada en desarrollo web, marketing y automatización empresarial.',
+      'Novasore – Estudio de desarrollo web, aplicaciones y automatización para negocios.',
   },
   contact: {
     headline: 'Conversemos sobre tu próximo proyecto',

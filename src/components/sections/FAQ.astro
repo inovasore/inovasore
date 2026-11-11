@@ -42,7 +42,15 @@ import { faqs } from "../../data/faqs";
               </span>
             </summary>
             <div class="faq__answer">
-              <p>{item.answer}</p>
+              {item.link ? (
+                <p>
+                  {item.answer.split(item.link.text)[0]}
+                  <a class="faq__link" href={item.link.href}>{item.link.text}</a>
+                  {item.answer.split(item.link.text).slice(1).join(item.link.text)}
+                </p>
+              ) : (
+                <p>{item.answer}</p>
+              )}
             </div>
           </details>
         ))
@@ -264,6 +272,12 @@ import { faqs } from "../../data/faqs";
 
     .faq__answer > p {
       margin: 0;
+    }
+
+    .faq__link {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 3px;
     }
 
     /* summary (del details) sin el marcador nativo del navegador */

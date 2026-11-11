@@ -31,8 +31,8 @@ export const site = {
   },
   /** Promoción de las cintas azules (DiscountBanner y MacbookSection). Se muestra en mayúsculas. */
   promo: {
-    label: 'Descuento del 30%',
-    until: 'hasta el 28 de febrero',
+    label: 'Descuento del 15 %',
+    until: 'hasta el 20 de noviembre',
   },
   location: {
     city: 'Ambato',

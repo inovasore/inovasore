@@ -2,6 +2,13 @@
 import { Picture } from "astro:assets";
 import { projects } from "../../data/projects";
 
+interface Props {
+  /** Grilla decorativa (Grilla02.svg) a los lados. Desactivada en el inicio. */
+  showGrid?: boolean;
+}
+
+const { showGrid = true } = Astro.props;
+
 // Anchos de las variantes: solo hasta el tamaño real de cada imagen (no se amplía).
 const variantWidths = (max: number) =>
   [480, 720, 960, 1280, 1600, 2000, 2880].filter((w) => w < max).concat(max);
@@ -9,22 +16,28 @@ const variantWidths = (max: number) =>
 
 <section class="projects" id="proyectos" data-projects>
   <div class="projects__halo" aria-hidden="true"></div>
-  <img
-    src="/Grilla02.svg"
-    alt=""
-    width="745"
-    height="745"
-    class="projects__grid-decoration projects__grid-decoration--left"
-    aria-hidden="true"
-  />
-  <img
-    src="/Grilla02.svg"
-    alt=""
-    width="745"
-    height="745"
-    class="projects__grid-decoration projects__grid-decoration--right"
-    aria-hidden="true"
-  />
+  {
+    showGrid && (
+      <>
+        <img
+          src="/Grilla02.svg"
+          alt=""
+          width="745"
+          height="745"
+          class="projects__grid-decoration projects__grid-decoration--left"
+          aria-hidden="true"
+        />
+        <img
+          src="/Grilla02.svg"
+          alt=""
+          width="745"
+          height="745"
+          class="projects__grid-decoration projects__grid-decoration--right"
+          aria-hidden="true"
+        />
+      </>
+    )
+  }
   <div class="container container--wide projects__inner">
     <span
       class="section-tag projects__tag projects__tag--dark reveal"
@@ -36,14 +49,14 @@ const variantWidths = (max: number) =>
       class="projects__title reveal"
       style="--reveal-delay:.14s;--reveal-duration:.55s;--reveal-distance:14px"
     >
-      ¡Proyectos <span class="highlight">que dan resultados!</span>
+      Proyectos <span class="highlight">recientes</span>
     </h2>
     <p
       class="projects__subtitle reveal"
       style="--reveal-delay:.22s;--reveal-duration:.45s;--reveal-distance:10px"
     >
-      Diseñamos experiencias digitales para marcas que confían en nuestra
-      capacidad para crear estrategias y visuales impactantes.
+      Algunos de los sitios y plataformas que hemos construido para nuestros
+      clientes.
     </p>
 
     <!-- Tarjetas apiladas: cada una queda fija (sticky) y la siguiente sube
@@ -111,8 +124,12 @@ const variantWidths = (max: number) =>
      * Pastilla "Ver proyecto" que sigue al puntero (skill apple-design):
      * - resorte críticamente amortiguado (sin rebote), solo `translate`;
      * - al entrar arranca en la posición del puntero (sin "vuelo" desde 0,0);
+     * - oculta por defecto: se muestra (data-cta-on) solo con el puntero
+     *   sobre la imagen, no sobre la barra de información;
+     * - al hacer scroll se oculta (la tarjeta se mueve bajo el puntero) y
+     *   vuelve con el siguiente movimiento, ya en su posición;
      * - escucha punteros solo mientras la sección está en pantalla;
-     * - solo con ratón/trackpad y sin prefers-reduced-motion.
+     * - solo con ratón/trackpad; con movimiento reducido salta sin resorte.
      */
     const section = document.querySelector<HTMLElement>("[data-projects]");
     const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
@@ -165,31 +182,47 @@ const variantWidths = (max: number) =>
         frame = requestAnimationFrame(step);
       };
 
-      const onEnter = (e: PointerEvent) => {
-        if (e.pointerType !== "mouse" && e.pointerType !== "pen") return;
-        active = e.currentTarget as HTMLElement;
-        cta = active.querySelector<HTMLElement>("[data-pcard-cta]");
-        target = pointToOffset(active, e);
-        current = { ...target }; // aparece donde está el puntero
-        apply();
+      const hide = () => {
+        active?.removeAttribute("data-cta-on");
+        active = null; // el fade lo hace CSS (opacity)
       };
 
       const onMove = (e: PointerEvent) => {
-        if (!active || e.currentTarget !== active) return;
-        target = pointToOffset(active, e);
-        kick();
-      };
-
-      const onLeave = () => {
-        active = null; // el fade lo hace CSS (opacity)
+        if (e.pointerType !== "mouse" && e.pointerType !== "pen") return;
+        const card = e.currentTarget as HTMLElement;
+        const overBar = !!(e.target as Element).closest?.(".pcard__bar");
+        if (overBar) {
+          if (active === card) hide();
+          return;
+        }
+        if (active !== card) {
+          // Primera aparición: se coloca en el puntero antes de hacerse visible
+          hide();
+          active = card;
+          cta = card.querySelector<HTMLElement>("[data-pcard-cta]");
+          target = pointToOffset(card, e);
+          current = { ...target };
+          apply();
+          card.setAttribute("data-cta-on", "");
+          return;
+        }
+        target = pointToOffset(card, e);
+        if (reducedMotion.matches) {
+          current = { ...target };
+          apply();
+        } else kick();
       };
 
       const bind = (on: boolean) => {
         for (const card of cards) {
           const method = on ? "addEventListener" : "removeEventListener";
-          card[method]("pointerenter", onEnter as EventListener);
           card[method]("pointermove", onMove as EventListener);
-          card[method]("pointerleave", onLeave);
+          card[method]("pointerleave", hide);
+        }
+        if (on) window.addEventListener("scroll", hide, { passive: true });
+        else {
+          window.removeEventListener("scroll", hide);
+          hide();
         }
         if (!on && frame) {
           cancelAnimationFrame(frame);
@@ -199,7 +232,7 @@ const variantWidths = (max: number) =>
 
       let bound = false;
       const update = (visible: boolean) => {
-        const should = visible && finePointer.matches && !reducedMotion.matches;
+        const should = visible && finePointer.matches;
         if (should !== bound) {
           bind(should);
           bound = should;
@@ -213,7 +246,6 @@ const variantWidths = (max: number) =>
       }).observe(section);
 
       finePointer.addEventListener("change", () => update(visible));
-      reducedMotion.addEventListener("change", () => update(visible));
     }
   </script>
 
@@ -298,10 +330,20 @@ const variantWidths = (max: number) =>
     }
 
     /* ================= Tarjetas apiladas ================= */
+    /*
+     * Todas las tarjetas quedan fijas en el MISMO top y la siguiente cubre
+     * por completo a la anterior (misma altura). Altura de la tarjeta:
+     * 16:9 del ancho, sin pasar del alto de la pantalla menos márgenes,
+     * para que la barra inferior siempre se vea completa.
+     * El header no es fijo (se va con el scroll), así que el top es solo
+     * un margen.
+     */
     .pstack {
-      --stack-top: clamp(16px, 4vh, 40px);
-      --stack-step: 14px; /* cada tarjeta queda un poco más abajo: se ve el borde de la anterior */
+      --stack-top: clamp(12px, 2.5vh, 24px);
+      --stack-bottom: 16px;
       --stack-gap: clamp(24px, 5vh, 56px);
+      --card-ratio: 9 / 16; /* alto / ancho */
+      container-type: inline-size; /* 100cqi = ancho de la tarjeta */
 
       list-style: none;
       margin: 0;
@@ -314,23 +356,24 @@ const variantWidths = (max: number) =>
 
     .pstack__item {
       position: sticky;
-      top: calc(var(--stack-top) + var(--i) * var(--stack-step));
+      top: var(--stack-top);
+      --card-h: min(
+        100cqi * var(--card-ratio),
+        100svh - var(--stack-top) - var(--stack-bottom)
+      );
     }
 
     .pcard {
-      --card-top: calc(var(--stack-top) + var(--i) * var(--stack-step));
-
       position: relative;
       display: block;
       width: 100%;
-      aspect-ratio: 16 / 9;
-      /* Nunca más alta que la pantalla: la barra inferior no se corta */
-      max-height: calc(100vh - var(--card-top) - 24px);
-      max-height: calc(100svh - var(--card-top) - 24px);
+      height: var(--card-h);
       border-radius: clamp(20px, 2.4vw, 32px);
       overflow: hidden;
       isolation: isolate;
-      background: #0b1020;
+      /* Fondo blanco: un fondo oscuro se asomaba por el borde redondeado
+         como una línea (borde "pixelado"). */
+      background: #fff;
       color: #fff;
       text-decoration: none;
       box-shadow: 0 24px 60px -24px rgb(15 23 42 / 0.45);
@@ -349,6 +392,7 @@ const variantWidths = (max: number) =>
       inset: 0;
       width: 100%;
       height: 100%;
+      border-radius: inherit; /* la imagen se recorta con el mismo radio */
     }
 
     .pcard :global(img) {
@@ -485,14 +529,14 @@ const variantWidths = (max: number) =>
         scale 0.2s ease-out;
     }
 
-    .pcard:hover .pcard__cta,
+    .pcard[data-cta-on] .pcard__cta,
     .pcard:focus-visible .pcard__cta {
       opacity: 1;
       scale: 1;
     }
 
-    /* Pantallas táctiles: sin cursor, la pastilla queda fija y visible */
-    @media (pointer: coarse) {
+    /* Pantallas táctiles: sin cursor, la pastilla queda fija, opaca y visible */
+    @media (hover: none), (pointer: coarse) {
       .pcard__cta {
         left: auto;
         right: 14px;
@@ -506,8 +550,11 @@ const variantWidths = (max: number) =>
     }
 
     /* Profundidad: la tarjeta que queda debajo se reduce y oscurece mientras
-       la siguiente sube. Rango calculado por posición (--i de --n) sobre el
-       recorrido de la lista. Sin soporte: el apilado sticky funciona igual. */
+       la siguiente sube. El rango va de cuando la tarjeta i se fija hasta
+       cuando se fija la i+1 (recorrido = alto de tarjeta + separación),
+       medido sobre el recorrido de la lista. Con transform-origin arriba,
+       al reducirse queda dentro de la que la cubre: no asoma ningún borde.
+       Sin soporte: el apilado sticky funciona igual. */
     @media (prefers-reduced-motion: no-preference) {
       @supports (animation-timeline: view()) {
         .pstack__item:not(:last-child) .pcard,
@@ -516,8 +563,13 @@ const variantWidths = (max: number) =>
           animation-fill-mode: both;
           animation-timing-function: linear;
           animation-range:
-            exit-crossing calc(var(--i) / var(--n) * 100%)
-            exit-crossing calc((var(--i) + 1) / var(--n) * 100%);
+            exit-crossing
+              calc(var(--i) * (var(--card-h) + var(--stack-gap)) - var(--stack-top))
+            exit-crossing
+              calc(
+                (var(--i) + 1) * (var(--card-h) + var(--stack-gap)) -
+                  var(--stack-top)
+              );
         }
 
         .pstack__item:not(:last-child) .pcard {
@@ -544,15 +596,24 @@ const variantWidths = (max: number) =>
 
     /* Móvil vertical: tarjeta más alta para la barra con chips debajo */
     @media (max-width: 640px) {
-      .pcard {
-        aspect-ratio: 4 / 5;
+      .pstack {
+        --card-ratio: 5 / 4;
       }
     }
 
-    /* Pantalla muy baja: sin sticky (tarjetas una debajo de otra) */
-    @media (max-height: 340px) {
+    /* Pantalla muy baja (p. ej. celular horizontal): sin sticky, tarjetas
+       una debajo de otra y cada una cabe en la pantalla */
+    @media (max-height: 500px) {
       .pstack__item {
         position: static;
+      }
+      .pstack {
+        --stack-top: 0px;
+        --stack-bottom: 24px;
+      }
+      .pstack__item:not(:last-child) .pcard,
+      .pstack__item:not(:last-child) .pcard__shade {
+        animation: none;
       }
     }
 

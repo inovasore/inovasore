@@ -1,13 +1,20 @@
-export const faqs = [
+export interface Faq {
+  question: string;
+  answer: string;
+  /** Enlace interno opcional: `text` debe aparecer tal cual en `answer`. */
+  link?: { text: string; href: string };
+}
+
+export const faqs: readonly Faq[] = [
   {
     question: '¿Qué servicios ofrece Novasore?',
     answer:
-      'Ofrecemos soluciones digitales integrales que incluyen diseño web, desarrollo de sitios y sistemas, marketing digital, branding e identidad visual. Acompañamos a tu marca desde la estrategia hasta la implementación final.',
+      'Diseñamos y desarrollamos sitios web, landing pages y tiendas en línea; aplicaciones web y micro apps; automatizaciones y chatbots con IA para WhatsApp y tu web; y configuramos correo empresarial con tu dominio y el posicionamiento SEO de tu sitio. Te acompañamos desde la idea hasta la publicación.',
   },
   {
     question: '¿Cuánto tiempo toma completar un proyecto web?',
     answer:
-      'Depende del tipo de proyecto. Un sitio web institucional puede tardar entre 3 y 5 semanas, mientras que un e-commerce o sistema personalizado puede requerir entre 6 y 10 semanas. Todo se planifica según tus necesidades y objetivos.',
+      'Depende del tipo de proyecto. Un sitio web institucional puede tardar entre 3 y 5 semanas, mientras que una tienda en línea o un sistema a medida puede requerir entre 6 y 10 semanas. Todo se planifica según tus necesidades y objetivos.',
   },
   {
     question: '¿Puedo solicitar cambios o revisiones durante el proceso?',
@@ -27,12 +34,12 @@ export const faqs = [
   {
     question: '¿El diseño se adapta a celulares y tablets?',
     answer:
-      'Sí, todos nuestros proyectos son 100 % responsivos. Esto significa que tu sitio se verá y funcionará perfectamente en cualquier dispositivo, ya sea computadora, tableta o smartphone.',
+      'Sí, todos nuestros proyectos son 100 % responsivos. Esto significa que tu sitio se verá y funcionará perfectamente en cualquier dispositivo, ya sea computadora, tablet o celular.',
   },
   {
-    question: '¿Ofrecen posicionamiento SEO y marketing digital?',
+    question: '¿Ofrecen posicionamiento SEO?',
     answer:
-      'Sí. Además de diseñar y desarrollar sitios web, optimizamos su estructura y contenido para mejorar su visibilidad en buscadores. También gestionamos campañas publicitarias en Google Ads, Meta y TikTok para impulsar tu marca.',
+      'Sí. Optimizamos la estructura y el contenido de tu sitio para que aparezca en Google, y configuramos tu perfil de Google Business Profile para que te encuentren en búsquedas locales.',
   },
   {
     question: '¿Qué necesito para empezar un proyecto con Novasore?',
@@ -42,11 +49,12 @@ export const faqs = [
   {
     question: '¿Puedo ver ejemplos de trabajos anteriores?',
     answer:
-      'Sí. Contamos con un portafolio en constante actualización donde puedes ver proyectos de diferentes sectores: empresas, tiendas online, marcas personales y más. Solo tienes que solicitarlo a nuestro equipo.',
+      'Sí. Revisa la sección Proyectos de esta página. Si quieres ver casos parecidos al tuyo, escríbenos y te mostramos más.',
+    link: { text: 'sección Proyectos', href: '/#proyectos' },
   },
   {
-    question: '¿Qué hace diferente a Novasore de otras agencias?',
+    question: '¿Qué hace diferente a Novasore?',
     answer:
-      'Nuestro enfoque combina creatividad, tecnología y estrategia. No solo creamos sitios web bonitos, sino plataformas que impulsan resultados reales, con una experiencia de usuario optimizada y un soporte que acompaña el crecimiento de tu marca.',
+      'No solo hacemos sitios bonitos: construimos herramientas que trabajan por tu negocio, desde páginas que convierten visitas en clientes hasta chatbots y automatizaciones que te ahorran tiempo. Y trabajas directamente con quien desarrolla tu proyecto.',
   },
-] as const;
+];

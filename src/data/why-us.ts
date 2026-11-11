@@ -1,32 +1,32 @@
 export const whyUsCards = [
   {
     icon: 'workspace_premium',
-    title: 'Equipo de expertos',
-    description: 'Profesionales dedicados con experiencia en diseño y desarrollo web de vanguardia.',
+    title: 'Trato directo',
+    description: 'Hablas con quien diseña y desarrolla tu proyecto, sin intermediarios.',
   },
   {
     icon: 'diversity_3',
-    title: 'Enfoque centrado en el cliente',
-    description: 'Soluciones personalizadas para satisfacer necesidades únicas y superar expectativas.',
+    title: 'Soluciones a tu medida',
+    description: 'Partimos de lo que necesita tu negocio, no de una plantilla.',
   },
   {
     icon: 'verified',
-    title: 'Experiencia comprobada',
-    description: 'Años entregando soluciones web impactantes en diversas industrias.',
+    title: 'Tecnología actual',
+    description: 'Sitios rápidos, seguros y fáciles de mantener.',
   },
   {
     icon: 'schedule',
-    title: 'Entrega oportuna',
-    description: 'Cumplimos plazos de forma constante sin comprometer la calidad ni la precisión.',
+    title: 'Plazos claros',
+    description: 'Desde el inicio sabes cuánto tarda tu proyecto y en qué etapa está.',
   },
   {
     icon: 'devices',
-    title: 'Soluciones responsivas',
-    description: 'Rendimiento perfecto en todos los dispositivos para una experiencia óptima.',
+    title: 'Funciona en cualquier pantalla',
+    description: 'Tu sitio se ve y funciona bien en celulares, tablets y computadoras.',
   },
   {
     icon: 'forum',
     title: 'Comunicación transparente',
-    description: 'Comunicación clara y abierta durante cada etapa de tu proyecto.',
+    description: 'Te mantenemos al tanto en cada etapa del proyecto.',
   },
 ] as const;

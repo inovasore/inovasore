@@ -1,28 +1,30 @@
 ---
-// Bloque "¡AUMENTA TU PRESENCIA ONLINE…" con relleno de texto ligado al scroll.
+// Bloque "SOLUCIONES A MEDIDA…" con relleno de texto ligado al scroll.
+// "SIN LÍMITES." toma el degradado de los títulos cuando su línea termina
+// de rellenarse (el script marca la línea con data-filled).
 // Extraído de Services.astro sin cambios de diseño ni de animación.
 // Se usa en el inicio (tras ServicesScroll) y dentro de Services.astro (/servicios).
 ---
 
-<div class="scroll-reveal-container">
+<div class="container scroll-reveal-container">
   <p class="scroll-reveal-text">
     <span
       class="scroll-line reveal"
       data-line="1"
       style="--reveal-delay:.08s;--reveal-duration:.55s;--reveal-distance:14px"
-      >¡AUMENTA TU PRESENCIA ONLINE Y</span
-    >
+      >SOLUCIONES A MEDIDA</span
+    >{" "}
     <span
       class="scroll-line reveal"
       data-line="2"
       style="--reveal-delay:.16s;--reveal-duration:.55s;--reveal-distance:14px"
-      >CONÉCTATE CON LO QUE REALMENTE</span
-    >
+      >PARA QUE TU NEGOCIO</span
+    >{" "}
     <span
       class="scroll-line reveal"
       data-line="3"
       style="--reveal-delay:.24s;--reveal-duration:.55s;--reveal-distance:14px"
-      >IMPORTA PARA TU NEGOCIO!</span
+      >AVANCE <span class="highlight">SIN LÍMITES.</span></span
     >
   </p>
 </div>
@@ -64,6 +66,7 @@
         lineProgress = Math.min(Math.max(lineProgress, 0), 1);
 
         line.style.setProperty("--line-progress", `${lineProgress * 100}%`);
+        line.toggleAttribute("data-filled", lineProgress >= 1);
       });
     };
 
@@ -77,17 +80,19 @@
 
 <style>
   .scroll-reveal-container {
-    margin-top: clamp(60px, 12vh, 100px);
-    margin-bottom: clamp(40px, 8vh, 60px);
-    width: 100%;
+    margin-top: clamp(48px, 9vh, 80px);
+    margin-bottom: clamp(32px, 6vh, 48px);
     display: flex;
     justify-content: center;
-    padding: 0 clamp(20px, 4vw, 40px);
   }
 
+  /* Excepción a la escala tipográfica: frase decorativa a gran tamaño.
+     Cada línea ocupa ~70% del contenedor en escritorio y cabe en un
+     renglón a 375px. */
   .scroll-reveal-text {
-    font-size: var(--text-h2);
-    line-height: 1.3; /* Interlineado más amplio */
+    font-size: clamp(1.75rem, 0.6rem + 4.9vw, 5rem);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
     font-weight: 700;
     text-align: center;
     max-width: 100%;
@@ -95,7 +100,6 @@
     text-transform: uppercase;
     display: flex;
     flex-direction: column;
-    gap: 0.1em;
   }
 
   .scroll-line {
@@ -111,5 +115,27 @@
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    white-space: nowrap;
+  }
+
+  /* El degradado entra de izquierda a derecha al completarse la línea;
+     antes, el texto muestra el relleno blanco de la línea. */
+  .scroll-line .highlight {
+    background: linear-gradient(90deg, #26d2f8, #23b2ff, #0973e1 70%, #3b5bff)
+      0 0 / 0% 100% no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    transition: background-size 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .scroll-line[data-filled] .highlight {
+    background-size: 100% 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-line .highlight {
+      transition: none;
+    }
   }
 </style>

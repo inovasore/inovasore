@@ -23,14 +23,14 @@ const repeats = Array.from({ length: 12 });
 <div class:list={["ribbon", className]}>
   <div class:list={["ribbon__track", { "ribbon__track--reverse": reverse }]}>
     {
-      repeats.map(() =>
+      repeats.map((_, i) =>
         reverse ? (
-          <span class="ribbon__text">
+          <span class="ribbon__text" aria-hidden={i > 0 ? "true" : undefined}>
             <span class="ribbon__highlight">• {label} •</span>
             {until}
           </span>
         ) : (
-          <span class="ribbon__text">
+          <span class="ribbon__text" aria-hidden={i > 0 ? "true" : undefined}>
             <span class="ribbon__highlight">{label}</span>• {until} •
           </span>
         ),

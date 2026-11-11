@@ -1,8 +1,8 @@
 import type { ImageMetadata } from 'astro';
 import imgGeniusVideo from '../assets/works/paginas-web-ambato.webp';
-import imgPitagoras from '../assets/works/marketing-digital-ambato.webp';
+import imgPitagoras from '../assets/works/pitagoras-preuniversitario.webp';
 import imgIphone from '../assets/works/automatizacion-ambato.webp';
-import imgIducation from '../assets/works/agencia-de-marketing-digital-ambato.webp';
+import imgIducation from '../assets/works/iducation.webp';
 import imgEmnens from '../assets/works/diseño-grafico-ambato.webp';
 
 export interface Project {
@@ -47,6 +47,7 @@ export const projects: readonly Project[] = [
     href: '/portafolio',
   },
   {
+    // TODO: Aclarar nombre/descripción: el título no coincide con 'programa para emprendedores'.
     title: 'Proveedores de iPhone',
     category: 'Landing page',
     description:

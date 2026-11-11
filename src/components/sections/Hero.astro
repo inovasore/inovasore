@@ -55,7 +55,7 @@ const [primaryWork, ...secondaryWorks] = works;
               stroke-linejoin="round"></path>
           </svg>
         </span>
-        Iniciar Proyecto
+        Cotizar mi proyecto
       </a>
     </div>
   </div>
@@ -63,8 +63,8 @@ const [primaryWork, ...secondaryWorks] = works;
     <div class="carousel__track" tabindex="-1">
       <figure class="carousel__item">
         <Image
-          src={primaryWork}
-          alt="Proyecto destacado 1"
+          src={primaryWork.src}
+          alt={primaryWork.alt}
           loading="eager"
           decoding="async"
           fetchpriority="high"
@@ -73,11 +73,11 @@ const [primaryWork, ...secondaryWorks] = works;
         />
       </figure>
       {
-        secondaryWorks.map((src, i) => (
+        secondaryWorks.map((work) => (
           <figure class="carousel__item">
             <Image
-              src={src}
-              alt={`Proyecto ${i + 2}`}
+              src={work.src}
+              alt={work.alt}
               loading="lazy"
               decoding="async"
               width={440}

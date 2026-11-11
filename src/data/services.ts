@@ -22,14 +22,14 @@
     ],
   },
   {
-    title: 'Marketing digital & estrategia de marca',
+    title: 'Automatizaciones y chatbots con IA',
     summary:
-      'Impulsamos tu presencia online con estrategias creativas y campañas que conectan con tu público ideal y obtienen resultados medibles.',
+      'Automatizamos las tareas repetitivas de tu negocio y creamos asistentes que atienden a tus clientes 24/7 en WhatsApp y en tu web.',
     bullets: [
-      'Diseño de publicaciones para redes sociales.',
-      'Campañas publicitarias (Meta Ads, Google Ads, TikTok Ads).',
-      'Branding e identidad visual.',
-      'Análisis y optimización de resultados.',
+      'Chatbots para WhatsApp.',
+      'Asistentes con IA.',
+      'Flujos de trabajo automáticos.',
+      'Integración entre herramientas.',
     ],
   },
 ] as const;
@@ -57,26 +57,13 @@ export const featuredServices = [
     link: '/servicios',
   },
   {
-    title: 'SEO & Publicidad Digital (Ads)',
+    title: 'Correo Empresarial y SEO',
     description:
-      'Domina los buscadores y maximiza tu ROI. Combinamos SEO para aparecer primero en Google con campañas estratégicas.',
+      'Correos con el nombre de tu marca y un sitio optimizado para que tus clientes te encuentren en Google.',
     icon: 'trending_up',
     link: '/servicios',
   },
 ] as const;
-
-export const extraServices = [
-  { icon: 'view_week', label: 'Diseño de publicaciones sociales' },
-  { icon: 'bolt', label: 'Automatización de flujos' },
-  { icon: 'inventory_2', label: 'Diseño de empaques' },
-  { icon: 'apps', label: 'SEO' },
-  { icon: 'description', label: 'Redacción de contenidos' },
-  { icon: 'brush', label: 'Diseño de logotipos' },
-  { icon: 'campaign', label: 'Gestión de campañas' },
-  { icon: 'palette', label: 'Brand guidelines' },
-] as const;
-
-export const marqueeServices = [...extraServices, ...extraServices] as const;
 
 /* ------------------------------------------------------------------------ */
 /* Servicios del estudio (fuente única para ServicesScroll y el header).    */
