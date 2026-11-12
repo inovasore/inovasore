@@ -82,6 +82,7 @@ const variantWidths = (max: number) =>
                 class="pcard__img"
               />
 
+              <div class="pcard__foot">
               <div class="pcard__bar">
                 <div class="pcard__info">
                   <h3 class="pcard__heading">
@@ -95,6 +96,7 @@ const variantWidths = (max: number) =>
                     <li class="pcard__chip">{chip}</li>
                   ))}
                 </ul>
+              </div>
               </div>
 
               <span class="pcard__shade" aria-hidden="true" />
@@ -246,6 +248,15 @@ const variantWidths = (max: number) =>
       }).observe(section);
 
       finePointer.addEventListener("change", () => update(visible));
+
+      // Al salir de la página o volver con "Atrás" (caché del navegador),
+      // al cambiar de pestaña o de ventana, la pastilla queda oculta: solo
+      // reaparece con un movimiento real del puntero sobre la imagen.
+      const reset = () => hide();
+      window.addEventListener("pagehide", reset);
+      window.addEventListener("pageshow", reset);
+      window.addEventListener("blur", reset);
+      document.addEventListener("visibilitychange", reset);
     }
   </script>
 
@@ -388,22 +399,55 @@ const variantWidths = (max: number) =>
       object-position: 50% 0; /* capturas de sitios: priorizar la parte superior */
     }
 
-    /* Barra glass inferior (skill apple-design §12) */
-    .pcard__bar {
+    /* Pie de la tarjeta: capa oscura suave (degradado desde abajo) y,
+       encima, la barra de vidrio. La capa va en ::before del pie, que se
+       pinta antes que la barra, así el blur de la barra la incluye: el
+       vidrio toma el color de la imagen pero oscurecido lo justo para que
+       el texto blanco cumpla 4.5:1 incluso sobre una imagen blanca.
+       Cálculo para una imagen blanca: capa 0.5 × tinte 0.28 → fondo
+       efectivo ≈ #5c5c5c (texto blanco 6.7:1; categoría 0.8 → 5:1). */
+    .pcard__foot {
+      --foot-pad: 14px;
+      --scrim-fade: 96px;
+      /* El blur de la barra toma color hasta ~2× su radio fuera de ella:
+         por eso la capa ya es plena 48px por encima de la barra. */
+      --scrim-solid: 48px;
       position: absolute;
-      inset: auto 14px 14px;
+      inset: auto 0 0;
       z-index: 2;
+      padding: 0 var(--foot-pad) var(--foot-pad);
+    }
+
+    .pcard__foot::before {
+      content: "";
+      position: absolute;
+      inset: calc(-1 * (var(--scrim-fade) + var(--scrim-solid))) 0 0;
+      background: linear-gradient(
+        to bottom,
+        rgb(0 0 0 / 0) 0,
+        rgb(0 0 0 / 0.5) var(--scrim-fade)
+      );
+      pointer-events: none;
+    }
+
+    /* Barra glass (skill apple-design §12): tinte oscuro leve, blur fuerte
+       que toma el color de la imagen, borde fino y brillo en el borde
+       superior. */
+    .pcard__bar {
+      position: relative;
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto;
       align-items: end;
       gap: 12px 24px;
       padding: 18px 22px;
       border-radius: clamp(14px, 1.6vw, 20px);
-      border: 1px solid rgb(255 255 255 / 0.14);
-      /* 0.7 de opacidad: ≥ 4.5:1 de contraste incluso sobre una imagen blanca */
-      background: rgb(10 14 28 / 0.7);
-      -webkit-backdrop-filter: blur(18px) saturate(160%);
-      backdrop-filter: blur(18px) saturate(160%);
+      border: 1px solid rgb(255 255 255 / 0.16);
+      background: rgb(12 12 14 / 0.28);
+      box-shadow:
+        inset 0 1px 0 rgb(255 255 255 / 0.28),
+        0 12px 32px -12px rgb(0 0 0 / 0.45);
+      -webkit-backdrop-filter: blur(24px) saturate(160%);
+      backdrop-filter: blur(24px) saturate(160%);
     }
 
     .pcard__heading {
@@ -424,7 +468,7 @@ const variantWidths = (max: number) =>
     .pcard__category {
       font-size: var(--text-small);
       letter-spacing: var(--tracking-small);
-      color: #d7deea;
+      color: rgb(255 255 255 / 0.8);
     }
 
     .pcard__desc {
@@ -432,7 +476,7 @@ const variantWidths = (max: number) =>
       max-width: 62ch;
       font-size: var(--text-body);
       line-height: 1.5;
-      color: #e2e8f0;
+      color: rgb(255 255 255 / 0.92);
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
@@ -450,10 +494,16 @@ const variantWidths = (max: number) =>
       max-width: 420px;
     }
 
+    /* Chips: vidrio claro sobre la barra (fondo blanco muy transparente,
+       borde fino y brillo superior). Sin backdrop-filter propio: dentro de
+       la barra solo verían el fondo ya desenfocado de esta, así que no
+       cambiaría nada y costaría rendimiento. */
     .pcard__chip {
       padding: 6px 12px;
-      border: 1px solid rgb(255 255 255 / 0.32);
+      border: 1px solid rgb(255 255 255 / 0.22);
       border-radius: 999px;
+      background: rgb(255 255 255 / 0.12);
+      box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.2);
       font-size: var(--text-small);
       line-height: var(--leading-snug);
       color: #fff;
@@ -462,9 +512,12 @@ const variantWidths = (max: number) =>
 
     /* Tarjetas angostas (móvil): chips debajo del texto */
     @container (max-width: 720px) {
+      .pcard__foot {
+        --foot-pad: 10px;
+      }
+
       .pcard__bar {
         grid-template-columns: minmax(0, 1fr);
-        inset: auto 10px 10px;
         padding: 14px 16px;
       }
 
@@ -605,12 +658,16 @@ const variantWidths = (max: number) =>
       }
     }
 
-    /* Transparencia reducida: barra sólida */
-    @media (prefers-reduced-transparency: reduce) {
+    /* Transparencia reducida o más contraste: barra oscura sólida, sin blur */
+    @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
       .pcard__bar {
-        background: rgb(10 14 28 / 0.94);
+        background: rgb(14 14 18 / 0.96);
         -webkit-backdrop-filter: none;
         backdrop-filter: none;
+      }
+
+      .pcard__chip {
+        background: rgb(255 255 255 / 0.1);
       }
     }
 
