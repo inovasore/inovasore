@@ -23,5 +23,8 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
-# Lighthouse raw reports (pesados; el resumen sí se versiona)
-docs/lighthouse/**/raw/
+
+# Herramientas locales (no se publican): skills de Claude, auditorías y scripts de Lighthouse
+.claude/
+docs/lighthouse/
+scripts/lighthouse/
