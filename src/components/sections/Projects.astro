@@ -380,6 +380,28 @@ const variantWidths = (max: number) =>
       container-type: inline-size;
     }
 
+    /* Malla fina de "vidrio cuadriculado" sobre toda la tarjeta (imagen y
+       barra). Se integra con los colores de cada imagen (overlay, que se
+       nota más en tonos medios: por eso se marca más sobre la barra), no
+       recibe el puntero y queda por debajo de la pastilla "Ver proyecto". */
+    .pcard::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      border-radius: inherit;
+      background-image:
+        /* Líneas con borde suave (se desvanecen en 1px): en pantallas con
+           escala no entera (1.25, 1.5, 2.625…) evitan líneas de grosor
+           desigual y el efecto moiré. */
+        linear-gradient(to right, #fff 0, transparent 1px),
+        linear-gradient(to bottom, #fff 0, transparent 1px);
+      background-size: var(--mesh, 4px) var(--mesh, 4px);
+      opacity: var(--mesh-card, 0.1);
+      mix-blend-mode: overlay;
+      pointer-events: none;
+    }
+
     .pcard:focus-visible {
       outline: 3px solid var(--color-primary);
       outline-offset: 4px;
@@ -399,40 +421,21 @@ const variantWidths = (max: number) =>
       object-position: 50% 0; /* capturas de sitios: priorizar la parte superior */
     }
 
-    /* Pie de la tarjeta: capa oscura suave (degradado desde abajo) y,
-       encima, la barra de vidrio. La capa va en ::before del pie, que se
-       pinta antes que la barra, así el blur de la barra la incluye: el
-       vidrio toma el color de la imagen pero oscurecido lo justo para que
-       el texto blanco cumpla 4.5:1 incluso sobre una imagen blanca.
-       Cálculo para una imagen blanca: capa 0.5 × tinte 0.28 → fondo
-       efectivo ≈ #5c5c5c (texto blanco 6.7:1; categoría 0.8 → 5:1). */
+    /* Pie de la tarjeta: contiene la barra de vidrio */
     .pcard__foot {
       --foot-pad: 14px;
-      --scrim-fade: 96px;
-      /* El blur de la barra toma color hasta ~2× su radio fuera de ella:
-         por eso la capa ya es plena 48px por encima de la barra. */
-      --scrim-solid: 48px;
       position: absolute;
       inset: auto 0 0;
       z-index: 2;
       padding: 0 var(--foot-pad) var(--foot-pad);
     }
 
-    .pcard__foot::before {
-      content: "";
-      position: absolute;
-      inset: calc(-1 * (var(--scrim-fade) + var(--scrim-solid))) 0 0;
-      background: linear-gradient(
-        to bottom,
-        rgb(0 0 0 / 0) 0,
-        rgb(0 0 0 / 0.5) var(--scrim-fade)
-      );
-      pointer-events: none;
-    }
-
-    /* Barra glass (skill apple-design §12): tinte oscuro leve, blur fuerte
-       que toma el color de la imagen, borde fino y brillo en el borde
-       superior. */
+    /* Barra glass (skill apple-design §12): gris translúcido medio que deja
+       ver el color de cada imagen. En vez de oscurecer con una capa negra,
+       el propio vidrio comprime los tonos de lo que tiene detrás hacia un
+       gris medio (contrast + brightness): una imagen blanca queda en un
+       gris medio (≈ #5f5f5f) y una negra en gris oscuro (≈ #373737), así el texto blanco
+       cumple ≥ 4.5:1 sobre cualquier imagen sin que la barra se vea negra. */
     .pcard__bar {
       position: relative;
       display: grid;
@@ -441,13 +444,16 @@ const variantWidths = (max: number) =>
       gap: 12px 24px;
       padding: 18px 22px;
       border-radius: clamp(14px, 1.6vw, 20px);
-      border: 1px solid rgb(255 255 255 / 0.16);
-      background: rgb(12 12 14 / 0.28);
+      border: 1px solid rgb(255 255 255 / 0.2);
+      background: rgb(255 255 255 / var(--bar-tint, 0.04));
       box-shadow:
-        inset 0 1px 0 rgb(255 255 255 / 0.28),
-        0 12px 32px -12px rgb(0 0 0 / 0.45);
-      -webkit-backdrop-filter: blur(24px) saturate(160%);
-      backdrop-filter: blur(24px) saturate(160%);
+        inset 0 1px 0 rgb(255 255 255 / 0.32),
+        0 12px 32px -12px rgb(0 0 0 / 0.35);
+      text-shadow: 0 1px 2px rgb(0 0 0 / 0.3);
+      -webkit-backdrop-filter: blur(24px) contrast(var(--bar-c, 0.31))
+        brightness(var(--bar-b, 0.53)) saturate(170%);
+      backdrop-filter: blur(24px) contrast(var(--bar-c, 0.31))
+        brightness(var(--bar-b, 0.53)) saturate(170%);
     }
 
     .pcard__heading {
@@ -468,7 +474,7 @@ const variantWidths = (max: number) =>
     .pcard__category {
       font-size: var(--text-small);
       letter-spacing: var(--tracking-small);
-      color: rgb(255 255 255 / 0.8);
+      color: rgb(255 255 255 / 0.9);
     }
 
     .pcard__desc {
@@ -500,9 +506,9 @@ const variantWidths = (max: number) =>
        cambiaría nada y costaría rendimiento. */
     .pcard__chip {
       padding: 6px 12px;
-      border: 1px solid rgb(255 255 255 / 0.22);
+      border: 1px solid rgb(255 255 255 / 0.26);
       border-radius: 999px;
-      background: rgb(255 255 255 / 0.12);
+      background: rgb(255 255 255 / 0.04);
       box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.2);
       font-size: var(--text-small);
       line-height: var(--leading-snug);
@@ -535,7 +541,7 @@ const variantWidths = (max: number) =>
     .pcard__shade {
       position: absolute;
       inset: 0;
-      z-index: 3;
+      z-index: 4;
       background: #000;
       opacity: 0;
       pointer-events: none;
@@ -546,7 +552,7 @@ const variantWidths = (max: number) =>
       position: absolute;
       left: 50%;
       top: 42%;
-      z-index: 4;
+      z-index: 5;
       display: inline-flex;
       align-items: center;
       gap: 8px;
@@ -658,16 +664,17 @@ const variantWidths = (max: number) =>
       }
     }
 
-    /* Transparencia reducida o más contraste: barra oscura sólida, sin blur */
+    /* Transparencia reducida o más contraste: barra gris medio sólida, sin blur */
     @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
       .pcard__bar {
-        background: rgb(14 14 18 / 0.96);
+        /* gris medio sólido: blanco 6.3:1 */
+        background: #5c6066;
         -webkit-backdrop-filter: none;
         backdrop-filter: none;
       }
 
       .pcard__chip {
-        background: rgb(255 255 255 / 0.1);
+        background: rgb(255 255 255 / 0.03);
       }
     }
 
