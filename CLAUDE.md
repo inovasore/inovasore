@@ -1,4 +1,4 @@
-# Novasore (antes Inovasore) — sitio en Astro
+# Novasore — sitio en Astro
 
 ## Cómo trabajar en este proyecto
 
