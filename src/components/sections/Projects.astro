@@ -430,12 +430,9 @@ const variantWidths = (max: number) =>
       padding: 0 var(--foot-pad) var(--foot-pad);
     }
 
-    /* Barra glass (skill apple-design §12): gris translúcido medio que deja
-       ver el color de cada imagen. En vez de oscurecer con una capa negra,
-       el propio vidrio comprime los tonos de lo que tiene detrás hacia un
-       gris medio (contrast + brightness): una imagen blanca queda en un
-       gris medio (≈ #5f5f5f) y una negra en gris oscuro (≈ #373737), así el texto blanco
-       cumple ≥ 4.5:1 sobre cualquier imagen sin que la barra se vea negra. */
+    /* Barra glass (skill apple-design §12): negro al 75 % con blur, deja
+       ver un poco de la imagen. Sobre una imagen blanca el fondo efectivo
+       es ≈ #404040 (con la malla ≈ #464646): texto blanco ≥ 9:1. */
     .pcard__bar {
       position: relative;
       display: grid;
@@ -445,15 +442,13 @@ const variantWidths = (max: number) =>
       padding: 18px 22px;
       border-radius: clamp(14px, 1.6vw, 20px);
       border: 1px solid rgb(255 255 255 / 0.2);
-      background: rgb(255 255 255 / var(--bar-tint, 0.04));
+      background: rgb(0 0 0 / 0.75);
       box-shadow:
         inset 0 1px 0 rgb(255 255 255 / 0.32),
         0 12px 32px -12px rgb(0 0 0 / 0.35);
       text-shadow: 0 1px 2px rgb(0 0 0 / 0.3);
-      -webkit-backdrop-filter: blur(24px) contrast(var(--bar-c, 0.31))
-        brightness(var(--bar-b, 0.53)) saturate(170%);
-      backdrop-filter: blur(24px) contrast(var(--bar-c, 0.31))
-        brightness(var(--bar-b, 0.53)) saturate(170%);
+      -webkit-backdrop-filter: blur(24px) saturate(160%);
+      backdrop-filter: blur(24px) saturate(160%);
     }
 
     .pcard__heading {
@@ -664,11 +659,10 @@ const variantWidths = (max: number) =>
       }
     }
 
-    /* Transparencia reducida o más contraste: barra gris medio sólida, sin blur */
+    /* Transparencia reducida o más contraste: barra oscura sólida, sin blur */
     @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
       .pcard__bar {
-        /* gris medio sólido: blanco 6.3:1 */
-        background: #5c6066;
+        background: rgb(14 14 18 / 0.96);
         -webkit-backdrop-filter: none;
         backdrop-filter: none;
       }
