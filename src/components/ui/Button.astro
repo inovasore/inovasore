@@ -1,0 +1,138 @@
+---
+/**
+ * Botón en forma de píldora, reutilizable en cualquier sección.
+ * - variant "primary": fondo degradado azul y texto blanco.
+ * - variant "secondary": fondo casi transparente con borde azul de acento.
+ * - arrow: muestra una flecha ">" a la derecha del texto; en hover se
+ *   desplaza un poco a la derecha.
+ * Altura mínima de 48px (área táctil ≥ 44×44) y foco visible con teclado.
+ */
+interface Props {
+  href: string;
+  variant?: "primary" | "secondary";
+  arrow?: boolean;
+  class?: string;
+  style?: string;
+  [key: string]: unknown;
+}
+
+const {
+  href,
+  variant = "primary",
+  arrow = false,
+  class: className,
+  ...rest
+} = Astro.props;
+---
+
+<a href={href} class:list={["ui-btn", `ui-btn--${variant}`, className]} {...rest}>
+  <span class="ui-btn__label"><slot /></span>
+  {
+    arrow && (
+      <svg
+        class="ui-btn__arrow"
+        width="18"
+        height="18"
+        viewBox="0 0 20 20"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M7.5 5L12.5 10L7.5 15"
+          stroke="currentColor"
+          stroke-width="2.25"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    )
+  }
+</a>
+
+<style>
+  .ui-btn {
+    --btn-h: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: var(--btn-h);
+    min-width: 44px;
+    padding: 0 24px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    font-size: var(--text-body);
+    line-height: 1;
+    letter-spacing: var(--tracking-body);
+    font-weight: 500;
+    color: #fff;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      scale 0.18s cubic-bezier(0.2, 0.7, 0.2, 1),
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .ui-btn:active {
+    scale: 0.97;
+  }
+
+  .ui-btn:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 3px;
+  }
+
+  /* Principal: degradado del acento a un azul más intenso */
+  .ui-btn--primary {
+    padding-right: 18px;
+    background: linear-gradient(90deg, #1b56fd 0%, #133db4 100%);
+    box-shadow: 0 4px 14px rgba(27, 86, 253, 0.3);
+  }
+
+  .ui-btn--primary:hover {
+    box-shadow: 0 8px 22px rgba(27, 86, 253, 0.42);
+  }
+
+  .ui-btn__arrow {
+    flex: none;
+    transition: translate 0.22s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .ui-btn:hover .ui-btn__arrow,
+  .ui-btn:focus-visible .ui-btn__arrow {
+    translate: 3px 0;
+  }
+
+  /* Secundario: oscuro muy sutil y borde fino de acento */
+  .ui-btn--secondary {
+    background-color: rgba(27, 86, 253, 0.06);
+    border-color: var(--color-primary);
+  }
+
+  .ui-btn--secondary:hover {
+    background-color: rgba(27, 86, 253, 0.2);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ui-btn,
+    .ui-btn__arrow {
+      transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+    .ui-btn:active {
+      scale: none;
+    }
+
+    .ui-btn:hover .ui-btn__arrow,
+    .ui-btn:focus-visible .ui-btn__arrow {
+      translate: none;
+    }
+  }
+</style>

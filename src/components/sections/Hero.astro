@@ -1,6 +1,7 @@
 ﻿---
 import { heroContent } from "../../data/hero";
 import { Image } from "astro:assets";
+import Button from "../ui/Button.astro";
 
 const { title, tagline, subtitle, works } = heroContent;
 const [primaryWork, ...secondaryWorks] = works;
@@ -34,29 +35,23 @@ const [primaryWork, ...secondaryWorks] = works;
     </p>
 
     <div class="hero__actions">
-      <a
-        class="btn-hero-primary enter"
+      <Button
         href="/contacto"
+        arrow
+        class="enter"
         style="--enter-delay:.34s;--enter-duration:.45s;--enter-distance:10px"
       >
-        <span class="btn-icon-circle">
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M7.5 5L12.5 10L7.5 15"
-              stroke="currentColor"
-              stroke-width="2.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"></path>
-          </svg>
-        </span>
-        Cotizar mi proyecto
-      </a>
+        Cotizar proyecto
+      </Button>
+      <Button
+        href="#servicios"
+        variant="secondary"
+        class="enter"
+        data-smooth-anchor
+        style="--enter-delay:.4s;--enter-duration:.45s;--enter-distance:10px"
+      >
+        Servicios
+      </Button>
     </div>
   </div>
   <div class="carousel carousel--auto" data-speed="35">
@@ -286,6 +281,23 @@ const [primaryWork, ...secondaryWorks] = works;
   }
 
   document.addEventListener("astro:page-load", scheduleCarousels);
+
+  // "Servicios": desplazamiento suave hasta #servicios (usa su
+  // scroll-margin-top para no quedar bajo el header). Sin animación si el
+  // usuario pidió reducir el movimiento.
+  document.addEventListener("click", (event) => {
+    const link = (event.target as Element | null)?.closest<HTMLAnchorElement>(
+      "a[data-smooth-anchor]",
+    );
+    if (!link) return;
+    const hash = link.getAttribute("href") ?? "";
+    const target = hash.startsWith("#") ? document.querySelector(hash) : null;
+    if (!target) return;
+    event.preventDefault();
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    target.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    history.pushState(null, "", hash);
+  });
 </script>
 
 <style>
@@ -383,57 +395,19 @@ const [primaryWork, ...secondaryWorks] = works;
     align-items: center;
     justify-content: center;
     gap: 1rem;
+    flex-wrap: wrap;
     margin-bottom: clamp(45px, 8vh, 75px);
   }
 
-  .btn-hero-primary {
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 10px !important;
-    padding: 12px 22px 12px 16px !important;
-    border-radius: 999px !important;
-    background: linear-gradient(90deg, #1b56fd 0%, #133db4 100%) !important;
-    color: #fff !important;
-    text-decoration: none !important;
-    font-weight: 500 !important;
-    font-size: var(--text-hero-body) !important;
-    transition:
-      transform 0.2s ease,
-      box-shadow 0.2s ease !important;
-    box-shadow: 0 4px 12px rgba(27, 86, 253, 0.3) !important;
-    border: none !important;
-  }
-
-  .btn-hero-primary:hover {
-    transform: translateY(-2px) !important;
-    box-shadow: 0 8px 20px rgba(27, 86, 253, 0.4) !important;
-    background: linear-gradient(90deg, #1b56fd 0%, #133db4 100%) !important;
-  }
-
-  .btn-hero-primary:active {
-    transform: translateY(0) !important;
-  }
-
-  .btn-icon-circle {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.15);
-    transition:
-      background 0.3s ease,
-      box-shadow 0.3s ease,
-      transform 0.3s ease;
-  }
-
-  .btn-icon-circle svg {
-    transition: transform 0.2s ease;
-  }
-
-  .btn-hero-primary:hover .btn-icon-circle {
-    background: rgba(255, 255, 255, 0.25);
+  /* Móvil vertical estrecho: uno debajo del otro y del mismo ancho */
+  @media (max-width: 374px) {
+    .hero__actions {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+      width: min(100%, 320px);
+      margin-inline: auto;
+    }
   }
 
   @media (max-width: 768px) {
@@ -459,12 +433,6 @@ const [primaryWork, ...secondaryWorks] = works;
       font-size: 1rem;
     }
 
-    .hero__actions {
-      flex-direction: column;
-      gap: 0.55rem;
-      align-items: center;
-      margin-inline: auto;
-    }
 
   }
 
