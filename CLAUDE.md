@@ -14,7 +14,7 @@
 
 ## Commits
 
-- Autor de los commits: "Jefferson Reinoso" (`git config user.name` local de este repositorio), con el correo ya configurado (`novasoreec@gmail.com`) para que GitHub los vincule a la cuenta.
+- Autor de los commits: "Novasore" (`git config user.name` local de este repositorio), con el correo ya configurado (`novasoreec@gmail.com`) para que GitHub los vincule a la cuenta.
 - No agregar la línea "Co-Authored-By: Claude" ni otra atribución a Claude en los mensajes de commit ni en los pull requests (desactivado también en `.claude/settings.json`).
 
 ## Entorno

@@ -1,6 +1,6 @@
 # Novasore
 
-Sitio del estudio Novasore (antes Inovasore): desarrollo de sitios web, aplicaciones web, automatizaciones y chatbots. Está hecho con Astro 7 y se genera como sitio estático.
+Sitio del estudio Novasore: desarrollo de sitios web, aplicaciones web, automatizaciones y chatbots. Está hecho con Astro 7 y se genera como sitio estático.
 
 Requiere **Node 22.23.4 o más nuevo**.
 
@@ -23,7 +23,7 @@ src/
   components/
     layout/             Header y Footer
     sections/           Secciones de las páginas (Hero, ServicesScroll, Projects, FAQ…)
-    ui/                 Piezas reutilizables (Ribbon)
+    ui/                 Piezas reutilizables (Button, LiteYouTube, Ribbon)
     seo/                SEO.astro: meta, Open Graph y JSON-LD
   pages/                Rutas del sitio
   styles/
