@@ -15,7 +15,7 @@ import { faqs } from "../../data/faqs";
       class="faq__title reveal"
       style="--reveal-delay:.12s;--reveal-duration:.55s;--reveal-distance:12px"
     >
-      Resolvemos tus <span class="highlight">dudas antes de empezar</span>
+      Resolvemos tus <span class="highlight text-gradient">dudas antes de empezar</span>
     </h2>
 
     <p
@@ -80,18 +80,6 @@ import { faqs } from "../../data/faqs";
       letter-spacing: var(--tracking-h2);
     }
 
-    .faq__title .highlight {
-      background-image: linear-gradient(
-        90deg,
-        #26d2f8 0%,
-        #23b2ff 35%,
-        #0973e1 70%,
-        #3b5bff 100%
-      );
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
 
     .faq__subtitle {
       color: color-mix(in oklab, var(--color-text) 62%, transparent);

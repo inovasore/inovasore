@@ -22,7 +22,7 @@ const { offsetTop = "0px" } = Astro.props;
       class="services__title enter"
       style="--enter-delay:.12s;--enter-duration:.55s;--enter-distance:12px"
     >
-      Soluciones digitales <span class="highlight">que hacen crecer tu negocio</span>
+      Soluciones digitales <span class="highlight text-gradient">que hacen crecer tu negocio</span>
     </h2>
 
     <p
@@ -127,19 +127,6 @@ const { offsetTop = "0px" } = Astro.props;
 
   .services__title .highlight {
     display: inline-block;
-    background-image: linear-gradient(
-      90deg,
-      #26d2f8 0%,
-      #23b2ff 35%,
-      #0973e1 70%,
-      #3b5bff 100%
-    );
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
   }
 
   .services__spotlight {

@@ -35,6 +35,7 @@
   | Contadores y microtexto | `--text-xs` | 13 px | 13 px |
 
   El hero del inicio usa `--text-hero-lead` y `--text-hero-body` para conservar sus tamaños.
+- **Texto destacado en los títulos**: siempre con la clase global `.text-gradient` de `global.css` (en secciones de fondo claro, añadir `.text-gradient--light`). No definir degradados ni colores propios para esas partes. Ambas variantes cumplen un contraste mínimo de 4.5:1. Si hace falta el degradado en otro contexto (por ejemplo, una animación), usar `var(--text-gradient)` o `var(--text-gradient-light)`.
 - Anchos: usar siempre el contenedor común de `src/styles/global.css` (`.container`, `.container--wide`, `.container--narrow`; variables `--container*` y `--gutter`). No definir anchos propios en los componentes.
 - Áreas táctiles de al menos 44×44 px: clase `.tap` (usa `::after`).
 - Datos del estudio (nombre, dominio, correo, WhatsApp, redes, promoción vigente): `src/config/site.ts`. No escribir esos datos a mano en los componentes.

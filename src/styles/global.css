@@ -130,6 +130,29 @@ body {
 }
 
 
+/* === Texto destacado en degradado (títulos) ===
+   Usar SIEMPRE esta clase en la parte destacada de un título.
+   Contraste mínimo 4.5:1 en todo el degradado (medido cada 0.5 %):
+   - .text-gradient: sobre negro (#000) 5.0:1.
+   - .text-gradient--light: para secciones claras; sobre #f6f7fb 5.2:1
+     y sobre #fff 5.5:1. */
+:root {
+  --text-gradient: linear-gradient(90deg, #26d2f8 0%, #23b2ff 35%, #0c7cec 70%, #5270ff 100%);
+  --text-gradient-light: linear-gradient(90deg, #0369a1 0%, #0862cf 35%, #1b56fd 70%, #1d43c8 100%);
+}
+
+.text-gradient {
+  background-image: var(--text-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient--light {
+  background-image: var(--text-gradient-light);
+}
+
 /* === Botones y utilidades globales === */
 .btn {
   background: var(--color-primary);

@@ -49,7 +49,7 @@ const variantWidths = (max: number) =>
       class="projects__title reveal"
       style="--reveal-delay:.14s;--reveal-duration:.55s;--reveal-distance:14px"
     >
-      Proyectos <span class="highlight">recientes</span>
+      Proyectos <span class="highlight text-gradient text-gradient--light">recientes</span>
     </h2>
     <p
       class="projects__subtitle reveal"
@@ -303,18 +303,6 @@ const variantWidths = (max: number) =>
       letter-spacing: var(--tracking-h2);
     }
 
-    .projects__title .highlight {
-      background-image: linear-gradient(
-        90deg,
-        #26d2f8,
-        #23b2ff,
-        #0973e1 70%,
-        #3b5bff
-      );
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
 
     .projects__subtitle {
       color: rgba(30, 30, 60, 0.65);
