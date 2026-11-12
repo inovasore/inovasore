@@ -656,8 +656,17 @@ const variantWidths = (max: number) =>
       }
     }
 
-    /* Transparencia reducida o más contraste: barra oscura sólida, sin blur */
-    @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+    /* Transparencia reducida: el mismo negro al 65 % pero sin blur. Sobre
+       una imagen blanca el fondo sigue siendo ≈ #595959 (texto ≥ 4.5:1). */
+    @media (prefers-reduced-transparency: reduce) {
+      .pcard__bar {
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+      }
+    }
+
+    /* Más contraste: barra oscura sólida, sin blur */
+    @media (prefers-contrast: more) {
       .pcard__bar {
         background: rgb(14 14 18 / 0.96);
         -webkit-backdrop-filter: none;
