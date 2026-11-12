@@ -1,6 +1,7 @@
 ﻿---
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/sections/Hero.astro";
+import Mission from "../components/sections/Mission.astro";
 import WhyUs from "../components/sections/WhyUs.astro";
 import ServicesScroll from "../components/sections/ServicesScroll.astro";
 import PresenceStatement from "../components/sections/PresenceStatement.astro";
@@ -34,6 +35,7 @@ const faqSchema = JSON.stringify({
   ogImage="/Web-Inovasore.webp"
 >
   <Hero />
+  <Mission />
   <!-- Fuera de .shared-bg-wrapper: su overflow:hidden rompería el sticky -->
   <ServicesScroll />
   <div class="shared-bg-wrapper">
