@@ -430,9 +430,9 @@ const variantWidths = (max: number) =>
       padding: 0 var(--foot-pad) var(--foot-pad);
     }
 
-    /* Barra glass (skill apple-design §12): negro al 75 % con blur, deja
-       ver un poco de la imagen. Sobre una imagen blanca el fondo efectivo
-       es ≈ #404040 (con la malla ≈ #464646): texto blanco ≥ 9:1. */
+    /* Barra glass (skill apple-design §12): negro al 65 % con blur, sin
+       borde, deja ver un poco de la imagen. Sobre una imagen blanca el fondo
+       efectivo es ≈ #595959: texto blanco ≥ 4.5:1. */
     .pcard__bar {
       position: relative;
       display: grid;
@@ -441,11 +441,8 @@ const variantWidths = (max: number) =>
       gap: 12px 24px;
       padding: 18px 22px;
       border-radius: clamp(14px, 1.6vw, 20px);
-      border: 1px solid rgb(255 255 255 / 0.2);
-      background: rgb(0 0 0 / 0.75);
-      box-shadow:
-        inset 0 1px 0 rgb(255 255 255 / 0.32),
-        0 12px 32px -12px rgb(0 0 0 / 0.35);
+      background: rgb(0 0 0 / 0.65);
+      box-shadow: 0 12px 32px -12px rgb(0 0 0 / 0.35);
       text-shadow: 0 1px 2px rgb(0 0 0 / 0.3);
       -webkit-backdrop-filter: blur(24px) saturate(160%);
       backdrop-filter: blur(24px) saturate(160%);
