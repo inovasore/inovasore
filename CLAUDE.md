@@ -12,6 +12,11 @@
 - No cambiar el diseño visual ni los textos de forma drástica sin consultar; si una etapa altera el diseño, avisar antes.
 - Si algo no está claro o hay una decisión importante, preguntar antes de seguir.
 
+## Commits
+
+- Autor de los commits: "Jefferson Reinoso" (`git config user.name` local de este repositorio), con el correo ya configurado (`novasoreec@gmail.com`) para que GitHub los vincule a la cuenta.
+- No agregar la línea "Co-Authored-By: Claude" ni otra atribución a Claude en los mensajes de commit ni en los pull requests (desactivado también en `.claude/settings.json`).
+
 ## Entorno
 
 - Astro 7 (compilador Rust, Vite 8). Requiere **Node ≥ 22.23.4** (`engines` en `package.json`); Vercel lo toma de ahí.
