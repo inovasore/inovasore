@@ -1,5 +1,5 @@
 ---
-// No props needed for this component
+import Icon from "../ui/Icon.astro";
 ---
 
 <section class="paginas-web-hero">
@@ -33,7 +33,7 @@
                 style="--enter-delay:.32s;--enter-duration:.45s;--enter-distance:12px"
             >
                 <div class="feature-icon">
-                    <span class="material-symbols-rounded">devices</span>
+                    <Icon name="devices" />
                 </div>
                 <h3 class="feature-title">Web Responsive al 100%</h3>
                 <p class="feature-description">
@@ -49,7 +49,7 @@
                 style="--enter-delay:.40s;--enter-duration:.45s;--enter-distance:12px"
             >
                 <div class="feature-icon">
-                    <span class="material-symbols-rounded">speed</span>
+                    <Icon name="speed" />
                 </div>
                 <h3 class="feature-title">Páginas Web Super Rápidas</h3>
                 <p class="feature-description">
@@ -65,7 +65,7 @@
                 style="--enter-delay:.48s;--enter-duration:.45s;--enter-distance:12px"
             >
                 <div class="feature-icon">
-                    <span class="material-symbols-rounded">palette</span>
+                    <Icon name="palette" />
                 </div>
                 <h3 class="feature-title">Diseños Únicos y Modernos</h3>
                 <p class="feature-description">
@@ -81,7 +81,7 @@
                 style="--enter-delay:.56s;--enter-duration:.45s;--enter-distance:12px"
             >
                 <div class="feature-icon">
-                    <span class="material-symbols-rounded">shield</span>
+                    <Icon name="shield" />
                 </div>
                 <h3 class="feature-title">La mejor Seguridad para Web</h3>
                 <p class="feature-description">
@@ -191,7 +191,7 @@
         transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    .feature-icon .material-symbols-rounded {
+    .feature-icon .icon {
         font-size: 24px;
         transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
@@ -200,19 +200,19 @@
         transform: scale(1.1);
     }
 
-    .feature-card:nth-child(1):hover .feature-icon .material-symbols-rounded {
+    .feature-card:nth-child(1):hover .feature-icon .icon {
         animation: bounce-rotate 0.6s ease;
     }
 
-    .feature-card:nth-child(2):hover .feature-icon .material-symbols-rounded {
+    .feature-card:nth-child(2):hover .feature-icon .icon {
         animation: pulse-scale 0.5s ease;
     }
 
-    .feature-card:nth-child(3):hover .feature-icon .material-symbols-rounded {
+    .feature-card:nth-child(3):hover .feature-icon .icon {
         animation: shake 0.5s ease;
     }
 
-    .feature-card:nth-child(4):hover .feature-icon .material-symbols-rounded {
+    .feature-card:nth-child(4):hover .feature-icon .icon {
         animation: bounce-rotate 0.6s ease;
     }
 

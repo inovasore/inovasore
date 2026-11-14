@@ -1,6 +1,7 @@
 ﻿---
 import { heroContent } from "../../data/hero";
 import { Image } from "astro:assets";
+import bar01 from "../../assets/ui/Bar01.svg";
 import Button from "../ui/Button.astro";
 
 const { title, tagline, subtitle, works } = heroContent;
@@ -15,7 +16,7 @@ const [primaryWork, ...secondaryWorks] = works;
     >
       <span class="pill__text">{tagline}</span>
       <a class="pill__cta tap" href="/contacto" aria-label="Ir a contacto">
-        <img src="/Bar01.svg" alt="" width="28" height="28" />
+        <Image src={bar01} alt="" width={28} height={28} loading="eager" />
       </a>
     </div>
 
@@ -324,8 +325,8 @@ const [primaryWork, ...secondaryWorks] = works;
     position: absolute;
     inset: 0;
     background:
-      url("/Vectorbg.svg") center center / cover,
-      url("/bg-hero.svg") no-repeat center top / 1600px auto;
+      url("../../assets/backgrounds/Vectorbg.svg") center center / cover,
+      url("../../assets/backgrounds/bg-hero.svg") no-repeat center top / 1600px auto;
     opacity: 0.95;
     pointer-events: none;
     z-index: -1;

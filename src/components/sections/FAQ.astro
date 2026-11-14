@@ -1,4 +1,5 @@
 ﻿---
+import Icon from "../ui/Icon.astro";
 import { faqs } from "../../data/faqs";
 ---
 
@@ -37,8 +38,8 @@ import { faqs } from "../../data/faqs";
             <summary class="faq__question">
               <span>{item.question}</span>
               <span class="faq__icon" aria-hidden="true">
-                <span class="material-symbols-rounded faq__icon-closed">add</span>
-                <span class="material-symbols-rounded faq__icon-open">remove</span>
+                <Icon name="add" class="faq__icon-closed" />
+                <Icon name="remove" class="faq__icon-open" />
               </span>
             </summary>
             <div class="faq__answer">

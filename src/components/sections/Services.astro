@@ -1,4 +1,7 @@
 ﻿---
+import { Image } from "astro:assets";
+import arrow from "../../assets/ui/arrow.svg";
+import Icon from "../ui/Icon.astro";
 import { featuredServices } from "../../data/services";
 import PresenceStatement from "./PresenceStatement.astro";
 
@@ -48,17 +51,15 @@ const { offsetTop = "0px" } = Astro.props;
                 aria-label={`Ver más sobre ${service.title}`}
               >
                 <span class="spotlight-card__link-text">Ver más</span>
-                <img
-                  src="/arrow.svg"
+                <Image
+                  src={arrow}
                   alt=""
                   class="spotlight-card__arrow"
                   aria-hidden="true"
                 />
               </a>
               <div class="spotlight-card__icon" aria-hidden="true">
-                <span class="material-symbols-rounded" aria-hidden="true">
-                  {service.icon}
-                </span>
+                <Icon name={service.icon} />
               </div>
               <div class="spotlight-card__body">
                 <h3 class="spotlight-card__title">{service.title}</h3>
@@ -269,7 +270,7 @@ const { offsetTop = "0px" } = Astro.props;
     transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
-  .spotlight-card__icon .material-symbols-rounded {
+  .spotlight-card__icon .icon {
     transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
@@ -280,19 +281,19 @@ const { offsetTop = "0px" } = Astro.props;
 
   .spotlight-card:nth-child(1):hover
     .spotlight-card__icon
-    .material-symbols-rounded {
+    .icon {
     animation: bounce-rotate 0.6s ease;
   }
 
   .spotlight-card:nth-child(2):hover
     .spotlight-card__icon
-    .material-symbols-rounded {
+    .icon {
     animation: pulse-scale 0.5s ease;
   }
 
   .spotlight-card:nth-child(3):hover
     .spotlight-card__icon
-    .material-symbols-rounded {
+    .icon {
     animation: shake 0.5s ease;
   }
 

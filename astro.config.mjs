@@ -5,11 +5,13 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  // Dominio canÃ³nico del sitio (puedes cambiar a www si prefieres)
+  // Dominio canónico del sitio (puedes cambiar a www si prefieres)
   site: 'https://Inovasore.com',
 
   build: {
-    inlineStylesheets: 'always',
+    // CSS en archivos con hash en /_astro/ (caché larga, ver vercel.json);
+    // solo se incrustan en el HTML las hojas muy pequeñas.
+    inlineStylesheets: 'auto',
   },
 
   // Astro 7 cambió el valor por defecto a 'jsx', que elimina espacios entre

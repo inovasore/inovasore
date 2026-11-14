@@ -1,5 +1,5 @@
 ﻿---
-
+import Icon from "../ui/Icon.astro";
 ---
 
 <section class="process" id="proceso">
@@ -31,7 +31,7 @@
         style="--reveal-delay:.06s;--reveal-duration:.4s;--reveal-distance:10px"
       >
         <div class="process__icon" aria-hidden="true">
-          <span class="material-symbols-rounded" aria-hidden="true">star</span>
+          <Icon name="star" />
         </div>
         <div class="process__badge">Paso 01</div>
         <h3 class="process__card-title">Descubrimiento</h3>
@@ -45,9 +45,7 @@
         style="--reveal-delay:.12s;--reveal-duration:.4s;--reveal-distance:10px"
       >
         <div class="process__icon" aria-hidden="true">
-          <span class="material-symbols-rounded" aria-hidden="true"
-            >design_services</span
-          >
+          <Icon name="design_services" />
         </div>
         <div class="process__badge">Paso 02</div>
         <h3 class="process__card-title">Diseño</h3>
@@ -62,7 +60,7 @@
         style="--reveal-delay:.18s;--reveal-duration:.4s;--reveal-distance:10px"
       >
         <div class="process__icon" aria-hidden="true">
-          <span class="material-symbols-rounded" aria-hidden="true">code</span>
+          <Icon name="code" />
         </div>
         <div class="process__badge">Paso 03</div>
         <h3 class="process__card-title">Desarrollo y pruebas</h3>
@@ -77,9 +75,7 @@
         style="--reveal-delay:.24s;--reveal-duration:.4s;--reveal-distance:10px"
       >
         <div class="process__icon" aria-hidden="true">
-          <span class="material-symbols-rounded" aria-hidden="true"
-            >rocket_launch</span
-          >
+          <Icon name="rocket_launch" />
         </div>
         <div class="process__badge">Paso 04</div>
         <h3 class="process__card-title">Lanzamiento y soporte</h3>
@@ -241,7 +237,7 @@
       transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    .process__icon .material-symbols-rounded {
+    .process__icon .icon {
       transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
@@ -249,19 +245,19 @@
       transform: scale(1.1);
     }
 
-    .process__card:nth-child(1):hover .process__icon .material-symbols-rounded {
+    .process__card:nth-child(1):hover .process__icon .icon {
       animation: bounce-rotate 0.6s ease;
     }
 
-    .process__card:nth-child(2):hover .process__icon .material-symbols-rounded {
+    .process__card:nth-child(2):hover .process__icon .icon {
       animation: pulse-scale 0.5s ease;
     }
 
-    .process__card:nth-child(3):hover .process__icon .material-symbols-rounded {
+    .process__card:nth-child(3):hover .process__icon .icon {
       animation: shake 0.5s ease;
     }
 
-    .process__card:nth-child(4):hover .process__icon .material-symbols-rounded {
+    .process__card:nth-child(4):hover .process__icon .icon {
       animation: bounce-rotate 0.6s ease;
     }
 

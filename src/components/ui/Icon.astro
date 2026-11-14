@@ -1,0 +1,33 @@
+---
+/**
+ * Ícono SVG en línea (reemplaza a la fuente Material Symbols).
+ * Toma el tamaño de `font-size` (1em) y el color de `color` (currentColor),
+ * igual que la fuente, así que los estilos existentes siguen funcionando.
+ */
+import { icons, type IconName } from "./icons";
+
+interface Props {
+  name: IconName | (string & {});
+  class?: string;
+  /** Texto accesible. Sin él, el ícono es decorativo (aria-hidden). */
+  label?: string;
+}
+
+// `rest` lleva el atributo de estilos con alcance (data-astro-cid-*) del
+// componente padre, para que sus reglas `.icon` apliquen al SVG.
+const { name, class: className, label, ...rest } = Astro.props;
+const d = icons[name as IconName];
+if (!d) throw new Error(`Icon: ícono desconocido "${name}"`);
+---
+
+<svg
+  class:list={["icon", className]}
+  viewBox="0 -960 960 960"
+  fill="currentColor"
+  aria-hidden={label ? undefined : "true"}
+  role={label ? "img" : undefined}
+  aria-label={label}
+  focusable="false"
+  {...rest}
+  ><path d={d}></path></svg
+>

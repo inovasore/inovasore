@@ -12,6 +12,20 @@
 - No cambiar el diseño visual ni los textos de forma drástica sin consultar; si una etapa altera el diseño, avisar antes.
 - Si algo no está claro o hay una decisión importante, preguntar antes de seguir.
 
+## Plan de etapas
+
+- Etapa 0: línea base de Lighthouse ✅
+- Etapa 1: bugs y enlaces rotos ✅
+- Etapa 2: actualización de Astro a la versión 7 ✅
+- Etapa 3: estructura, limpieza y datos centralizados ✅
+- Cambios de diseño ✅: anchos y móvil, escala tipográfica, Hero, ServicesScroll, Proyectos apilados, Nuestra misión, degradado de títulos.
+- Etapa 4: rendimiento (íconos SVG, fuentes locales, imágenes a astro:assets, CSS cacheable) ✅
+- Etapa 5: animaciones y View Transitions entre páginas ⏳
+- Etapa 6: SEO y accesibilidad (imagen para redes 1200×630, og:locale es_EC, JSON-LD, noindex en la 404) ⏳
+- Etapa 7: rebranding final (dominio, correos y redes; pendiente de decisiones del usuario) ⏳
+- Etapa 8: páginas nuevas (/servicios y /portafolio rediseñadas, /nosotros, formulario a correo y WhatsApp) ⏳
+- Auditoría final con Lighthouse ⏳
+
 ## Commits
 
 - Autor de los commits: "Novasore" (`git config user.name` local de este repositorio), con el correo ya configurado (`novasoreec@gmail.com`) para que GitHub los vincule a la cuenta.
@@ -43,6 +57,8 @@
 - **Texto destacado en los títulos**: siempre con la clase global `.text-gradient` de `global.css` (en secciones de fondo claro, añadir `.text-gradient--light`). No definir degradados ni colores propios para esas partes. Contraste mínimo (WCAG): 3:1 para títulos grandes (más de 24 px) y 4.5:1 para texto normal; ambas variantes cumplen 3:1 en todo el degradado. Si hace falta el degradado en otro contexto (por ejemplo, una animación), usar `var(--text-gradient)` o `var(--text-gradient-light)`.
 - Anchos: usar siempre el contenedor común de `src/styles/global.css` (`.container`, `.container--wide`, `.container--narrow`; variables `--container*` y `--gutter`). No definir anchos propios en los componentes.
 - Áreas táctiles de al menos 44×44 px: clase `.tap` (usa `::after`).
+- Íconos: componente `components/ui/Icon.astro` (SVG en línea de Material Symbols Rounded, relleno, peso 600; `<Icon name="..." />`). Para agregar uno, copiar su `path` a `components/ui/icons.ts`. No usar fuentes de íconos.
+- Imágenes: en `src/assets/` con `<Image>`/`<Picture>` de `astro:assets` (o `url()` relativo en CSS). En `public/` solo lo que necesita una URL fija (favicon, imagen Open Graph, robots.txt, verificación de Google).
 - Datos del estudio (nombre, dominio, correo, WhatsApp, redes, promoción vigente): `src/config/site.ts`. No escribir esos datos a mano en los componentes.
 - Componentes por carpeta: `components/layout/` (Header, Footer), `components/sections/` (secciones de página), `components/ui/` (piezas reutilizables), `components/seo/`. Páginas internas con fondo de cuadrícula: `layouts/PageLayout.astro`. Keyframes compartidos: `src/styles/animations.css`.
 - Tono de los textos: "nosotros" como estudio pequeño y cercano, sin frases exageradas.

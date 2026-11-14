@@ -1,4 +1,5 @@
 ---
+import Icon from "../ui/Icon.astro";
 import { Image } from "astro:assets";
 import logoLight from "../../assets/logotipo-novasore-claro.png";
 import { studioServices } from "../../data/services";
@@ -32,7 +33,7 @@ const links = [
       aria-expanded="false"
       aria-controls="mobile-navigation"
     >
-      <span class="material-symbols-rounded">menu</span>
+      <Icon name="menu" />
     </button>
 
     <nav class="nav" id="mobile-navigation">
@@ -60,18 +61,14 @@ const links = [
                       aria-label="Abrir menú de servicios"
                       type="button"
                     >
-                      <span class="material-symbols-rounded nav__chevron">
-                        expand_more
-                      </span>
+                      <Icon name="expand_more" class="nav__chevron" />
                     </button>
                   </div>
                   <div class="nav__dropdown">
                     <div class="nav__dropdown-inner">
                       {studioServices.map((service) => (
                         <a href={service.menu.href} class="dropdown__item">
-                          <span class="material-symbols-rounded dropdown__icon">
-                            {service.menu.icon}
-                          </span>
+                          <Icon name={service.menu.icon} class="dropdown__icon" />
                           <div class="dropdown__content">
                             <h3 class="dropdown__title">{service.title}</h3>
                             <p class="dropdown__description">

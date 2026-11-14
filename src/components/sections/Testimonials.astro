@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import { testimonials } from "../../data/testimonials";
 ---
 
@@ -42,12 +43,10 @@ import { testimonials } from "../../data/testimonials";
                                 {testimonial.testimonial}
                             </p>
                             <div class="testimonial-card__author">
-                                <img
+                                <Image
                                     src={testimonial.avatar}
                                     alt={testimonial.name}
                                     class="testimonial-card__avatar"
-                                    width="48"
-                                    height="48"
                                 />
                                 <span class="testimonial-card__name">
                                     {testimonial.name}

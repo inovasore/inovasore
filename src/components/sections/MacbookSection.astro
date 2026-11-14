@@ -1,13 +1,18 @@
 ---
+import { Image } from "astro:assets";
+import macbook from "../../assets/macbook.webp";
 import Ribbon from "../ui/Ribbon.astro";
 ---
 
 <section class="macbook-section">
     <div class="macbook-container">
-        <img
-            src="/Mackbook.webp"
+        <Image
+            src={macbook}
             alt="Macbook displaying website"
             class="macbook-img"
+            widths={[400, 800, 1213]}
+            sizes="(max-width: 1000px) 80vw, 800px"
+            loading="lazy"
         />
     </div>
 

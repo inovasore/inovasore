@@ -203,23 +203,17 @@ body {
   border-radius: 6px;
 }
 
-/* Material Symbols defaults */
-.material-symbols-rounded {
-  font-family: 'Material Symbols Rounded', sans-serif;
-  font-weight: normal;
-  font-style: normal;
-  font-size: 20px;
-  /* can be overridden where used */
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
+/* Íconos SVG (components/ui/Icon.astro): 1em × 1em y currentColor, así
+   se ajustan con font-size y color como la antigua fuente de íconos.
+   El tamaño por defecto (20px) se cambia donde se usa. */
+.icon {
   display: inline-block;
-  white-space: nowrap;
-  word-wrap: normal;
-  direction: ltr;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+  flex: 0 0 auto;
+  width: 1em;
+  height: 1em;
+  font-size: 20px;
+  line-height: 1;
+  vertical-align: middle;
 }
 
 @supports not (color: color-mix(in oklab, black 50%, white)) {

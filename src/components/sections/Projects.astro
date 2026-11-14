@@ -2,13 +2,6 @@
 import { Picture } from "astro:assets";
 import { projects } from "../../data/projects";
 
-interface Props {
-  /** Grilla decorativa (Grilla02.svg) a los lados. Desactivada en el inicio. */
-  showGrid?: boolean;
-}
-
-const { showGrid = true } = Astro.props;
-
 // Anchos de las variantes: solo hasta el tamaño real de cada imagen (no se amplía).
 const variantWidths = (max: number) =>
   [480, 720, 960, 1280, 1600, 2000, 2880].filter((w) => w < max).concat(max);
@@ -16,28 +9,6 @@ const variantWidths = (max: number) =>
 
 <section class="projects" id="proyectos" data-projects>
   <div class="projects__halo" aria-hidden="true"></div>
-  {
-    showGrid && (
-      <>
-        <img
-          src="/Grilla02.svg"
-          alt=""
-          width="745"
-          height="745"
-          class="projects__grid-decoration projects__grid-decoration--left"
-          aria-hidden="true"
-        />
-        <img
-          src="/Grilla02.svg"
-          alt=""
-          width="745"
-          height="745"
-          class="projects__grid-decoration projects__grid-decoration--right"
-          aria-hidden="true"
-        />
-      </>
-    )
-  }
   <div class="container container--wide projects__inner">
     <span
       class="section-tag projects__tag projects__tag--dark reveal"
@@ -274,27 +245,6 @@ const variantWidths = (max: number) =>
 
     .projects__halo {
       display: none; /* Ocultar halo en tema claro */
-    }
-
-    .projects__grid-decoration {
-      position: absolute;
-      width: 600px;
-      height: auto;
-      opacity: 1;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .projects__grid-decoration--left {
-      left: -50px;
-      top: 50%;
-      transform: translateY(-50%) scaleX(-1);
-    }
-
-    .projects__grid-decoration--right {
-      right: -50px;
-      top: 50%;
-      transform: translateY(-50%);
     }
 
     .projects__inner {
@@ -702,10 +652,6 @@ const variantWidths = (max: number) =>
     @media (max-width: 640px) {
       .projects {
         padding-top: calc(var(--section-padding-y) * 2.5);
-      }
-
-      .projects__grid-decoration {
-        display: none;
       }
     }
 

@@ -94,7 +94,7 @@ export interface StudioService {
   /** Datos del dropdown "Servicios" del header. */
   menu: {
     description: string;
-    /** Nombre de ícono de Material Symbols (se migra a SVG en la etapa de rendimiento). */
+    /** Nombre del ícono (ver components/ui/icons.ts). */
     icon: string;
     href: string;
   };

@@ -1,4 +1,5 @@
 ﻿---
+import Icon from "../ui/Icon.astro";
 import { whyUsCards } from "../../data/why-us";
 ---
 
@@ -37,9 +38,7 @@ import { whyUsCards } from "../../data/why-us";
           return (
             <article class="why__card reveal" style={style}>
               <div class="why__icon" aria-hidden="true">
-                <span class="material-symbols-rounded" aria-hidden="true">
-                  {card.icon}
-                </span>
+                <Icon name={card.icon} />
               </div>
               <h3 class="why__card-title">{card.title}</h3>
               <p class="why__card-desc">{card.description}</p>
@@ -174,7 +173,7 @@ import { whyUsCards } from "../../data/why-us";
       transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    .why__icon .material-symbols-rounded {
+    .why__icon .icon {
       transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
@@ -182,18 +181,18 @@ import { whyUsCards } from "../../data/why-us";
       transform: scale(1.1);
     }
 
-    .why__card:nth-child(1):hover .why__icon .material-symbols-rounded,
-    .why__card:nth-child(4):hover .why__icon .material-symbols-rounded {
+    .why__card:nth-child(1):hover .why__icon .icon,
+    .why__card:nth-child(4):hover .why__icon .icon {
       animation: bounce-rotate 0.6s ease;
     }
 
-    .why__card:nth-child(2):hover .why__icon .material-symbols-rounded,
-    .why__card:nth-child(5):hover .why__icon .material-symbols-rounded {
+    .why__card:nth-child(2):hover .why__icon .icon,
+    .why__card:nth-child(5):hover .why__icon .icon {
       animation: pulse-scale 0.5s ease;
     }
 
-    .why__card:nth-child(3):hover .why__icon .material-symbols-rounded,
-    .why__card:nth-child(6):hover .why__icon .material-symbols-rounded {
+    .why__card:nth-child(3):hover .why__icon .icon,
+    .why__card:nth-child(6):hover .why__icon .icon {
       animation: shake 0.5s ease;
     }
 

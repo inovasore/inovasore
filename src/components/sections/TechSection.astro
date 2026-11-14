@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+import world from "../../assets/world.png";
 import { whatsappUrl } from "../../config/site";
 ---
 
@@ -19,11 +21,13 @@ import { whatsappUrl } from "../../config/site";
             </a>
         </div>
         <div class="tech-section__image">
-            <img
-                src="/world.png"
+            <Image
+                src={world}
                 alt="Mapa mundial conectado representando tecnología global"
-                width="450"
-                height="450"
+                widths={[450, 698]}
+                sizes="450px"
+                format="webp"
+                loading="lazy"
             />
         </div>
     </div>
